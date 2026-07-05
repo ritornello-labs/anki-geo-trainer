@@ -82,6 +82,95 @@
   stroke-width: 1.1;
 }
 
+.gt-frame {
+  fill: #ffffff;
+  fill-opacity: 0.45;
+  stroke: #c3ccd6;
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+/* Non-quiz landmass shown for orientation (Africa/Anatolia on the Europe map) */
+.gt-context {
+  fill: #e9ebee;
+  stroke: none;
+  pointer-events: none;
+}
+
+/* Dependencies etc.: on the map and tappable, but visually muted */
+.gt-region.gt-tier2 { fill: #e3e3e3; }
+
+/* Microstates: magnified tap-circles, Ultimate-Geography style */
+.gt-region.gt-small {
+  fill: #cfd6de;
+  fill-opacity: 0.85;
+  stroke: #8894a3;
+  stroke-width: 1;
+  stroke-dasharray: 2.5 2;
+}
+.gt-region.gt-small.gt-answer {
+  fill: var(--gt-accent);
+  stroke: #ffffff;
+  stroke-dasharray: none;
+}
+
+/* F7 neighbors */
+.gt-region.gt-target {
+  fill: #4a5766;
+  fill-opacity: 0.9;
+  stroke: #ffffff;
+}
+.gt-region.gt-nb-found { fill: var(--gt-good); fill-opacity: 0.75; }
+.gt-region.gt-nb-missed {
+  fill: var(--gt-accent);
+  fill-opacity: 0.55;
+  stroke: var(--gt-accent);
+}
+.gt-region.gt-nb-wrong { fill: #b0413e; fill-opacity: 0.8; transition: fill 0.5s ease; }
+
+/* F4 point-in-region dot */
+.gt-point {
+  fill: var(--gt-accent);
+  stroke: #ffffff;
+  stroke-width: 2.5;
+  pointer-events: none;
+}
+.gt-point.gt-on-answer { fill: #1c2430; stroke: #ffffff; }
+.gt-point-ring {
+  fill: none;
+  stroke: var(--gt-accent);
+  stroke-width: 2;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.gt-point-ring.gt-on-answer { stroke: #1c2430; }
+
+/* F5 place-the-piece */
+.gt-piece {
+  fill: var(--gt-accent);
+  fill-opacity: 0.88;
+  stroke: #ffffff;
+  stroke-width: 1.4;
+  cursor: grab;
+  touch-action: none;
+}
+.gt-piece:active { cursor: grabbing; }
+.gt-piece.gt-ghost {
+  fill-opacity: 0.35;
+  stroke: var(--gt-accent);
+  stroke-dasharray: 5 4;
+  cursor: default;
+  pointer-events: none;
+}
+.gt-tray {
+  fill: none;
+  stroke: #b7c1cc;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+}
+
+.gt-close { color: #b57d0a; border-color: #b57d0a; }
+
 .gt-attempt {
   fill: var(--gt-accent);
   stroke: #ffffff;

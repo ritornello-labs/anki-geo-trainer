@@ -123,10 +123,28 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   F4 stable-randomness spike (`scripts/f4_spike.py`) passed: eroded-polygon sampling with
   border margin + portable mulberry32/day-stamp seeding. **Not yet done, carried to M1:**
   AK/HI insets, the AnkiDroid emulator/CDP lane run, and F4 wired as a live engine mode.
-- **M1 — US states pack.** F3 + F4 + F5 for the 50 states; curriculum tags; APKG built
-  and imported; first real dogfood.
-- **M2 — World countries.** Same families by continent (Europe first), entity tiering
-  (UN members vs. territories), F7 tap-all-neighbors.
+- **M1 — US states pack. ✅ Done 2026-07-05.** F3 + F4 + F5 for all 50 states (AK/HI as
+  classic inset panels with own projections and per-frame kmPerUnit; cross-frame
+  distances suppressed). F4 ships 16 precomputed eroded-interior sample points per
+  state, chosen by a deterministic day seed with localStorage smoothing. F5 drags with
+  pointer events plus a non-passive touch fallback — AnkiDroid's WebView fires
+  `pointercancel` mid-drag (found via real `input swipe` on the emulator; synthetic
+  events hide it). Verified: Chromium + WebKit Playwright suites, Docker/Xvfb real-Anki
+  deck smoke, and a full AnkiDroid emulator lane (UI-scripted APKG import, real-touch
+  tap/drag on all three families over CDP). Curriculum tags + `curriculum/CURRICULUM.md`
+  with filtered-deck recipes. Dogfooded: imported into the live collection via
+  AnkiConnect (150 notes, 3 subdecks).
+- **M2 — World countries (Europe) + F7. ✅ Done 2026-07-05.** Multi-scope pipeline
+  (scope registry in `build_bundle.py` / `SCOPE_PACKS` in `build_apkg.py`). Europe:
+  46 sovereigns incl. Cyprus/Kosovo, viewport Iceland→Urals with Russia clipped at the
+  frame, tier-2 dependencies as muted tappable context without notes, microstates as
+  magnified tap-circles, neutral context land (110m) for orientation. F7
+  tap-all-neighbors shipped for BOTH scopes from shapely land-border adjacency
+  (point-touches excluded — Four Corners verified; islands get no F7 notes). Engine:
+  scope nouns, context/tier-2/small rendering, tray override, neighbors mode with live
+  found/wrong feedback. Verified per platform matrix; both packs imported into the
+  live collection (confirmed that APKG re-import updates existing note-type templates,
+  so engine upgrades propagate). Continents beyond Europe moved to M4.
 - **M3 — Draw-the-shape (F6).** Sketch canvas, shape normalization, IoU + landmark
   scoring, overlay feedback. Its own milestone because scoring quality decides whether
   the family is fun or frustrating.

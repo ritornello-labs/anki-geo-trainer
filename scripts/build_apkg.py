@@ -1,25 +1,30 @@
-"""Build the M0 GeoTrainer APKG: F3 Locate for the US states.
+"""Build GeoTrainer APKGs: one per scope, one note type per task family.
 
 Anki-embedding strategy (the hard part):
   * The scope bundle is base64-encoded and decoded at runtime with
     atob()+JSON.parse(). base64's alphabet has no '{', '}', or '<', so the data
     can never collide with Anki's `{{field}}` templating or close a <script>.
     The bundle JSON is ASCII (ensure_ascii), so atob's Latin-1 output parses
-    back cleanly (non-ASCII like the em dash rides along as \\uXXXX escapes).
+    back cleanly.
   * The engine is inlined as readable JS, but every "{{" / "}}" is split with a
-    space ("{ {" / "} }"). That is whitespace between tokens — always a no-op in
-    JS code — so Anki never sees a field marker inside the engine. We also assert
-    the engine contains no literal "</script>".
+    space ("{ {" / "} }") — whitespace between tokens, a no-op in JS — so Anki
+    never sees a field marker inside the engine. We also assert the engine
+    contains no literal "</script>".
 
 Everything is inlined into the note-type templates (no media), so AnkiDroid's
 media server is never in the loop. The bundle lives in the template, i.e. once
 per note type, not once per note.
+
+Note selection:
+  * tier-2 regions (dependencies) render on the map but get NO notes
+  * the neighbors family only gets notes for regions with at least one land border
 """
 
 from __future__ import annotations
 
+import argparse
 import base64
-import re
+import json
 from pathlib import Path
 
 import genanki
@@ -27,97 +32,158 @@ import genanki
 ROOT = Path(__file__).resolve().parent.parent
 ENGINE = ROOT / "engine" / "geo-engine.js"
 CSS = ROOT / "anki" / "shared" / "card.css"
-BUNDLE = ROOT / "data" / "bundles" / "us-states.json"
-OUT = ROOT / "dist" / "geo-trainer-us-states.apkg"
-
-SCOPE = "us-states"
+BUNDLE_DIR = ROOT / "data" / "bundles"
+DIST = ROOT / "dist"
 
 # Deterministic IDs so rebuilds update in place instead of duplicating.
-MODEL_ID = 1_607_392_001
-DECK_ID = 1_607_392_050
+# (us-states locate/point/place keep their M0/M1 ids so re-imports upgrade.)
+FAMILY_DEFS = [
+    ("locate", "Locate", "1 Locate", "geotrainer::skill::locate", "geotrainer::level::3"),
+    ("point", "Which {Noun}", "2 Which {Noun}", "geotrainer::skill::point", "geotrainer::level::4"),
+    ("place", "Place", "3 Place", "geotrainer::skill::place", "geotrainer::level::5"),
+    ("neighbors", "Neighbors", "4 Neighbors", "geotrainer::skill::neighbors", "geotrainer::level::5"),
+]
+
+SCOPE_PACKS = {
+    "us-states": {
+        "deck_root": "GeoTrainer::United States::States",
+        "model_root": "GeoTrainer {family} — US States",
+        "scope_tag": "geotrainer::scope::country::usa::states",
+        "model_base": 1_607_392_001,   # locate=+0, point=+1, place=+2, neighbors=+3
+        "deck_base": 1_607_392_050,
+        "apkg": "geo-trainer-us-states.apkg",
+    },
+    "europe-countries": {
+        "deck_root": "GeoTrainer::World::Europe",
+        "model_root": "GeoTrainer {family} — Europe",
+        "scope_tag": "geotrainer::scope::continent::europe",
+        "model_base": 1_607_393_001,
+        "deck_base": 1_607_393_050,
+        "apkg": "geo-trainer-europe.apkg",
+    },
+}
+
+
+def load_bundle(scope: str) -> dict:
+    return json.loads((BUNDLE_DIR / f"{scope}.json").read_text(encoding="utf-8"))
 
 
 def guard_js(src: str) -> str:
     if "</script>" in src:
         raise SystemExit("engine contains literal </script>; handle before inlining")
-    # Split adjacent braces so Anki's {{ }} parser never triggers inside code.
     src = src.replace("{{", "{ {").replace("}}", "} }")
     if "{{" in src or "}}" in src:
         raise SystemExit("brace guard failed")
     return src
 
 
-def build_templates() -> tuple[str, str, str]:
+def build_templates(scope: str, mode: str) -> tuple[str, str, str]:
     engine = guard_js(ENGINE.read_text(encoding="utf-8"))
-    b64 = base64.b64encode(BUNDLE.read_bytes()).decode("ascii")
+    b64 = base64.b64encode((BUNDLE_DIR / f"{scope}.json").read_bytes()).decode("ascii")
     css = CSS.read_text(encoding="utf-8")
 
     boot = (
         '<script>window.GT_BUNDLES=window.GT_BUNDLES||{};'
-        f'window.GT_BUNDLES["{SCOPE}"]=JSON.parse(atob("{b64}"));</script>'
+        f'window.GT_BUNDLES["{scope}"]=JSON.parse(atob("{b64}"));</script>'
     )
     engine_tag = f"<script>{engine}</script>"
 
-    front = (
-        f'<div class="gt-app" data-scope="{SCOPE}" '
-        'data-target="{{RegionId}}" data-side="front"></div>\n'
-        f"{boot}\n{engine_tag}"
-    )
-    # Independent render (no {{FrontSide}}): the back re-mounts in back mode and
-    # reads the tap from localStorage.
-    back = (
-        f'<div class="gt-app" data-scope="{SCOPE}" '
-        'data-target="{{RegionId}}" data-side="back"></div>\n'
-        f"{boot}\n{engine_tag}"
-    )
-    return front, back, css
+    def side(which: str) -> str:
+        return (
+            f'<div class="gt-app" data-scope="{scope}" data-mode="{mode}" '
+            'data-target="{{RegionId}}" data-side="' + which + '"></div>\n'
+            f"{boot}\n{engine_tag}"
+        )
+
+    # Independent renders (no {{FrontSide}}): the back re-mounts in back mode
+    # and reads front state from localStorage.
+    return side("front"), side("back"), css
 
 
-def us_state_notes(model: genanki.Model) -> list[genanki.Note]:
-    import json
+def families_for(scope: str, pack: dict, test_ids: bool = False) -> list[dict]:
+    bundle = load_bundle(scope)
+    noun = bundle.get("noun", "region").capitalize()
+    fams = []
+    for idx, (mode, fam_label, deck_label, skill_tag, level_tag) in enumerate(FAMILY_DEFS):
+        fam_name = fam_label.replace("{Noun}", noun)
+        fam = {
+            "mode": mode,
+            "model_id": pack["model_base"] + idx,
+            "deck_id": pack["deck_base"] + idx,
+            "model_name": pack["model_root"].replace("{family}", fam_name),
+            "deck": f"{pack['deck_root']}::{deck_label.replace('{Noun}', noun)}",
+            "skill_tag": skill_tag,
+            "level_tag": level_tag,
+            "guid_ns": mode,
+        }
+        if test_ids:
+            fam["model_id"] += 7000
+            fam["deck_id"] += 7000
+            fam["model_name"] += " (test)"
+            fam["deck"] = fam["deck"].replace("GeoTrainer", "GeoTrainerTest", 1)
+            fam["guid_ns"] = mode + "-test"
+        fams.append(fam)
+    return fams
 
-    bundle = json.loads(BUNDLE.read_text(encoding="utf-8"))
+
+def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[genanki.Note]:
+    bundle = load_bundle(scope)
     notes = []
     for reg in bundle["regions"]:
-        note = genanki.Note(
-            model=model,
-            fields=[SCOPE, reg["id"], reg["name"]],
-            # Stable guid keyed on region id so re-import updates the same note.
-            guid=genanki.guid_for("geotrainer", SCOPE, reg["id"]),
-            tags=[
-                "geotrainer::skill::locate",
-                "geotrainer::scope::country::usa::states",
-                "geotrainer::level::3",
-            ],
+        if reg.get("tier", 1) != 1:
+            continue  # dependencies are map context, not quiz entities
+        if fam["mode"] == "neighbors" and not reg.get("nb"):
+            continue  # islands have no land borders to tap
+        notes.append(
+            genanki.Note(
+                model=model,
+                fields=[scope, reg["id"], reg["name"]],
+                guid=genanki.guid_for("geotrainer", scope, fam["guid_ns"], reg["id"]),
+                tags=[fam["skill_tag"], pack["scope_tag"], fam["level_tag"]],
+            )
         )
-        notes.append(note)
     return notes
 
 
+def build_scope(scope: str, test_ids: bool = False) -> Path:
+    pack = SCOPE_PACKS[scope]
+    decks = []
+    total = 0
+    for fam in families_for(scope, pack, test_ids=test_ids):
+        front, back, css = build_templates(scope, fam["mode"])
+        model = genanki.Model(
+            fam["model_id"],
+            fam["model_name"],
+            fields=[{"name": "Scope"}, {"name": "RegionId"}, {"name": "RegionName"}],
+            templates=[{"name": fam["mode"].capitalize(), "qfmt": front, "afmt": back}],
+            css=css,
+            sort_field_index=2,
+        )
+        deck = genanki.Deck(fam["deck_id"], fam["deck"])
+        for note in notes_for(scope, model, fam, pack):
+            deck.add_note(note)
+        if not deck.notes:
+            continue
+        total += len(deck.notes)
+        decks.append(deck)
+
+    DIST.mkdir(parents=True, exist_ok=True)
+    out = DIST / (pack["apkg"] if not test_ids else pack["apkg"].replace(".apkg", "-test.apkg"))
+    genanki.Package(decks).write_to_file(str(out))
+    size_kb = out.stat().st_size / 1024
+    print(f"wrote {out}  ({len(decks)} decks, {total} notes, {size_kb:.0f} KB)")
+    return out
+
+
 def main() -> None:
-    front, back, css = build_templates()
-    model = genanki.Model(
-        MODEL_ID,
-        "GeoTrainer Locate — US States",
-        fields=[{"name": "Scope"}, {"name": "RegionId"}, {"name": "RegionName"}],
-        templates=[{"name": "Locate", "qfmt": front, "afmt": back}],
-        css=css,
-        sort_field_index=2,
-    )
-    deck = genanki.Deck(DECK_ID, "GeoTrainer::United States::States::Locate")
-    for note in us_state_notes(model):
-        deck.add_note(note)
-
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    genanki.Package(deck).write_to_file(str(OUT))
-
-    size_kb = OUT.stat().st_size / 1024
-    # Rough report of the per-template inlined payload.
-    tpl_kb = (len(front) + len(back)) / 1024
-    print(f"wrote {OUT}")
-    print(f"  notes:          {len(deck.notes)}")
-    print(f"  apkg size:      {size_kb:.1f} KB")
-    print(f"  inlined/card:   {tpl_kb:.1f} KB (front+back templates, stored once)")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--scope", default="all", choices=["all", *SCOPE_PACKS.keys()])
+    ap.add_argument("--test-ids", action="store_true",
+                    help="offset ids and rename (emulator re-import testing only)")
+    args = ap.parse_args()
+    scopes = list(SCOPE_PACKS) if args.scope == "all" else [args.scope]
+    for scope in scopes:
+        build_scope(scope, test_ids=args.test_ids)
 
 
 if __name__ == "__main__":

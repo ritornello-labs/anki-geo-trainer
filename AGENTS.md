@@ -22,6 +22,10 @@ when scope, task families, or milestones change.
   auto-answers. Platform JS answer APIs may become an opt-in extra, never a dependency.
 - Dynamic cards (random point in region) must be stable within a single review
   (front and back agree) and vary across reviews.
+- Drag interactions need non-passive touch handlers that preventDefault on the dragged
+  element, and `pointercancel` must NOT end the drag: AnkiDroid's WebView intercepts
+  gestures mid-drag and cancels the pointer stream while touches keep flowing. Verify
+  drags with real input (`adb shell input swipe`), never only synthetic events.
 - Verify rendered output, not just JS state. Test lanes: Playwright Chromium + WebKit
   with Anki-style script injection, `anki-addon-workbench` Docker/Xvfb deck smoke, and
   the AnkiDroid emulator/CDP lane. Do not open a visible Anki GUI on the host.

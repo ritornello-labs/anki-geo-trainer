@@ -53,9 +53,23 @@
   </head>
   <body>
     <div class="toolbar">
-      <label>State <select id="target"></select></label>
+      <label>Scope
+        <select id="scope">
+          <option value="us-states" selected>US states</option>
+          <option value="europe-countries">Europe countries</option>
+        </select>
+      </label>
+      <label>Mode
+        <select id="mode">
+          <option value="locate" selected>F3 Locate</option>
+          <option value="point">F4 Point-in-region</option>
+          <option value="place">F5 Place-the-piece</option>
+          <option value="neighbors">F7 Neighbors</option>
+        </select>
+      </label>
+      <label>Target <select id="target"></select></label>
       <button id="flip" class="primary">Flip to answer ▸</button>
-      <button id="reset">Reset tap</button>
+      <button id="reset">Reset attempt</button>
       <label><input type="checkbox" id="night" /> Night mode</label>
       <span class="status" id="status"></span>
     </div>
@@ -67,9 +81,10 @@
       var SCOPE = "us-states";
       var side = "front";
       var target = "US-CA";
+      var mode = "locate";
 
-      function loadBundle() {
-        return fetch("../data/bundles/us-states.json").then(function (r) {
+      function loadBundle(scope) {
+        return fetch("../data/bundles/" + scope + ".json").then(function (r) {
           return r.json();
         });
       }
@@ -84,6 +99,28 @@
         });
       }
 
+      function fillTargets(bundle) {
+        var sel = document.getElementById("target");
+        sel.innerHTML = "";
+        bundle.regions.filter(function (r) { return r.tier !== 2; }).forEach(function (r) {
+          var o = document.createElement("option");
+          o.value = r.id;
+          o.textContent = r.name;
+          sel.appendChild(o);
+        });
+        target = sel.value = bundle.regions[4] ? sel.options[4].value : sel.options[0].value;
+      }
+
+      function switchScope(scope) {
+        SCOPE = scope;
+        return loadBundle(scope).then(function (bundle) {
+          window.GT_BUNDLES = window.GT_BUNDLES || {};
+          window.GT_BUNDLES[scope] = bundle;
+          fillTargets(bundle);
+          side = "front";
+        });
+      }
+
       function render() {
         var frame = document.getElementById("frame");
         frame.innerHTML = "";
@@ -93,28 +130,26 @@
         app.setAttribute("data-scope", SCOPE);
         app.setAttribute("data-target", target);
         app.setAttribute("data-side", side);
+        app.setAttribute("data-mode", mode);
         frame.appendChild(app);
         window.GeoTrainer.mount(app);
         document.getElementById("flip").textContent =
           side === "front" ? "Flip to answer ▸" : "◂ Back to front";
-        document.getElementById("status").textContent = "side: " + side + " · target: " + target;
+        document.getElementById("status").textContent =
+          "mode: " + mode + " · side: " + side + " · target: " + target;
       }
 
-      loadBundle()
-        .then(function (bundle) {
-          window.GT_BUNDLES = window.GT_BUNDLES || {};
-          window.GT_BUNDLES[SCOPE] = bundle;
-          var sel = document.getElementById("target");
-          bundle.regions.forEach(function (r) {
-            var o = document.createElement("option");
-            o.value = r.id;
-            o.textContent = r.name;
-            if (r.id === target) o.selected = true;
-            sel.appendChild(o);
-          });
+      switchScope(SCOPE)
+        .then(function () {
+          target = "US-CA";
+          document.getElementById("target").value = target;
           return loadEngine();
         })
         .then(render);
+
+      document.getElementById("scope").addEventListener("change", function (e) {
+        switchScope(e.target.value).then(render);
+      });
 
       document.getElementById("flip").addEventListener("click", function () {
         side = side === "front" ? "back" : "front";
@@ -125,9 +160,14 @@
         side = "front";
         render();
       });
+      document.getElementById("mode").addEventListener("change", function (e) {
+        mode = e.target.value;
+        side = "front";
+        render();
+      });
       document.getElementById("reset").addEventListener("click", function () {
         try {
-          localStorage.removeItem("geotrainer:attempt:" + SCOPE + ":" + target);
+          localStorage.removeItem("geotrainer:" + mode + ":" + SCOPE + ":" + target);
         } catch (e) {}
         side = "front";
         render();

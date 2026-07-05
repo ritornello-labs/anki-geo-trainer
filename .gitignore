@@ -22,6 +22,7 @@ test-results/
 test-out.json
 test-err.log
 pw.log
+pw-*.log
 final.json
 final.err
 playwright-report/

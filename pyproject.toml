@@ -21,7 +21,7 @@ exclude-newer = "2026-06-28T00:00:00Z"
 
 [tool.anki-addon-workbench]
 project_name = "GeoTrainer"
-seed_apkgs = ["dist/geo-trainer-us-states.apkg"]
+seed_apkgs = ["dist/geo-trainer-us-states.apkg", "dist/geo-trainer-europe.apkg"]
 anki_version = "25.09"
 docker_image = "anki-geo-trainer-workbench"
 docker_workbench_spec = "anki-addon-workbench[gui]==0.4.1"
