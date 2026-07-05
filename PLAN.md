@@ -113,10 +113,16 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
 
 ## Milestones
 
-- **M0 — Engine spike (prove the risky part first).** One F3 Locate card (US states)
-  end-to-end: inlined engine, tap detection against real polygons, front→back attempt
-  handoff, verdict UI, night mode. Verified on Chromium + WebKit harnesses, workbench
-  Docker smoke, and the AnkiDroid emulator lane. Also spike F4's stable randomness.
+- **M0 — Engine spike (prove the risky part first). ✅ Done 2026-07-05 (`91f490c`).**
+  One F3 Locate card for the lower-48 US states, end-to-end: pre-projected data bundle
+  (`scripts/build_bundle.py`, 34 KB), plain-JS engine (`engine/geo-engine.js`) with tap
+  hit-testing against real polygons, front→back attempt handoff via localStorage,
+  self-graded verdict, night mode, and no script-load-order/media dependence. Verified in
+  browser preview, on Chromium + WebKit Playwright (incl. a fixture test of the shipped
+  inlined form), and by the `anki-addon-workbench` Docker/Xvfb deck smoke (`ok: true`).
+  F4 stable-randomness spike (`scripts/f4_spike.py`) passed: eroded-polygon sampling with
+  border margin + portable mulberry32/day-stamp seeding. **Not yet done, carried to M1:**
+  AK/HI insets, the AnkiDroid emulator/CDP lane run, and F4 wired as a live engine mode.
 - **M1 — US states pack.** F3 + F4 + F5 for the 50 states; curriculum tags; APKG built
   and imported; first real dogfood.
 - **M2 — World countries.** Same families by continent (Europe first), entity tiering
