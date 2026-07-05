@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { readState } from "./state-helper.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -77,9 +78,7 @@ test.describe("shipped inlined cards", () => {
       return { x: s.x, y: s.y };
     });
     await page.mouse.click(p.x, p.y);
-    const state = await page.evaluate(() =>
-      JSON.parse(localStorage.getItem("geotrainer:nb:europe-countries:FRA"))
-    );
+    const state = await readState(page, "nb", "europe-countries", "FRA");
     expect(state.found).toContain("ES");
   });
 });

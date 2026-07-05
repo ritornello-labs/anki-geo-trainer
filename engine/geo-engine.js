@@ -70,10 +70,15 @@
   }
 
   function regionAt(x, y, bundle) {
+    // Smallest hit wins: microstate tap-circles overlap their host country
+    // (Vatican/San Marino sit on Italy), and a tap on the magnified circle
+    // must mean the microstate, not the country underneath.
+    var best = null;
     for (var i = 0; i < bundle.regions.length; i++) {
-      if (pointInRegion(x, y, bundle.regions[i])) return bundle.regions[i];
+      var reg = bundle.regions[i];
+      if (pointInRegion(x, y, reg) && (!best || reg.s < best.s)) best = reg;
     }
-    return null;
+    return best;
   }
 
   function findRegion(bundle, id) {
@@ -647,8 +652,13 @@
   var tries = 0;
   function boot() {
     mountAll();
+    // Keep polling until at least one app has mounted (the card HTML or the
+    // bundle script may arrive AFTER this engine evaluates — scripts load
+    // async and out of order on AnkiMobile/AnkiDroid), then until nothing is
+    // pending. A zero-pending page with no mounts yet is "too early", not done.
     var pending = document.querySelectorAll(".gt-app:not([data-gt-mounted='1'])");
-    if (pending.length && tries++ < 60) setTimeout(boot, 50);
+    var mounted = document.querySelector(".gt-app[data-gt-mounted='1']");
+    if ((pending.length || !mounted) && tries++ < 120) setTimeout(boot, 50);
   }
 
   window.GeoTrainer = { mount: mount, mountAll: mountAll, _boot: boot, _hash: strHash };

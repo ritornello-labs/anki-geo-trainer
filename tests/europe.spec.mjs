@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { readState } from "./state-helper.mjs";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -78,9 +79,7 @@ test("microstate tap-circle is hittable (Vatican)", async ({ page }) => {
     return { x: s.x, y: s.y };
   }, { x: c[0], y: c[1] });
   await page.mouse.click(p.x, p.y);
-  const attempt = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("geotrainer:locate:europe-countries:VA"))
-  );
+  const attempt = await readState(page, "locate", "europe-countries", "VA");
   expect(attempt.hitId).toBe("VA");
 });
 
@@ -90,9 +89,7 @@ test("neighbors: correct taps accumulate, wrong taps tracked, back grades", asyn
   await tapRegionPoint(page, "AT"); // correct
   await tapRegionPoint(page, "PL"); // correct
   await tapRegionPoint(page, "ES"); // wrong
-  const state = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("geotrainer:nb:europe-countries:DE"))
-  );
+  const state = await readState(page, "nb", "europe-countries", "DE");
   expect(state.found.sort()).toEqual(["AT", "PL"]);
   expect(state.wrong).toEqual(["ES"]);
 
@@ -115,8 +112,6 @@ test("cross-scope isolation: US bundle unaffected by Europe fields", async ({ pa
   // Europe regions carry tier/nb/small; make sure locate still works with them.
   await showSide(page, { target: "IS", mode: "locate", side: "front" });
   await tapRegionPoint(page, "IS");
-  const attempt = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("geotrainer:locate:europe-countries:IS"))
-  );
+  const attempt = await readState(page, "locate", "europe-countries", "IS");
   expect(attempt.hitId).toBe("IS");
 });

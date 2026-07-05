@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { readState, clearState } from "./state-helper.mjs";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -72,9 +73,7 @@ test("locate: tapping inside the target is graded correct", async ({ page }) => 
   const c = region("US-CA").c;
   const p = await screenPoint(page, c[0], c[1]);
   await page.mouse.click(p.x, p.y);
-  const attempt = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("geotrainer:locate:us-states:US-CA"))
-  );
+  const attempt = await readState(page, "locate", "us-states", "US-CA");
   expect(attempt.hitId).toBe("US-CA");
 
   await showSide(page, { target: "US-CA", mode: "locate", side: "back", fresh: false });
@@ -152,7 +151,7 @@ test("point: without storage, front and back still agree (deterministic day seed
     return [d.getAttribute("cx"), d.getAttribute("cy")];
   });
   // Simulate storage loss between sides (worst case).
-  await page.evaluate(() => localStorage.clear());
+  await clearState(page);
   await showSide(page, { target: "US-FL", mode: "point", side: "back", fresh: false });
   const backDot = await page.evaluate(() => {
     const d = document.querySelector(".gt-point");
@@ -188,9 +187,7 @@ test("place: dragging the piece near its true spot grades well", async ({ page }
   await page.mouse.move(to.x, to.y, { steps: 10 });
   await page.mouse.up();
 
-  const stored = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("geotrainer:place:us-states:US-CO"))
-  );
+  const stored = await readState(page, "place", "us-states", "US-CO");
   expect(Math.abs(stored.dx - 15)).toBeLessThan(2);
   expect(Math.abs(stored.dy)).toBeLessThan(2);
 
