@@ -23,17 +23,17 @@ by difficulty; together they form the level ladder for any given scope.
 
 | # | Family | Interaction | Sheppard analogue | Notes |
 |---|--------|-------------|-------------------|-------|
-| F1 | Recognize | highlighted region on locator map → recall name | tutorial levels | Already covered by existing decks; we tag/reference, not rebuild |
-| F2 | Shape ID | isolated silhouette → recall name | shape quizzes | Covered for countries (Country Shapes); build only for missing scopes |
-| F3 | Locate | name shown → tap/click the region on a blank map | click-on-map games | Engine highlights what you hit, then reveals the answer region; self-grade with distance feedback |
-| F4 | Point-in-region | random dot on a blank map → name the region containing it | "which state is this point in" | Dynamic: point re-randomized per review, stable within one review (front and back must agree) |
-| F5 | Place-the-piece | drag a floating silhouette to its correct position on a faded or blank map | place-the-state (hard levels) | Score by centroid offset + rotation-free overlap |
-| F6 | Draw-the-shape | sketch the outline of a named region on a canvas; engine scores vs. truth | draw-the-state | Hardest to build well: normalization + IoU-style scoring + visual overlay feedback |
-| F7 | Neighbors | name/blank map → enumerate or tap all bordering regions | border quizzes | Passive variant exists (Country Borders); interactive tap-all variant is new |
-| F8 | Feature overlay | rivers, mountain ranges, seas, capitals as tap targets on the map | rivers/landscapes games | Later phase; reuses F3/F4 machinery with line/point features |
+| F1 | Recognize | highlighted region on locator map → recall name | tutorial levels | **Not built here.** Passive recall; the README links a few good example AnkiWeb decks (Ultimate Geography, the workspace's shared subdivision decks) instead |
+| F2 | Shape ID | isolated silhouette → recall name | shape quizzes | **Not built here.** The user already has shape→name recognition (Country Shapes); the README links examples. The *inverse* (draw the shape) is F6, not this |
+| F3 | Locate | name shown → tap/click the region on a blank map | click-on-map games | Engine highlights what you hit, then reveals the answer region; self-grade with distance feedback. Scope = continental blank maps **and** country-internal blank maps for the user's target countries (USA, Russia, India, Brazil, Argentina, …) |
+| F4 | Point-in-region | random dot on a blank map → name the region containing it | "which state is this point in" | Dynamic: point re-randomized per review, stable within one review (front and back must agree). One note per region; the dot varies across reviews but stays inside an **eroded (inset) polygon** so it never hugs a border. Same scope catalog as F3 (US states, Brazilian states, countries of South America, Indian states, …) |
+| F5 | Place-the-piece | drag a floating **silhouette (shape supplied)** to its correct position on a faded/blank map | place-the-state (hard levels) | Tests *location* with the shape given. Score by centroid offset + rotation-free overlap. Distinct from F6 |
+| F6 | Draw-the-shape | **name only** → sketch the outline of the region on a canvas; engine scores vs. truth | draw-the-state | Tests *shape recall*. This is the "draw the shape of country/state/continent X" task. Hardest to build well: normalization + IoU-style scoring + visual overlay feedback |
+| F7 | Neighbors | given a region (highlighted or named) → tap **all** its bordering regions on the map | border quizzes | Interactive tap-all version of the user's passive Country Borders deck. Engine tracks correct/missed/wrong neighbors and shows the full adjacency on the back |
+| F8 | Feature overlay | tap the named **non-region feature** (river, mountain range, sea, capital) on the map | rivers/landscapes games | Later phase; reuses F3/F4 machinery but the targets are lines (rivers/ranges) and points (capitals) laid over the basemap, not the fill regions |
 
 Cross-cutting variants (per family, where meaningful): political vs. physical basemap,
-labeled vs. unlabeled neighbors, timed vs. untimed presentation.
+labeled vs. unlabeled neighbors. (Timed modes are dropped — they fight Anki's review model.)
 
 ## Anki-specific design constraints
 
@@ -57,7 +57,11 @@ These are the hard-won rules from this workspace (especially `sight-singing-deck
   card sides (serialized state; platform-tested — sessionStorage is not reliable everywhere).
 - **Stable randomness for F4.** The random point must be identical on front and back of one
   review and different across reviews. Reuse/absorb the `anki-dynamic-cards` prototype's
-  approach; this project is its first serious consumer.
+  approach; this project is its first serious consumer. The candidate point is sampled from
+  an **eroded (negatively-buffered) copy of the region polygon** so it always sits comfortably
+  inside with border margin — never so close to an edge that it's ambiguous. Erosion distance
+  is a fraction of the region's own size (small states erode less than large ones) with a
+  fallback for slivers too thin to erode.
 - **Lean fronts, task type visible at a glance** (card-family chip), night-mode CSS from
   day one, verify rendered output not just state.
 - **Test lanes:** browser harness (Chromium + WebKit Playwright, Anki-style script
@@ -95,10 +99,17 @@ Tags are the curriculum's backbone, hierarchical:
 - `geotrainer::track::<named track>` for suggested course-like sequences
 
 `CURRICULUM.md` defines the recommended progression: for each scope, unlock order
-F1→F2→F3→F4→F5→F6, with F1/F2 satisfiable by existing public decks (Ultimate Geography,
-the user's shared subdivision decks) — the trainer decks start at F3. Deck structure
+F3→F4→F5→F6 (with F7 folded in where borders matter), preceded by F1/F2 which the student
+gets from existing public decks — the trainer decks themselves start at F3. Deck structure
 mirrors scope (`GeoTrainer::World::Europe::Locate`, etc.) so students can subscribe to
 exactly the slice they want; tags let power users rebuild any custom ordering.
+
+**Curricula ship as documented saved searches, not filtered decks.** Anki excludes
+filtered/dynamic decks from `.apkg` exports (they are emptied on export), so we cannot
+bundle suggested course sequences as ready-made filtered decks. Instead the README/`CURRICULUM.md`
+lists copy-paste search strings (e.g. `deck:GeoTrainer::* tag:geotrainer::level::1`,
+`tag:geotrainer::track::south-america-mastery`) that a student pastes into their own
+filtered deck. This is more flexible than shipped filtered decks and survives re-import.
 
 ## Milestones
 
@@ -123,18 +134,28 @@ exactly the slice they want; tags let power users rebuild any custom ordering.
 - `world-geography-concepts` — source of the `_geo_base.py` plate-carrée renderer and
   Natural Earth handling; we generalize, not fork-and-drift (extract if practical).
 - `country-subdivision-map-decks` / `us-states` / `chinese-regions` / `us-regions` —
-  define the scope catalog and provide F1/F2 coverage; trainer decks reference them
-  in the curriculum rather than duplicating.
+  define the scope catalog and provide F1/F2 coverage; the README links these (and
+  Ultimate Geography) as the recommended passive-recall on-ramp rather than duplicating them.
 - `anki-dynamic-cards` — its stable-randomness prototype becomes F4's foundation.
 - `sight-singing-deck` — the cross-platform JS playbook (inline everything, dep polling,
   WebKit + AnkiDroid lanes) is adopted wholesale.
 - `anki-addon-workbench` — all smoke/GUI verification.
 
-## Open questions (for Elvis)
+## Decisions (settled 2026-07-05)
 
-1. Repo/deck naming: is `anki-geo-trainer` / `GeoTrainer::…` good, or prefer another name?
-2. F1/F2: reference existing decks only (personal curriculum), or also generate
-   self-contained versions so the published product stands alone?
-3. Release intent: personal-first then AnkiWeb, or design for AnkiWeb from day one?
-4. Languages: English-only to start? (`anki-multilingual-concepts` could matter later.)
-5. Timed modes: worth it inside Anki, or does it fight the review model? (Lean: skip.)
+1. **Naming:** `anki-geo-trainer` / `GeoTrainer::…` confirmed.
+2. **F1/F2:** not built. The README links a few good example AnkiWeb decks for passive
+   recognition; the trainer starts at F3.
+3. **Release:** AnkiWeb-shaped from day one, shared as soon as it's decent. (Designing for
+   AnkiWeb vs. not makes little practical difference to the build; the constraints above
+   already assume shareable, self-contained decks.)
+4. **Languages:** English-only to start.
+5. **Timed modes:** dropped — they fight Anki's review model.
+6. **Curricula delivery:** documented saved searches + tags, not filtered decks (APKG can't
+   carry filtered decks).
+7. **F4 point placement:** sampled from an eroded polygon with border margin.
+
+## Open questions (remaining)
+
+- Geometry-embedding strategy (per-note vs. per-template scope bundle) — resolve empirically
+  in the M0 spike by measuring APKG size and render speed both ways.
