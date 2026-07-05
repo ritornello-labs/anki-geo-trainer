@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GeoTrainer harness — F3 Locate</title>
+    <link rel="stylesheet" href="../anki/shared/card.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #fafbfc;
+        color: #1c2430;
+      }
+      body.dark { background: #121417; color: #e9edf2; }
+      .toolbar {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 12px 16px;
+        border-bottom: 1px solid #e2e7ee;
+        position: sticky;
+        top: 0;
+        background: inherit;
+        z-index: 10;
+      }
+      body.dark .toolbar { border-color: #333941; }
+      .toolbar label { font-size: 13px; font-weight: 600; }
+      select, button {
+        font: inherit;
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid #cbd3dd;
+        background: #fff;
+        cursor: pointer;
+      }
+      body.dark select, body.dark button { background: #23272d; color: #e9edf2; border-color: #3a414a; }
+      button.primary { background: #e24d2c; color: #fff; border-color: #e24d2c; }
+      .stage { padding: 8px 16px 40px; }
+      .cardframe {
+        max-width: 800px;
+        margin: 16px auto;
+        border: 1px solid #e2e7ee;
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+      }
+      body.dark .cardframe { background: #1a1d21; border-color: #333941; }
+      .cardframe.nightMode { background: #1a1d21; }
+      .status { text-align: center; font-size: 12px; color: #8894a3; padding: 6px; }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <label>State <select id="target"></select></label>
+      <button id="flip" class="primary">Flip to answer ▸</button>
+      <button id="reset">Reset tap</button>
+      <label><input type="checkbox" id="night" /> Night mode</label>
+      <span class="status" id="status"></span>
+    </div>
+    <div class="stage">
+      <div class="cardframe" id="frame"></div>
+    </div>
+
+    <script>
+      var SCOPE = "us-states";
+      var side = "front";
+      var target = "US-CA";
+
+      function loadBundle() {
+        return fetch("../data/bundles/us-states.json").then(function (r) {
+          return r.json();
+        });
+      }
+
+      function loadEngine() {
+        return new Promise(function (resolve, reject) {
+          var s = document.createElement("script");
+          s.src = "../engine/geo-engine.js";
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
+
+      function render() {
+        var frame = document.getElementById("frame");
+        frame.innerHTML = "";
+        frame.className = "cardframe" + (document.body.classList.contains("dark") ? " nightMode" : "");
+        var app = document.createElement("div");
+        app.className = "gt-app";
+        app.setAttribute("data-scope", SCOPE);
+        app.setAttribute("data-target", target);
+        app.setAttribute("data-side", side);
+        frame.appendChild(app);
+        window.GeoTrainer.mount(app);
+        document.getElementById("flip").textContent =
+          side === "front" ? "Flip to answer ▸" : "◂ Back to front";
+        document.getElementById("status").textContent = "side: " + side + " · target: " + target;
+      }
+
+      loadBundle()
+        .then(function (bundle) {
+          window.GT_BUNDLES = window.GT_BUNDLES || {};
+          window.GT_BUNDLES[SCOPE] = bundle;
+          var sel = document.getElementById("target");
+          bundle.regions.forEach(function (r) {
+            var o = document.createElement("option");
+            o.value = r.id;
+            o.textContent = r.name;
+            if (r.id === target) o.selected = true;
+            sel.appendChild(o);
+          });
+          return loadEngine();
+        })
+        .then(render);
+
+      document.getElementById("flip").addEventListener("click", function () {
+        side = side === "front" ? "back" : "front";
+        render();
+      });
+      document.getElementById("target").addEventListener("change", function (e) {
+        target = e.target.value;
+        side = "front";
+        render();
+      });
+      document.getElementById("reset").addEventListener("click", function () {
+        try {
+          localStorage.removeItem("geotrainer:attempt:" + SCOPE + ":" + target);
+        } catch (e) {}
+        side = "front";
+        render();
+      });
+      document.getElementById("night").addEventListener("change", function (e) {
+        document.body.classList.toggle("dark", e.target.checked);
+        render();
+      });
+    </script>
+  </body>
+</html>

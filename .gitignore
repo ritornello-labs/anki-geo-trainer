@@ -10,3 +10,18 @@ build/
 .tmp/
 *.apkg
 .DS_Store
+
+# Large Natural Earth source, re-downloaded by scripts/build_bundle.py on demand
+data/raw/
+
+# Generated card fixtures (emitted by scripts/emit_card_fixture.py)
+tests/fixtures/
+
+# Test + tooling artifacts
+test-results/
+test-out.json
+test-err.log
+pw.log
+final.json
+final.err
+playwright-report/

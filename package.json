@@ -1,0 +1,15 @@
+{
+  "name": "anki-geo-trainer",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Cross-engine card tests for the GeoTrainer interaction engine",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:webkit": "playwright test --project=webkit",
+    "test:chromium": "playwright test --project=chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.52.0"
+  }
+}

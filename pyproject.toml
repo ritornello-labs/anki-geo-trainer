@@ -1,0 +1,28 @@
+[project]
+name = "anki-geo-trainer"
+version = "0.0.1"
+description = "Sheppard-Software-style interactive geography task decks for Anki"
+requires-python = ">=3.11"
+dependencies = [
+    "shapely>=2.0",
+    "genanki>=0.13",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.uv]
+exclude-newer = "2026-06-28T00:00:00Z"
+
+[tool.uv.pip]
+exclude-newer = "2026-06-28T00:00:00Z"
+
+[tool.anki-addon-workbench]
+project_name = "GeoTrainer"
+seed_apkgs = ["dist/geo-trainer-us-states.apkg"]
+anki_version = "25.09"
+docker_image = "anki-geo-trainer-workbench"
+docker_workbench_spec = "anki-addon-workbench[gui]==0.4.1"
+deck_smoke_render_limit = 3
