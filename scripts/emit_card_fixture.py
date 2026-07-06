@@ -13,7 +13,7 @@ import base64
 import json
 from pathlib import Path
 
-from build_apkg import FAMILY_DEFS, build_templates, load_bundle, load_shapes
+from build_apkg import FAMILY_DEFS, build_templates, load_bundle, load_shapes, load_capitals
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "tests" / "fixtures"
@@ -33,6 +33,11 @@ def render(side_html: str, css: str, scope: str, target: str) -> str:
             json.dumps(payload, separators=(",", ":")).encode("ascii")
         ).decode("ascii")
         body = body.replace("{{ShapeData}}", b64)
+    if "{{CapitalName}}" in body:
+        cap = load_capitals(scope)[target]
+        body = body.replace("{{CapitalName}}", cap["name"]).replace(
+            "{{CapitalPt}}", f"{cap['x']},{cap['y']}"
+        )
     return (
         "<!doctype html><html><head><meta charset='utf-8'>"
         f"<style>{css}</style></head><body>{body}</body></html>"

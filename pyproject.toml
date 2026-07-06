@@ -29,6 +29,12 @@ seed_apkgs = [
     "dist/geo-trainer-asia.apkg",
     "dist/geo-trainer-brazil-states.apkg",
     "dist/geo-trainer-india-states.apkg",
+    "dist/geo-trainer-russia-subjects.apkg",
+    "dist/geo-trainer-china-provinces.apkg",
+    "dist/geo-trainer-canada-provinces.apkg",
+    "dist/geo-trainer-australia-states.apkg",
+    "dist/geo-trainer-argentina-provinces.apkg",
+    "dist/geo-trainer-mexico-states.apkg",
 ]
 anki_version = "25.09"
 docker_image = "anki-geo-trainer-workbench"

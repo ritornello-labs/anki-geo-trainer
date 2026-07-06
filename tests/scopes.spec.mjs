@@ -14,28 +14,31 @@ const ENGINE = readFileSync(join(ROOT, "engine", "geo-engine.js"), "utf-8");
 const BUNDLE_DIR = join(ROOT, "data", "bundles");
 
 const SCOPES = readdirSync(BUNDLE_DIR)
-  .filter((f) => f.endsWith(".json") && !f.endsWith("-shapes.json"))
+  .filter((f) => f.endsWith(".json") && !f.endsWith("-shapes.json") && !f.endsWith("-capitals.json"))
   .map((f) => f.replace(".json", ""));
 
 function load(scope) {
   return {
     bundle: JSON.parse(readFileSync(join(BUNDLE_DIR, `${scope}.json`), "utf-8")),
     shapes: JSON.parse(readFileSync(join(BUNDLE_DIR, `${scope}-shapes.json`), "utf-8")),
+    capitals: JSON.parse(readFileSync(join(BUNDLE_DIR, `${scope}-capitals.json`), "utf-8")),
   };
 }
 
-async function mount(page, scope, { bundle, shapes }, { target, mode, side }) {
+async function mount(page, scope, data, { target, mode, side }) {
+  const cap = data.capitals[target];
   await page.setContent("<!doctype html><html><head></head><body></body></html>");
   await page.evaluate(
-    ({ scope, bundle, shapes }) => {
+    ({ scope, bundle, shapes, capitals }) => {
       window.GT_BUNDLES = { [scope]: bundle };
       window.GT_SHAPES = {};
       for (const id of Object.keys(shapes)) window.GT_SHAPES[scope + ":" + id] = shapes[id];
+      window.GT_CAPS = { [scope]: capitals };
     },
-    { scope, bundle, shapes }
+    { scope, bundle: data.bundle, shapes: data.shapes, capitals: data.capitals }
   );
   await page.evaluate(
-    ({ scope, target, mode, side, name }) => {
+    ({ scope, target, mode, side, name, cap }) => {
       const app = document.createElement("div");
       app.className = "gt-app";
       app.setAttribute("data-scope", scope);
@@ -43,23 +46,31 @@ async function mount(page, scope, { bundle, shapes }, { target, mode, side }) {
       app.setAttribute("data-name", name);
       app.setAttribute("data-side", side);
       app.setAttribute("data-mode", mode);
+      if (cap) {
+        app.setAttribute("data-capname", cap.name);
+        app.setAttribute("data-cappt", cap.x + "," + cap.y);
+      }
       document.body.appendChild(app);
     },
-    { scope, target, mode, side, name: "X" }
+    { scope, target, mode, side, name: "X", cap }
   );
   await page.addScriptTag({ content: ENGINE });
 }
 
 for (const scope of SCOPES) {
-  const { bundle, shapes } = load(scope);
+  const data = load(scope);
+  const { bundle, shapes, capitals } = data;
   const tier1 = bundle.regions.filter((r) => r.tier !== 2);
   const target = tier1[Math.min(3, tier1.length - 1)]; // a mid-list region
 
   test(`${scope}: locate renders all regions and hit-tests a real tap`, async ({ page }) => {
-    await mount(page, scope, { bundle, shapes }, { target: target.id, mode: "locate", side: "front" });
+    await mount(page, scope, data, { target: target.id, mode: "locate", side: "front" });
     await page.waitForSelector("svg.gt-map");
     await expect(page.locator(".gt-region")).toHaveCount(bundle.regions.length);
-    const p = await page.evaluate(
+    // Dispatch the click in SVG space: some scopes (Argentina) are taller than
+    // any viewport, so a real page.mouse click would land off-screen. The engine
+    // reads clientX/clientY and inverts via getScreenCTM regardless of viewport.
+    await page.evaluate(
       ({ scope, id }) => {
         const r = window.GT_BUNDLES[scope].regions.find((x) => x.id === id);
         const svg = document.querySelector("svg.gt-map");
@@ -67,11 +78,10 @@ for (const scope of SCOPES) {
         pt.x = r.c[0];
         pt.y = r.c[1];
         const s = pt.matrixTransform(svg.getScreenCTM());
-        return { x: s.x, y: s.y };
+        svg.dispatchEvent(new MouseEvent("click", { clientX: s.x, clientY: s.y, bubbles: true }));
       },
       { scope, id: target.id }
     );
-    await page.mouse.click(p.x, p.y);
     const attempt = await readState(page, "locate", scope, target.id);
     // Tapping a region's representative point should hit that region (or, for
     // slivers, at least register *some* hit — never null).
@@ -80,13 +90,13 @@ for (const scope of SCOPES) {
   });
 
   test(`${scope}: point front↔back agree on the same dot`, async ({ page }) => {
-    await mount(page, scope, { bundle, shapes }, { target: target.id, mode: "point", side: "front" });
+    await mount(page, scope, data, { target: target.id, mode: "point", side: "front" });
     await page.waitForSelector(".gt-point");
     const front = await page.evaluate(() => {
       const d = document.querySelector(".gt-point");
       return [d.getAttribute("cx"), d.getAttribute("cy")];
     });
-    await mount(page, scope, { bundle, shapes }, { target: target.id, mode: "point", side: "back" });
+    await mount(page, scope, data, { target: target.id, mode: "point", side: "back" });
     await page.waitForSelector(".gt-point");
     const back = await page.evaluate(() => {
       const d = document.querySelector(".gt-point");
@@ -99,7 +109,7 @@ for (const scope of SCOPES) {
   test(`${scope}: every tier-1 region has a drawable shape and a perfect trace scores Good`, async ({ page }) => {
     // shape coverage
     for (const r of tier1) expect(shapes[r.id], `${scope} missing shape for ${r.id}`).toBeTruthy();
-    await mount(page, scope, { bundle, shapes }, { target: target.id, mode: "draw", side: "front" });
+    await mount(page, scope, data, { target: target.id, mode: "draw", side: "front" });
     await page.waitForSelector("svg.gt-canvas");
     const quality = await page.evaluate(
       ({ scope, id }) => {
@@ -123,17 +133,56 @@ for (const scope of SCOPES) {
     );
     expect(quality).toBe(2);
   });
+
+  // F8: exercise the capital family on a region that has a capital.
+  const capTarget = tier1.find((r) => capitals[r.id] && capitals[r.id].name);
+  test(`${scope}: capital — prompt names the capital, exact tap grades Good`, async ({ page }) => {
+    expect(capTarget, `${scope} has no capital-bearing region`).toBeTruthy();
+    await mount(page, scope, data, { target: capTarget.id, mode: "capital", side: "front" });
+    await page.waitForSelector("svg.gt-map");
+    await expect(page.locator(".gt-prompt")).toHaveText(capitals[capTarget.id].name);
+    await page.evaluate(
+      ({ scope, id }) => {
+        const c = window.GT_CAPS[scope][id];
+        const svg = document.querySelector("svg.gt-map");
+        const pt = svg.createSVGPoint();
+        pt.x = c.x;
+        pt.y = c.y;
+        const s = pt.matrixTransform(svg.getScreenCTM());
+        svg.dispatchEvent(new MouseEvent("click", { clientX: s.x, clientY: s.y, bubbles: true }));
+      },
+      { scope, id: capTarget.id }
+    );
+    // flip: re-render back mode in the same page (state survives in window/localStorage)
+    await page.evaluate(
+      ({ scope, id, cap }) => {
+        document.body.innerHTML = "";
+        const app = document.createElement("div");
+        app.className = "gt-app";
+        app.setAttribute("data-scope", scope);
+        app.setAttribute("data-target", id);
+        app.setAttribute("data-name", "X");
+        app.setAttribute("data-side", "back");
+        app.setAttribute("data-mode", "capital");
+        app.setAttribute("data-capname", cap.name);
+        app.setAttribute("data-cappt", cap.x + "," + cap.y);
+        document.body.appendChild(app);
+        window.GeoTrainer.mountAll();
+      },
+      { scope, id: capTarget.id, cap: capitals[capTarget.id] }
+    );
+    await expect(page.locator(".gt-capital")).toHaveCount(1); // true-capital star
+    await expect(page.locator(".gt-bar.gt-ok")).toContainText(capitals[capTarget.id].name);
+    await expect(page.locator(".gt-suggest")).toContainText("Good");
+  });
 }
 
 test("all expected scopes are present", () => {
   expect(SCOPES.sort()).toEqual(
     [
-      "africa-countries",
-      "asia-countries",
-      "brazil-states",
-      "europe-countries",
-      "india-states",
-      "south-america-countries",
+      "africa-countries", "argentina-provinces", "asia-countries", "australia-states",
+      "brazil-states", "canada-provinces", "china-provinces", "europe-countries",
+      "india-states", "mexico-states", "russia-subjects", "south-america-countries",
       "us-states",
     ].sort()
   );

@@ -128,6 +128,15 @@
 }
 .gt-region.gt-nb-wrong { fill: #b0413e; fill-opacity: 0.8; transition: fill 0.5s ease; }
 
+/* F8 capital-locate: the star marks the true capital on the back */
+.gt-capital {
+  fill: var(--gt-good);
+  stroke: #ffffff;
+  stroke-width: 1.2;
+  paint-order: stroke;
+}
+.nightMode .gt-capital { stroke: #1c1f24; }
+
 /* F6 draw-the-shape */
 .gt-canvas {
   cursor: crosshair;

@@ -62,6 +62,12 @@
           <option value="asia-countries">Asia</option>
           <option value="brazil-states">Brazil states</option>
           <option value="india-states">India states</option>
+          <option value="russia-subjects">Russia subjects</option>
+          <option value="china-provinces">China provinces</option>
+          <option value="canada-provinces">Canada provinces</option>
+          <option value="australia-states">Australia states</option>
+          <option value="argentina-provinces">Argentina provinces</option>
+          <option value="mexico-states">Mexico states</option>
         </select>
       </label>
       <label>Mode
@@ -71,6 +77,7 @@
           <option value="place">F5 Place-the-piece</option>
           <option value="neighbors">F7 Neighbors (retired)</option>
           <option value="draw">F6 Draw</option>
+          <option value="capital">F8 Capital</option>
         </select>
       </label>
       <label>Target <select id="target"></select></label>
@@ -122,13 +129,18 @@
         var shapes = fetch("../data/bundles/" + scope + "-shapes.json").then(function (r) {
           return r.json();
         });
-        return Promise.all([loadBundle(scope), shapes]).then(function (res) {
+        var caps = fetch("../data/bundles/" + scope + "-capitals.json").then(function (r) {
+          return r.json();
+        });
+        return Promise.all([loadBundle(scope), shapes, caps]).then(function (res) {
           window.GT_BUNDLES = window.GT_BUNDLES || {};
           window.GT_BUNDLES[scope] = res[0];
           window.GT_SHAPES = window.GT_SHAPES || {};
           Object.keys(res[1]).forEach(function (id) {
             window.GT_SHAPES[scope + ":" + id] = res[1][id];
           });
+          window.GT_CAPS = window.GT_CAPS || {};
+          window.GT_CAPS[scope] = res[2];
           fillTargets(res[0]);
           side = "front";
         });
@@ -146,6 +158,11 @@
         app.setAttribute("data-mode", mode);
         var sel = document.getElementById("target");
         app.setAttribute("data-name", sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].textContent : target);
+        var cap = (window.GT_CAPS && window.GT_CAPS[SCOPE] && window.GT_CAPS[SCOPE][target]) || null;
+        if (cap) {
+          app.setAttribute("data-capname", cap.name);
+          app.setAttribute("data-cappt", cap.x + "," + cap.y);
+        }
         frame.appendChild(app);
         window.GeoTrainer.mount(app);
         document.getElementById("flip").textContent =

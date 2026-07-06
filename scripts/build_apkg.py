@@ -45,6 +45,7 @@ FAMILY_DEFS = [
     ("point", 1, "Which {Noun}", "2 Which {Noun}", "geotrainer::skill::point", "geotrainer::level::4"),
     ("place", 2, "Place", "3 Place", "geotrainer::skill::place", "geotrainer::level::5"),
     ("draw", 4, "Draw", "4 Draw", "geotrainer::skill::draw", "geotrainer::level::6"),
+    ("capital", 5, "Capital", "5 Capital", "geotrainer::skill::capital", "geotrainer::level::4"),
 ]
 
 SCOPE_PACKS = {
@@ -104,6 +105,54 @@ SCOPE_PACKS = {
         "deck_base": 1_607_398_050,
         "apkg": "geo-trainer-india-states.apkg",
     },
+    "russia-subjects": {
+        "deck_root": "GeoTrainer::World::Europe::Russia",
+        "model_root": "GeoTrainer {family} — Russia Subjects",
+        "scope_tag": "geotrainer::scope::country::russia::subjects",
+        "model_base": 1_607_399_001,
+        "deck_base": 1_607_399_050,
+        "apkg": "geo-trainer-russia-subjects.apkg",
+    },
+    "china-provinces": {
+        "deck_root": "GeoTrainer::World::Asia::China",
+        "model_root": "GeoTrainer {family} — China Provinces",
+        "scope_tag": "geotrainer::scope::country::china::provinces",
+        "model_base": 1_607_400_001,
+        "deck_base": 1_607_400_050,
+        "apkg": "geo-trainer-china-provinces.apkg",
+    },
+    "canada-provinces": {
+        "deck_root": "GeoTrainer::World::North America::Canada",
+        "model_root": "GeoTrainer {family} — Canada Provinces",
+        "scope_tag": "geotrainer::scope::country::canada::provinces",
+        "model_base": 1_607_401_001,
+        "deck_base": 1_607_401_050,
+        "apkg": "geo-trainer-canada-provinces.apkg",
+    },
+    "australia-states": {
+        "deck_root": "GeoTrainer::World::Oceania::Australia",
+        "model_root": "GeoTrainer {family} — Australia States",
+        "scope_tag": "geotrainer::scope::country::australia::states",
+        "model_base": 1_607_402_001,
+        "deck_base": 1_607_402_050,
+        "apkg": "geo-trainer-australia-states.apkg",
+    },
+    "argentina-provinces": {
+        "deck_root": "GeoTrainer::World::South America::Argentina",
+        "model_root": "GeoTrainer {family} — Argentina Provinces",
+        "scope_tag": "geotrainer::scope::country::argentina::provinces",
+        "model_base": 1_607_403_001,
+        "deck_base": 1_607_403_050,
+        "apkg": "geo-trainer-argentina-provinces.apkg",
+    },
+    "mexico-states": {
+        "deck_root": "GeoTrainer::World::North America::Mexico",
+        "model_root": "GeoTrainer {family} — Mexico States",
+        "scope_tag": "geotrainer::scope::country::mexico::states",
+        "model_base": 1_607_404_001,
+        "deck_base": 1_607_404_050,
+        "apkg": "geo-trainer-mexico-states.apkg",
+    },
 }
 
 
@@ -141,10 +190,13 @@ def build_templates(scope: str, mode: str) -> tuple[str, str, str]:
             f'window.GT_BUNDLES["{scope}"]=JSON.parse(atob("{b64}"));</script>'
         )
 
+    # F8 capital cards carry the capital's name + projected point per note.
+    cap_attrs = ' data-capname="{{CapitalName}}" data-cappt="{{CapitalPt}}"' if mode == "capital" else ""
+
     def side(which: str) -> str:
         return (
             f'<div class="gt-app" data-scope="{scope}" data-mode="{mode}" '
-            'data-target="{{RegionId}}" data-name="{{RegionName}}" '
+            'data-target="{{RegionId}}" data-name="{{RegionName}}"' + cap_attrs + " "
             'data-side="' + which + '"></div>\n'
             f"{boot}\n{engine_tag}"
         )
@@ -184,9 +236,14 @@ def load_shapes(scope: str) -> dict:
     return json.loads((BUNDLE_DIR / f"{scope}-shapes.json").read_text(encoding="utf-8"))
 
 
+def load_capitals(scope: str) -> dict:
+    return json.loads((BUNDLE_DIR / f"{scope}-capitals.json").read_text(encoding="utf-8"))
+
+
 def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[genanki.Note]:
     bundle = load_bundle(scope)
     shapes = load_shapes(scope) if fam["mode"] == "draw" else {}
+    capitals = load_capitals(scope) if fam["mode"] == "capital" else {}
     notes = []
     for reg in bundle["regions"]:
         if reg.get("tier", 1) != 1:
@@ -201,6 +258,12 @@ def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[g
                     json.dumps(payload, separators=(",", ":")).encode("ascii")
                 ).decode("ascii")
             )
+        elif fam["mode"] == "capital":
+            cap = capitals.get(reg["id"])
+            if not cap or not cap.get("name"):
+                continue  # no capital in the data for this region
+            fields.append(cap["name"])
+            fields.append(f"{cap['x']},{cap['y']}")
         notes.append(
             genanki.Note(
                 model=model,
@@ -221,6 +284,9 @@ def build_scope(scope: str, test_ids: bool = False) -> Path:
         fields = [{"name": "Scope"}, {"name": "RegionId"}, {"name": "RegionName"}]
         if fam["mode"] == "draw":
             fields.append({"name": "ShapeData"})
+        elif fam["mode"] == "capital":
+            fields.append({"name": "CapitalName"})
+            fields.append({"name": "CapitalPt"})
         model = genanki.Model(
             fam["model_id"],
             fam["model_name"],

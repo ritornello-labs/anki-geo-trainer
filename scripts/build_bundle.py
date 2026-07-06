@@ -52,8 +52,14 @@ OUT_DIR = ROOT / "data" / "bundles"
 NE_BASE = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/"
 SOURCES = {
     "admin1": "ne_50m_admin_1_states_provinces.geojson",
+    # 10m admin-1 (≈40 MB) covers every country's provinces; the 50m file only
+    # has nine large ones. Used for scopes outside that set (Argentina, Mexico…).
+    "admin1_10m": "ne_10m_admin_1_states_provinces.geojson",
     "admin0": "ne_50m_admin_0_countries.geojson",
     "land110": "ne_110m_land.geojson",
+    # 10m places (≈19 MB) carries 2,259 province capitals vs the 50m file's 482 —
+    # needed for near-complete state/province capital coverage in F8.
+    "places": "ne_10m_populated_places.geojson",
 }
 
 EARTH_KM_PER_DEG = 111.32
@@ -317,6 +323,34 @@ def shape_payload(geom: BaseGeometry, box_px: float = 400.0) -> dict:
     return {"w": round(w, 1), "h": round(h, 1), "rings": rings}
 
 
+def extract_capitals(
+    full_geoms: dict[str, BaseGeometry], project_point, feature_class: str
+) -> dict[str, dict]:
+    """F8 data: match each Natural Earth capital of `feature_class` to the region
+    whose (unclipped) geometry contains it, then project the point into scope
+    coords. `feature_class` is "Admin-0 capital" for country scopes, "Admin-1
+    capital" for subdivision scopes. `project_point(rid, lon, lat) -> (x, y)`
+    lets us-states route each capital through its own inset frame's projector.
+    One capital per region (first containing match wins)."""
+    items = list(full_geoms.items())
+    caps: dict[str, dict] = {}
+    for f in load_features("places"):
+        props = f["properties"]
+        if props.get("FEATURECLA") != feature_class:
+            continue
+        coords = f["geometry"]["coordinates"]
+        lon, lat = coords[0], coords[1]
+        pt = Point(lon, lat)
+        for rid, g in items:
+            if rid in caps:
+                continue
+            if g.contains(pt):
+                x, y = project_point(rid, lon, lat)
+                caps[rid] = {"name": props.get("NAME"), "x": round(x, 1), "y": round(y, 1)}
+                break
+    return caps
+
+
 def add_adjacency(regions: list[dict], full_geoms: dict[str, BaseGeometry]) -> None:
     """Land-border neighbor lists computed on the UNCLIPPED lon/lat geometries.
     A neighbor pair must share a real boundary line (> ~5 km), not a point touch
@@ -397,8 +431,10 @@ def build_us_states() -> dict:
 
     frames, regions = [], []
     full_geoms: dict[str, BaseGeometry] = {}
+    frame_projectors: dict[str, object] = {}
     for fid, rect, geoms, feat_list, unwrap, min_lon, label in frame_specs:
         project, km = fit_projector(geoms, rect)
+        frame_projectors[fid] = project
         frames.append(
             {"id": fid, "rect": [round(v, 1) for v in rect], "kmPerUnit": round(km, 3),
              "label": label}
@@ -415,6 +451,14 @@ def build_us_states() -> dict:
     add_adjacency(regions, full_geoms)
     regions.sort(key=lambda r: r["name"])
     shapes = {r["id"]: shape_payload(full_geoms[r["id"]]) for r in regions}
+    # F8: state capitals, each routed through its region's inset frame projector
+    # (Juneau/Honolulu land in the AK/HI panels, not the lower-48 frame).
+    region_frame = {r["id"]: r["frame"] for r in regions}
+    capitals = extract_capitals(
+        full_geoms,
+        lambda rid, lon, lat: frame_projectors[region_frame[rid]](lon, lat),
+        "Admin-1 capital",
+    )
     return {
         "scope": "us-states",
         "title": "United States — States",
@@ -422,7 +466,7 @@ def build_us_states() -> dict:
         "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
         "frames": frames,
         "regions": regions,
-    }, shapes
+    }, shapes, capitals
 
 
 # ================= generic continent builder (admin0 → viewport) ==================
@@ -541,10 +585,11 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
             geoms_by_id[rid] = full
 
     add_adjacency(regions, geoms_by_id)
-    shapes = {
-        r["id"]: shape_payload(geoms_by_id[r["id"]])
-        for r in regions if r.get("tier", 1) == 1
-    }
+    tier1_geoms = {r["id"]: geoms_by_id[r["id"]] for r in regions if r.get("tier", 1) == 1}
+    shapes = {rid: shape_payload(g) for rid, g in tier1_geoms.items()}
+    # F8: national capitals, tier-1 countries only.
+    capitals = extract_capitals(tier1_geoms, lambda rid, lon, lat: project(lon, lat),
+                                "Admin-0 capital")
 
     # Neutral context land (neighbouring continents) for orientation.
     land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
@@ -566,7 +611,7 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
         ],
         "context": context,
         "regions": regions,
-    }, shapes
+    }, shapes, capitals
 
 
 # ============ generic first-level subdivision builder (admin1 → frame) ============
@@ -578,18 +623,52 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
 
 SUBDIVISION_SCOPES = {
     "brazil-states": {
-        "title": "Brazil — States",
-        "a3": "BRA",
-        "noun": "state",
+        "title": "Brazil — States", "a3": "BRA", "noun": "state",
         "deck_root": "GeoTrainer::World::South America::Brazil",
     },
     "india-states": {
-        "title": "India — States & Union Territories",
-        "a3": "IND",
-        "noun": "state",
+        "title": "India — States & Union Territories", "a3": "IND", "noun": "state",
         "deck_root": "GeoTrainer::World::Asia::India",
     },
+    "russia-subjects": {
+        "title": "Russia — Federal Subjects", "a3": "RUS", "noun": "region",
+        "unwrap_antimeridian": True,  # Chukotka crosses the dateline
+        "deck_root": "GeoTrainer::World::Europe::Russia",
+    },
+    "china-provinces": {
+        "title": "China — Provinces", "a3": "CHN", "noun": "province",
+        "deck_root": "GeoTrainer::World::Asia::China",
+    },
+    "canada-provinces": {
+        "title": "Canada — Provinces & Territories", "a3": "CAN", "noun": "province",
+        "deck_root": "GeoTrainer::World::North America::Canada",
+    },
+    "australia-states": {
+        "title": "Australia — States & Territories", "a3": "AUS", "noun": "state",
+        "deck_root": "GeoTrainer::World::Oceania::Australia",
+    },
+    "argentina-provinces": {
+        "title": "Argentina — Provinces", "a3": "ARG", "noun": "province",
+        "source": "admin1_10m",
+        "deck_root": "GeoTrainer::World::South America::Argentina",
+    },
+    "mexico-states": {
+        "title": "Mexico — States", "a3": "MEX", "noun": "state",
+        "source": "admin1_10m",
+        "deck_root": "GeoTrainer::World::North America::Mexico",
+    },
 }
+
+
+def _unwrap_antimeridian(geom: BaseGeometry) -> BaseGeometry:
+    """Shift the western (negative-lon) half of a dateline-crossing country east
+    by 360° so it projects as one continuous landmass (Russia's Chukotka)."""
+    polys = geom.geoms if isinstance(geom, MultiPolygon) else [geom]
+    out = []
+    for poly in polys:
+        coords = [((lon + 360.0 if lon < 0 else lon), lat) for lon, lat in poly.exterior.coords]
+        out.append(Polygon(coords))
+    return unary_union(out) if len(out) > 1 else out[0]
 
 
 def _build_admin1_country(scope_name: str, cfg: dict) -> tuple[dict, dict]:
@@ -597,16 +676,23 @@ def _build_admin1_country(scope_name: str, cfg: dict) -> tuple[dict, dict]:
     types = cfg.get("types")
     width = cfg.get("width", 1000.0)
     id_prefix = cfg.get("id_prefix", a3[:2])
+    source = cfg.get("source", "admin1")
+    unwrap = cfg.get("unwrap_antimeridian", False)
 
     feats = [
-        f for f in load_features("admin1")
+        f for f in load_features(source)
         if prop(f["properties"], "adm0_a3") == a3
+        and prop(f["properties"], "name")  # skip NE's occasional nameless junk row
         and (types is None or prop(f["properties"], "type_en") in types)
     ]
     if not feats:
-        raise SystemExit(f"{scope_name}: no admin1 for {a3} (50m file covers 9 countries)")
+        raise SystemExit(f"{scope_name}: no admin1 for {a3} in {source}")
 
-    geoms = [shape(f["geometry"]) for f in feats]
+    def render_geom(f):
+        g = shape(f["geometry"])
+        return _unwrap_antimeridian(g) if unwrap else g
+
+    geoms = [render_geom(f) for f in feats]
     lon_min = min(g.bounds[0] for g in geoms)
     lon_max = max(g.bounds[2] for g in geoms)
     lat_min = min(g.bounds[1] for g in geoms)
@@ -622,15 +708,19 @@ def _build_admin1_country(scope_name: str, cfg: dict) -> tuple[dict, dict]:
     for f in feats:
         props = f["properties"]
         rid = prop(props, "iso_3166_2") or f"{id_prefix}-{prop(props, 'postal')}"
-        projected = project_geom(shape(f["geometry"]), project)
+        g = render_geom(f)  # antimeridian-unwrapped where needed
+        projected = project_geom(g, project)
         region = make_region(rid, prop(props, "name"), prop(props, "postal") or "", "main", projected)
         if region:
             regions.append(region)
-            full_geoms[rid] = shape(f["geometry"])
+            full_geoms[rid] = g
 
     add_adjacency(regions, full_geoms)
     regions.sort(key=lambda r: r["name"])
     shapes = {r["id"]: shape_payload(full_geoms[r["id"]]) for r in regions}
+    # F8: state/province capitals (Admin-1 capital), projected through the frame.
+    capitals = extract_capitals(full_geoms, lambda rid, lon, lat: project(lon, lat),
+                                "Admin-1 capital")
     return {
         "scope": scope_name,
         "title": cfg["title"],
@@ -644,7 +734,7 @@ def _build_admin1_country(scope_name: str, cfg: dict) -> tuple[dict, dict]:
              "kmPerUnit": round(km_per_unit, 3), "label": ""}
         ],
         "regions": regions,
-    }, shapes
+    }, shapes, capitals
 
 
 # ---------------------------------------------------------------------------------
@@ -664,19 +754,20 @@ def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     names = list(SCOPES) if args.scope == "all" else [args.scope]
     for name in names:
-        bundle, shapes = SCOPES[name]()
+        bundle, shapes, capitals = SCOPES[name]()
         out_path = OUT_DIR / f"{name}.json"
         out_path.write_text(json.dumps(bundle, separators=(",", ":")), encoding="utf-8")
         shapes_path = OUT_DIR / f"{name}-shapes.json"
         shapes_path.write_text(json.dumps(shapes, separators=(",", ":")), encoding="utf-8")
+        caps_path = OUT_DIR / f"{name}-capitals.json"
+        caps_path.write_text(json.dumps(capitals, separators=(",", ":")), encoding="utf-8")
         n = len(bundle["regions"])
         tier1 = sum(1 for r in bundle["regions"] if r.get("tier", 1) == 1)
         small = sum(1 for r in bundle["regions"] if r.get("small"))
         size_kb = out_path.stat().st_size / 1024
-        shp_kb = shapes_path.stat().st_size / 1024
-        print(f"wrote {out_path} (+ shapes {shp_kb:.1f} KB)")
+        print(f"wrote {out_path}")
         print(
-            f"  regions: {n} (tier1: {tier1}, small: {small}) | "
+            f"  regions: {n} (tier1: {tier1}, small: {small}) | capitals: {len(capitals)} | "
             f"view: {bundle['view']['w']}x{bundle['view']['h']} | {size_kb:.1f} KB"
         )
 

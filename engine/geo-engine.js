@@ -937,6 +937,107 @@
     root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
   }
 
+  // ============================ F8: CAPITAL-LOCATE =============================
+  // "Tap where <Capital> is." The target is a POINT (the capital's projected
+  // location), carried per-note in data-cappt; graded by distance like a locate
+  // miss. The region map is the same basemap the other families use.
+
+  function capitalPoint(root) {
+    var raw = (root.getAttribute("data-cappt") || "").split(",");
+    if (raw.length < 2) return null;
+    var x = parseFloat(raw[0]), y = parseFloat(raw[1]);
+    return isNaN(x) || isNaN(y) ? null : { x: x, y: y };
+  }
+
+  function capitalFront(root, bundle, target) {
+    var capName = root.getAttribute("data-capname") || "the capital";
+    root.appendChild(chip("Capital"));
+    root.appendChild(prompt(capName));
+
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    var marker = el("circle", { r: 9, class: "gt-attempt", style: "display:none" });
+    svg.appendChild(marker);
+    root.appendChild(svg);
+
+    var hint = bar("Tap where " + capName + " is", "gt-hint");
+    root.appendChild(hint);
+    saveState("capital", bundle.scope, target, null);
+
+    function place(clientX, clientY) {
+      var loc = svgPoint(svg, clientX, clientY);
+      if (!loc) return;
+      marker.setAttribute("cx", loc.x);
+      marker.setAttribute("cy", loc.y);
+      marker.style.display = "";
+      saveState("capital", bundle.scope, target, { x: loc.x, y: loc.y });
+      hint.textContent = "Tap again to adjust · flip to check";
+      hint.className = "gt-bar gt-hint gt-placed";
+    }
+
+    svg.addEventListener("click", function (ev) { place(ev.clientX, ev.clientY); });
+    svg.addEventListener("touchend", function (ev) {
+      if (ev.changedTouches && ev.changedTouches.length) {
+        var t = ev.changedTouches[0];
+        place(t.clientX, t.clientY);
+        ev.preventDefault();
+      }
+    }, { passive: false });
+  }
+
+  function capitalStar(cx, cy) {
+    // Five-point star marking the true capital.
+    var pts = [];
+    for (var i = 0; i < 10; i++) {
+      var r = i % 2 === 0 ? 11 : 4.6;
+      var a = -Math.PI / 2 + (i * Math.PI) / 5;
+      pts.push(cx + r * Math.cos(a) + "," + (cy + r * Math.sin(a)));
+    }
+    return el("polygon", { points: pts.join(" "), class: "gt-capital" });
+  }
+
+  function capitalBack(root, bundle, target) {
+    var capName = root.getAttribute("data-capname") || "the capital";
+    var truth = capitalPoint(root);
+    var region = findRegion(bundle, target);
+    var attempt = loadState("capital", bundle.scope, target);
+
+    root.appendChild(chip("Capital"));
+    root.appendChild(prompt(capName));
+
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    if (built.byId[target]) built.byId[target].classList.add("gt-answer");
+
+    var km = null;
+    if (attempt && truth) {
+      var fa = frameOf(bundle, attempt.x, attempt.y);
+      var ft = frameOf(bundle, truth.x, truth.y);
+      km = kmBetween(bundle, attempt.x, attempt.y, truth.x, truth.y, fa, ft);
+      if (attempt.x !== truth.x || attempt.y !== truth.y) {
+        svg.appendChild(el("line", {
+          x1: attempt.x, y1: attempt.y, x2: truth.x, y2: truth.y, class: "gt-link",
+        }));
+      }
+      svg.appendChild(el("circle", { cx: attempt.x, cy: attempt.y, r: 8, class: "gt-attempt gt-bad" }));
+    }
+    if (truth) svg.appendChild(capitalStar(truth.x, truth.y));
+    root.appendChild(svg);
+
+    var where = region ? " (" + region.name + ")" : "";
+    if (!attempt) {
+      root.appendChild(bar("No tap recorded — " + capName + " is starred" + where, "gt-miss"));
+      root.appendChild(bar(suggestFor(0), "gt-suggest"));
+      return;
+    }
+    var quality = km === null ? 0 : km < 150 ? 2 : km < 500 ? 1 : 0;
+    var msg = km === null
+      ? capName + " is starred" + where
+      : (km < 60 ? "Spot on — " : "Off by ~" + km + " km — ") + capName + where;
+    root.appendChild(bar(msg, quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
+    root.appendChild(bar(suggestFor(quality), "gt-suggest"));
+  }
+
   // ---- boot ---------------------------------------------------------------------
 
   // neighbors stays dormant: the family was retired from the packs (2026-07-05,
@@ -947,6 +1048,7 @@
     place: { front: placeFront, back: placeBack },
     neighbors: { front: neighborsFront, back: neighborsBack },
     draw: { front: drawFront, back: drawBack, needsShape: true },
+    capital: { front: capitalFront, back: capitalBack },
   };
 
   function mount(root) {
