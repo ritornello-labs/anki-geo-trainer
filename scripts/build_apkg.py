@@ -342,7 +342,8 @@ def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[g
     return notes
 
 
-def build_scope(scope: str, test_ids: bool = False) -> Path:
+def scope_decks(scope: str, test_ids: bool = False) -> tuple[list, int]:
+    """Build (but do not write) the genanki decks for one scope."""
     pack = SCOPE_PACKS[scope]
     decks = []
     total = 0
@@ -371,7 +372,12 @@ def build_scope(scope: str, test_ids: bool = False) -> Path:
             continue
         total += len(deck.notes)
         decks.append(deck)
+    return decks, total
 
+
+def build_scope(scope: str, test_ids: bool = False) -> Path:
+    pack = SCOPE_PACKS[scope]
+    decks, total = scope_decks(scope, test_ids=test_ids)
     DIST.mkdir(parents=True, exist_ok=True)
     out = DIST / (pack["apkg"] if not test_ids else pack["apkg"].replace(".apkg", "-test.apkg"))
     genanki.Package(decks).write_to_file(str(out))
@@ -380,15 +386,35 @@ def build_scope(scope: str, test_ids: bool = False) -> Path:
     return out
 
 
+def build_combined() -> Path:
+    """One shareable APKG holding the whole GeoTrainer tree — the single deck we
+    publish on AnkiWeb so the listing and screenshots cover everything at once."""
+    all_decks, total = [], 0
+    for scope in SCOPE_PACKS:
+        decks, n = scope_decks(scope)
+        all_decks.extend(decks)
+        total += n
+    DIST.mkdir(parents=True, exist_ok=True)
+    out = DIST / "geo-trainer-all.apkg"
+    genanki.Package(all_decks).write_to_file(str(out))
+    size_kb = out.stat().st_size / 1024
+    print(f"wrote {out}  ({len(all_decks)} decks, {total} notes, {size_kb / 1024:.1f} MB)")
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--scope", default="all", choices=["all", *SCOPE_PACKS.keys()])
+    ap.add_argument("--combined", action="store_true",
+                    help="also write one geo-trainer-all.apkg with the whole tree")
     ap.add_argument("--test-ids", action="store_true",
                     help="offset ids and rename (emulator re-import testing only)")
     args = ap.parse_args()
     scopes = list(SCOPE_PACKS) if args.scope == "all" else [args.scope]
     for scope in scopes:
         build_scope(scope, test_ids=args.test_ids)
+    if args.combined:
+        build_combined()
 
 
 if __name__ == "__main__":

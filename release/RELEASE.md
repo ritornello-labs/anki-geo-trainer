@@ -10,36 +10,37 @@ AnkiConnect import (2,880 notes, 80 leaf decks). The newest engine mode (F9
 river-locate) is also confirmed on the AnkiDroid emulator end to end: physical tap on
 the Abay, polyline highlighted, graded "On it".
 
+## Decisions
+
+1. **Packaging: one shared deck.** Decided (Elvis, 2026-07-06) — ship a single
+   `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
+   of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
+   (**79 decks, 2,838 notes, 39.6 MB** — well under AnkiWeb's per-deck limit).
+2. **Ship everything.** All 18 scopes are import-verified; the single deck includes them
+   all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
+   problem for a combined deck.)
+
 ## Open decisions (need Elvis)
 
 1. **Public GitHub repo?** The repo is currently private (`elvis-sik/anki-geo-trainer`).
    AnkiWeb listings link back to it, so it should be public first. Run the
    history/secret-leak scan (as the other deck projects did) before flipping it.
-2. **Packaging on AnkiWeb.** Two options:
-   - **One shared deck** `GeoTrainer` with every scope as a subdeck (~2,500 notes,
-     ~40 MB). Simplest for users; one listing to maintain.
-   - **Several shared decks** (e.g. one per continent + one "Physical"). Lets users
-     grab only what they want; more listings, more quota use.
-   Recommendation: start with **one** `GeoTrainer` deck; split later if users ask.
-3. **Which scopes ship first.** All 18 are import-verified. Could hold back the
-   thinnest (Oceania capitals 8/14) or ship everything.
 
 ## Ready artifacts
 
 - `release/ankiweb.md` — listing copy (title, tags, support URL front-matter; body has
   the clickable full-URL GitHub link per workspace convention).
-- Built APKGs in `dist/` for every scope (18 packs).
-- A combined `dist/geo-trainer-all.apkg` is **not** built yet; add a `make apkg-all`
-  target (import-merge the per-scope packs, or a `build_apkg.py --combined` mode) if we
-  go with the single-deck option.
+- `dist/geo-trainer-all.apkg` — the single shareable deck (`make apkg-all`).
+- `release/screenshots/` — listing images (`make apkg-all` cards captured in the browser
+  preview); pick the best 1–3 for the AnkiWeb listing.
+- Per-scope APKGs in `dist/` (18 packs) remain for anyone who wants just one region.
 
 ## Before publishing (checklist)
 
 - [x] MIT `LICENSE` added (2026-07-06); tracked-tree secret/absolute-path scan clean.
 - [ ] Make the GitHub repo public; run a full history (not just tree) secret scan first.
-- [ ] Add README badges and a workbench-generated screenshot
-      (`anki-workbench screenshot`) as the listing image — mirror `brazil-ddd-codes`.
-- [ ] Decide single-deck vs per-continent; build the combined pack if needed.
+- [x] Listing screenshots captured to `release/screenshots/` (2026-07-06).
+- [x] Single-deck decision made; `dist/geo-trainer-all.apkg` built via `make apkg-all`.
 - [ ] Configure `anki-addon-release` (`pyproject.toml` target + git-ignored `.env`
       with `ANKIWEB_*` 1Password refs and the source deck id).
 - [ ] `anki-addon-release publish --dry-run` / `--preview-description` to verify the

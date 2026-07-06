@@ -28,7 +28,7 @@ import json
 import math
 from pathlib import Path
 
-from shapely.geometry import Point, shape
+from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 
 ROOT = Path(__file__).resolve().parent.parent

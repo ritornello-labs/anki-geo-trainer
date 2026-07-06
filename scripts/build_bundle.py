@@ -874,6 +874,44 @@ RIVER_SCOPES = {
     },
 }
 
+# NE labels river segments by local name and includes delta distributaries. Map
+# local/alt names onto one canonical English name (segments then MERGE into a
+# more complete line), and drop delta arms / connectors that aren't a river a
+# student would quiz.
+RIVER_CANONICAL = {
+    "Amazonas": "Amazon",
+    "Huang": "Yellow", "Shiquan": "Yellow",
+    "Ayeyarwady": "Irrawaddy",
+    "Al Furat": "Euphrates", "Firat": "Euphrates",
+    "Abay": "Blue Nile",
+    "Ertis": "Irtysh",
+    "Tongtian": "Yangtze", "Tuotuo": "Yangtze", "Za": "Yangtze",
+    "Dihang": "Brahmaputra", "Nmai": "Brahmaputra", "Damqogkanbab": "Brahmaputra",
+    "Lualaba": "Congo",
+    "Ergun": "Amur", "Hailar": "Amur",
+    "Ideriyn": "Selenge", "Selenge (Selenga)": "Selenge",
+    "Mountain Nile": "White Nile", "Albert Nile": "White Nile", "Victoria Nile": "White Nile",
+    "Grande": "Rio Grande",
+    "Madison": "Missouri",
+    "Uele": "Ubangi", "Kibali": "Ubangi",
+    "Mamoré": "Madeira", "Guaporé": "Madeira",
+    "Allegheny": "Ohio",
+    "Shire": "Zambezi",
+    "Slave": "Mackenzie",
+}
+RIVER_EXCLUDE = {
+    "Bratul Chillia", "Bratul Sfintu Gheorghe", "Bratul Sulina",  # Danube delta arms
+    "Bykovskaya Protoka", "Olenekskaya Protoka",                  # Lena delta arms
+    "Damietta Branch", "Rosetta Branch",                          # Nile delta arms
+    "Borcea",                                                     # Danube side-channel
+    "St. Clair",                                                  # Great Lakes connector
+    "Irrawaddy Delta",                                            # the delta, keep the river
+    "Niagara",                                                    # short lake connector
+    "Shatt al Arab",                                              # Tigris–Euphrates confluence
+    "Weir", "Barwon",                                            # minor (keep Murray/Darling)
+    "Teslin",                                                     # minor Yukon tributary
+}
+
 
 def _line_coords(geom):
     """All coordinate sequences of a (Multi)LineString geometry."""
@@ -901,7 +939,7 @@ def _build_rivers(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
     def project(lon, lat):
         return round((lon - box_t[0]) * cos0 * scale + PAD, 1), round((box_t[3] - lat) * scale + PAD, 1)
 
-    # Group multi-segment rivers by display name (prefer English).
+    # Group multi-segment rivers by canonical English display name.
     grouped: dict[str, dict] = {}
     for f in load_features("rivers"):
         props = f["properties"]
@@ -909,9 +947,10 @@ def _build_rivers(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
             continue
         if (props.get("scalerank") or 99) > max_sr:
             continue
-        name = props.get("name_en") or props.get("name")
-        if not name:
+        raw = props.get("name_en") or props.get("name")
+        if not raw or raw in RIVER_EXCLUDE:
             continue
+        name = RIVER_CANONICAL.get(raw, raw)  # merge local/alt names
         entry = grouped.setdefault(name, {"name": name, "paths": []})
         for seq in _line_coords(f["geometry"]):
             path = [project(lon, lat) for lon, lat in seq]

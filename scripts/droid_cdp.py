@@ -7,7 +7,6 @@ Assumes `adb forward tcp:9223 localabstract:webview_devtools_remote_<pid>` is up
 from __future__ import annotations
 
 import base64
-import hashlib
 import json
 import os
 import socket

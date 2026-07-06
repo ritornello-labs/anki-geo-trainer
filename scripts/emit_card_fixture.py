@@ -14,7 +14,12 @@ import json
 from pathlib import Path
 
 from build_apkg import (
-    FAMILY_DEFS, DEFAULT_FAMILIES, build_templates, load_bundle, load_shapes, load_capitals,
+    DEFAULT_FAMILIES,
+    FAMILY_DEFS,
+    build_templates,
+    load_bundle,
+    load_capitals,
+    load_shapes,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -26,7 +31,7 @@ FIXTURE_TARGETS = {
     "us-states": "US-CA",
     "europe-countries": "FRA",
     "world-seas": "mediterranean-sea",
-    "world-rivers": "amazonas",
+    "world-rivers": "amazon",
 }
 
 
