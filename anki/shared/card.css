@@ -137,6 +137,16 @@
 }
 .nightMode .gt-capital { stroke: #1c1f24; }
 
+/* F9 river-locate: the true river polyline highlighted on the back */
+.gt-river {
+  fill: none;
+  stroke: #2b6cb0;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.nightMode .gt-river { stroke: #63b3ed; }
+
 /* F6 draw-the-shape */
 .gt-canvas {
   cursor: crosshair;

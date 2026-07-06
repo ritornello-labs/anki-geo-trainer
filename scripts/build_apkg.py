@@ -46,7 +46,12 @@ FAMILY_DEFS = [
     ("place", 2, "Place", "3 Place", "geotrainer::skill::place", "geotrainer::level::5"),
     ("draw", 4, "Draw", "4 Draw", "geotrainer::skill::draw", "geotrainer::level::6"),
     ("capital", 5, "Capital", "5 Capital", "geotrainer::skill::capital", "geotrainer::level::4"),
+    ("river", 6, "River", "6 River", "geotrainer::skill::river", "geotrainer::level::4"),
 ]
+
+# Families a scope gets when it doesn't declare its own. River is opt-in (only
+# river scopes); neighbors (ord 3) is retired.
+DEFAULT_FAMILIES = ["locate", "point", "place", "draw", "capital"]
 
 SCOPE_PACKS = {
     "us-states": {
@@ -153,6 +158,38 @@ SCOPE_PACKS = {
         "deck_base": 1_607_404_050,
         "apkg": "geo-trainer-mexico-states.apkg",
     },
+    "indonesia-provinces": {
+        "deck_root": "GeoTrainer::World::Asia::Indonesia",
+        "model_root": "GeoTrainer {family} — Indonesia Provinces",
+        "scope_tag": "geotrainer::scope::country::indonesia::provinces",
+        "model_base": 1_607_405_001,
+        "deck_base": 1_607_405_050,
+        "apkg": "geo-trainer-indonesia-provinces.apkg",
+    },
+    "oceania-countries": {
+        "deck_root": "GeoTrainer::World::Oceania",
+        "model_root": "GeoTrainer {family} — Oceania",
+        "scope_tag": "geotrainer::scope::continent::oceania",
+        "model_base": 1_607_406_001,
+        "deck_base": 1_607_406_050,
+        "apkg": "geo-trainer-oceania.apkg",
+    },
+    "world-seas": {
+        "deck_root": "GeoTrainer::Physical::Seas & Oceans",
+        "model_root": "GeoTrainer {family} — Seas & Oceans",
+        "scope_tag": "geotrainer::scope::physical::seas",
+        "model_base": 1_607_407_001,
+        "deck_base": 1_607_407_050,
+        "apkg": "geo-trainer-world-seas.apkg",
+    },
+    "world-rivers": {
+        "deck_root": "GeoTrainer::Physical::Rivers",
+        "model_root": "GeoTrainer {family} — Rivers",
+        "scope_tag": "geotrainer::scope::physical::rivers",
+        "model_base": 1_607_408_001,
+        "deck_base": 1_607_408_050,
+        "apkg": "geo-trainer-world-rivers.apkg",
+    },
 }
 
 
@@ -174,21 +211,27 @@ def build_templates(scope: str, mode: str) -> tuple[str, str, str]:
     css = CSS.read_text(encoding="utf-8")
     engine_tag = f"<script>{engine}</script>"
 
-    if mode == "draw":
-        # Draw needs no basemap — each NOTE carries its own outline in the
-        # ShapeData field (base64, so field substitution can't collide with
-        # markup). Template stays small; data lives per note.
-        boot = (
-            "<script>window.GT_SHAPES=window.GT_SHAPES||{ };"
-            f'window.GT_SHAPES["{scope}:" + "{{{{RegionId}}}}"]='
-            'JSON.parse(atob("{{ShapeData}}"));</script>'
-        )
-    else:
+    bundle_boot = ""
+    if mode != "draw":
         b64 = base64.b64encode((BUNDLE_DIR / f"{scope}.json").read_bytes()).decode("ascii")
-        boot = (
+        bundle_boot = (
             '<script>window.GT_BUNDLES=window.GT_BUNDLES||{};'
             f'window.GT_BUNDLES["{scope}"]=JSON.parse(atob("{b64}"));</script>'
         )
+
+    if mode in ("draw", "river"):
+        # Per-note geometry (draw outline / river polyline) in a base64 field, so
+        # the substitution can't collide with markup. Draw needs no basemap;
+        # rivers still inline the world-land bundle above.
+        field = "ShapeData" if mode == "draw" else "RiverData"
+        shape_boot = (
+            "<script>window.GT_SHAPES=window.GT_SHAPES||{ };"
+            f'window.GT_SHAPES["{scope}:" + "{{{{RegionId}}}}"]='
+            f'JSON.parse(atob("{{{{{field}}}}}"));</script>'
+        )
+        boot = bundle_boot + shape_boot
+    else:
+        boot = bundle_boot
 
     # F8 capital cards carry the capital's name + projected point per note.
     cap_attrs = ' data-capname="{{CapitalName}}" data-cappt="{{CapitalPt}}"' if mode == "capital" else ""
@@ -209,8 +252,13 @@ def build_templates(scope: str, mode: str) -> tuple[str, str, str]:
 def families_for(scope: str, pack: dict, test_ids: bool = False) -> list[dict]:
     bundle = load_bundle(scope)
     noun = bundle.get("noun", "region").capitalize()
+    # A scope may declare which families make sense for it (physical scopes skip
+    # place/capital; river scopes are river-only); default is the standard set.
+    allowed = bundle.get("families") or DEFAULT_FAMILIES
     fams = []
     for mode, ord_, fam_label, deck_label, skill_tag, level_tag in FAMILY_DEFS:
+        if mode not in allowed:
+            continue
         fam_name = fam_label.replace("{Noun}", noun)
         fam = {
             "mode": mode,
@@ -240,10 +288,29 @@ def load_capitals(scope: str) -> dict:
     return json.loads((BUNDLE_DIR / f"{scope}-capitals.json").read_text(encoding="utf-8"))
 
 
+def _b64(obj) -> str:
+    return base64.b64encode(json.dumps(obj, separators=(",", ":")).encode("ascii")).decode("ascii")
+
+
 def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[genanki.Note]:
     bundle = load_bundle(scope)
-    shapes = load_shapes(scope) if fam["mode"] == "draw" else {}
+    shapes = load_shapes(scope) if fam["mode"] in ("draw", "river") else {}
     capitals = load_capitals(scope) if fam["mode"] == "capital" else {}
+
+    # Rivers have no regions; each river is a shapes-file entry {name, paths}.
+    if fam["mode"] == "river":
+        notes = []
+        for rid, river in sorted(shapes.items()):
+            notes.append(
+                genanki.Note(
+                    model=model,
+                    fields=[scope, rid, river["name"], _b64(river)],
+                    guid=genanki.guid_for("geotrainer", scope, fam["guid_ns"], rid),
+                    tags=[fam["skill_tag"], pack["scope_tag"], fam["level_tag"]],
+                )
+            )
+        return notes
+
     notes = []
     for reg in bundle["regions"]:
         if reg.get("tier", 1) != 1:
@@ -287,6 +354,8 @@ def build_scope(scope: str, test_ids: bool = False) -> Path:
         elif fam["mode"] == "capital":
             fields.append({"name": "CapitalName"})
             fields.append({"name": "CapitalPt"})
+        elif fam["mode"] == "river":
+            fields.append({"name": "RiverData"})
         model = genanki.Model(
             fam["model_id"],
             fam["model_name"],

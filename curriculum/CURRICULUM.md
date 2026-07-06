@@ -18,6 +18,7 @@ this order. Each rung assumes comfort with the one before it.
 | 5 | Place | `3 Place` | Drag the region's silhouette to its exact position |
 | 6 | Draw | `4 Draw` | Sketch the region's outline from memory; scored against the true shape (translation/scale-invariant) |
 | 4 | Capital | `5 Capital` | Tap where the named capital city is; distance-graded, true spot starred on the back |
+| 4 | River | `6 River` | Tap where a major river runs; distance-graded to the line, river highlighted on the back (physical scopes) |
 
 A tap-all-neighbors family (F7) shipped briefly in M2 and was retired the same day:
 it duplicates the passive border decks already in the user's collection. The engine
@@ -95,9 +96,17 @@ deck-order study already follows the ladder.
   (national capitals for continents, state/province capitals for subdivisions;
   capitals from 10m populated-places, matched by point-in-region). **13 scopes ×
   5 families = 2,286 notes.**
-- **Later**: physical features (rivers, ranges, seas); Indonesia subdivisions
-  (available in 50m); Oceania continent once a sensible multi-viewport framing is
-  settled; then AnkiWeb release (M5).
+- **Shipped (M4c)**: **Indonesia** (33 provinces) and the **Oceania** continent (14
+  sovereigns; the continent builder gained antimeridian unwrapping so Australia→NZ→the
+  Pacific island nations render in one Pacific-centred view). Two physical-feature
+  scopes: **world seas & oceans** (97 named water bodies as tappable polygons, locate
+  + which + draw families) and **major rivers** (84, via a new line-locate "River"
+  family — tap where the river runs, graded by distance to the polyline). Physical
+  scopes declare a `families` list so they ship only the sensible tasks; a `kind`
+  marker (physical/rivers) drives the test suite.
+- **Later**: mountain ranges (needs the 10m geography-regions file — the 50m has no
+  `featurecla`); lakes; more country subdivisions from 10m admin-1. Then AnkiWeb
+  release — see [`release/RELEASE.md`](../release/RELEASE.md).
 
 ### Adding a scope (for future me)
 

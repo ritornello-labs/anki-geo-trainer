@@ -187,8 +187,24 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   2148px-tall map doesn't clip the synthetic click). Docker smoke + live import of
   all 13 packs; AnkiDroid verified the US capital family end to end (physical tap on
   Montgomery → "Spot on — Montgomery (Alabama)", star + region highlight).
-  **Remaining:** Indonesia subdivisions (50m); physical features; Oceania continent
-  framing; then M5 release.
+- **M4c — Indonesia, Oceania, physical features. ✅ Done 2026-07-06.** Indonesia (33
+  provinces, 50m). Oceania continent (14 sovereigns) — the continent builder gained
+  `unwrap_antimeridian` (Pacific-centred, box in 0..360 lon; context land skipped
+  because unwrapping whole-world land mangles the dateline seam). Physical features:
+  **world seas & oceans** (97 named marine polygons, reuses the region machinery with
+  a `families` = locate/point/draw restriction) and **world rivers** (84 majors,
+  scalerank ≤ 3, multi-segment merged by name) via a brand-new **F9 river-locate
+  engine mode** — rivers are lines, so the base bundle carries only world-land context
+  and each river's polyline rides per-note; "tap where the river runs" grades by
+  distance to the nearest point on the line. Added a `families` scope-config key
+  (default = the 5 standard families; river is opt-in) and a `kind` bundle marker so
+  `scopes.spec.mjs` routes polygon vs river scopes. **18 scopes.** Suite 198 passed /
+  2 skipped (seas have no capitals) across Chromium + WebKit; Docker smoke green with
+  all 18 packs; all import-verified (rivers preview: the Amazon highlighted, "~313 km
+  off" graded Hard). **M5 release prepared but NOT published** — see
+  `release/RELEASE.md` + `release/ankiweb.md`; publishing needs Elvis's go-ahead,
+  public-repo flip, and the AnkiWeb quota.
+  **Remaining:** mountain ranges (10m regions), lakes, more 10m subdivisions; then M5.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, screenshots via workbench.
 

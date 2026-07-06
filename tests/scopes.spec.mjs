@@ -57,7 +57,12 @@ async function mount(page, scope, data, { target, mode, side }) {
   await page.addScriptTag({ content: ENGINE });
 }
 
-for (const scope of SCOPES) {
+const POLYGON_SCOPES = SCOPES.filter((s) => {
+  const b = JSON.parse(readFileSync(join(BUNDLE_DIR, `${s}.json`), "utf-8"));
+  return b.kind !== "rivers"; // river scopes have no regions; tested separately
+});
+
+for (const scope of POLYGON_SCOPES) {
   const data = load(scope);
   const { bundle, shapes, capitals } = data;
   const tier1 = bundle.regions.filter((r) => r.tier !== 2);
@@ -106,37 +111,45 @@ for (const scope of SCOPES) {
     await expect(page.locator(".gt-answer")).toHaveAttribute("data-id", target.id);
   });
 
+  // Trace-scoring is only meaningful on a substantial shape; a microstate's
+  // magnified tap-circle traces imperfectly. Pick the largest tier-1 region.
+  const drawTarget = tier1.filter((r) => !r.small).sort((a, b) => b.s - a.s)[0] || target;
   test(`${scope}: every tier-1 region has a drawable shape and a perfect trace scores Good`, async ({ page }) => {
     // shape coverage
     for (const r of tier1) expect(shapes[r.id], `${scope} missing shape for ${r.id}`).toBeTruthy();
-    await mount(page, scope, data, { target: target.id, mode: "draw", side: "front" });
+    await mount(page, scope, data, { target: drawTarget.id, mode: "draw", side: "front" });
     await page.waitForSelector("svg.gt-canvas");
     const quality = await page.evaluate(
       ({ scope, id }) => {
         const shape = window.GT_SHAPES[scope + ":" + id];
-        // Densify the true ring the way a finger would (many points), so the
-        // trace clears the engine's "too few points isn't a drawing" floor.
-        const ring = shape.rings[0];
-        const stroke = [];
-        for (let i = 1; i < ring.length; i++) {
-          for (let t = 0; t < 4; t++) {
-            const f = t / 4;
-            stroke.push([
-              ring[i - 1][0] + (ring[i][0] - ring[i - 1][0]) * f,
-              ring[i - 1][1] + (ring[i][1] - ring[i - 1][1]) * f,
-            ]);
+        // Trace EVERY ring (densified), matching what _drawScore compares
+        // against — otherwise a multi-part shape (islands) scores as "missed
+        // chunks". Densify so it clears the "too few points" floor.
+        const strokes = shape.rings.map((ring) => {
+          const stroke = [];
+          for (let i = 1; i < ring.length; i++) {
+            for (let t = 0; t < 4; t++) {
+              const f = t / 4;
+              stroke.push([
+                ring[i - 1][0] + (ring[i][0] - ring[i - 1][0]) * f,
+                ring[i - 1][1] + (ring[i][1] - ring[i - 1][1]) * f,
+              ]);
+            }
           }
-        }
-        return window.GeoTrainer._drawScore([stroke], shape).quality;
+          return stroke;
+        });
+        return window.GeoTrainer._drawScore(strokes, shape).quality;
       },
-      { scope, id: target.id }
+      { scope, id: drawTarget.id }
     );
     expect(quality).toBe(2);
   });
 
-  // F8: exercise the capital family on a region that has a capital.
+  // F8: exercise the capital family on a region that has a capital. Physical
+  // scopes (seas) have no capitals — skip the capital test there.
   const capTarget = tier1.find((r) => capitals[r.id] && capitals[r.id].name);
-  test(`${scope}: capital — prompt names the capital, exact tap grades Good`, async ({ page }) => {
+  const capIt = Object.keys(capitals).length ? test : test.skip;
+  capIt(`${scope}: capital — prompt names the capital, exact tap grades Good`, async ({ page }) => {
     expect(capTarget, `${scope} has no capital-bearing region`).toBeTruthy();
     await mount(page, scope, data, { target: capTarget.id, mode: "capital", side: "front" });
     await page.waitForSelector("svg.gt-map");
@@ -177,13 +190,71 @@ for (const scope of SCOPES) {
   });
 }
 
+// F9: river scopes are line data — the base bundle has no regions; each river's
+// polyline lives in the shapes file. Verify one boots, renders its line on the
+// back, and grades a tap by distance to the line.
+const RIVER_SCOPES = SCOPES.filter((s) => {
+  const b = JSON.parse(readFileSync(join(BUNDLE_DIR, `${s}.json`), "utf-8"));
+  return b.kind === "rivers";
+});
+
+for (const scope of RIVER_SCOPES) {
+  const data = load(scope);
+  const rid = Object.keys(data.shapes)[0];
+
+  test(`${scope}: river tap-to-locate grades by distance, line on back`, async ({ page }) => {
+    await mount(page, scope, data, { target: rid, mode: "river", side: "front" });
+    await page.waitForSelector("svg.gt-map");
+    await expect(page.locator(".gt-chip")).toHaveText("River");
+    await expect(page.locator(".gt-prompt")).toHaveText(data.shapes[rid].name);
+    // tap a point ON the river (its first vertex)
+    await page.evaluate(
+      ({ scope, id }) => {
+        const r = window.GT_SHAPES[scope + ":" + id];
+        const p = r.paths[0][0];
+        const svg = document.querySelector("svg.gt-map");
+        const pt = svg.createSVGPoint();
+        pt.x = p[0];
+        pt.y = p[1];
+        const s = pt.matrixTransform(svg.getScreenCTM());
+        svg.dispatchEvent(new MouseEvent("click", { clientX: s.x, clientY: s.y, bubbles: true }));
+      },
+      { scope, id: rid }
+    );
+    // flip in-page (state + GT_SHAPES survive), like Anki re-rendering the back
+    await page.evaluate(
+      ({ scope, id, name, riverB64 }) => {
+        document.body.innerHTML = "";
+        window.GT_SHAPES[scope + ":" + id] = JSON.parse(atob(riverB64));
+        const app = document.createElement("div");
+        app.className = "gt-app";
+        app.setAttribute("data-scope", scope);
+        app.setAttribute("data-target", id);
+        app.setAttribute("data-name", name);
+        app.setAttribute("data-side", "back");
+        app.setAttribute("data-mode", "river");
+        document.body.appendChild(app);
+        window.GeoTrainer.mountAll();
+      },
+      {
+        scope, id: rid, name: data.shapes[rid].name,
+        riverB64: Buffer.from(JSON.stringify(data.shapes[rid])).toString("base64"),
+      }
+    );
+    await expect(page.locator(".gt-river")).not.toHaveCount(0); // highlighted line
+    await expect(page.locator(".gt-bar.gt-ok")).toContainText(data.shapes[rid].name);
+    await expect(page.locator(".gt-suggest")).toContainText("Good"); // exact tap
+  });
+}
+
 test("all expected scopes are present", () => {
   expect(SCOPES.sort()).toEqual(
     [
       "africa-countries", "argentina-provinces", "asia-countries", "australia-states",
       "brazil-states", "canada-provinces", "china-provinces", "europe-countries",
-      "india-states", "mexico-states", "russia-subjects", "south-america-countries",
-      "us-states",
+      "india-states", "indonesia-provinces", "mexico-states", "oceania-countries",
+      "russia-subjects", "south-america-countries", "us-states", "world-rivers",
+      "world-seas",
     ].sort()
   );
 });

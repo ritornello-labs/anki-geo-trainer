@@ -68,6 +68,10 @@
           <option value="australia-states">Australia states</option>
           <option value="argentina-provinces">Argentina provinces</option>
           <option value="mexico-states">Mexico states</option>
+          <option value="indonesia-provinces">Indonesia provinces</option>
+          <option value="oceania-countries">Oceania</option>
+          <option value="world-seas">World seas</option>
+          <option value="world-rivers">World rivers</option>
         </select>
       </label>
       <label>Mode
@@ -78,6 +82,7 @@
           <option value="neighbors">F7 Neighbors (retired)</option>
           <option value="draw">F6 Draw</option>
           <option value="capital">F8 Capital</option>
+          <option value="river">F9 River</option>
         </select>
       </label>
       <label>Target <select id="target"></select></label>
@@ -115,13 +120,25 @@
       function fillTargets(bundle) {
         var sel = document.getElementById("target");
         sel.innerHTML = "";
-        bundle.regions.filter(function (r) { return r.tier !== 2; }).forEach(function (r) {
+        var items;
+        if (bundle.regions && bundle.regions.length) {
+          items = bundle.regions
+            .filter(function (r) { return r.tier !== 2; })
+            .map(function (r) { return { id: r.id, name: r.name }; });
+        } else {
+          // Line scopes (rivers) have no regions — targets come from GT_SHAPES.
+          var caps = window.GT_SHAPES || {};
+          items = Object.keys(caps)
+            .filter(function (k) { return k.indexOf(bundle.scope + ":") === 0; })
+            .map(function (k) { return { id: k.split(":")[1], name: caps[k].name }; });
+        }
+        items.forEach(function (it) {
           var o = document.createElement("option");
-          o.value = r.id;
-          o.textContent = r.name;
+          o.value = it.id;
+          o.textContent = it.name;
           sel.appendChild(o);
         });
-        target = sel.value = bundle.regions[4] ? sel.options[4].value : sel.options[0].value;
+        target = sel.value = sel.options[Math.min(4, sel.options.length - 1)].value;
       }
 
       function switchScope(scope) {

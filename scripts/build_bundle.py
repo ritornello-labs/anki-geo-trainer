@@ -37,6 +37,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 import shutil
 import urllib.request
 from pathlib import Path
@@ -60,6 +61,9 @@ SOURCES = {
     # 10m places (≈19 MB) carries 2,259 province capitals vs the 50m file's 482 —
     # needed for near-complete state/province capital coverage in F8.
     "places": "ne_10m_populated_places.geojson",
+    # Physical features (M4c): named seas/oceans polygons and river centrelines.
+    "marine": "ne_50m_geography_marine_polys.geojson",
+    "rivers": "ne_50m_rivers_lake_centerlines.geojson",
 }
 
 EARTH_KM_PER_DEG = 111.32
@@ -324,7 +328,7 @@ def shape_payload(geom: BaseGeometry, box_px: float = 400.0) -> dict:
 
 
 def extract_capitals(
-    full_geoms: dict[str, BaseGeometry], project_point, feature_class: str
+    full_geoms: dict[str, BaseGeometry], project_point, feature_class: str, pt_shift=None
 ) -> dict[str, dict]:
     """F8 data: match each Natural Earth capital of `feature_class` to the region
     whose (unclipped) geometry contains it, then project the point into scope
@@ -340,7 +344,8 @@ def extract_capitals(
             continue
         coords = f["geometry"]["coordinates"]
         lon, lat = coords[0], coords[1]
-        pt = Point(lon, lat)
+        # Match containment against the (possibly antimeridian-shifted) geoms.
+        pt = Point(pt_shift(lon) if pt_shift else lon, lat)
         for rid, g in items:
             if rid in caps:
                 continue
@@ -512,6 +517,19 @@ CONTINENT_SCOPES = {
         },
         "tray": "bottom-left",               # South Atlantic
     },
+    "oceania-countries": {
+        "title": "Oceania — Countries",
+        # Pacific-centred: box is in unwrapped 0..360 lon. Australia (113°) through
+        # Samoa (~188° = −172°+360); Micronesia/Palau in the north.
+        "box": (110.0, -50.0, 200.0, 22.0),
+        "continent": "Oceania",
+        "unwrap_antimeridian": True,
+        "name_overrides": {
+            "Federated States of Micronesia": "Micronesia",
+            "Papua New Guinea": "Papua New Guinea",
+        },
+        "tray": "top-left",  # empty NW ocean
+    },
     "asia-countries": {
         "title": "Asia — Countries",
         # Turkey to Japan, Timor to the Kazakh steppe; Russia clips at the top.
@@ -534,6 +552,7 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
     extra = cfg.get("extra_admins", set())
     exclude = cfg.get("exclude_admins", set())
     overrides = cfg.get("name_overrides", {})
+    unwrap = cfg.get("unwrap_antimeridian", False)  # Pacific-centred (Oceania)
 
     feats = []
     for f in load_features("admin0"):
@@ -544,12 +563,14 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
         if prop(props, "CONTINENT") == cfg["continent"] or admin in extra:
             feats.append(f)
 
-    clip = box(*box_t)
+    clip = box(*box_t)  # box_t is already in unwrapped (0..360) coords when unwrap
     entries = []  # (rid, name, abbr, tier, clipped, full)
     for f in feats:
         props = f["properties"]
         admin = prop(props, "ADMIN")
         full = shape(f["geometry"])
+        if unwrap:
+            full = _unwrap_antimeridian(full)
         clipped = full.intersection(clip)
         if clipped.is_empty or clipped.area == 0:
             continue  # entirely outside the viewport
@@ -587,15 +608,24 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
     add_adjacency(regions, geoms_by_id)
     tier1_geoms = {r["id"]: geoms_by_id[r["id"]] for r in regions if r.get("tier", 1) == 1}
     shapes = {rid: shape_payload(g) for rid, g in tier1_geoms.items()}
-    # F8: national capitals, tier-1 countries only.
-    capitals = extract_capitals(tier1_geoms, lambda rid, lon, lat: project(lon, lat),
-                                "Admin-0 capital")
 
-    # Neutral context land (neighbouring continents) for orientation.
-    land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
-    context = rings_of(
-        project_geom(land.intersection(clip), project).simplify(0.8, preserve_topology=True)
-    )
+    # F8: national capitals, tier-1 countries only. Under unwrap, shift the
+    # capital's western-hemisphere lon east by 360 to match the shifted geoms.
+    def cap_project(rid, lon, lat):
+        return project((lon + 360.0 if unwrap and lon < 0 else lon), lat)
+    capitals = extract_capitals(tier1_geoms, cap_project, "Admin-0 capital",
+                                pt_shift=(lambda lon: lon + 360.0 if lon < 0 else lon) if unwrap else None)
+
+    # Neutral context land (neighbouring continents) for orientation. Skipped for
+    # antimeridian-unwrapped scopes: unwrapping the whole-world land mangles the
+    # dateline seam, and an isolated Pacific view has no neighbours to show anyway.
+    if unwrap:
+        context = []
+    else:
+        land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
+        context = rings_of(
+            project_geom(land.intersection(clip), project).simplify(0.8, preserve_topology=True)
+        )
 
     regions.sort(key=lambda r: r["name"])
     tray = TRAY_CORNERS[cfg.get("tray", "bottom-left")](view_w, view_h)
@@ -646,6 +676,10 @@ SUBDIVISION_SCOPES = {
     "australia-states": {
         "title": "Australia — States & Territories", "a3": "AUS", "noun": "state",
         "deck_root": "GeoTrainer::World::Oceania::Australia",
+    },
+    "indonesia-provinces": {
+        "title": "Indonesia — Provinces", "a3": "IDN", "noun": "province",
+        "deck_root": "GeoTrainer::World::Asia::Indonesia",
     },
     "argentina-provinces": {
         "title": "Argentina — Provinces", "a3": "ARG", "noun": "province",
@@ -737,9 +771,189 @@ def _build_admin1_country(scope_name: str, cfg: dict) -> tuple[dict, dict]:
     }, shapes, capitals
 
 
+# ================ generic physical-feature polygon builder (world map) ============
+# Seas/oceans/gulfs (and, later, ranges) are named polygons on a world plate-
+# carrée. They reuse the region machinery (locate + point + draw) but have no
+# tiers, adjacency, or capitals. `families` limits which task decks are built.
+
+def _slug(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+PHYSICAL_SCOPES = {
+    "world-seas": {
+        "title": "World — Seas & Oceans",
+        "layer": "marine",
+        "featureclasses": {"ocean", "sea", "gulf", "bay"},
+        "noun": "sea",
+        "families": ["locate", "point", "draw"],
+        "box": (-180.0, -78.0, 180.0, 85.0),
+        "width": 1400.0,
+        "deck_root": "GeoTrainer::Physical::Seas & Oceans",
+    },
+}
+
+
+def _build_world_polys(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
+    box_t = cfg["box"]
+    width = cfg.get("width", 1200.0)
+    fclasses = cfg.get("featureclasses")
+
+    feats = [
+        f for f in load_features(cfg["layer"])
+        if f["properties"].get("name")
+        and (fclasses is None or f["properties"].get("featurecla") in fclasses)
+    ]
+
+    lat0 = math.radians((box_t[1] + box_t[3]) / 2.0)
+    cos0 = math.cos(lat0)
+    x_span = (box_t[2] - box_t[0]) * cos0
+    y_span = box_t[3] - box_t[1]
+    scale = width / x_span
+    view_w = width + 2 * PAD
+    view_h = y_span * scale + 2 * PAD
+    km_per_unit = (1.0 / scale) * EARTH_KM_PER_DEG
+
+    def project(lon, lat):
+        return (lon - box_t[0]) * cos0 * scale + PAD, (box_t[3] - lat) * scale + PAD
+
+    regions = []
+    geoms_by_id: dict[str, BaseGeometry] = {}
+    seen: set[str] = set()
+    for f in feats:
+        name = f["properties"]["name"]
+        norm = name.title() if name.isupper() else name
+        rid = _slug(norm)
+        if rid in seen:
+            continue
+        seen.add(rid)
+        projected = project_geom(shape(f["geometry"]), project)
+        region = make_region(rid, norm, "", "main", projected)
+        if region:
+            regions.append(region)
+            geoms_by_id[rid] = shape(f["geometry"])
+
+    regions.sort(key=lambda r: r["name"])
+    shapes = {r["id"]: shape_payload(geoms_by_id[r["id"]]) for r in regions}
+
+    # Land as neutral context so the seas read as water between continents.
+    land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
+    context = rings_of(
+        project_geom(land.intersection(box(*box_t)), project).simplify(0.8, preserve_topology=True)
+    )
+
+    return {
+        "scope": scope_name,
+        "title": cfg["title"],
+        "noun": cfg.get("noun", "sea"),
+        "kind": "physical",
+        "families": cfg.get("families", ["locate", "point", "draw"]),
+        "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
+        "tray": [90.0, round(view_h - 90.0, 1)],
+        "frames": [
+            {"id": "main", "rect": [0.0, 0.0, round(view_w, 1), round(view_h, 1)],
+             "kmPerUnit": round(km_per_unit, 3), "label": ""}
+        ],
+        "context": context,
+        "regions": regions,
+    }, shapes, {}  # no capitals
+
+
+# ==================== rivers: named polylines on a world map ======================
+# Rivers are LINES, not regions. The base bundle carries only the world land
+# context + view; each river's polyline lives per-note (in the shapes slot, keyed
+# by id, as {name, paths}). The engine's F9 "river" mode taps-to-locate and grades
+# by distance to the nearest point on the line.
+
+RIVER_SCOPES = {
+    "world-rivers": {
+        "title": "World — Major Rivers",
+        "box": (-180.0, -55.0, 180.0, 78.0),
+        "max_scalerank": 3,      # 1 = biggest; ≤3 keeps the iconic rivers
+        "deck_root": "GeoTrainer::Physical::Rivers",
+    },
+}
+
+
+def _line_coords(geom):
+    """All coordinate sequences of a (Multi)LineString geometry."""
+    if geom["type"] == "LineString":
+        return [geom["coordinates"]]
+    if geom["type"] == "MultiLineString":
+        return list(geom["coordinates"])
+    return []
+
+
+def _build_rivers(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
+    box_t = cfg["box"]
+    width = cfg.get("width", 1400.0)
+    max_sr = cfg.get("max_scalerank", 3)
+
+    lat0 = math.radians((box_t[1] + box_t[3]) / 2.0)
+    cos0 = math.cos(lat0)
+    x_span = (box_t[2] - box_t[0]) * cos0
+    y_span = box_t[3] - box_t[1]
+    scale = width / x_span
+    view_w = width + 2 * PAD
+    view_h = y_span * scale + 2 * PAD
+    km_per_unit = (1.0 / scale) * EARTH_KM_PER_DEG
+
+    def project(lon, lat):
+        return round((lon - box_t[0]) * cos0 * scale + PAD, 1), round((box_t[3] - lat) * scale + PAD, 1)
+
+    # Group multi-segment rivers by display name (prefer English).
+    grouped: dict[str, dict] = {}
+    for f in load_features("rivers"):
+        props = f["properties"]
+        if props.get("featurecla") != "River":
+            continue
+        if (props.get("scalerank") or 99) > max_sr:
+            continue
+        name = props.get("name_en") or props.get("name")
+        if not name:
+            continue
+        entry = grouped.setdefault(name, {"name": name, "paths": []})
+        for seq in _line_coords(f["geometry"]):
+            path = [project(lon, lat) for lon, lat in seq]
+            if len(path) >= 2:
+                entry["paths"].append(path)
+
+    rivers = {}
+    for name, entry in grouped.items():
+        if not entry["paths"]:
+            continue
+        rivers[_slug(name)] = entry
+
+    # Base map: world land as context (rivers read against the continents).
+    land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
+    context = rings_of(
+        project_geom(land.intersection(box(*box_t)), project).simplify(0.8, preserve_topology=True)
+    )
+
+    bundle = {
+        "scope": scope_name,
+        "title": cfg["title"],
+        "noun": "river",
+        "kind": "rivers",
+        "families": ["river"],
+        "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
+        "frames": [
+            {"id": "main", "rect": [0.0, 0.0, round(view_w, 1), round(view_h, 1)],
+             "kmPerUnit": round(km_per_unit, 3), "label": ""}
+        ],
+        "context": context,
+        "regions": [],  # rivers are lines, carried per-note in the shapes slot
+    }
+    return bundle, rivers, {}
+
+
 # ---------------------------------------------------------------------------------
 
 SCOPES = {"us-states": build_us_states}
+for _name, _cfg in PHYSICAL_SCOPES.items():
+    SCOPES[_name] = (lambda n, c: (lambda: _build_world_polys(n, c)))(_name, _cfg)
+for _name, _cfg in RIVER_SCOPES.items():
+    SCOPES[_name] = (lambda n, c: (lambda: _build_rivers(n, c)))(_name, _cfg)
 for _name, _cfg in CONTINENT_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_continent(n, c)))(_name, _cfg)
 for _name, _cfg in SUBDIVISION_SCOPES.items():

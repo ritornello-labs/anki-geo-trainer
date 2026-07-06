@@ -1038,6 +1038,115 @@
     root.appendChild(bar(suggestFor(quality), "gt-suggest"));
   }
 
+  // ============================ F9: RIVER-LOCATE ==============================
+  // Rivers are lines. The base bundle carries only world land context; each
+  // river's polyline comes per-note via GT_SHAPES[scope:id] = {name, paths}.
+  // "Tap where the <River> is", graded by distance to the nearest point on it.
+
+  function riverData(scope, target) {
+    return (window.GT_SHAPES || {})[scope + ":" + target] || null;
+  }
+
+  function pointToSegment(px, py, ax, ay, bx, by) {
+    var dx = bx - ax, dy = by - ay;
+    var len2 = dx * dx + dy * dy;
+    var t = len2 ? ((px - ax) * dx + (py - ay) * dy) / len2 : 0;
+    t = t < 0 ? 0 : t > 1 ? 1 : t;
+    var cx = ax + t * dx, cy = ay + t * dy;
+    return Math.hypot(px - cx, py - cy);
+  }
+
+  function distToRiver(px, py, paths) {
+    var best = Infinity;
+    for (var i = 0; i < paths.length; i++) {
+      var p = paths[i];
+      for (var j = 1; j < p.length; j++) {
+        var d = pointToSegment(px, py, p[j - 1][0], p[j - 1][1], p[j][0], p[j][1]);
+        if (d < best) best = d;
+      }
+    }
+    return best;
+  }
+
+  function riverPaths(svg, paths, cls) {
+    for (var i = 0; i < paths.length; i++) {
+      if (paths[i].length >= 2) {
+        svg.appendChild(el("path", { d: strokePath(paths[i]), class: cls }));
+      }
+    }
+  }
+
+  function riverFront(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    var name = data ? data.name : target;
+    root.appendChild(chip("River"));
+    root.appendChild(prompt(name));
+
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    var marker = el("circle", { r: 9, class: "gt-attempt", style: "display:none" });
+    svg.appendChild(marker);
+    root.appendChild(svg);
+
+    var hint = bar("Tap where the " + name + " is", "gt-hint");
+    root.appendChild(hint);
+    saveState("river", bundle.scope, target, null);
+
+    function place(clientX, clientY) {
+      var loc = svgPoint(svg, clientX, clientY);
+      if (!loc) return;
+      marker.setAttribute("cx", loc.x);
+      marker.setAttribute("cy", loc.y);
+      marker.style.display = "";
+      saveState("river", bundle.scope, target, { x: loc.x, y: loc.y });
+      hint.textContent = "Tap again to adjust · flip to check";
+      hint.className = "gt-bar gt-hint gt-placed";
+    }
+
+    svg.addEventListener("click", function (ev) { place(ev.clientX, ev.clientY); });
+    svg.addEventListener("touchend", function (ev) {
+      if (ev.changedTouches && ev.changedTouches.length) {
+        var t = ev.changedTouches[0];
+        place(t.clientX, t.clientY);
+        ev.preventDefault();
+      }
+    }, { passive: false });
+  }
+
+  function riverBack(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    var name = data ? data.name : target;
+    var attempt = loadState("river", bundle.scope, target);
+
+    root.appendChild(chip("River"));
+    root.appendChild(prompt(name));
+
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    if (data) riverPaths(svg, data.paths, "gt-river");
+
+    var frame = frameById(bundle, "main");
+    var km = null;
+    if (attempt && data) {
+      var dpx = distToRiver(attempt.x, attempt.y, data.paths);
+      km = Math.round(dpx * frame.kmPerUnit);
+      svg.appendChild(el("circle", { cx: attempt.x, cy: attempt.y, r: 8, class: "gt-attempt gt-bad" }));
+    }
+    root.appendChild(svg);
+
+    if (!attempt) {
+      root.appendChild(bar("No tap recorded — the " + name + " is highlighted", "gt-miss"));
+      root.appendChild(bar(suggestFor(0), "gt-suggest"));
+      return;
+    }
+    var quality = km === null ? 0 : km < 200 ? 2 : km < 600 ? 1 : 0;
+    var msg = km === null
+      ? "The " + name + " is highlighted"
+      : (km < 80 ? "On it — " : "~" + km + " km off — ") + "the " + name;
+    root.appendChild(bar(msg, quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
+    root.appendChild(bar(suggestFor(quality), "gt-suggest"));
+  }
+
   // ---- boot ---------------------------------------------------------------------
 
   // neighbors stays dormant: the family was retired from the packs (2026-07-05,
@@ -1047,8 +1156,11 @@
     point: { front: pointFront, back: pointBack },
     place: { front: placeFront, back: placeBack },
     neighbors: { front: neighborsFront, back: neighborsBack },
-    draw: { front: drawFront, back: drawBack, needsShape: true },
+    // selfContained: no basemap bundle (draw carries its own outline).
+    // needsShape: also requires GT_SHAPES[scope:id] before mounting.
+    draw: { front: drawFront, back: drawBack, selfContained: true, needsShape: true },
     capital: { front: capitalFront, back: capitalBack },
+    river: { front: riverFront, back: riverBack, needsShape: true },
   };
 
   function mount(root) {
@@ -1059,13 +1171,14 @@
     var mode = root.getAttribute("data-mode") || "locate";
     var impl = MODES[mode] || MODES.locate;
     var bundle;
-    if (impl.needsShape) {
+    if (impl.selfContained) {
       // Draw cards carry their own outline per note; no basemap bundle.
       if (!shapeOf(scope, target)) return; // shape script not evaluated yet
       bundle = { scope: scope };
     } else {
       bundle = window.GT_BUNDLES && window.GT_BUNDLES[scope];
       if (!bundle) return; // bundle script not evaluated yet; boot() retries
+      if (impl.needsShape && !shapeOf(scope, target)) return; // per-note data not ready
     }
     root.setAttribute("data-gt-mounted", "1");
     root.innerHTML = "";
