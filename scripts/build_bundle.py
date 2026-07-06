@@ -151,7 +151,12 @@ def project_geom(geom, project) -> BaseGeometry:
     for poly in polys:
         ext = [project(lon, lat) for lon, lat in poly.exterior.coords]
         p = Polygon(ext)
-        if p.is_valid and p.area > 0:
+        if not p.is_valid:
+            # Repair self-intersecting rings (NE state polygons that wrap around
+            # an enclave — e.g. Goiás around Brazil's Federal District — are
+            # invalid and would otherwise be silently dropped).
+            p = p.buffer(0)
+        if not p.is_empty and p.area > 0:
             out.append(p)
     if not out:
         return Polygon()
@@ -420,38 +425,83 @@ def build_us_states() -> dict:
     }, shapes
 
 
-# ======================== scope: europe-countries =================================
+# ================= generic continent builder (admin0 → viewport) ==================
+# Europe was the first instance; every continent scope is now the same machine
+# driven by CONTINENT_SCOPES config: a hand-picked lon/lat viewport box, a
+# CONTINENT filter (+ per-scope extras/excludes), sovereign/dependency tiering,
+# magnified microstate circles, and neutral 110m context land for orientation.
 
-# Viewport: Iceland to the Urals, Malta to Nordkapp. Russia is clipped at the box
-# edge (standard political-quiz cartography); Svalbard falls above the lat cap.
-EU_BOX = (-25.0, 34.0, 62.0, 72.0)  # lon_min, lat_min, lon_max, lat_max
-EU_WIDTH = 1000.0
+TRAY_CORNERS = {
+    "bottom-left": lambda w, h: [90.0, round(h - 90.0, 1)],
+    "bottom-right": lambda w, h: [round(w - 90.0, 1), round(h - 90.0, 1)],
+    "top-left": lambda w, h: [90.0, 90.0],
+    "top-right": lambda w, h: [round(w - 90.0, 1), 90.0],
+}
 
-# NE marks these as Asia; European political quizzes conventionally include Cyprus
-# (EU member). The Caucasus trio and Turkey wait for the Asia scope.
-EU_EXTRA_ADMINS = {"Cyprus"}
-EU_EXCLUDE_ADMINS = {"Northern Cyprus"}  # disputed; not a tier-1 quiz entity
-
-# Quiz-friendly display names where NE's ADMIN is formal/odd.
-EU_NAME_OVERRIDES = {
-    "Republic of Serbia": "Serbia",
-    "Vatican": "Vatican City",
+CONTINENT_SCOPES = {
+    "europe-countries": {
+        "title": "Europe — Countries",
+        # Iceland to the Urals, Malta to Nordkapp. Russia clips at the box edge.
+        "box": (-25.0, 34.0, 62.0, 72.0),
+        "continent": "Europe",
+        "extra_admins": {"Cyprus"},          # NE files it under Asia
+        "exclude_admins": {"Northern Cyprus"},
+        "name_overrides": {"Republic of Serbia": "Serbia", "Vatican": "Vatican City"},
+        "tray": "bottom-left",               # open Atlantic
+    },
+    "south-america-countries": {
+        "title": "South America — Countries",
+        "box": (-82.0, -56.0, -34.0, 13.0),  # Galápagos (−91°) intentionally out
+        "continent": "South America",
+        "name_overrides": {},
+        "tray": "bottom-left",               # SE Pacific
+    },
+    "africa-countries": {
+        "title": "Africa — Countries",
+        "box": (-18.0, -35.0, 52.0, 38.0),
+        "continent": "Africa",
+        "name_overrides": {
+            "Democratic Republic of the Congo": "DR Congo",
+            "Republic of the Congo": "Congo",
+            "United Republic of Tanzania": "Tanzania",
+            "eSwatini": "Eswatini",
+        },
+        "tray": "bottom-left",               # South Atlantic
+    },
+    "asia-countries": {
+        "title": "Asia — Countries",
+        # Turkey to Japan, Timor to the Kazakh steppe; Russia clips at the top.
+        "box": (25.0, -11.0, 147.0, 56.0),
+        "continent": "Asia",
+        # Drop NE's non-country oddities that would otherwise float as labelled
+        # tap-circles: a disputed glacier and an uninhabited island territory.
+        "exclude_admins": {
+            "Northern Cyprus", "Siachen Glacier", "Indian Ocean Territories",
+        },
+        "name_overrides": {},
+        "tray": "bottom-left",               # Indian Ocean
+    },
 }
 
 
-def build_europe() -> dict:
+def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
+    box_t = cfg["box"]
+    width = cfg.get("width", 1000.0)
+    extra = cfg.get("extra_admins", set())
+    exclude = cfg.get("exclude_admins", set())
+    overrides = cfg.get("name_overrides", {})
+
     feats = []
     for f in load_features("admin0"):
         props = f["properties"]
         admin = prop(props, "ADMIN")
-        continent = prop(props, "CONTINENT")
-        if admin in EU_EXCLUDE_ADMINS:
+        if admin in exclude:
             continue
-        if continent == "Europe" or admin in EU_EXTRA_ADMINS:
+        if prop(props, "CONTINENT") == cfg["continent"] or admin in extra:
             feats.append(f)
 
-    clip = box(*[EU_BOX[i] for i in (0, 1, 2, 3)])
-    entries = []  # (rid, name, abbr, tier, clipped_geom, full_geom)
+    clip = box(*box_t)
+    entries = []  # (rid, name, abbr, tier, clipped, full)
     for f in feats:
         props = f["properties"]
         admin = prop(props, "ADMIN")
@@ -462,24 +512,24 @@ def build_europe() -> dict:
         iso2 = prop(props, "ISO_A2", "ISO_A2_EH")
         a3 = prop(props, "ADM0_A3")
         rid = iso2 if iso2 and iso2 != "-99" else a3
-        # Tier 1 = self-sovereign (catches Denmark/France/UK "Country" rows and
-        # Kosovo "Disputed"); tier 2 = dependencies (Faroes, Aland, Crown deps).
+        # Tier 1 = self-sovereign (catches "Country" rows and disputed states);
+        # tier 2 = dependencies, shown muted and card-less.
         tier = 1 if prop(props, "SOVEREIGNT") == admin else 2
-        name = EU_NAME_OVERRIDES.get(admin, admin)
+        name = overrides.get(admin, admin)
         entries.append((rid, name, iso2 or a3, tier, clipped, full))
 
     # Projection fitted to the viewport box itself (stable framing, not data-driven).
-    lat0 = math.radians((EU_BOX[1] + EU_BOX[3]) / 2.0)
+    lat0 = math.radians((box_t[1] + box_t[3]) / 2.0)
     cos0 = math.cos(lat0)
-    x_span = (EU_BOX[2] - EU_BOX[0]) * cos0
-    y_span = EU_BOX[3] - EU_BOX[1]
-    scale = EU_WIDTH / x_span
-    view_w = EU_WIDTH + 2 * PAD
+    x_span = (box_t[2] - box_t[0]) * cos0
+    y_span = box_t[3] - box_t[1]
+    scale = width / x_span
+    view_w = width + 2 * PAD
     view_h = y_span * scale + 2 * PAD
     km_per_unit = (1.0 / scale) * EARTH_KM_PER_DEG
 
     def project(lon: float, lat: float) -> tuple[float, float]:
-        return (lon - EU_BOX[0]) * cos0 * scale + PAD, (EU_BOX[3] - lat) * scale + PAD
+        return (lon - box_t[0]) * cos0 * scale + PAD, (box_t[3] - lat) * scale + PAD
 
     regions = []
     geoms_by_id: dict[str, BaseGeometry] = {}
@@ -490,27 +540,26 @@ def build_europe() -> dict:
             regions.append(region)
             geoms_by_id[rid] = full
 
-    # Land-border adjacency on the UNCLIPPED geometries (Russia–Norway etc. count
-    # even where the border sits near the viewport edge).
     add_adjacency(regions, geoms_by_id)
     shapes = {
         r["id"]: shape_payload(geoms_by_id[r["id"]])
         for r in regions if r.get("tier", 1) == 1
     }
 
-    # Neutral context land (Africa/Anatolia/greater Russia) for orientation.
-    context: list[list[list[float]]] = []
+    # Neutral context land (neighbouring continents) for orientation.
     land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
-    ctx = land.intersection(clip)
-    context = rings_of(project_geom(ctx, project).simplify(0.8, preserve_topology=True))
+    context = rings_of(
+        project_geom(land.intersection(clip), project).simplify(0.8, preserve_topology=True)
+    )
 
     regions.sort(key=lambda r: r["name"])
+    tray = TRAY_CORNERS[cfg.get("tray", "bottom-left")](view_w, view_h)
     return {
-        "scope": "europe-countries",
-        "title": "Europe — Countries",
+        "scope": scope_name,
+        "title": cfg["title"],
         "noun": "country",
         "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
-        "tray": [90.0, round(view_h - 90.0, 1)],  # open Atlantic, bottom-left
+        "tray": tray,
         "frames": [
             {"id": "main", "rect": [0.0, 0.0, round(view_w, 1), round(view_h, 1)],
              "kmPerUnit": round(km_per_unit, 3), "label": ""}
@@ -520,12 +569,91 @@ def build_europe() -> dict:
     }, shapes
 
 
+# ============ generic first-level subdivision builder (admin1 → frame) ============
+# NOTE: the Natural Earth *50m* admin1 file only carries provinces for nine large
+# countries — AUS, BRA, CAN, CHN, IDN, IND, RUS, USA, ZAF. Everything else
+# (Argentina, Mexico, …) needs the heavier 10m file, which we can add later.
+# us-states stays its own function because AK/HI need inset frames; contiguous
+# countries fit a single frame.
+
+SUBDIVISION_SCOPES = {
+    "brazil-states": {
+        "title": "Brazil — States",
+        "a3": "BRA",
+        "noun": "state",
+        "deck_root": "GeoTrainer::World::South America::Brazil",
+    },
+    "india-states": {
+        "title": "India — States & Union Territories",
+        "a3": "IND",
+        "noun": "state",
+        "deck_root": "GeoTrainer::World::Asia::India",
+    },
+}
+
+
+def _build_admin1_country(scope_name: str, cfg: dict) -> tuple[dict, dict]:
+    a3 = cfg["a3"]
+    types = cfg.get("types")
+    width = cfg.get("width", 1000.0)
+    id_prefix = cfg.get("id_prefix", a3[:2])
+
+    feats = [
+        f for f in load_features("admin1")
+        if prop(f["properties"], "adm0_a3") == a3
+        and (types is None or prop(f["properties"], "type_en") in types)
+    ]
+    if not feats:
+        raise SystemExit(f"{scope_name}: no admin1 for {a3} (50m file covers 9 countries)")
+
+    geoms = [shape(f["geometry"]) for f in feats]
+    lon_min = min(g.bounds[0] for g in geoms)
+    lon_max = max(g.bounds[2] for g in geoms)
+    lat_min = min(g.bounds[1] for g in geoms)
+    lat_max = max(g.bounds[3] for g in geoms)
+    cos0 = math.cos(math.radians((lat_min + lat_max) / 2.0))
+    main_h = (lat_max - lat_min) / ((lon_max - lon_min) * cos0) * width + 2 * PAD
+    rect = (0.0, 0.0, width + 2 * PAD, main_h)
+    project, km_per_unit = fit_projector(geoms, rect)
+    view_w, view_h = width + 2 * PAD, main_h
+
+    regions = []
+    full_geoms: dict[str, BaseGeometry] = {}
+    for f in feats:
+        props = f["properties"]
+        rid = prop(props, "iso_3166_2") or f"{id_prefix}-{prop(props, 'postal')}"
+        projected = project_geom(shape(f["geometry"]), project)
+        region = make_region(rid, prop(props, "name"), prop(props, "postal") or "", "main", projected)
+        if region:
+            regions.append(region)
+            full_geoms[rid] = shape(f["geometry"])
+
+    add_adjacency(regions, full_geoms)
+    regions.sort(key=lambda r: r["name"])
+    shapes = {r["id"]: shape_payload(full_geoms[r["id"]]) for r in regions}
+    return {
+        "scope": scope_name,
+        "title": cfg["title"],
+        "noun": cfg.get("noun", "state"),
+        "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
+        # Piece tray sits in the emptiest corner the aspect-fit letterbox leaves;
+        # bottom-left is a safe default (the engine also has a corner fallback).
+        "tray": [90.0, round(view_h - 90.0, 1)],
+        "frames": [
+            {"id": "main", "rect": [round(v, 1) for v in rect],
+             "kmPerUnit": round(km_per_unit, 3), "label": ""}
+        ],
+        "regions": regions,
+    }, shapes
+
+
 # ---------------------------------------------------------------------------------
 
-SCOPES = {
-    "us-states": build_us_states,
-    "europe-countries": build_europe,
-}
+SCOPES = {"us-states": build_us_states}
+for _name, _cfg in CONTINENT_SCOPES.items():
+    SCOPES[_name] = (lambda n, c: (lambda: _build_continent(n, c)))(_name, _cfg)
+for _name, _cfg in SUBDIVISION_SCOPES.items():
+    SCOPES[_name] = (lambda n, c: (lambda: _build_admin1_country(n, c)))(_name, _cfg)
 
 
 def main() -> None:

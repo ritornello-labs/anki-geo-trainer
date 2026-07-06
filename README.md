@@ -4,11 +4,17 @@ Sheppard-Software-style interactive geography practice for Anki: a comprehensive
 curriculum-ordered set of map-interaction task types rendered by a shared JS engine
 that works on Anki Desktop, AnkiMobile, and AnkiDroid.
 
-Status: M2 — two scopes ship with four task families each: **United States**
-(50 states, 198 notes) and **Europe** (46 sovereign countries, 180 notes), all
-verified on Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md) for the roadmap and
-[`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md) for the skill ladder, tags,
-and filtered-deck recipes.
+Status: M4 — **seven scopes**, each with four task families (Locate, Which
+State/Country, Place, Draw), 2,420 notes total: **United States** (50 states),
+**Europe** (46 countries), **South America** (12), **Africa** (53), **Asia** (47),
+**Brazil** (27 states), and **India** (36 states/UTs). All rendered by one shared
+engine and verified on Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md) for the
+roadmap and [`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md) for the skill
+ladder, tags, and filtered-deck recipes.
+
+New scopes are pure config: a continent is a viewport box + a Natural Earth
+`CONTINENT` filter; a country subdivision is an ISO country code. Both feed the
+same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
 
 ## Task families (shipped so far)
 

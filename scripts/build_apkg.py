@@ -64,6 +64,46 @@ SCOPE_PACKS = {
         "deck_base": 1_607_393_050,
         "apkg": "geo-trainer-europe.apkg",
     },
+    "south-america-countries": {
+        "deck_root": "GeoTrainer::World::South America",
+        "model_root": "GeoTrainer {family} — South America",
+        "scope_tag": "geotrainer::scope::continent::south-america",
+        "model_base": 1_607_394_001,
+        "deck_base": 1_607_394_050,
+        "apkg": "geo-trainer-south-america.apkg",
+    },
+    "africa-countries": {
+        "deck_root": "GeoTrainer::World::Africa",
+        "model_root": "GeoTrainer {family} — Africa",
+        "scope_tag": "geotrainer::scope::continent::africa",
+        "model_base": 1_607_395_001,
+        "deck_base": 1_607_395_050,
+        "apkg": "geo-trainer-africa.apkg",
+    },
+    "asia-countries": {
+        "deck_root": "GeoTrainer::World::Asia",
+        "model_root": "GeoTrainer {family} — Asia",
+        "scope_tag": "geotrainer::scope::continent::asia",
+        "model_base": 1_607_396_001,
+        "deck_base": 1_607_396_050,
+        "apkg": "geo-trainer-asia.apkg",
+    },
+    "brazil-states": {
+        "deck_root": "GeoTrainer::World::South America::Brazil",
+        "model_root": "GeoTrainer {family} — Brazil States",
+        "scope_tag": "geotrainer::scope::country::brazil::states",
+        "model_base": 1_607_397_001,
+        "deck_base": 1_607_397_050,
+        "apkg": "geo-trainer-brazil-states.apkg",
+    },
+    "india-states": {
+        "deck_root": "GeoTrainer::World::Asia::India",
+        "model_root": "GeoTrainer {family} — India States",
+        "scope_tag": "geotrainer::scope::country::india::states",
+        "model_base": 1_607_398_001,
+        "deck_base": 1_607_398_050,
+        "apkg": "geo-trainer-india-states.apkg",
+    },
 }
 
 

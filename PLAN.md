@@ -159,8 +159,21 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   7.5–8.3 (Again). Verified: 68/68 Chromium+WebKit (incl. shipped-fixture boots and
   scoring-invariance tests), Docker smoke, live import, AnkiDroid physical-swipe
   strokes (3-stroke Albania → "Grade: Hard", state front→back on device).
-- **M4 — Breadth + physical geography.** Remaining subdivision scopes (reuse
-  country-subdivision-map-decks coverage), F8 features, capitals-on-map.
+- **M4 — Breadth. ✅ First batch done 2026-07-05.** The two hand-written builders
+  became config-driven factories: `_build_continent(cfg)` (viewport box + NE
+  `CONTINENT` filter, driving `CONTINENT_SCOPES`) and `_build_admin1_country(cfg)`
+  (ISO-3 code → single frame, driving `SUBDIVISION_SCOPES`); us-states stays bespoke
+  for its AK/HI insets. Added five scopes — South America (12), Africa (53), Asia
+  (47; Turkey→Japan, Russia clipped, junk NE entities like "Siachen Glacier" and
+  "Indian Ocean Territories" excluded), Brazil (27 states), India (36). All four
+  families each → **2,420 notes across 7 scopes**. A `buffer(0)` repair in
+  `project_geom` recovered self-intersecting NE polygons that were being silently
+  dropped (Goiás wraps around Brazil's Federal District enclave → invalid ring).
+  Data-driven `scopes.spec.mjs` smokes every scope (load, render, hit-test, F4
+  front↔back, shape coverage) — 112/112 cross-engine. Docker smoke + live import of
+  all 7 packs green. **Remaining M4:** 10m admin-1 for Argentina/Mexico/etc. (50m
+  only has 9 big countries); Russia/China/Indonesia subdivisions (available in 50m);
+  F8 features + capitals-on-map; Oceania framing.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, screenshots via workbench.
 

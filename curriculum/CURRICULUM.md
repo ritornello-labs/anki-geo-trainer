@@ -78,10 +78,29 @@ deck-order study already follows the ladder.
   Malta, …) appear as magnified tap-circles, Ultimate-Geography style.
   Dependencies (Faroes, Åland, Crown dependencies) stay on the map as muted,
   tappable context but get no cards.
-- **Shipped**: Draw-the-shape (level 6) for both scopes — 50 US + 46 Europe notes.
-  Each note carries its own hi-res outline; overseas territory is excluded from
-  the drawing box (mainland France, Norway without Svalbard) while nearby parts
-  stay (Sicily/Sardinia, Northern Ireland, Hawaii's island chain).
-- **M4**: More continents (Asia, Africa, Americas, Oceania), more country
-  subdivisions (Brazil, Russia, India, …), physical features (rivers, ranges,
-  seas) and capitals-on-map (F8).
+- **Shipped**: Draw-the-shape (level 6) on every scope. Each note carries its own
+  hi-res outline; overseas territory is excluded from the drawing box (mainland
+  France, Norway without Svalbard) while nearby parts stay (Sicily/Sardinia,
+  Northern Ireland, Hawaii's island chain).
+- **Shipped (M4)**: three more continents — **South America** (12 countries),
+  **Africa** (53), **Asia** (47; Turkey→Japan, Timor→the steppe, Russia clipped at
+  the top) — and two country subdivisions, **Brazil** (27 states) and **India** (36
+  states & union territories). Continents reuse Europe's machinery (viewport box +
+  `CONTINENT` filter, sovereign/dependency tiering, microstate tap-circles). All
+  four families on every scope: 2,420 notes total.
+- **M4 follow-ups**: Argentina, Mexico, and other subdivisions need Natural Earth's
+  10m admin-1 file (the 50m file only carries provinces for nine large countries —
+  AUS, BRA, CAN, CHN, IDN, IND, RUS, USA, ZAF). Russia (85 subjects, antimeridian)
+  and China/Indonesia subdivisions are available in 50m and are the next easy adds.
+- **Later**: physical features (rivers, ranges, seas) and capitals-on-map (F8);
+  Oceania once a sensible multi-viewport framing is settled.
+
+### Adding a scope (for future me)
+
+Continent: add an entry to `CONTINENT_SCOPES` in `scripts/build_bundle.py` (title,
+lon/lat `box`, `CONTINENT` value, optional `extra_admins`/`exclude_admins`/
+`name_overrides`/`tray` corner) and a `SCOPE_PACKS` entry in `build_apkg.py` (deck
+root, model root, tag, fresh id bases). Country subdivision: add to
+`SUBDIVISION_SCOPES` (title, ISO-3 `a3`, `noun`) + a `SCOPE_PACKS` entry. Then
+`build_bundle.py && build_apkg.py`; the `scopes.spec.mjs` smoke picks it up
+automatically. Never reuse a retired family id (ord 3 = neighbors).
