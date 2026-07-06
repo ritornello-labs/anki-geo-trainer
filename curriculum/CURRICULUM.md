@@ -16,8 +16,11 @@ this order. Each rung assumes comfort with the one before it.
 | 3 | Locate | `1 Locate` | Name shown → tap where it is on a blank map |
 | 4 | Point-in-region | `2 Which State/Country` | Random dot on a blank map → name the region under it |
 | 5 | Place | `3 Place` | Drag the region's silhouette to its exact position |
-| 5 | Neighbors | `4 Neighbors` | Target highlighted → tap **all** its land-bordering regions (live feedback; islands excluded) |
-| 6 | Draw | (planned, M3) | Sketch the region's outline from memory |
+| 6 | Draw | `4 Draw` | Sketch the region's outline from memory; scored against the true shape (translation/scale-invariant) |
+
+A tap-all-neighbors family (F7) shipped briefly in M2 and was retired the same day:
+it duplicates the passive border decks already in the user's collection. The engine
+mode still exists (dormant) if a scope ever wants it back.
 
 Levels 1–2 are passive recognition, already well served by existing shared decks —
 GeoTrainer does not duplicate them. Good on-ramps:
@@ -75,7 +78,10 @@ deck-order study already follows the ladder.
   Malta, …) appear as magnified tap-circles, Ultimate-Geography style.
   Dependencies (Faroes, Åland, Crown dependencies) stay on the map as muted,
   tappable context but get no cards.
-- **M3**: Draw-the-shape (level 6).
+- **Shipped**: Draw-the-shape (level 6) for both scopes — 50 US + 46 Europe notes.
+  Each note carries its own hi-res outline; overseas territory is excluded from
+  the drawing box (mainland France, Norway without Svalbard) while nearby parts
+  stay (Sicily/Sardinia, Northern Ireland, Hawaii's island chain).
 - **M4**: More continents (Asia, Africa, Americas, Oceania), more country
   subdivisions (Brazil, Russia, India, …), physical features (rivers, ranges,
   seas) and capitals-on-map (F8).

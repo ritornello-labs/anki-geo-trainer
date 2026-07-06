@@ -621,13 +621,332 @@
     root.appendChild(bar(suggestFor(quality), "gt-suggest"));
   }
 
+  // ============================ F6: DRAW-THE-SHAPE =============================
+  // Each draw note carries its own outline (window.GT_SHAPES["scope:id"]) — no
+  // basemap. Front: freehand multi-stroke sketching. Back: true outline vs the
+  // drawing, aligned translation/scale-invariantly, scored by symmetric mean
+  // nearest-point distance (chamfer) as % of the shape's diagonal.
+
+  function shapeOf(scope, target) {
+    return (window.GT_SHAPES || {})[scope + ":" + target] || null;
+  }
+
+  function strokePath(pts) {
+    var d = "M" + pts[0][0] + " " + pts[0][1];
+    for (var i = 1; i < pts.length; i++) d += "L" + pts[i][0] + " " + pts[i][1];
+    return d;
+  }
+
+  function resampleStrokes(strokes, budget) {
+    var total = 0;
+    for (var i = 0; i < strokes.length; i++) total += strokes[i].length;
+    if (total <= budget) return strokes;
+    var out = [];
+    for (var s = 0; s < strokes.length; s++) {
+      var pts = strokes[s];
+      var keep = Math.max(2, Math.round((pts.length / total) * budget));
+      var step = (pts.length - 1) / (keep - 1);
+      var res = [];
+      for (var k = 0; k < keep; k++) {
+        var p = pts[Math.round(k * step)];
+        res.push([Math.round(p[0] * 10) / 10, Math.round(p[1] * 10) / 10]);
+      }
+      out.push(res);
+    }
+    return out;
+  }
+
+  function ringPerimeterPoints(rings, n) {
+    // Uniform resample along all ring perimeters, longest rings get more points.
+    var segs = [], total = 0;
+    for (var r = 0; r < rings.length; r++) {
+      var ring = rings[r], len = 0;
+      for (var i = 1; i < ring.length; i++) {
+        len += Math.hypot(ring[i][0] - ring[i - 1][0], ring[i][1] - ring[i - 1][1]);
+      }
+      segs.push(len);
+      total += len;
+    }
+    var pts = [];
+    for (var r2 = 0; r2 < rings.length; r2++) {
+      var ring2 = rings[r2];
+      var want = Math.max(8, Math.round((segs[r2] / total) * n));
+      var step = segs[r2] / want, acc = 0, next = 0;
+      for (var i2 = 1; i2 < ring2.length && pts.length < n + 32; i2++) {
+        var ax = ring2[i2 - 1][0], ay = ring2[i2 - 1][1];
+        var bx = ring2[i2][0], by = ring2[i2][1];
+        var seg = Math.hypot(bx - ax, by - ay);
+        while (next <= acc + seg && seg > 0) {
+          var t = (next - acc) / seg;
+          pts.push([ax + (bx - ax) * t, ay + (by - ay) * t]);
+          next += step;
+        }
+        acc += seg;
+      }
+    }
+    return pts;
+  }
+
+  function bboxOf(pts) {
+    var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      if (p[0] < x0) x0 = p[0];
+      if (p[1] < y0) y0 = p[1];
+      if (p[0] > x1) x1 = p[0];
+      if (p[1] > y1) y1 = p[1];
+    }
+    return { x: x0, y: y0, w: Math.max(x1 - x0, 1e-6), h: Math.max(y1 - y0, 1e-6) };
+  }
+
+  function alignToShape(drawnPts, outlinePts) {
+    // Translation + uniform-scale invariance: the drawing is judged on FORM.
+    // Uniform scale (not per-axis) so a squished France still loses points.
+    var db = bboxOf(drawnPts), ob = bboxOf(outlinePts);
+    var s = Math.min(ob.w / db.w, ob.h / db.h);
+    var dcx = db.x + db.w / 2, dcy = db.y + db.h / 2;
+    var ocx = ob.x + ob.w / 2, ocy = ob.y + ob.h / 2;
+    var out = [];
+    for (var i = 0; i < drawnPts.length; i++) {
+      out.push([
+        (drawnPts[i][0] - dcx) * s + ocx,
+        (drawnPts[i][1] - dcy) * s + ocy,
+      ]);
+    }
+    return out;
+  }
+
+  function meanNearest(a, b) {
+    var sum = 0;
+    for (var i = 0; i < a.length; i++) {
+      var best = Infinity;
+      for (var j = 0; j < b.length; j++) {
+        var dx = a[i][0] - b[j][0], dy = a[i][1] - b[j][1];
+        var d = dx * dx + dy * dy;
+        if (d < best) best = d;
+      }
+      sum += Math.sqrt(best);
+    }
+    return sum / a.length;
+  }
+
+  function drawScore(strokes, shape) {
+    var drawn = [];
+    for (var i = 0; i < strokes.length; i++) {
+      for (var j = 0; j < strokes[i].length; j++) drawn.push(strokes[i][j]);
+    }
+    if (drawn.length < 8) return { pct: 100, quality: 0, empty: true };
+    var outline = ringPerimeterPoints(shape.rings, 160);
+    var aligned = alignToShape(drawn, outline);
+    var diag = Math.hypot(shape.w, shape.h);
+    // Symmetric chamfer: drawn→outline penalises scribble, outline→drawn
+    // penalises missing chunks (forgot Brittany).
+    var pct = ((meanNearest(aligned, outline) + meanNearest(outline, aligned)) / 2 / diag) * 100;
+    // Calibrated on France: perfect trace 1.0, wobbly hand-trace 2.2-2.5,
+    // ellipse-instead-of-hexagon 5.3, square 8.3, zigzag scribble 7.5.
+    var quality = pct < 3.5 ? 2 : pct < 6.5 ? 1 : 0;
+    return { pct: pct, quality: quality, aligned: aligned };
+  }
+
+  function drawCanvas(shape) {
+    // Square canvas sized to the shape's aspect box, drawn area framed.
+    var svg = el("svg", {
+      viewBox: "0 0 " + shape.w + " " + shape.h,
+      class: "gt-map gt-canvas", role: "img",
+    });
+    svg.appendChild(el("rect", {
+      x: 1, y: 1, width: shape.w - 2, height: shape.h - 2, rx: 8, class: "gt-canvas-bg",
+    }));
+    return svg;
+  }
+
+  function button(label) {
+    var b = document.createElement("div");
+    b.className = "gt-btn";
+    b.textContent = label;
+    return b;
+  }
+
+  function drawFront(root, bundle, target) {
+    var shape = shapeOf(bundle.scope, target);
+    root.appendChild(chip("Draw"));
+    root.appendChild(prompt(root.getAttribute("data-name") || target));
+    if (!shape) {
+      root.appendChild(bar("Shape data missing", "gt-miss"));
+      return;
+    }
+
+    var svg = drawCanvas(shape);
+    root.appendChild(svg);
+
+    var row = document.createElement("div");
+    row.className = "gt-btnrow";
+    var undo = button("Undo"), clear = button("Clear");
+    row.appendChild(undo);
+    row.appendChild(clear);
+    root.appendChild(row);
+    root.appendChild(bar("Draw the outline from memory, then flip", "gt-hint"));
+
+    var strokes = [], paths = [], current = null, currentPath = null;
+    var usingTouch = false;
+    saveState("draw", bundle.scope, target, { strokes: [] });
+
+    function persist() {
+      saveState("draw", bundle.scope, target, {
+        strokes: resampleStrokes(strokes, 240),
+      });
+    }
+
+    function begin(x, y) {
+      var loc = svgPoint(svg, x, y);
+      if (!loc) return;
+      current = [[loc.x, loc.y]];
+      currentPath = el("path", { class: "gt-stroke", d: strokePath(current) });
+      svg.appendChild(currentPath);
+    }
+
+    function extend(x, y) {
+      if (!current) return;
+      var loc = svgPoint(svg, x, y);
+      if (!loc) return;
+      var last = current[current.length - 1];
+      if (Math.hypot(loc.x - last[0], loc.y - last[1]) < 1.2) return;
+      current.push([loc.x, loc.y]);
+      currentPath.setAttribute("d", strokePath(current));
+    }
+
+    function finish() {
+      if (!current) return;
+      if (current.length >= 2) {
+        strokes.push(current);
+        paths.push(currentPath);
+        persist();
+      } else if (currentPath) {
+        svg.removeChild(currentPath);
+      }
+      current = null;
+      currentPath = null;
+    }
+
+    svg.addEventListener("pointerdown", function (ev) {
+      if (usingTouch) return;
+      begin(ev.clientX, ev.clientY);
+      ev.preventDefault();
+    });
+    svg.addEventListener("pointermove", function (ev) {
+      if (usingTouch) return;
+      extend(ev.clientX, ev.clientY);
+    });
+    svg.addEventListener("pointerup", function (ev) {
+      if (usingTouch) return;
+      finish();
+    });
+    // pointercancel is IGNORED on purpose: AnkiDroid's WebView cancels the
+    // pointer stream mid-gesture while touch events keep flowing.
+    svg.addEventListener("touchstart", function (ev) {
+      // Android fires pointerdown BEFORE touchstart: drop the pointer-started
+      // stroke so the touch path doesn't leave an orphan <path> behind.
+      if (!usingTouch && currentPath) {
+        svg.removeChild(currentPath);
+        current = null;
+        currentPath = null;
+      }
+      usingTouch = true;
+      var t = ev.changedTouches[0];
+      begin(t.clientX, t.clientY);
+      ev.preventDefault();
+    }, { passive: false });
+    svg.addEventListener("touchmove", function (ev) {
+      var t = ev.changedTouches[0];
+      extend(t.clientX, t.clientY);
+      ev.preventDefault();
+    }, { passive: false });
+    svg.addEventListener("touchend", function (ev) {
+      finish();
+      ev.preventDefault();
+    }, { passive: false });
+
+    function wireTap(elm, fn) {
+      elm.addEventListener("click", fn);
+      elm.addEventListener("touchend", function (ev) { fn(); ev.preventDefault(); ev.stopPropagation(); }, { passive: false });
+    }
+    wireTap(undo, function () {
+      if (current) { finish(); }
+      var p = paths.pop();
+      if (p) svg.removeChild(p);
+      strokes.pop();
+      persist();
+    });
+    wireTap(clear, function () {
+      if (current) { finish(); }
+      while (paths.length) svg.removeChild(paths.pop());
+      strokes.length = 0;
+      persist();
+    });
+  }
+
+  function drawBack(root, bundle, target) {
+    var shape = shapeOf(bundle.scope, target);
+    root.appendChild(chip("Draw"));
+    root.appendChild(prompt(root.getAttribute("data-name") || target));
+    if (!shape) {
+      root.appendChild(bar("Shape data missing", "gt-miss"));
+      return;
+    }
+
+    var svg = drawCanvas(shape);
+    svg.appendChild(el("path", { class: "gt-outline", d: ringPath(shape.rings) }));
+    root.appendChild(svg);
+
+    var state = loadState("draw", bundle.scope, target);
+    var strokes = (state && state.strokes) || [];
+    var score = drawScore(strokes, shape);
+    if (score.empty) {
+      root.appendChild(bar("No drawing recorded", "gt-miss"));
+      root.appendChild(bar(suggestFor(0), "gt-suggest"));
+      return;
+    }
+
+    // Overlay the drawing in the same alignment the score used.
+    var flat = [];
+    for (var i = 0; i < strokes.length; i++) flat = flat.concat(strokes[i]);
+    var outline = ringPerimeterPoints(shape.rings, 160);
+    var db = bboxOf(flat), ob = bboxOf(outline);
+    var s = Math.min(ob.w / db.w, ob.h / db.h);
+    var dcx = db.x + db.w / 2, dcy = db.y + db.h / 2;
+    var ocx = ob.x + ob.w / 2, ocy = ob.y + ob.h / 2;
+    for (var k = 0; k < strokes.length; k++) {
+      var mapped = [];
+      for (var m = 0; m < strokes[k].length; m++) {
+        mapped.push([
+          (strokes[k][m][0] - dcx) * s + ocx,
+          (strokes[k][m][1] - dcy) * s + ocy,
+        ]);
+      }
+      if (mapped.length >= 2) {
+        svg.appendChild(el("path", { class: "gt-drawn", d: strokePath(mapped) }));
+      }
+    }
+
+    var offset = Math.round(score.pct * 10) / 10;
+    var msg =
+      score.quality === 2 ? "Solid outline — average offset " + offset + "% of size"
+      : score.quality === 1 ? "Recognizable — average offset " + offset + "% of size"
+      : "Keep practicing — average offset " + offset + "% of size";
+    root.appendChild(bar(msg, score.quality === 2 ? "gt-ok" : score.quality === 1 ? "gt-close" : "gt-miss"));
+    root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
+  }
+
   // ---- boot ---------------------------------------------------------------------
 
+  // neighbors stays dormant: the family was retired from the packs (2026-07-05,
+  // duplicates the user's existing borders decks) but the mode remains valid.
   var MODES = {
     locate: { front: locateFront, back: locateBack },
     point: { front: pointFront, back: pointBack },
     place: { front: placeFront, back: placeBack },
     neighbors: { front: neighborsFront, back: neighborsBack },
+    draw: { front: drawFront, back: drawBack, needsShape: true },
   };
 
   function mount(root) {
@@ -636,9 +955,16 @@
     var target = root.getAttribute("data-target");
     var side = root.getAttribute("data-side") || "front";
     var mode = root.getAttribute("data-mode") || "locate";
-    var bundle = window.GT_BUNDLES && window.GT_BUNDLES[scope];
-    if (!bundle) return; // bundle script not evaluated yet; boot() retries
     var impl = MODES[mode] || MODES.locate;
+    var bundle;
+    if (impl.needsShape) {
+      // Draw cards carry their own outline per note; no basemap bundle.
+      if (!shapeOf(scope, target)) return; // shape script not evaluated yet
+      bundle = { scope: scope };
+    } else {
+      bundle = window.GT_BUNDLES && window.GT_BUNDLES[scope];
+      if (!bundle) return; // bundle script not evaluated yet; boot() retries
+    }
     root.setAttribute("data-gt-mounted", "1");
     root.innerHTML = "";
     (side === "back" ? impl.back : impl.front)(root, bundle, target);
@@ -661,7 +987,10 @@
     if ((pending.length || !mounted) && tries++ < 120) setTimeout(boot, 50);
   }
 
-  window.GeoTrainer = { mount: mount, mountAll: mountAll, _boot: boot, _hash: strHash };
+  window.GeoTrainer = {
+    mount: mount, mountAll: mountAll, _boot: boot, _hash: strHash,
+    _drawScore: drawScore, // exposed for tests: scoring must be verifiable headlessly
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot);

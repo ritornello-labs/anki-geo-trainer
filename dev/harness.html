@@ -64,7 +64,8 @@
           <option value="locate" selected>F3 Locate</option>
           <option value="point">F4 Point-in-region</option>
           <option value="place">F5 Place-the-piece</option>
-          <option value="neighbors">F7 Neighbors</option>
+          <option value="neighbors">F7 Neighbors (retired)</option>
+          <option value="draw">F6 Draw</option>
         </select>
       </label>
       <label>Target <select id="target"></select></label>
@@ -113,10 +114,17 @@
 
       function switchScope(scope) {
         SCOPE = scope;
-        return loadBundle(scope).then(function (bundle) {
+        var shapes = fetch("../data/bundles/" + scope + "-shapes.json").then(function (r) {
+          return r.json();
+        });
+        return Promise.all([loadBundle(scope), shapes]).then(function (res) {
           window.GT_BUNDLES = window.GT_BUNDLES || {};
-          window.GT_BUNDLES[scope] = bundle;
-          fillTargets(bundle);
+          window.GT_BUNDLES[scope] = res[0];
+          window.GT_SHAPES = window.GT_SHAPES || {};
+          Object.keys(res[1]).forEach(function (id) {
+            window.GT_SHAPES[scope + ":" + id] = res[1][id];
+          });
+          fillTargets(res[0]);
           side = "front";
         });
       }
@@ -131,6 +139,8 @@
         app.setAttribute("data-target", target);
         app.setAttribute("data-side", side);
         app.setAttribute("data-mode", mode);
+        var sel = document.getElementById("target");
+        app.setAttribute("data-name", sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].textContent : target);
         frame.appendChild(app);
         window.GeoTrainer.mount(app);
         document.getElementById("flip").textContent =

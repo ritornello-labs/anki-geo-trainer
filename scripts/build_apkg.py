@@ -37,11 +37,14 @@ DIST = ROOT / "dist"
 
 # Deterministic IDs so rebuilds update in place instead of duplicating.
 # (us-states locate/point/place keep their M0/M1 ids so re-imports upgrade.)
+# ord 3 is RETIRED: it was the tap-all-neighbors family, dropped 2026-07-05
+# because the user's collection already drills borders (Country Borders deck).
+# Never reuse ord 3 — those model/deck ids exist in live collections.
 FAMILY_DEFS = [
-    ("locate", "Locate", "1 Locate", "geotrainer::skill::locate", "geotrainer::level::3"),
-    ("point", "Which {Noun}", "2 Which {Noun}", "geotrainer::skill::point", "geotrainer::level::4"),
-    ("place", "Place", "3 Place", "geotrainer::skill::place", "geotrainer::level::5"),
-    ("neighbors", "Neighbors", "4 Neighbors", "geotrainer::skill::neighbors", "geotrainer::level::5"),
+    ("locate", 0, "Locate", "1 Locate", "geotrainer::skill::locate", "geotrainer::level::3"),
+    ("point", 1, "Which {Noun}", "2 Which {Noun}", "geotrainer::skill::point", "geotrainer::level::4"),
+    ("place", 2, "Place", "3 Place", "geotrainer::skill::place", "geotrainer::level::5"),
+    ("draw", 4, "Draw", "4 Draw", "geotrainer::skill::draw", "geotrainer::level::6"),
 ]
 
 SCOPE_PACKS = {
@@ -79,24 +82,35 @@ def guard_js(src: str) -> str:
 
 def build_templates(scope: str, mode: str) -> tuple[str, str, str]:
     engine = guard_js(ENGINE.read_text(encoding="utf-8"))
-    b64 = base64.b64encode((BUNDLE_DIR / f"{scope}.json").read_bytes()).decode("ascii")
     css = CSS.read_text(encoding="utf-8")
-
-    boot = (
-        '<script>window.GT_BUNDLES=window.GT_BUNDLES||{};'
-        f'window.GT_BUNDLES["{scope}"]=JSON.parse(atob("{b64}"));</script>'
-    )
     engine_tag = f"<script>{engine}</script>"
+
+    if mode == "draw":
+        # Draw needs no basemap — each NOTE carries its own outline in the
+        # ShapeData field (base64, so field substitution can't collide with
+        # markup). Template stays small; data lives per note.
+        boot = (
+            "<script>window.GT_SHAPES=window.GT_SHAPES||{ };"
+            f'window.GT_SHAPES["{scope}:" + "{{{{RegionId}}}}"]='
+            'JSON.parse(atob("{{ShapeData}}"));</script>'
+        )
+    else:
+        b64 = base64.b64encode((BUNDLE_DIR / f"{scope}.json").read_bytes()).decode("ascii")
+        boot = (
+            '<script>window.GT_BUNDLES=window.GT_BUNDLES||{};'
+            f'window.GT_BUNDLES["{scope}"]=JSON.parse(atob("{b64}"));</script>'
+        )
 
     def side(which: str) -> str:
         return (
             f'<div class="gt-app" data-scope="{scope}" data-mode="{mode}" '
-            'data-target="{{RegionId}}" data-side="' + which + '"></div>\n'
+            'data-target="{{RegionId}}" data-name="{{RegionName}}" '
+            'data-side="' + which + '"></div>\n'
             f"{boot}\n{engine_tag}"
         )
 
     # Independent renders (no {{FrontSide}}): the back re-mounts in back mode
-    # and reads front state from localStorage.
+    # and reads front state from localStorage (window-global fallback inside).
     return side("front"), side("back"), css
 
 
@@ -104,12 +118,12 @@ def families_for(scope: str, pack: dict, test_ids: bool = False) -> list[dict]:
     bundle = load_bundle(scope)
     noun = bundle.get("noun", "region").capitalize()
     fams = []
-    for idx, (mode, fam_label, deck_label, skill_tag, level_tag) in enumerate(FAMILY_DEFS):
+    for mode, ord_, fam_label, deck_label, skill_tag, level_tag in FAMILY_DEFS:
         fam_name = fam_label.replace("{Noun}", noun)
         fam = {
             "mode": mode,
-            "model_id": pack["model_base"] + idx,
-            "deck_id": pack["deck_base"] + idx,
+            "model_id": pack["model_base"] + ord_,
+            "deck_id": pack["deck_base"] + ord_,
             "model_name": pack["model_root"].replace("{family}", fam_name),
             "deck": f"{pack['deck_root']}::{deck_label.replace('{Noun}', noun)}",
             "skill_tag": skill_tag,
@@ -126,18 +140,31 @@ def families_for(scope: str, pack: dict, test_ids: bool = False) -> list[dict]:
     return fams
 
 
+def load_shapes(scope: str) -> dict:
+    return json.loads((BUNDLE_DIR / f"{scope}-shapes.json").read_text(encoding="utf-8"))
+
+
 def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[genanki.Note]:
     bundle = load_bundle(scope)
+    shapes = load_shapes(scope) if fam["mode"] == "draw" else {}
     notes = []
     for reg in bundle["regions"]:
         if reg.get("tier", 1) != 1:
             continue  # dependencies are map context, not quiz entities
-        if fam["mode"] == "neighbors" and not reg.get("nb"):
-            continue  # islands have no land borders to tap
+        fields = [scope, reg["id"], reg["name"]]
+        if fam["mode"] == "draw":
+            payload = shapes.get(reg["id"])
+            if not payload:
+                continue
+            fields.append(
+                base64.b64encode(
+                    json.dumps(payload, separators=(",", ":")).encode("ascii")
+                ).decode("ascii")
+            )
         notes.append(
             genanki.Note(
                 model=model,
-                fields=[scope, reg["id"], reg["name"]],
+                fields=fields,
                 guid=genanki.guid_for("geotrainer", scope, fam["guid_ns"], reg["id"]),
                 tags=[fam["skill_tag"], pack["scope_tag"], fam["level_tag"]],
             )
@@ -151,10 +178,13 @@ def build_scope(scope: str, test_ids: bool = False) -> Path:
     total = 0
     for fam in families_for(scope, pack, test_ids=test_ids):
         front, back, css = build_templates(scope, fam["mode"])
+        fields = [{"name": "Scope"}, {"name": "RegionId"}, {"name": "RegionName"}]
+        if fam["mode"] == "draw":
+            fields.append({"name": "ShapeData"})
         model = genanki.Model(
             fam["model_id"],
             fam["model_name"],
-            fields=[{"name": "Scope"}, {"name": "RegionId"}, {"name": "RegionName"}],
+            fields=fields,
             templates=[{"name": fam["mode"].capitalize(), "qfmt": front, "afmt": back}],
             css=css,
             sort_field_index=2,

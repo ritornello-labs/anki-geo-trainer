@@ -145,9 +145,20 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   found/wrong feedback. Verified per platform matrix; both packs imported into the
   live collection (confirmed that APKG re-import updates existing note-type templates,
   so engine upgrades propagate). Continents beyond Europe moved to M4.
-- **M3 — Draw-the-shape (F6).** Sketch canvas, shape normalization, IoU + landmark
-  scoring, overlay feedback. Its own milestone because scoring quality decides whether
-  the family is fun or frustrating.
+- **M3 — Draw-the-shape (F6). ✅ Done 2026-07-05.** F7 retired first (user call:
+  duplicates his existing borders decks; engine mode kept dormant, ord 3 ids never
+  reused). Draw ships as `4 Draw` for both scopes (50 + 46 notes). Per-note base64
+  `ShapeData` field carries a hi-res outline refitted to its own box (greedy
+  edge-distance chain keeps Sicily/NI/Hawaii's islands, drops French Guiana and
+  Svalbard — NE admin-0 bundles overseas territory into one geometry). Front:
+  multi-stroke SVG sketch canvas (pointer + non-passive touch, pointercancel-immune,
+  undo/clear, `touch-action: none`). Back: true outline overlaid with the drawing
+  aligned translation/scale-invariantly (uniform bbox fit + centroid), scored by
+  symmetric chamfer distance as % of shape diagonal — calibrated on France: trace
+  1%, wobbly trace 2.2–2.5% (Good <3.5), ellipse 5.3 (Hard <6.5), square/scribble
+  7.5–8.3 (Again). Verified: 68/68 Chromium+WebKit (incl. shipped-fixture boots and
+  scoring-invariance tests), Docker smoke, live import, AnkiDroid physical-swipe
+  strokes (3-stroke Albania → "Grade: Hard", state front→back on device).
 - **M4 — Breadth + physical geography.** Remaining subdivision scopes (reuse
   country-subdivision-map-decks coverage), F8 features, capitals-on-map.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,

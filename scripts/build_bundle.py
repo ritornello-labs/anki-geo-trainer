@@ -249,6 +249,69 @@ def make_region(
     return region
 
 
+def shape_payload(geom: BaseGeometry, box_px: float = 400.0) -> dict:
+    """Standalone outline for F6 draw-the-shape: the region re-fitted into its
+    own box at drawing resolution (the continental-bundle rings are simplified
+    for map scale and look chunky blown up). Keeps islands >= 3% of the largest
+    polygon (Corsica-sized specks drop; Michigan's peninsulas and Northern
+    Ireland stay). Unwraps antimeridian crossers (Alaska, Russia) so Chukotka
+    doesn't smear the fit across the globe."""
+    polys = list(geom.geoms) if isinstance(geom, MultiPolygon) else [geom]
+    lon_span = max(p.bounds[2] for p in polys) - min(p.bounds[0] for p in polys)
+    if lon_span > 180:
+        shifted = []
+        for p in polys:
+            if p.centroid.x < 0:
+                p = Polygon([(lon + 360.0, lat) for lon, lat in p.exterior.coords])
+            shifted.append(p)
+        polys = shifted
+    biggest = max(polys, key=lambda p: p.area)
+    pool = [p for p in polys if p.area >= 0.03 * biggest.area and p is not biggest]
+    # Keep only parts near the main landmass: NE admin-0 includes far-flung
+    # territory in the same geometry (French Guiana is 15% of "France",
+    # Svalbard 19% of "Norway") which would shrink the iconic mainland into a
+    # corner of the drawing box. Greedy chain growth on edge-to-edge distance
+    # so island chains stay whole (Hawaii's Maui/Oahu), while Sicily/Sardinia,
+    # Northern Ireland, and Michigan's UP stay and overseas parts drop.
+    bx0, by0, bx1, by1 = biggest.bounds
+    reach = max(0.25 * math.hypot(bx1 - bx0, by1 - by0), 0.8)  # degrees
+    kept = [biggest]
+    grew = True
+    while grew and pool:
+        grew = False
+        for p in list(pool):
+            if any(p.distance(k) <= reach for k in kept):
+                kept.append(p)
+                pool.remove(p)
+                grew = True
+    polys = kept
+
+    lon_min = min(p.bounds[0] for p in polys)
+    lat_min = min(p.bounds[1] for p in polys)
+    lon_max = max(p.bounds[2] for p in polys)
+    lat_max = max(p.bounds[3] for p in polys)
+    cos0 = math.cos(math.radians((lat_min + lat_max) / 2.0))
+    x_span = max((lon_max - lon_min) * cos0, 1e-9)
+    y_span = max(lat_max - lat_min, 1e-9)
+    pad = 6.0
+    scale = min((box_px - 2 * pad) / x_span, (box_px - 2 * pad) / y_span)
+    w = x_span * scale + 2 * pad
+    h = y_span * scale + 2 * pad
+
+    rings = []
+    for p in sorted(polys, key=lambda p: p.area, reverse=True)[:6]:
+        simplified = Polygon(
+            [((lon - lon_min) * cos0 * scale + pad, (lat_max - lat) * scale + pad)
+             for lon, lat in p.exterior.coords]
+        ).simplify(1.0, preserve_topology=True)
+        if simplified.is_empty:
+            continue
+        coords = [[round(x, 1), round(y, 1)] for x, y in simplified.exterior.coords]
+        if len(coords) >= 4:
+            rings.append(coords)
+    return {"w": round(w, 1), "h": round(h, 1), "rings": rings}
+
+
 def add_adjacency(regions: list[dict], full_geoms: dict[str, BaseGeometry]) -> None:
     """Land-border neighbor lists computed on the UNCLIPPED lon/lat geometries.
     A neighbor pair must share a real boundary line (> ~5 km), not a point touch
@@ -346,6 +409,7 @@ def build_us_states() -> dict:
 
     add_adjacency(regions, full_geoms)
     regions.sort(key=lambda r: r["name"])
+    shapes = {r["id"]: shape_payload(full_geoms[r["id"]]) for r in regions}
     return {
         "scope": "us-states",
         "title": "United States — States",
@@ -353,7 +417,7 @@ def build_us_states() -> dict:
         "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
         "frames": frames,
         "regions": regions,
-    }
+    }, shapes
 
 
 # ======================== scope: europe-countries =================================
@@ -429,6 +493,10 @@ def build_europe() -> dict:
     # Land-border adjacency on the UNCLIPPED geometries (Russia–Norway etc. count
     # even where the border sits near the viewport edge).
     add_adjacency(regions, geoms_by_id)
+    shapes = {
+        r["id"]: shape_payload(geoms_by_id[r["id"]])
+        for r in regions if r.get("tier", 1) == 1
+    }
 
     # Neutral context land (Africa/Anatolia/greater Russia) for orientation.
     context: list[list[list[float]]] = []
@@ -449,7 +517,7 @@ def build_europe() -> dict:
         ],
         "context": context,
         "regions": regions,
-    }
+    }, shapes
 
 
 # ---------------------------------------------------------------------------------
@@ -468,14 +536,17 @@ def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     names = list(SCOPES) if args.scope == "all" else [args.scope]
     for name in names:
-        bundle = SCOPES[name]()
+        bundle, shapes = SCOPES[name]()
         out_path = OUT_DIR / f"{name}.json"
         out_path.write_text(json.dumps(bundle, separators=(",", ":")), encoding="utf-8")
+        shapes_path = OUT_DIR / f"{name}-shapes.json"
+        shapes_path.write_text(json.dumps(shapes, separators=(",", ":")), encoding="utf-8")
         n = len(bundle["regions"])
         tier1 = sum(1 for r in bundle["regions"] if r.get("tier", 1) == 1)
         small = sum(1 for r in bundle["regions"] if r.get("small"))
         size_kb = out_path.stat().st_size / 1024
-        print(f"wrote {out_path}")
+        shp_kb = shapes_path.stat().st_size / 1024
+        print(f"wrote {out_path} (+ shapes {shp_kb:.1f} KB)")
         print(
             f"  regions: {n} (tier1: {tier1}, small: {small}) | "
             f"view: {bundle['view']['w']}x{bundle['view']['h']} | {size_kb:.1f} KB"

@@ -17,7 +17,7 @@ and filtered-deck recipes.
 | `…::1 Locate` | name → position | Tap the named region on a blank map; the back grades your tap (inside / missed-by-km / what you hit) |
 | `…::2 Which State/Country` | position → name | A dot appears somewhere *inside* a region (never hugging a border, different spot each review); name it |
 | `…::3 Place` | precise position | Drag the region's silhouette from a tray to its exact spot; graded by how far off you were |
-| `…::4 Neighbors` | borders | The target is highlighted; tap **every** land-bordering region — live counter, wrong taps flash, the back names what you missed |
+| `…::4 Draw` | shape recall | Sketch the region's outline from memory (multi-stroke, undo/clear); the back overlays the true shape on your drawing and grades the match — position and size don't matter, form does |
 
 All four are self-graded: the card shows a verdict and a suggested grade; you still
 press Anki's answer buttons. Alaska and Hawaii render in classic inset panels at

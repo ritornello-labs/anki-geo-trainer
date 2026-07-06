@@ -128,6 +128,67 @@
 }
 .gt-region.gt-nb-wrong { fill: #b0413e; fill-opacity: 0.8; transition: fill 0.5s ease; }
 
+/* F6 draw-the-shape */
+.gt-canvas {
+  cursor: crosshair;
+  touch-action: none; /* the finger draws; the page must not scroll or zoom */
+  max-height: 62vh;
+}
+.gt-canvas-bg {
+  fill: #fbfcfd;
+  stroke: #c3ccd6;
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+}
+.gt-stroke {
+  fill: none;
+  stroke: #2d3742;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.gt-outline {
+  fill: var(--gt-land);
+  fill-opacity: 0.6;
+  stroke: var(--gt-accent);
+  stroke-width: 2;
+}
+.gt-drawn {
+  fill: none;
+  stroke: #2d3742;
+  stroke-width: 2;
+  stroke-opacity: 0.85;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.gt-btnrow {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0 2px;
+}
+.gt-btn {
+  padding: 8px 22px;
+  border-radius: 10px;
+  border: 1.5px solid #c3ccd6;
+  background: #ffffff;
+  color: #2d3742;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.gt-btn:active { background: #eef1f4; }
+
+.nightMode .gt-canvas-bg { fill: #23272e; stroke: #4a5260; }
+.nightMode .gt-stroke,
+.nightMode .gt-drawn { stroke: #e8eaed; }
+.nightMode .gt-outline { fill-opacity: 0.35; }
+.nightMode .gt-btn { background: #2a2f37; border-color: #4a5260; color: #e8eaed; }
+.nightMode .gt-btn:active { background: #343a44; }
+
 /* F4 point-in-region dot */
 .gt-point {
   fill: var(--gt-accent);
