@@ -171,9 +171,24 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   dropped (Goiás wraps around Brazil's Federal District enclave → invalid ring).
   Data-driven `scopes.spec.mjs` smokes every scope (load, render, hit-test, F4
   front↔back, shape coverage) — 112/112 cross-engine. Docker smoke + live import of
-  all 7 packs green. **Remaining M4:** 10m admin-1 for Argentina/Mexico/etc. (50m
-  only has 9 big countries); Russia/China/Indonesia subdivisions (available in 50m);
-  F8 features + capitals-on-map; Oceania framing.
+  all 7 packs green.
+- **M4b — 6 more subdivisions + F8. ✅ Done 2026-07-06 (commit `ec8b216`).** Added
+  Russia (85 subjects, antimeridian-unwrapped), China (31), Canada (13), Australia
+  (9) from 50m admin-1; Argentina (24) and Mexico (32) from a new 10m admin-1 source
+  (subdivision builder gained `source` + `unwrap_antimeridian`; skips NE nameless
+  junk rows). **F8 capital-locate family** (ord 5, `5 Capital`): tap where the named
+  capital is, distance-graded like a locate miss; the back stars the true point and
+  names the region. Capitals matched by point-in-region and projected into scope
+  coords (us-states routes each through its inset frame); national capitals for
+  continents, state/province capitals for subdivisions, from the 10m populated-places
+  file (2,259 province capitals vs 482 in 50m → US 48/50, Mexico 31/32). **13 scopes
+  × 5 families = 2,286 notes.** Suite 174/174 (scopes.spec now covers all 13 scopes +
+  the capital family; locate/capital taps dispatch in SVG space so Argentina's
+  2148px-tall map doesn't clip the synthetic click). Docker smoke + live import of
+  all 13 packs; AnkiDroid verified the US capital family end to end (physical tap on
+  Montgomery → "Spot on — Montgomery (Alabama)", star + region highlight).
+  **Remaining:** Indonesia subdivisions (50m); physical features; Oceania continent
+  framing; then M5 release.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, screenshots via workbench.
 

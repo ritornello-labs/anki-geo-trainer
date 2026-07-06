@@ -4,13 +4,15 @@ Sheppard-Software-style interactive geography practice for Anki: a comprehensive
 curriculum-ordered set of map-interaction task types rendered by a shared JS engine
 that works on Anki Desktop, AnkiMobile, and AnkiDroid.
 
-Status: M4 — **seven scopes**, each with four task families (Locate, Which
-State/Country, Place, Draw), 2,420 notes total: **United States** (50 states),
-**Europe** (46 countries), **South America** (12), **Africa** (53), **Asia** (47),
-**Brazil** (27 states), and **India** (36 states/UTs). All rendered by one shared
-engine and verified on Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md) for the
-roadmap and [`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md) for the skill
-ladder, tags, and filtered-deck recipes.
+Status: M4b — **thirteen scopes**, each with five task families (Locate, Which
+State/Country, Place, Draw, Capital), **2,286 notes** total. Continents: **Europe**
+(46), **South America** (12), **Africa** (53), **Asia** (47). Country subdivisions:
+**United States** (50 states), **Brazil** (27), **India** (36), **Russia** (85
+subjects), **China** (31), **Canada** (13), **Australia** (9), **Argentina** (24),
+**Mexico** (32). All rendered by one shared engine and verified on
+Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md) for the roadmap and
+[`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md) for the skill ladder, tags,
+and filtered-deck recipes.
 
 New scopes are pure config: a continent is a viewport box + a Natural Earth
 `CONTINENT` filter; a country subdivision is an ISO country code. Both feed the
@@ -24,6 +26,7 @@ same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
 | `…::2 Which State/Country` | position → name | A dot appears somewhere *inside* a region (never hugging a border, different spot each review); name it |
 | `…::3 Place` | precise position | Drag the region's silhouette from a tray to its exact spot; graded by how far off you were |
 | `…::4 Draw` | shape recall | Sketch the region's outline from memory (multi-stroke, undo/clear); the back overlays the true shape on your drawing and grades the match — position and size don't matter, form does |
+| `…::5 Capital` | capital location | Tap where the named capital city is on the blank map; the back stars the true spot, draws your tap, and grades by distance in km |
 
 All four are self-graded: the card shows a verdict and a suggested grade; you still
 press Anki's answer buttons. Alaska and Hawaii render in classic inset panels at

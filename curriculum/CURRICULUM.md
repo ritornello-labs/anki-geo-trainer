@@ -17,6 +17,7 @@ this order. Each rung assumes comfort with the one before it.
 | 4 | Point-in-region | `2 Which State/Country` | Random dot on a blank map → name the region under it |
 | 5 | Place | `3 Place` | Drag the region's silhouette to its exact position |
 | 6 | Draw | `4 Draw` | Sketch the region's outline from memory; scored against the true shape (translation/scale-invariant) |
+| 4 | Capital | `5 Capital` | Tap where the named capital city is; distance-graded, true spot starred on the back |
 
 A tap-all-neighbors family (F7) shipped briefly in M2 and was retired the same day:
 it duplicates the passive border decks already in the user's collection. The engine
@@ -84,16 +85,19 @@ deck-order study already follows the ladder.
   Northern Ireland, Hawaii's island chain).
 - **Shipped (M4)**: three more continents — **South America** (12 countries),
   **Africa** (53), **Asia** (47; Turkey→Japan, Timor→the steppe, Russia clipped at
-  the top) — and two country subdivisions, **Brazil** (27 states) and **India** (36
-  states & union territories). Continents reuse Europe's machinery (viewport box +
-  `CONTINENT` filter, sovereign/dependency tiering, microstate tap-circles). All
-  four families on every scope: 2,420 notes total.
-- **M4 follow-ups**: Argentina, Mexico, and other subdivisions need Natural Earth's
-  10m admin-1 file (the 50m file only carries provinces for nine large countries —
-  AUS, BRA, CAN, CHN, IDN, IND, RUS, USA, ZAF). Russia (85 subjects, antimeridian)
-  and China/Indonesia subdivisions are available in 50m and are the next easy adds.
-- **Later**: physical features (rivers, ranges, seas) and capitals-on-map (F8);
-  Oceania once a sensible multi-viewport framing is settled.
+  the top) — plus subdivisions. Continents reuse Europe's machinery (viewport box +
+  `CONTINENT` filter, sovereign/dependency tiering, microstate tap-circles).
+- **Shipped (M4b)**: six more subdivisions — **Russia** (85 federal subjects,
+  antimeridian-unwrapped), **China** (31), **Canada** (13), **Australia** (9) from
+  the 50m admin-1 file; **Argentina** (24) and **Mexico** (32) from the 10m file
+  (the 50m file only carries provinces for nine large countries — AUS, BRA, CAN,
+  CHN, IDN, IND, RUS, USA, ZAF). And the **F8 Capital** family on every scope
+  (national capitals for continents, state/province capitals for subdivisions;
+  capitals from 10m populated-places, matched by point-in-region). **13 scopes ×
+  5 families = 2,286 notes.**
+- **Later**: physical features (rivers, ranges, seas); Indonesia subdivisions
+  (available in 50m); Oceania continent once a sensible multi-viewport framing is
+  settled; then AnkiWeb release (M5).
 
 ### Adding a scope (for future me)
 
