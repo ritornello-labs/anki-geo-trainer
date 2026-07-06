@@ -29,8 +29,9 @@ submitting to AnkiWeb needs Elvis's go-ahead, credentials, and awareness of the
 
 ## Before publishing (checklist)
 
-- [ ] Make the GitHub repo public; run a tree+history secret/absolute-path scan first.
-- [ ] Add MIT `LICENSE`, README badges, and a workbench-generated screenshot
+- [x] MIT `LICENSE` added (2026-07-06); tracked-tree secret/absolute-path scan clean.
+- [ ] Make the GitHub repo public; run a full history (not just tree) secret scan first.
+- [ ] Add README badges and a workbench-generated screenshot
       (`anki-workbench screenshot`) as the listing image — mirror `brazil-ddd-codes`.
 - [ ] Decide single-deck vs per-continent; build the combined pack if needed.
 - [ ] Configure `anki-addon-release` (`pyproject.toml` target + git-ignored `.env`
