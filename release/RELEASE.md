@@ -4,6 +4,12 @@ Status: **prepared, not published.** The artifacts below are ready; actually
 submitting to AnkiWeb needs Elvis's go-ahead, credentials, and awareness of the
 20-shares-per-7-days quota. Nothing here has been uploaded.
 
+Verification status (2026-07-06): all 18 scopes × 6 families pass the cross-engine
+suite (Chromium + WebKit, 198 passed / 2 skipped), Docker/Xvfb deck smoke, and live
+AnkiConnect import (2,880 notes, 80 leaf decks). The newest engine mode (F9
+river-locate) is also confirmed on the AnkiDroid emulator end to end: physical tap on
+the Abay, polyline highlighted, graded "On it".
+
 ## Open decisions (need Elvis)
 
 1. **Public GitHub repo?** The repo is currently private (`elvis-sik/anki-geo-trainer`).
