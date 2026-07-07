@@ -257,6 +257,19 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   Central America stays because it's contiguous with the mainland polygon). **22 scopes;
   suite 224 passed / 6 skipped.** Combined `geo-trainer-all.apkg` = 52 decks / 1,696
   notes / 26.4 MB; both new scopes imported live.
+- **Draw/Trace UI polish. ✅ Done 2026-07-07.** Three study-driven refinements:
+  **(1) Uniform Draw canvas** — the front was sized to the shape's own box, so the
+  canvas aspect leaked the answer; it's now a **fixed 400×400 square** for every card
+  (`drawCanvas(shape, square)`; the back keeps the shape's real box for the overlay).
+  Scoring is scale/translation-invariant so this costs nothing. **(2) Google-Maps-style
+  controls** — the +/−/Move button row was replaced by floating controls in the canvas
+  corner: a stacked ＋/− zoom pill and a round ✋ pan toggle, overlaid as siblings of
+  the SVG (`drawSurface` wraps the canvas; the square Draw wrap hugs the canvas via
+  `.gt-wrap-square` so the controls land on its corner, not the letterbox margin).
+  Undo/Clear stay in a row below. Light + dark verified. **(3) Continents deck promoted**
+  to top-level `GeoTrainer::Continents` (peer of World/Physical) for discoverability;
+  live cards moved with AnkiConnect `changeDeck` + the old nested deck deleted. Suite
+  224 passed / 6 skipped; templates re-imported live.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
   (`make apkg-all`) + `release/screenshots/`. Publishing still gated on Elvis's

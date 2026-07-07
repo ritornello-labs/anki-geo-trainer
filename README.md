@@ -30,15 +30,15 @@ same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
 |------|-------|-------------|
 | `…::1 Which State/Country` | position → name | A dot appears *inside* a region (different spot each review) on a **borderless** map; recall which one it is |
 | `…::2 Place` | precise position | Drag the region's silhouette onto the **borderless** map to where it belongs — no labelled slot to snap into |
-| `…::3 Draw` | shape recall | Sketch the outline from memory (multi-stroke, undo/clear, zoom); the back overlays the true shape and grades the match. Scoring gates on **both** boundary faithfulness and area overlap (IoU), so a right-size wrong-shape blob — a lazy circle over Algeria — fails to *Again*, while an honest freehand attempt (even wobbly) passes. Position and size don't matter, form does |
+| `…::3 Draw` | shape recall | Sketch the outline from memory on a blank **fixed-square** canvas (uniform for every card, so the frame never hints the answer's aspect ratio; multi-stroke, undo/clear); the back overlays the true shape and grades the match. Scoring gates on **both** boundary faithfulness and area overlap (IoU), so a right-size wrong-shape blob — a lazy circle over Algeria — fails to *Again*, while an honest freehand attempt (even wobbly) passes. Position and size don't matter, form does |
 | `…::1 Trace` (rivers) | river course | Trace a major river's course over a world map; the back overlays the true line and grades by distance (km) to it. Start on the *full* world map (no positional hint), then zoom in to trace precisely |
 
-Drawing surfaces (Draw, Trace) have **zoom + pan**: +/− buttons and mouse-wheel to
-zoom, and a **✋ Move** toggle that turns a drag into a pan (so you can reposition a
-zoomed-in view onto, say, South America to trace the Amazon). On touch you can also
-pinch-zoom and two-finger pan; on desktop a right-drag pans without the toggle. Only
-the SVG viewBox changes, so strokes stay in map coordinates and grading is exact at
-any zoom.
+Drawing surfaces (Draw, Trace) have **zoom + pan** via floating map-style controls
+in the canvas corner (Google-Maps-like): a stacked **＋/−** zoom pill and a **✋**
+toggle that turns a drag into a pan (so you can reposition a zoomed-in view onto, say,
+South America to trace the Amazon). Mouse-wheel also zooms; on touch you can pinch-zoom
+and two-finger pan; on desktop a right-drag pans without the toggle. Only the SVG
+viewBox changes, so strokes stay in map coordinates and grading is exact at any zoom.
 
 Cards are self-graded: the card shows a verdict and a suggested grade; you still
 press Anki's answer buttons. Region maps hide internal borders on the front so the

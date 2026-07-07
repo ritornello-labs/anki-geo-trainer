@@ -841,14 +841,21 @@
     return { pct: pct, iou: iou, quality: quality, aligned: aligned };
   }
 
-  function drawCanvas(shape) {
-    // Square canvas sized to the shape's aspect box, drawn area framed.
+  var GT_CANVAS = 400; // fixed square side for the blank Draw FRONT
+
+  function drawCanvas(shape, square) {
+    // The FRONT is a fixed SQUARE for every card (square=true): a shape-shaped
+    // canvas leaks the answer's aspect ratio. Scoring is scale/translation
+    // invariant, so a uniform square costs nothing. The BACK keeps the shape's
+    // own box so the true outline overlays at its real proportions.
+    var w = square ? GT_CANVAS : shape.w;
+    var h = square ? GT_CANVAS : shape.h;
     var svg = el("svg", {
-      viewBox: "0 0 " + shape.w + " " + shape.h,
+      viewBox: "0 0 " + w + " " + h,
       class: "gt-map gt-canvas", role: "img",
     });
     svg.appendChild(el("rect", {
-      x: 1, y: 1, width: shape.w - 2, height: shape.h - 2, rx: 8, class: "gt-canvas-bg",
+      x: 1, y: 1, width: w - 2, height: h - 2, rx: 8, class: "gt-canvas-bg",
     }));
     return svg;
   }
@@ -1089,30 +1096,53 @@
     };
   }
 
-  function drawToolRow(root, surface, panzoom) {
-    var row = document.createElement("div");
-    row.className = "gt-btnrow";
+  // Wrap the canvas so the map controls can float over it (Google-Maps style:
+  // a +/- zoom pill and a ✋ pan toggle in the corner) instead of a button row.
+  function drawSurface(root, svg, panzoom) {
+    var wrap = document.createElement("div");
+    // The square Draw canvas gets a wrap that hugs it (so the floating controls
+    // sit on the canvas corner, not out in the letterbox margin); the wide
+    // river map fills the wrap edge-to-edge.
+    wrap.className = "gt-canvas-wrap" + (svg.classList.contains("gt-canvas") ? " gt-wrap-square" : "");
+    wrap.appendChild(svg);
     if (panzoom) {
-      var zout = button("−"), zin = button("+"); // − and +
-      zout.className += " gt-zoom";
-      zin.className += " gt-zoom";
-      row.appendChild(zout);
-      row.appendChild(zin);
-      wireTap(zout, panzoom.zoomOut);
-      wireTap(zin, panzoom.zoomIn);
-      // Move toggle: flips a drag between drawing and panning, so a zoomed-in
-      // user can reposition the view (the reason pinch-pan isn't enough on
-      // desktop / one-finger phones).
-      var move = button("✋ Move");
-      move.className += " gt-move";
-      row.appendChild(move);
-      wireTap(move, function () {
+      var ctl = document.createElement("div");
+      ctl.className = "gt-mapctl";
+      // ✋ pan toggle (drag draws by default; toggled on, a drag pans instead).
+      var pan = document.createElement("div");
+      pan.className = "gt-ctl gt-move";
+      pan.textContent = "✋";
+      pan.setAttribute("role", "button");
+      pan.setAttribute("aria-label", "Toggle pan");
+      wireTap(pan, function () {
         var on = !panzoom.isPanMode();
         panzoom.setPanMode(on);
-        move.classList.toggle("gt-active", on);
-        move.textContent = on ? "✋ Moving" : "✋ Move";
+        pan.classList.toggle("gt-active", on);
       });
+      // Stacked +/- zoom pill.
+      var zoom = document.createElement("div");
+      zoom.className = "gt-zoomctl";
+      var zin = document.createElement("div");
+      zin.className = "gt-ctl gt-zoom gt-zin";
+      zin.textContent = "+";
+      var zout = document.createElement("div");
+      zout.className = "gt-ctl gt-zoom gt-zout";
+      zout.textContent = "−"; // −
+      zoom.appendChild(zin);
+      zoom.appendChild(zout);
+      wireTap(zin, panzoom.zoomIn);
+      wireTap(zout, panzoom.zoomOut);
+      ctl.appendChild(pan);
+      ctl.appendChild(zoom);
+      wrap.appendChild(ctl);
     }
+    root.appendChild(wrap);
+    return wrap;
+  }
+
+  function drawToolRow(root, surface) {
+    var row = document.createElement("div");
+    row.className = "gt-btnrow";
     var undo = button("Undo"), clear = button("Clear");
     row.appendChild(undo);
     row.appendChild(clear);
@@ -1129,11 +1159,11 @@
       root.appendChild(bar("Shape data missing", "gt-miss"));
       return;
     }
-    var svg = drawCanvas(shape);
-    root.appendChild(svg);
+    var svg = drawCanvas(shape, true); // fixed square front — no aspect hint
     var panzoom = attachPanZoom(svg);
     var surface = attachStrokeCapture(svg, "draw", bundle.scope, target, "gt-stroke", panzoom.isPanMode);
-    drawToolRow(root, surface, panzoom);
+    drawSurface(root, svg, panzoom);
+    drawToolRow(root, surface);
     root.appendChild(bar("Draw the outline from memory, then flip", "gt-hint"));
   }
 
@@ -1366,13 +1396,13 @@
     // trace the river's course over the continents where you think it runs.
     var built = buildSvg(bundle);
     var svg = built.svg;
-    root.appendChild(svg);
     // Zoom/pan so you can dive into the region and trace the line precisely,
     // even though the front starts on the full world map (no positional hint).
     var panzoom = attachPanZoom(svg);
     var surface = attachStrokeCapture(svg, "river", bundle.scope, target, "gt-drawn", panzoom.isPanMode);
-    drawToolRow(root, surface, panzoom);
-    root.appendChild(bar("Zoom in (＋), ✋ Move to reposition, then trace the " + name, "gt-hint"));
+    drawSurface(root, svg, panzoom);
+    drawToolRow(root, surface);
+    root.appendChild(bar("Zoom in (＋), tap ✋ to reposition, then trace the " + name, "gt-hint"));
   }
 
   function riverBack(root, bundle, target) {

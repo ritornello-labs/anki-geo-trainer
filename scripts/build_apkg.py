@@ -84,7 +84,9 @@ SCOPE_PACKS = {
     },
     "continents": {
         # Draw-only single silhouettes (South America, North America, Africa).
-        "deck_root": "GeoTrainer::World::Continents",
+        # Top-level (peer of World/Physical) so the continent Draw deck is easy
+        # to find rather than buried under World.
+        "deck_root": "GeoTrainer::Continents",
         "model_root": "GeoTrainer {family} — Continents",
         "scope_tag": "geotrainer::scope::world::continents",
         "model_base": 1_607_412_001,

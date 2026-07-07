@@ -209,26 +209,70 @@
 }
 .gt-btn:active { background: #eef1f4; }
 
-/* Zoom +/- buttons: square, bold symbol, sit at the left of the tool row */
-.gt-btn.gt-zoom {
-  padding: 8px 0;
-  width: 42px;
-  text-align: center;
-  font-size: 20px;
+/* Map controls float over the canvas corner, Google-Maps style: a ✋ pan toggle
+   above a stacked +/- zoom pill. Overlaid siblings of the SVG, so taps hit them,
+   not the drawing surface beneath. */
+.gt-canvas-wrap { position: relative; display: block; }
+/* Square Draw canvas: hug it so it doesn't letterbox into a wide ocean box and
+   the floating controls land on the canvas corner. */
+.gt-canvas-wrap.gt-wrap-square {
+  width: min(100%, 62vh);
+  margin-inline: auto;
+}
+.gt-wrap-square .gt-canvas {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 1 / 1;
+}
+.gt-mapctl {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+.gt-ctl {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #2d3742;
+  font-size: 22px;
+  font-weight: 700;
   line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
+.gt-ctl:active { background: #eef1f4; }
+/* ✋ pan toggle: round, lit while a drag pans instead of draws */
+.gt-move {
+  border-radius: 50%;
+  font-size: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+.gt-move.gt-active { background: var(--gt-accent); color: #ffffff; }
+/* +/- zoom pill: two stacked buttons with a hairline divider */
+.gt-zoomctl {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+.gt-zoomctl .gt-zin { border-bottom: 1px solid #dfe3e8; }
 
-/* Move toggle: lit while a drag pans instead of draws */
-.gt-btn.gt-move.gt-active {
-  background: var(--gt-accent);
-  border-color: var(--gt-accent);
-  color: #ffffff;
-}
-.nightMode .gt-btn.gt-move.gt-active {
-  background: var(--gt-accent);
-  border-color: var(--gt-accent);
-  color: #ffffff;
-}
+.nightMode .gt-ctl { background: #2a2f37; color: #e8eaed; }
+.nightMode .gt-ctl:active { background: #343a44; }
+.nightMode .gt-zoomctl .gt-zin { border-bottom-color: #454c57; }
+.nightMode .gt-move.gt-active { background: var(--gt-accent); color: #ffffff; }
 
 .nightMode .gt-canvas-bg { fill: #23272e; stroke: #4a5260; }
 .nightMode .gt-stroke,
