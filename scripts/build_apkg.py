@@ -316,7 +316,7 @@ def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[g
             notes.append(
                 genanki.Note(
                     model=model,
-                    fields=[scope, rid, river["name"], _b64(river)],
+                    fields=[f"{scope}:{rid}", scope, rid, river["name"], _b64(river)],
                     guid=genanki.guid_for("geotrainer", scope, fam["guid_ns"], rid),
                     tags=[fam["skill_tag"], pack["scope_tag"], fam["level_tag"]],
                 )
@@ -327,7 +327,7 @@ def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[g
     for reg in bundle["regions"]:
         if reg.get("tier", 1) != 1:
             continue  # dependencies are map context, not quiz entities
-        fields = [scope, reg["id"], reg["name"]]
+        fields = [f"{scope}:{reg['id']}", scope, reg["id"], reg["name"]]
         if fam["mode"] == "draw":
             payload = shapes.get(reg["id"])
             if not payload:
@@ -361,7 +361,10 @@ def scope_decks(scope: str, test_ids: bool = False) -> tuple[list, int]:
     total = 0
     for fam in families_for(scope, pack, test_ids=test_ids):
         front, back, css = build_templates(scope, fam["mode"])
-        fields = [{"name": "Scope"}, {"name": "RegionId"}, {"name": "RegionName"}]
+        # Field 0 "Key" (`scope:region_id`) is a unique natural key: Anki uses the
+        # first field for duplicate detection and (here) as the sort field, so it
+        # must be unique — the old first field "Scope" was constant per note type.
+        fields = [{"name": "Key"}, {"name": "Scope"}, {"name": "RegionId"}, {"name": "RegionName"}]
         if fam["mode"] == "draw":
             fields.append({"name": "ShapeData"})
         elif fam["mode"] == "capital":
@@ -375,7 +378,7 @@ def scope_decks(scope: str, test_ids: bool = False) -> tuple[list, int]:
             fields=fields,
             templates=[{"name": fam["mode"].capitalize(), "qfmt": front, "afmt": back}],
             css=css,
-            sort_field_index=2,
+            sort_field_index=0,  # the unique Key
         )
         deck = genanki.Deck(fam["deck_id"], fam["deck"])
         for note in notes_for(scope, model, fam, pack):

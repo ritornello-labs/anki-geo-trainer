@@ -148,6 +148,54 @@ test("scoring is translation/scale invariant but rejects scribble", async ({ pag
   expect(scores.zigzag.quality).toBe(0);
 });
 
+test("a lazy right-size wrong-shape circle grades Again, not Hard", async ({ page }) => {
+  // Regression: an irregular enclosing circle over a country used to score a
+  // "decent" grade. It has the right footprint (boundary is nearby) but a poor
+  // area overlap, so the IoU gate must reject it. An honest freehand trace with
+  // the same jitter must still pass.
+  await showDraw(page, { target: "FRA", side: "front" });
+  const scores = await page.evaluate((shapes) => {
+    const shape = shapes.FRA;
+    const rings = shape.rings;
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const ring of rings) for (const [x, y] of ring) {
+      if (x < minX) minX = x; if (x > maxX) maxX = x;
+      if (y < minY) minY = y; if (y > maxY) maxY = y;
+    }
+    const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+    const rx = (maxX - minX) / 2, ry = (maxY - minY) / 2;
+    const amp = Math.max(maxX - minX, maxY - minY) * 0.05;
+    let r = 7;
+    const rnd = () => { r = (r * 9301 + 49297) % 233280; return r / 233280; };
+    // lazy irregular circle: right size, wrong shape
+    const circle = [];
+    for (let i = 0; i <= 40; i++) {
+      const a = (i / 40) * Math.PI * 2;
+      const wob = 0.82 + rnd() * 0.4;
+      circle.push([cx + Math.cos(a) * rx * wob, cy + Math.sin(a) * ry * wob]);
+    }
+    // honest freehand: the real boundary, jittered the same ~5%
+    const honest = [];
+    for (const ring of rings) {
+      const stroke = [];
+      for (let i = 1; i < ring.length; i++)
+        for (let t = 0; t < 4; t++) {
+          const f = t / 4;
+          stroke.push([
+            ring[i - 1][0] + (ring[i][0] - ring[i - 1][0]) * f + (rnd() - 0.5) * amp,
+            ring[i - 1][1] + (ring[i][1] - ring[i - 1][1]) * f + (rnd() - 0.5) * amp,
+          ]);
+        }
+      honest.push(stroke);
+    }
+    const s = window.GeoTrainer._drawScore;
+    return { circle: s([circle], shape), honest: s(honest, shape) };
+  }, SHAPES);
+  expect(scores.circle.quality).toBe(0); // didn't try → Again
+  expect(scores.circle.iou).toBeLessThan(0.78);
+  expect(scores.honest.quality).toBe(2); // real attempt → Good
+});
+
 test("empty drawing grades Again with a clear message", async ({ page }) => {
   await showDraw(page, { target: "FRA", side: "front" });
   await showDraw(page, { target: "FRA", side: "back", keepState: true });

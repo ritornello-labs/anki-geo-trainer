@@ -11,9 +11,9 @@ where things are instead of matching a labelled shape). Continents: **Europe**
 (46), **South America** (12), **Africa** (53), **Asia** (47), **Oceania** (14).
 Country subdivisions: **United States** (50), **Brazil** (27), **India** (36),
 **Russia** (85), **China** (31), **Canada** (13), **Australia** (9), **Argentina**
-(24), **Mexico** (32), **Indonesia** (33). Physical: **mountain ranges** (29),
-**deserts** (17) — Which/Place/Draw over the continents — and **major rivers** (42)
-as trace-the-course. All rendered by one shared engine and verified on
+(24), **Mexico** (32), **Indonesia** (33). Physical: **mountain ranges** (29) and
+**deserts** (17) — **Place** only, dragged onto the continents — and **major
+rivers** (42) as trace-the-course. All rendered by one shared engine and verified on
 Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md), the skill ladder in
 [`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md), and the publishing plan in
 [`release/RELEASE.md`](./release/RELEASE.md).
@@ -28,19 +28,22 @@ same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
 |------|-------|-------------|
 | `…::1 Which State/Country` | position → name | A dot appears *inside* a region (different spot each review) on a **borderless** map; recall which one it is |
 | `…::2 Place` | precise position | Drag the region's silhouette onto the **borderless** map to where it belongs — no labelled slot to snap into |
-| `…::3 Draw` | shape recall | Sketch the outline from memory (multi-stroke, undo/clear, zoom); the back overlays the true shape and grades the match. Scoring rewards capturing the distinctive features — a rough enclosing blob fails, an honest freehand attempt can pass. Position and size don't matter, form does |
+| `…::3 Draw` | shape recall | Sketch the outline from memory (multi-stroke, undo/clear, zoom); the back overlays the true shape and grades the match. Scoring gates on **both** boundary faithfulness and area overlap (IoU), so a right-size wrong-shape blob — a lazy circle over Algeria — fails to *Again*, while an honest freehand attempt (even wobbly) passes. Position and size don't matter, form does |
 | `…::1 Trace` (rivers) | river course | Trace a major river's course over a world map; the back overlays the true line and grades by distance (km) to it. Start on the *full* world map (no positional hint), then zoom in to trace precisely |
 
-Drawing surfaces (Draw, Trace) have **zoom + pan**: pinch-zoom and two-finger pan
-on touch, +/− buttons and mouse-wheel/right-drag on desktop. Only the SVG viewBox
-changes, so strokes stay in map coordinates and grading is exact at any zoom.
+Drawing surfaces (Draw, Trace) have **zoom + pan**: +/− buttons and mouse-wheel to
+zoom, and a **✋ Move** toggle that turns a drag into a pan (so you can reposition a
+zoomed-in view onto, say, South America to trace the Amazon). On touch you can also
+pinch-zoom and two-finger pan; on desktop a right-drag pans without the toggle. Only
+the SVG viewBox changes, so strokes stay in map coordinates and grading is exact at
+any zoom.
 
 Cards are self-graded: the card shows a verdict and a suggested grade; you still
 press Anki's answer buttons. Region maps hide internal borders on the front so the
 task is genuine spatial recall, not shape-matching. Alaska and Hawaii render in
 classic inset panels at their own scale; microstates are magnified tap-circles on
 the *back*; Physical scopes (ranges/deserts) hide the feature on the front and show
-only the continents — you name what's at the dot, or place/draw the feature.
+only the continents — you drag the feature's silhouette to where it belongs.
 
 **Design note (2026-07):** Locate (redundant), Capital (duplicated a Cities deck),
 and Seas (trivial at world scale) were cut after studying the deck for real; the

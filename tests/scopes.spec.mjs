@@ -248,6 +248,54 @@ for (const scope of RIVER_SCOPES) {
     expect(state.strokes.reduce((n, s) => n + s.length, 0)).toBeGreaterThan(20);
   });
 
+  test(`${scope}: Move toggle pans on drag and suppresses drawing`, async ({ page }) => {
+    await mount(page, scope, data, { target: rid, mode: "river", side: "front" });
+    await page.waitForSelector("svg.gt-map");
+    // zoom in first, otherwise the view is already clamped and can't pan
+    await page.evaluate(() => {
+      const svg = document.querySelector("svg.gt-map");
+      const r = svg.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      for (let i = 0; i < 3; i++)
+        svg.dispatchEvent(new WheelEvent("wheel", { clientX: cx, clientY: cy, deltaY: -100, bubbles: true }));
+    });
+    const move = page.locator(".gt-move");
+    await expect(move).toHaveCount(1);
+    await move.click();
+    await expect(move).toHaveClass(/gt-active/);
+
+    const panned = await page.evaluate(() => {
+      const svg = document.querySelector("svg.gt-map");
+      const vb0 = svg.getAttribute("viewBox").split(/\s+/).map(Number);
+      const r = svg.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      // left-button drag: in Move mode this pans, and must NOT record a stroke
+      svg.dispatchEvent(new PointerEvent("pointerdown", { clientX: cx, clientY: cy, bubbles: true, pointerId: 1, button: 0 }));
+      svg.dispatchEvent(new PointerEvent("pointermove", { clientX: cx - 60, clientY: cy - 40, bubbles: true, pointerId: 1 }));
+      svg.dispatchEvent(new PointerEvent("pointerup", { clientX: cx - 60, clientY: cy - 40, bubbles: true, pointerId: 1 }));
+      const vb1 = svg.getAttribute("viewBox").split(/\s+/).map(Number);
+      return { movedX: Math.abs(vb1[0] - vb0[0]), movedY: Math.abs(vb1[1] - vb0[1]) };
+    });
+    expect(panned.movedX + panned.movedY).toBeGreaterThan(0); // the view moved
+    const noStroke = await readState(page, "river", scope, rid);
+    expect(noStroke.strokes.reduce((n, s) => n + s.length, 0)).toBe(0); // nothing drawn
+
+    // toggle Move off → the same drag now draws
+    await move.click();
+    await expect(move).not.toHaveClass(/gt-active/);
+    await page.evaluate(() => {
+      const svg = document.querySelector("svg.gt-map");
+      const r = svg.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      svg.dispatchEvent(new PointerEvent("pointerdown", { clientX: cx, clientY: cy, bubbles: true, pointerId: 1, button: 0 }));
+      for (let i = 1; i <= 10; i++)
+        svg.dispatchEvent(new PointerEvent("pointermove", { clientX: cx + i * 6, clientY: cy + i * 4, bubbles: true, pointerId: 1 }));
+      svg.dispatchEvent(new PointerEvent("pointerup", { clientX: cx + 60, clientY: cy + 40, bubbles: true, pointerId: 1 }));
+    });
+    const drew = await readState(page, "river", scope, rid);
+    expect(drew.strokes.reduce((n, s) => n + s.length, 0)).toBeGreaterThan(2); // drew now
+  });
+
   test(`${scope}: river trace-the-course grades the drawn line, line on back`, async ({ page }) => {
     await mount(page, scope, data, { target: rid, mode: "river", side: "front" });
     await page.waitForSelector("svg.gt-map");

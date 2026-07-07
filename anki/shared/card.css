@@ -218,6 +218,18 @@
   line-height: 1;
 }
 
+/* Move toggle: lit while a drag pans instead of draws */
+.gt-btn.gt-move.gt-active {
+  background: var(--gt-accent);
+  border-color: var(--gt-accent);
+  color: #ffffff;
+}
+.nightMode .gt-btn.gt-move.gt-active {
+  background: var(--gt-accent);
+  border-color: var(--gt-accent);
+  color: #ffffff;
+}
+
 .nightMode .gt-canvas-bg { fill: #23272e; stroke: #4a5260; }
 .nightMode .gt-stroke,
 .nightMode .gt-drawn { stroke: #e8eaed; }

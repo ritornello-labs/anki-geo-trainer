@@ -793,6 +793,7 @@ PHYSICAL_SCOPES = {
         "featureclasses": {"Range/mtn"},
         "max_scalerank": 2,  # 31 iconic ranges (≤3 pulls in Andes sub-ranges)
         "noun": "range",
+        "families": ["place"],  # Elvis: ranges/deserts get Place only
         "box": (-165.0, -56.0, 180.0, 75.0),
         "width": 1500.0,
         "deck_root": "GeoTrainer::Physical::Mountain Ranges",
@@ -804,6 +805,7 @@ PHYSICAL_SCOPES = {
         "max_scalerank": 3,  # 18 major deserts
         "exclude": {"Punjab"},  # not a desert
         "noun": "desert",
+        "families": ["place"],
         "box": (-120.0, -40.0, 150.0, 50.0),
         "width": 1500.0,
         "deck_root": "GeoTrainer::Physical::Deserts",

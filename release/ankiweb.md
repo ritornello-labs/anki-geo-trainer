@@ -23,21 +23,24 @@ Light and dark mode included.
   **borderless** map; recall which region it is.
 - **Place** — drag the region's silhouette onto the borderless map to where it
   belongs — there's no labelled slot to snap into.
-- **Draw** — sketch the outline from memory; scored on whether you captured the real
-  shape (a rough enclosing blob fails; an honest freehand attempt passes).
+- **Draw** — sketch the outline from memory; scored on both boundary faithfulness
+  and area overlap, so a right-size wrong-shape blob (a lazy circle) fails while an
+  honest freehand attempt passes.
 - **Trace** (rivers) — trace a major river's course over a world map; graded by how
   closely your line follows the real one. Starts on the *full* world map (no hint
-  where it is) — pinch or tap **＋** to zoom in and trace precisely.
+  where it is) — tap **＋** to zoom in and trace precisely.
 
-Drawing surfaces support **zoom & pan** (pinch / two-finger on mobile, +/− buttons
-and mouse-wheel on desktop), so fine work is easy even on a phone.
+Drawing surfaces support **zoom & pan**: +/− buttons and mouse-wheel to zoom, and a
+**✋ Move** toggle that turns a drag into a pan so you can reposition a zoomed-in view
+onto the right part of the world. On a phone you can also pinch-zoom and two-finger
+pan — fine work is easy even on a small screen.
 
 ## What's covered
 
 Continents (countries): **Europe, Africa, Asia, South America, Oceania**.
 Country subdivisions: **US states, Brazil, India, Russia, China, Canada, Australia,
-Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and **deserts** (name /
-place / draw them over the continents), and **major rivers** (trace the course).
+Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and **deserts** (place
+them over the continents), and **major rivers** (trace the course).
 
 Cards are **tagged by skill and scope** (`geotrainer::skill::…`,
 `geotrainer::scope::…`) so you can build your own study path with saved searches and

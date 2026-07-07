@@ -4,19 +4,19 @@ Status: **prepared, not published.** The artifacts below are ready; actually
 submitting to AnkiWeb needs Elvis's go-ahead, credentials, and awareness of the
 20-shares-per-7-days quota. Nothing here has been uploaded.
 
-Verification status (2026-07-06): all 18 scopes × 6 families pass the cross-engine
-suite (Chromium + WebKit, 198 passed / 2 skipped), Docker/Xvfb deck smoke, and live
-AnkiConnect import (2,880 notes, 80 leaf decks). The newest engine mode (F9
-river-locate) is also confirmed on the AnkiDroid emulator end to end: physical tap on
-the Abay, polyline highlighted, graded "On it".
+Verification status (2026-07-07, post borderless-recall redesign + study-feedback
+pass 2): all 20 scopes pass the cross-engine suite (Chromium + WebKit, 210 passed /
+4 skipped). Region scopes carry Which/Place/Draw; rivers are Trace-the-course;
+mountain ranges and deserts are Place-only. Combined `geo-trainer-all.apkg` = 48
+decks, 1,624 notes, 24.4 MB.
 
 ## Decisions
 
 1. **Packaging: one shared deck.** Decided (Elvis, 2026-07-06) — ship a single
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
-   (**52 decks, ~1,716 notes, 24.1 MB** — well under AnkiWeb's per-deck limit).
-2. **Ship everything.** All 18 scopes are import-verified; the single deck includes them
+   (**48 decks, 1,624 notes, 24.4 MB** — well under AnkiWeb's per-deck limit).
+2. **Ship everything.** All 20 scopes are import-verified; the single deck includes them
    all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
    problem for a combined deck.)
 

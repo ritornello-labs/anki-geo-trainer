@@ -215,13 +215,30 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   (calibrated on China: faithful trace ~0.3% → Good, honest wobble → Good, a smooth
   blob that misses the bulges → 11% → Again). **Rivers → Trace-the-course** (a new
   draw-style mode; graded in km via a shared stroke-capture helper). **New physical
-  scopes:** mountain ranges (29) + deserts (17) as areal polygons — point/place/draw
-  with the feature hidden and only the continents shown for reference (`kind:physical`).
+  scopes:** mountain ranges (29) + deserts (17) as areal polygons — initially
+  point/place/draw, later pared to Place-only (see the next entry) — with the feature
+  hidden and only the continents shown for reference (`kind:physical`).
   Families renumbered (1 Which / 2 Place / 3 Draw). Fixed: US now under
   `World::North America`. Static analysis (`ruff`) + a Node-version guard on `make
   test` added. **20 scopes, ~1,716 cards**; suite 204 passed / 4 skipped; the whole
   live GeoTrainer tree was deleted and re-imported clean. Lesson: verify each card
   type earns its place before mass-producing — quality over breadth.
+- **Study-feedback pass 2 — sort key, honest Draw, pan, lean physical. ✅ Done
+  2026-07-07.** Elvis studied the borderless redesign and reported four issues,
+  all fixed: **(1) Unique sort field** — the first field was the constant "Scope",
+  breaking Anki's duplicate detection and browser sort; every note type now leads
+  with a natural `Key` (`scope:region_id`, `sort_field_index=0`). **(2) Draw still
+  too lenient** — an irregular circle over Algeria still scored a decent grade;
+  added a rasterised **area-IoU** gate (multi-ring aware, so archipelagos traced as
+  separate strokes stay registered). Calibrated on real African shapes: honest
+  freehand (even ~5% jitter) lands at IoU 0.87–0.99, a lazy circle tops out at
+  ~0.75; the Hard gate at 0.78 drops every lazy circle to *Again* while honest
+  attempts stay *Good*. **(3) Zoom couldn't reposition** — added a **✋ Move** toggle
+  that turns a one-finger / left-button drag into a pan (plus existing pinch /
+  two-finger / right-drag), so a zoomed-in view can be moved onto South America to
+  trace the Amazon. **(4) Ranges/deserts → Place only** (`families:["place"]`),
+  dropping the Which/Draw decks Elvis didn't want there. Suite 210 passed / 4
+  skipped; bundles + per-scope + combined APKGs + fixtures rebuilt.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
   (`make apkg-all`) + `release/screenshots/`. Publishing still gated on Elvis's

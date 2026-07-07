@@ -713,21 +713,28 @@
     return { x: x0, y: y0, w: Math.max(x1 - x0, 1e-6), h: Math.max(y1 - y0, 1e-6) };
   }
 
-  function alignToShape(drawnPts, outlinePts) {
+  function alignParams(drawnPts, outlinePts) {
     // Translation + uniform-scale invariance: the drawing is judged on FORM.
     // Uniform scale (not per-axis) so a squished France still loses points.
+    // Returns an apply() so every stroke maps with the SAME transform (a
+    // multi-island shape must stay registered as separate rings, not merged).
     var db = bboxOf(drawnPts), ob = bboxOf(outlinePts);
     var s = Math.min(ob.w / db.w, ob.h / db.h);
     var dcx = db.x + db.w / 2, dcy = db.y + db.h / 2;
     var ocx = ob.x + ob.w / 2, ocy = ob.y + ob.h / 2;
-    var out = [];
-    for (var i = 0; i < drawnPts.length; i++) {
-      out.push([
-        (drawnPts[i][0] - dcx) * s + ocx,
-        (drawnPts[i][1] - dcy) * s + ocy,
-      ]);
-    }
-    return out;
+    return {
+      apply: function (pts) {
+        var out = [];
+        for (var i = 0; i < pts.length; i++) {
+          out.push([(pts[i][0] - dcx) * s + ocx, (pts[i][1] - dcy) * s + ocy]);
+        }
+        return out;
+      },
+    };
+  }
+
+  function alignToShape(drawnPts, outlinePts) {
+    return alignParams(drawnPts, outlinePts).apply(drawnPts);
   }
 
   function nearestDists(a, b) {
@@ -757,34 +764,81 @@
     return s[idx];
   }
 
+  function pointInRing(x, y, ring) {
+    // even-odd ray cast
+    var inside = false;
+    for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      var xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+      if (((yi > y) !== (yj > y)) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+    }
+    return inside;
+  }
+
+  function areaIoU(drawnRings, trueRings, box, grid) {
+    // Rasterised intersection-over-union of the drawn shape vs the true shape.
+    // Catches "right area/position but wrong shape" — a lazy circle over an
+    // angular country overlaps poorly even though its boundary sits nearby.
+    // Both sides are even-odd across their rings, so a multi-part outline
+    // (archipelago traced as several strokes) and true-shape holes are honoured.
+    var inter = 0, uni = 0;
+    var stepX = box.w / grid, stepY = box.h / grid;
+    for (var gx = 0; gx < grid; gx++) {
+      for (var gy = 0; gy < grid; gy++) {
+        var x = box.x + (gx + 0.5) * stepX, y = box.y + (gy + 0.5) * stepY;
+        var inD = false;
+        for (var d = 0; d < drawnRings.length; d++) {
+          if (pointInRing(x, y, drawnRings[d])) inD = !inD;
+        }
+        var inT = false;
+        for (var r = 0; r < trueRings.length; r++) {
+          if (pointInRing(x, y, trueRings[r])) inT = !inT; // holes toggle
+        }
+        if (inD || inT) uni++;
+        if (inD && inT) inter++;
+      }
+    }
+    return uni ? inter / uni : 0;
+  }
+
   function drawScore(strokes, shape) {
     var drawn = [];
     for (var i = 0; i < strokes.length; i++) {
       for (var j = 0; j < strokes[i].length; j++) drawn.push(strokes[i][j]);
     }
-    if (drawn.length < 8) return { pct: 100, quality: 0, empty: true };
+    if (drawn.length < 8) return { pct: 100, iou: 0, quality: 0, empty: true };
     var outline = ringPerimeterPoints(shape.rings, 160);
-    var aligned = alignToShape(drawn, outline);
+    var align = alignParams(drawn, outline);
+    var aligned = align.apply(drawn);
+    // Each stroke aligned separately stays a distinct ring, so an archipelago
+    // drawn as several strokes keeps its parts for the area overlap below.
+    var alignedRings = [];
+    for (var k = 0; k < strokes.length; k++) alignedRings.push(align.apply(strokes[k]));
     var diag = Math.hypot(shape.w, shape.h);
 
-    // A smooth loop that "roughly encloses the area" scored well under mean
-    // chamfer even though it missed every distinctive feature. Fix: judge the
-    // WORST-covered part of the true outline (a high percentile of
-    // outline→drawing), so skipping a whole bulge (Xinjiang, Brittany) is
-    // penalised — plus the mean drawing→outline distance to punish scribble
-    // that strays outside. Both as % of the shape's diagonal.
-    var coverage = nearestDists(outline, aligned); // how far each true point is from the drawing
-    var stray = nearestDists(aligned, outline);     // how far each drawn point strays from truth
-    var featureMiss = percentileOf(coverage, 0.85); // your least-covered feature
-    var meanCover = meanOf(coverage);
-    var meanStray = meanOf(stray);
-    var pct = ((0.5 * featureMiss + 0.3 * meanCover + 0.2 * meanStray) / diag) * 100;
+    // (a) Boundary coverage: the WORST-covered part of the true outline (85th
+    // percentile of outline→drawing) so skipping a whole bulge is penalised,
+    // plus mean stray to punish scribble outside. As % of the shape diagonal.
+    var coverage = nearestDists(outline, aligned);
+    var stray = nearestDists(aligned, outline);
+    var pct = ((0.5 * percentileOf(coverage, 0.85) + 0.3 * meanOf(coverage) + 0.2 * meanOf(stray)) / diag) * 100;
 
-    // Recalibrated (China): faithful trace ≈ 2–3 → Good; a recognisable but
-    // rough attempt ≈ 5–7 → Hard; a smooth blob that misses the bulges or a
-    // scribble ≈ 9+ → Again. Honest freehand can reach Good; a blob cannot.
-    var quality = pct < 4.5 ? 2 : pct < 8.5 ? 1 : 0;
-    return { pct: pct, quality: quality, aligned: aligned };
+    // (b) Area IoU: overlap of your shape with the true shape (aligned). This is
+    // what rejects a "right size, wrong shape" blob — a circle over Algeria has a
+    // nearby boundary but a poor IoU. Both must be good to score Good.
+    var bb = bboxOf(outline.concat(aligned));
+    var iou = areaIoU(alignedRings, shape.rings, bb, 46);
+
+    // Good needs a faithful boundary AND a strong shape match. Calibration on
+    // real shapes: an honest freehand trace (even with ~5% jitter) lands at IoU
+    // 0.87–0.99, while a lazy "right size, wrong shape" blob — the irregular
+    // circle a user draws when not trying — tops out at ~0.75 for any region.
+    // The 0.78 Hard gate sits in that empty band, so a circle over Algeria fails
+    // to Again while a real attempt stays Good.
+    var quality =
+      pct < 4.5 && iou >= 0.80 ? 2
+      : pct < 9 && iou >= 0.78 ? 1
+      : 0;
+    return { pct: pct, iou: iou, quality: quality, aligned: aligned };
   }
 
   function drawCanvas(shape) {
@@ -820,8 +874,9 @@
   // undo/clear so the caller can wire buttons. Same pointer/touch discipline as
   // the drag code: pointercancel ignored, Android pointerdown-before-touchstart
   // orphan cleaned up.
-  function attachStrokeCapture(svg, mode, scope, target, strokeClass) {
+  function attachStrokeCapture(svg, mode, scope, target, strokeClass, isPan) {
     var strokes = [], paths = [], current = null, currentPath = null, usingTouch = false, multi = false;
+    var panActive = isPan || function () { return false; }; // Move-mode drags pan, don't draw
     saveState(mode, scope, target, { strokes: [] });
     svg.style.touchAction = "none"; // we own pinch/pan; the browser must not scroll/zoom
 
@@ -859,6 +914,7 @@
 
     svg.addEventListener("pointerdown", function (ev) {
       if (usingTouch || (ev.button && ev.button !== 0)) return; // right button = pan
+      if (panActive()) return; // Move mode: this drag pans instead of drawing
       begin(ev.clientX, ev.clientY);
       ev.preventDefault();
     });
@@ -877,6 +933,7 @@
         return;
       }
       if (multi) return; // leftover finger during a multi-touch gesture
+      if (panActive()) return; // Move mode: one finger pans instead of drawing
       if (!usingTouch && currentPath) {
         svg.removeChild(currentPath);
         current = null;
@@ -918,14 +975,18 @@
 
   // Pan/zoom on a drawing surface, so fine work (tracing a river on the world
   // map) is doable: +/- buttons zoom around centre, two fingers pinch-zoom and
-  // pan, the wheel zooms toward the cursor. Only the viewBox changes — svgPoint
-  // uses getScreenCTM, so drawn coordinates stay in map space at any zoom.
+  // pan, the wheel zooms toward the cursor. A "Move" toggle (panMode) repurposes
+  // a one-finger / left-button drag to pan instead of draw, so a zoomed-in phone
+  // user can reposition onto (say) South America with a single finger. Only the
+  // viewBox changes — svgPoint uses getScreenCTM, so drawn coordinates stay in
+  // map space at any zoom.
   function attachPanZoom(svg) {
     var vb = (svg.getAttribute("viewBox") || "0 0 100 100").split(/\s+/).map(Number);
     var HOME = { x: vb[0], y: vb[1], w: vb[2], h: vb[3] };
     var aspect = HOME.h / HOME.w;
     var cur = { x: HOME.x, y: HOME.y, w: HOME.w, h: HOME.h };
     var MIN_W = HOME.w / 8; // deepest zoom-in
+    var panMode = false;
 
     function apply() {
       svg.setAttribute("viewBox", cur.x + " " + cur.y + " " + cur.w + " " + cur.h);
@@ -968,9 +1029,14 @@
         dist: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY),
       };
     }
-    var pinch = null;
+    var pinch = null, touchPan = null;
     svg.addEventListener("touchstart", function (ev) {
-      if (ev.touches.length === 2) { pinch = twoFinger(ev); ev.preventDefault(); }
+      if (ev.touches.length === 2) {
+        pinch = twoFinger(ev); touchPan = null; ev.preventDefault();
+      } else if (ev.touches.length === 1 && panMode) {
+        touchPan = { x: ev.touches[0].clientX, y: ev.touches[0].clientY };
+        ev.preventDefault();
+      }
     }, { passive: false });
     svg.addEventListener("touchmove", function (ev) {
       if (ev.touches.length === 2 && pinch) {
@@ -979,21 +1045,32 @@
         if (pinch.dist > 0) zoomAt(now.mx, now.my, now.dist / pinch.dist);
         pinch = now;
         ev.preventDefault();
+      } else if (ev.touches.length === 1 && touchPan) {
+        var t = ev.touches[0];
+        panBy(t.clientX - touchPan.x, t.clientY - touchPan.y);
+        touchPan = { x: t.clientX, y: t.clientY };
+        ev.preventDefault();
       }
     }, { passive: false });
     svg.addEventListener("touchend", function (ev) {
       if (ev.touches.length < 2) pinch = null;
+      if (ev.touches.length === 0) touchPan = null;
     });
     svg.addEventListener("wheel", function (ev) {
       zoomAt(ev.clientX, ev.clientY, ev.deltaY < 0 ? 1.2 : 1 / 1.2);
       ev.preventDefault();
     }, { passive: false });
 
-    // Desktop pan: right-button drag (left drag draws; two-finger drag pans on
-    // touch). Suppresses the context menu while panning.
+    // Desktop pan: right-button drag always pans; in Move mode a left drag pans
+    // too (otherwise left drag draws). Two-finger drag pans on touch. Suppresses
+    // the context menu while panning.
     var panning = null;
     svg.addEventListener("pointerdown", function (ev) {
-      if (ev.button === 2) { panning = { x: ev.clientX, y: ev.clientY }; ev.preventDefault(); }
+      if (ev.pointerType === "touch") return; // touch handled by touch* above
+      if (ev.button === 2 || (panMode && ev.button === 0)) {
+        panning = { x: ev.clientX, y: ev.clientY };
+        ev.preventDefault();
+      }
     });
     svg.addEventListener("pointermove", function (ev) {
       if (panning) {
@@ -1004,7 +1081,12 @@
     svg.addEventListener("pointerup", function () { panning = null; });
     svg.addEventListener("contextmenu", function (ev) { ev.preventDefault(); });
 
-    return { zoomIn: function () { zoomCentre(1.6); }, zoomOut: function () { zoomCentre(1 / 1.6); } };
+    return {
+      zoomIn: function () { zoomCentre(1.6); },
+      zoomOut: function () { zoomCentre(1 / 1.6); },
+      isPanMode: function () { return panMode; },
+      setPanMode: function (on) { panMode = !!on; },
+    };
   }
 
   function drawToolRow(root, surface, panzoom) {
@@ -1018,6 +1100,18 @@
       row.appendChild(zin);
       wireTap(zout, panzoom.zoomOut);
       wireTap(zin, panzoom.zoomIn);
+      // Move toggle: flips a drag between drawing and panning, so a zoomed-in
+      // user can reposition the view (the reason pinch-pan isn't enough on
+      // desktop / one-finger phones).
+      var move = button("✋ Move");
+      move.className += " gt-move";
+      row.appendChild(move);
+      wireTap(move, function () {
+        var on = !panzoom.isPanMode();
+        panzoom.setPanMode(on);
+        move.classList.toggle("gt-active", on);
+        move.textContent = on ? "✋ Moving" : "✋ Move";
+      });
     }
     var undo = button("Undo"), clear = button("Clear");
     row.appendChild(undo);
@@ -1037,8 +1131,9 @@
     }
     var svg = drawCanvas(shape);
     root.appendChild(svg);
-    var surface = attachStrokeCapture(svg, "draw", bundle.scope, target);
-    drawToolRow(root, surface, attachPanZoom(svg));
+    var panzoom = attachPanZoom(svg);
+    var surface = attachStrokeCapture(svg, "draw", bundle.scope, target, "gt-stroke", panzoom.isPanMode);
+    drawToolRow(root, surface, panzoom);
     root.appendChild(bar("Draw the outline from memory, then flip", "gt-hint"));
   }
 
@@ -1272,11 +1367,12 @@
     var built = buildSvg(bundle);
     var svg = built.svg;
     root.appendChild(svg);
-    var surface = attachStrokeCapture(svg, "river", bundle.scope, target, "gt-drawn");
     // Zoom/pan so you can dive into the region and trace the line precisely,
     // even though the front starts on the full world map (no positional hint).
-    drawToolRow(root, surface, attachPanZoom(svg));
-    root.appendChild(bar("Zoom in (＋) to trace the " + name + " precisely, then flip", "gt-hint"));
+    var panzoom = attachPanZoom(svg);
+    var surface = attachStrokeCapture(svg, "river", bundle.scope, target, "gt-drawn", panzoom.isPanMode);
+    drawToolRow(root, surface, panzoom);
+    root.appendChild(bar("Zoom in (＋), ✋ Move to reposition, then trace the " + name, "gt-hint"));
   }
 
   function riverBack(root, bundle, target) {
