@@ -244,10 +244,12 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   country scope at all (only US/Canada/Mexico *subdivisions*), so "Draw USA" as a
   country didn't exist. Added: **(1) `continents`** — a Draw-only scope whose regions
   are whole continents (all member countries dissolved via `unary_union` on the NE
-  `CONTINENT` field). Ships **South America, North America, Africa** only — Eurasia is
-  split wrong by country membership (NE files Russia under Europe, so a dissolved
-  "Europe" swallows Siberia) and "Oceania" collapses to ≈the Australia outline the
-  country scope already gives. **(2) `north-america-countries`** — a standard continent
+  `CONTINENT` field). Ships all six inhabited continents (Elvis: "why not have all?").
+  Eurasia is split wrong by country membership (NE files Russia under Europe), so
+  **Europe** is clipped at the Urals (`box`) to cut Siberia and **Asia** dissolves
+  without Russia (no Siberia, but a clean Turkey-to-Japan mass); the others dissolve
+  cleanly. Antarctica is omitted (a plate-carrée smear nobody sketches). **(2)
+  `north-america-countries`** — a standard continent
   scope (Which/Place/Draw) filling the missing continent: 23 tier-1 countries
   (USA/Canada/Mexico + Central America + Caribbean microstate circles), nested under
   `GeoTrainer::World::North America` beside the existing subdivision decks. New
@@ -255,8 +257,9 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   the continent silhouettes and the USA (drops Greenland off NA and the detached
   Alaska/Hawaii off the USA, so the graded shape is the lower-48 you actually picture;
   Central America stays because it's contiguous with the mainland polygon). **22 scopes;
-  suite 224 passed / 6 skipped.** Combined `geo-trainer-all.apkg` = 52 decks / 1,696
-  notes / 26.4 MB; both new scopes imported live.
+  suite 224 passed / 6 skipped.** Combined `geo-trainer-all.apkg` = 52 decks / 1,699
+  notes / 26.9 MB; both new scopes imported live. (Continents later expanded 3→6 to
+  cover all inhabited continents at Elvis's request.)
 - **Draw/Trace UI polish. ✅ Done 2026-07-07.** Three study-driven refinements:
   **(1) Uniform Draw canvas** — the front was sized to the shape's own box, so the
   canvas aspect leaked the answer; it's now a **fixed 400×400 square** for every card

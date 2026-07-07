@@ -8,15 +8,15 @@ Verification status (2026-07-07, post borderless-recall redesign + study-feedbac
 pass 2 + continents/North-America scopes): all 22 scopes pass the cross-engine suite
 (Chromium + WebKit, 224 passed / 6 skipped). Region scopes carry Which/Place/Draw;
 rivers are Trace-the-course; mountain ranges and deserts are Place-only; the
-Continents scope is Draw-only (South America, North America, Africa silhouettes).
-Combined `geo-trainer-all.apkg` = 52 decks, 1,696 notes, 26.4 MB.
+Continents scope is Draw-only (all six inhabited continent silhouettes).
+Combined `geo-trainer-all.apkg` = 52 decks, 1,699 notes, 26.9 MB.
 
 ## Decisions
 
 1. **Packaging: one shared deck.** Decided (Elvis, 2026-07-06) — ship a single
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
-   (**52 decks, 1,696 notes, 26.4 MB** — well under AnkiWeb's per-deck limit).
+   (**52 decks, 1,699 notes, 26.9 MB** — well under AnkiWeb's per-deck limit).
 2. **Ship everything.** All 22 scopes are import-verified; the single deck includes them
    all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
    problem for a combined deck.)

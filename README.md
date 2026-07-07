@@ -14,8 +14,9 @@ where things are instead of matching a labelled shape). Continents (countries):
 (13), **Australia** (9), **Argentina** (24), **Mexico** (32), **Indonesia** (33).
 Physical: **mountain ranges** (29) and **deserts** (17) — **Place** only, dragged
 onto the continents — and **major rivers** (42) as trace-the-course. Plus a
-**Continents** scope — **Draw** the whole silhouette of South America, North America,
-or Africa from memory. All rendered by one shared engine and verified on
+**Continents** scope — **Draw** the whole silhouette of all six inhabited continents
+from memory (Europe is clipped at the Urals, and Asia excludes Siberia, since Natural
+Earth files Russia under Europe). All rendered by one shared engine and verified on
 Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md), the skill ladder in
 [`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md), and the publishing plan in
 [`release/RELEASE.md`](./release/RELEASE.md).

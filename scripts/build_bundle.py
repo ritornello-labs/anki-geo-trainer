@@ -671,64 +671,74 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
 # ==================== continents: single dissolved silhouettes ====================
 # Each "region" is a whole continent — every country of that continent dissolved
 # into one polygon — so the Draw family asks you to sketch the continent outline
-# from memory. Draw-only: naming/placing a continent is trivial. Only the
-# clean, unambiguous continents ship: Eurasia is split messily by country
-# membership (Natural Earth files Russia under Europe, so a dissolved "Europe"
-# would swallow Siberia), and "Oceania" collapses to ~the Australia outline the
-# country scope already covers.
-
+# from memory. Draw-only: naming/placing a continent is trivial. Each continent
+# draws as its main landmass (`mainland_only`): far islands drop, but contiguous
+# parts like Central America stay. Eurasia is split messily by country membership
+# (Natural Earth files Russia under Europe), so Europe is clipped at the Urals to
+# cut Siberia off; Asia then dissolves without Russia (no Siberia, but a clean,
+# recognizable Turkey-to-Japan mass). Antarctica is omitted — in plate-carrée it
+# smears into an unrecognizable band across the bottom and nobody sketches it.
 CONTINENTS_SCOPES = {
     "continents": {
         "title": "World — Continents",
-        "box": (-168.0, -56.0, 52.0, 74.0),
-        "width": 1400.0,
-        "members": ["South America", "North America", "Africa"],
         "families": ["draw"],
+        "members": [
+            {"name": "Africa", "continents": ["Africa"]},
+            {"name": "Asia", "continents": ["Asia"]},
+            {"name": "Europe", "continents": ["Europe"], "box": (-25.0, 34.0, 62.0, 72.0)},
+            {"name": "North America", "continents": ["North America"], "exclude": {"Greenland"}},
+            {"name": "Oceania", "continents": ["Oceania"]},
+            {"name": "South America", "continents": ["South America"]},
+        ],
     },
 }
 
 
+def _largest_poly(geom: BaseGeometry) -> BaseGeometry:
+    if isinstance(geom, MultiPolygon):
+        return max(geom.geoms, key=lambda p: p.area)
+    return geom
+
+
 def _build_continents(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
-    box_t = cfg["box"]
-    width = cfg.get("width", 1400.0)
     members = cfg["members"]
-
-    groups: dict[str, list] = {}
-    for f in load_features("admin0"):
-        cont = prop(f["properties"], "CONTINENT")
-        if cont in members:
-            groups.setdefault(cont, []).append(shape(f["geometry"]))
-
+    # Smoke-test map only (Draw uses per-note shapes): a plain world equirect box.
+    box_t = cfg.get("map_box", (-180.0, -60.0, 180.0, 84.0))
+    width = cfg.get("width", 1400.0)
     lat0 = math.radians((box_t[1] + box_t[3]) / 2.0)
     cos0 = math.cos(lat0)
-    x_span = (box_t[2] - box_t[0]) * cos0
-    y_span = box_t[3] - box_t[1]
-    scale = width / x_span
+    scale = width / ((box_t[2] - box_t[0]) * cos0)
     view_w = width + 2 * PAD
-    view_h = y_span * scale + 2 * PAD
+    view_h = (box_t[3] - box_t[1]) * scale + 2 * PAD
     km_per_unit = (1.0 / scale) * EARTH_KM_PER_DEG
 
     def project(lon, lat):
         return (lon - box_t[0]) * cos0 * scale + PAD, (box_t[3] - lat) * scale + PAD
 
-    clip = box(*box_t)
     regions = []
-    geoms_by_id: dict[str, BaseGeometry] = {}
-    for cont in members:
-        geom = unary_union(groups[cont])
-        rid = _slug(cont)
-        projected = project_geom(geom.intersection(clip), project)
-        region = make_region(rid, cont, "", "main", projected)
+    shape_geoms: dict[str, BaseGeometry] = {}
+    for m in members:
+        conts = set(m["continents"])
+        exclude = m.get("exclude", set())
+        parts = [
+            shape(f["geometry"])
+            for f in load_features("admin0")
+            if prop(f["properties"], "CONTINENT") in conts
+            and prop(f["properties"], "ADMIN") not in exclude
+        ]
+        geom = unary_union(parts)
+        if "box" in m:  # Europe: clip Eurasia at the Urals so Siberia drops
+            geom = geom.intersection(box(*m["box"]))
+        rid = _slug(m["name"])
+        # Map region = the mainland projected into the world view (smoke tests).
+        projected = project_geom(_largest_poly(geom), project)
+        region = make_region(rid, m["name"], "", "main", projected)
         if region:
             regions.append(region)
-            # Unclipped for the Draw shape: shape_payload refits the true
-            # continent into its own box (and drops far islands / unwraps Alaska).
-            geoms_by_id[rid] = geom
+            shape_geoms[rid] = geom
 
     regions.sort(key=lambda r: r["name"])
-    # Continents draw as their main landmass only (drops Greenland off NA, keeps
-    # Central America since it's contiguous with the mainland polygon).
-    shapes = {rid: shape_payload(g, mainland_only=True) for rid, g in geoms_by_id.items()}
+    shapes = {rid: shape_payload(g, mainland_only=True) for rid, g in shape_geoms.items()}
 
     return {
         "scope": scope_name,
