@@ -265,13 +265,17 @@ def make_region(
     return region
 
 
-def shape_payload(geom: BaseGeometry, box_px: float = 400.0) -> dict:
+def shape_payload(geom: BaseGeometry, box_px: float = 400.0, mainland_only: bool = False) -> dict:
     """Standalone outline for F6 draw-the-shape: the region re-fitted into its
     own box at drawing resolution (the continental-bundle rings are simplified
     for map scale and look chunky blown up). Keeps islands >= 3% of the largest
     polygon (Corsica-sized specks drop; Michigan's peninsulas and Northern
     Ireland stay). Unwraps antimeridian crossers (Alaska, Russia) so Chukotka
-    doesn't smear the fit across the globe."""
+    doesn't smear the fit across the globe. With `mainland_only`, keep ONLY the
+    single largest contiguous landmass — for continent silhouettes and the USA,
+    where a detached-but-near part (Greenland off Canada, Alaska off the lower-48)
+    would otherwise chain in and isn't what you picture drawing. Central America
+    stays either way: it is one connected polygon with the North American mainland."""
     polys = list(geom.geoms) if isinstance(geom, MultiPolygon) else [geom]
     lon_span = max(p.bounds[2] for p in polys) - min(p.bounds[0] for p in polys)
     if lon_span > 180:
@@ -282,25 +286,28 @@ def shape_payload(geom: BaseGeometry, box_px: float = 400.0) -> dict:
             shifted.append(p)
         polys = shifted
     biggest = max(polys, key=lambda p: p.area)
-    pool = [p for p in polys if p.area >= 0.03 * biggest.area and p is not biggest]
-    # Keep only parts near the main landmass: NE admin-0 includes far-flung
-    # territory in the same geometry (French Guiana is 15% of "France",
-    # Svalbard 19% of "Norway") which would shrink the iconic mainland into a
-    # corner of the drawing box. Greedy chain growth on edge-to-edge distance
-    # so island chains stay whole (Hawaii's Maui/Oahu), while Sicily/Sardinia,
-    # Northern Ireland, and Michigan's UP stay and overseas parts drop.
-    bx0, by0, bx1, by1 = biggest.bounds
-    reach = max(0.25 * math.hypot(bx1 - bx0, by1 - by0), 0.8)  # degrees
-    kept = [biggest]
-    grew = True
-    while grew and pool:
-        grew = False
-        for p in list(pool):
-            if any(p.distance(k) <= reach for k in kept):
-                kept.append(p)
-                pool.remove(p)
-                grew = True
-    polys = kept
+    if mainland_only:
+        polys = [biggest]
+    else:
+        pool = [p for p in polys if p.area >= 0.03 * biggest.area and p is not biggest]
+        # Keep only parts near the main landmass: NE admin-0 includes far-flung
+        # territory in the same geometry (French Guiana is 15% of "France",
+        # Svalbard 19% of "Norway") which would shrink the iconic mainland into a
+        # corner of the drawing box. Greedy chain growth on edge-to-edge distance
+        # so island chains stay whole (Hawaii's Maui/Oahu), while Sicily/Sardinia,
+        # Northern Ireland, and Michigan's UP stay and overseas parts drop.
+        bx0, by0, bx1, by1 = biggest.bounds
+        reach = max(0.25 * math.hypot(bx1 - bx0, by1 - by0), 0.8)  # degrees
+        kept = [biggest]
+        grew = True
+        while grew and pool:
+            grew = False
+            for p in list(pool):
+                if any(p.distance(k) <= reach for k in kept):
+                    kept.append(p)
+                    pool.remove(p)
+                    grew = True
+        polys = kept
 
     lon_min = min(p.bounds[0] for p in polys)
     lat_min = min(p.bounds[1] for p in polys)
@@ -531,6 +538,18 @@ CONTINENT_SCOPES = {
         },
         "tray": "top-left",  # empty NW ocean
     },
+    "north-america-countries": {
+        "title": "North America — Countries",
+        # Lower-48 + Canada mainland + Mexico + Central America + Caribbean.
+        # Alaska (west of −140) clips at the frame; Greenland excluded (it dwarfs
+        # the map and the USA/Canada/Mexico shapes people actually study).
+        "box": (-140.0, 5.0, -52.0, 72.0),
+        "continent": "North America",
+        "exclude_admins": {"Greenland"},
+        "draw_mainland_only": {"US"},        # lower-48; Alaska/Hawaii off the draw shape
+        "name_overrides": {"United States of America": "United States", "The Bahamas": "Bahamas"},
+        "tray": "bottom-left",               # open E Pacific
+    },
     "asia-countries": {
         "title": "Asia — Countries",
         # Turkey to Japan, Timor to the Kazakh steppe; Russia clips at the top.
@@ -608,7 +627,11 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
 
     add_adjacency(regions, geoms_by_id)
     tier1_geoms = {r["id"]: geoms_by_id[r["id"]] for r in regions if r.get("tier", 1) == 1}
-    shapes = {rid: shape_payload(g) for rid, g in tier1_geoms.items()}
+    # Some countries draw as mainland-only (USA: drop the detached Alaska/Hawaii
+    # so the graded shape is the lower-48 you actually picture).
+    mainland_ids = cfg.get("draw_mainland_only", set())
+    shapes = {rid: shape_payload(g, mainland_only=(rid in mainland_ids))
+              for rid, g in tier1_geoms.items()}
 
     # F8: national capitals, tier-1 countries only. Under unwrap, shift the
     # capital's western-hemisphere lon east by 360 to match the shifted geoms.
@@ -643,6 +666,84 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
         "context": context,
         "regions": regions,
     }, shapes, capitals
+
+
+# ==================== continents: single dissolved silhouettes ====================
+# Each "region" is a whole continent — every country of that continent dissolved
+# into one polygon — so the Draw family asks you to sketch the continent outline
+# from memory. Draw-only: naming/placing a continent is trivial. Only the
+# clean, unambiguous continents ship: Eurasia is split messily by country
+# membership (Natural Earth files Russia under Europe, so a dissolved "Europe"
+# would swallow Siberia), and "Oceania" collapses to ~the Australia outline the
+# country scope already covers.
+
+CONTINENTS_SCOPES = {
+    "continents": {
+        "title": "World — Continents",
+        "box": (-168.0, -56.0, 52.0, 74.0),
+        "width": 1400.0,
+        "members": ["South America", "North America", "Africa"],
+        "families": ["draw"],
+    },
+}
+
+
+def _build_continents(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
+    box_t = cfg["box"]
+    width = cfg.get("width", 1400.0)
+    members = cfg["members"]
+
+    groups: dict[str, list] = {}
+    for f in load_features("admin0"):
+        cont = prop(f["properties"], "CONTINENT")
+        if cont in members:
+            groups.setdefault(cont, []).append(shape(f["geometry"]))
+
+    lat0 = math.radians((box_t[1] + box_t[3]) / 2.0)
+    cos0 = math.cos(lat0)
+    x_span = (box_t[2] - box_t[0]) * cos0
+    y_span = box_t[3] - box_t[1]
+    scale = width / x_span
+    view_w = width + 2 * PAD
+    view_h = y_span * scale + 2 * PAD
+    km_per_unit = (1.0 / scale) * EARTH_KM_PER_DEG
+
+    def project(lon, lat):
+        return (lon - box_t[0]) * cos0 * scale + PAD, (box_t[3] - lat) * scale + PAD
+
+    clip = box(*box_t)
+    regions = []
+    geoms_by_id: dict[str, BaseGeometry] = {}
+    for cont in members:
+        geom = unary_union(groups[cont])
+        rid = _slug(cont)
+        projected = project_geom(geom.intersection(clip), project)
+        region = make_region(rid, cont, "", "main", projected)
+        if region:
+            regions.append(region)
+            # Unclipped for the Draw shape: shape_payload refits the true
+            # continent into its own box (and drops far islands / unwraps Alaska).
+            geoms_by_id[rid] = geom
+
+    regions.sort(key=lambda r: r["name"])
+    # Continents draw as their main landmass only (drops Greenland off NA, keeps
+    # Central America since it's contiguous with the mainland polygon).
+    shapes = {rid: shape_payload(g, mainland_only=True) for rid, g in geoms_by_id.items()}
+
+    return {
+        "scope": scope_name,
+        "title": cfg["title"],
+        "noun": "continent",
+        "families": cfg.get("families", ["draw"]),
+        "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
+        "tray": [90.0, round(view_h - 90.0, 1)],
+        "frames": [
+            {"id": "main", "rect": [0.0, 0.0, round(view_w, 1), round(view_h, 1)],
+             "kmPerUnit": round(km_per_unit, 3), "label": ""}
+        ],
+        "context": [],  # Draw uses a blank canvas; the map is only for the smoke tests
+        "regions": regions,
+    }, shapes, {}
 
 
 # ============ generic first-level subdivision builder (admin1 → frame) ============
@@ -1022,6 +1123,8 @@ for _name, _cfg in RIVER_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_rivers(n, c)))(_name, _cfg)
 for _name, _cfg in CONTINENT_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_continent(n, c)))(_name, _cfg)
+for _name, _cfg in CONTINENTS_SCOPES.items():
+    SCOPES[_name] = (lambda n, c: (lambda: _build_continents(n, c)))(_name, _cfg)
 for _name, _cfg in SUBDIVISION_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_admin1_country(n, c)))(_name, _cfg)
 

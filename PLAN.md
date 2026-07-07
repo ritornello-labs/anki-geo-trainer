@@ -239,6 +239,24 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   trace the Amazon. **(4) Ranges/deserts → Place only** (`families:["place"]`),
   dropping the Which/Draw decks Elvis didn't want there. Suite 210 passed / 4
   skipped; bundles + per-scope + combined APKGs + fixtures rebuilt.
+- **Continents + North America scopes. ✅ Done 2026-07-07.** Elvis's Draw priorities
+  exposed two coverage gaps: no continent-outline cards, and North America had no
+  country scope at all (only US/Canada/Mexico *subdivisions*), so "Draw USA" as a
+  country didn't exist. Added: **(1) `continents`** — a Draw-only scope whose regions
+  are whole continents (all member countries dissolved via `unary_union` on the NE
+  `CONTINENT` field). Ships **South America, North America, Africa** only — Eurasia is
+  split wrong by country membership (NE files Russia under Europe, so a dissolved
+  "Europe" swallows Siberia) and "Oceania" collapses to ≈the Australia outline the
+  country scope already gives. **(2) `north-america-countries`** — a standard continent
+  scope (Which/Place/Draw) filling the missing continent: 23 tier-1 countries
+  (USA/Canada/Mexico + Central America + Caribbean microstate circles), nested under
+  `GeoTrainer::World::North America` beside the existing subdivision decks. New
+  `shape_payload(mainland_only=…)` flag keeps just the main contiguous landmass for
+  the continent silhouettes and the USA (drops Greenland off NA and the detached
+  Alaska/Hawaii off the USA, so the graded shape is the lower-48 you actually picture;
+  Central America stays because it's contiguous with the mainland polygon). **22 scopes;
+  suite 224 passed / 6 skipped.** Combined `geo-trainer-all.apkg` = 52 decks / 1,696
+  notes / 26.4 MB; both new scopes imported live.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
   (`make apkg-all`) + `release/screenshots/`. Publishing still gated on Elvis's

@@ -5,15 +5,17 @@ curriculum-ordered set of map-interaction task types rendered by a shared JS eng
 that works on Anki Desktop, AnkiMobile, and AnkiDroid.
 
 Status: redesigned to a lean, **borderless-recall** set after real-world study.
-**Twenty scopes**, ~1,700 cards. Region scopes carry three families — **Which**,
+**Twenty-two scopes**, ~1,700 cards. Region scopes carry three families — **Which**,
 **Place**, **Draw** — on a *borderless* map (no internal borders, so you recall
-where things are instead of matching a labelled shape). Continents: **Europe**
-(46), **South America** (12), **Africa** (53), **Asia** (47), **Oceania** (14).
-Country subdivisions: **United States** (50), **Brazil** (27), **India** (36),
-**Russia** (85), **China** (31), **Canada** (13), **Australia** (9), **Argentina**
-(24), **Mexico** (32), **Indonesia** (33). Physical: **mountain ranges** (29) and
-**deserts** (17) — **Place** only, dragged onto the continents — and **major
-rivers** (42) as trace-the-course. All rendered by one shared engine and verified on
+where things are instead of matching a labelled shape). Continents (countries):
+**Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),
+**North America** (23), **Oceania** (14). Country subdivisions: **United States**
+(50), **Brazil** (27), **India** (36), **Russia** (85), **China** (31), **Canada**
+(13), **Australia** (9), **Argentina** (24), **Mexico** (32), **Indonesia** (33).
+Physical: **mountain ranges** (29) and **deserts** (17) — **Place** only, dragged
+onto the continents — and **major rivers** (42) as trace-the-course. Plus a
+**Continents** scope — **Draw** the whole silhouette of South America, North America,
+or Africa from memory. All rendered by one shared engine and verified on
 Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md), the skill ladder in
 [`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md), and the publishing plan in
 [`release/RELEASE.md`](./release/RELEASE.md).

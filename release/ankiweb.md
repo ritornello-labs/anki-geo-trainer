@@ -37,10 +37,12 @@ pan — fine work is easy even on a small screen.
 
 ## What's covered
 
-Continents (countries): **Europe, Africa, Asia, South America, Oceania**.
-Country subdivisions: **US states, Brazil, India, Russia, China, Canada, Australia,
-Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and **deserts** (place
-them over the continents), and **major rivers** (trace the course).
+Continents (countries): **Europe, Africa, Asia, South America, North America,
+Oceania**. Country subdivisions: **US states, Brazil, India, Russia, China, Canada,
+Australia, Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and
+**deserts** (place them over the continents), and **major rivers** (trace the
+course). And a **Continents** deck: draw the whole silhouette of South America,
+North America, or Africa from memory.
 
 Cards are **tagged by skill and scope** (`geotrainer::skill::…`,
 `geotrainer::scope::…`) so you can build your own study path with saved searches and

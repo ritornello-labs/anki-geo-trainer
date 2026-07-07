@@ -355,9 +355,10 @@ test("all expected scopes are present", () => {
   expect(SCOPES.sort()).toEqual(
     [
       "africa-countries", "argentina-provinces", "asia-countries", "australia-states",
-      "brazil-states", "canada-provinces", "china-provinces", "europe-countries",
-      "india-states", "indonesia-provinces", "mexico-states", "oceania-countries",
-      "russia-subjects", "south-america-countries", "us-states", "world-deserts",
+      "brazil-states", "canada-provinces", "china-provinces", "continents",
+      "europe-countries", "india-states", "indonesia-provinces", "mexico-states",
+      "north-america-countries", "oceania-countries", "russia-subjects",
+      "south-america-countries", "us-states", "world-deserts",
       "world-ranges", "world-rivers",
     ].sort()
   );

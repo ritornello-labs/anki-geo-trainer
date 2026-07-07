@@ -74,6 +74,23 @@ SCOPE_PACKS = {
         "deck_base": 1_607_393_050,
         "apkg": "geo-trainer-europe.apkg",
     },
+    "north-america-countries": {
+        "deck_root": "GeoTrainer::World::North America",
+        "model_root": "GeoTrainer {family} — North America",
+        "scope_tag": "geotrainer::scope::continent::north-america",
+        "model_base": 1_607_411_001,
+        "deck_base": 1_607_411_050,
+        "apkg": "geo-trainer-north-america.apkg",
+    },
+    "continents": {
+        # Draw-only single silhouettes (South America, North America, Africa).
+        "deck_root": "GeoTrainer::World::Continents",
+        "model_root": "GeoTrainer {family} — Continents",
+        "scope_tag": "geotrainer::scope::world::continents",
+        "model_base": 1_607_412_001,
+        "deck_base": 1_607_412_050,
+        "apkg": "geo-trainer-continents.apkg",
+    },
     "south-america-countries": {
         "deck_root": "GeoTrainer::World::South America",
         "model_root": "GeoTrainer {family} — South America",
