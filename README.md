@@ -28,8 +28,12 @@ same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
 |------|-------|-------------|
 | `…::1 Which State/Country` | position → name | A dot appears *inside* a region (different spot each review) on a **borderless** map; recall which one it is |
 | `…::2 Place` | precise position | Drag the region's silhouette onto the **borderless** map to where it belongs — no labelled slot to snap into |
-| `…::3 Draw` | shape recall | Sketch the outline from memory (multi-stroke, undo/clear); the back overlays the true shape and grades the match. Scoring rewards capturing the distinctive features — a rough enclosing blob fails, an honest freehand attempt can pass. Position and size don't matter, form does |
-| `…::1 Trace` (rivers) | river course | Trace a major river's course over a world map; the back overlays the true line and grades by distance (km) to it |
+| `…::3 Draw` | shape recall | Sketch the outline from memory (multi-stroke, undo/clear, zoom); the back overlays the true shape and grades the match. Scoring rewards capturing the distinctive features — a rough enclosing blob fails, an honest freehand attempt can pass. Position and size don't matter, form does |
+| `…::1 Trace` (rivers) | river course | Trace a major river's course over a world map; the back overlays the true line and grades by distance (km) to it. Start on the *full* world map (no positional hint), then zoom in to trace precisely |
+
+Drawing surfaces (Draw, Trace) have **zoom + pan**: pinch-zoom and two-finger pan
+on touch, +/− buttons and mouse-wheel/right-drag on desktop. Only the SVG viewBox
+changes, so strokes stay in map coordinates and grading is exact at any zoom.
 
 Cards are self-graded: the card shows a verdict and a suggested grade; you still
 press Anki's answer buttons. Region maps hide internal borders on the front so the

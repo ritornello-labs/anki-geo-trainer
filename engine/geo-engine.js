@@ -821,8 +821,9 @@
   // the drag code: pointercancel ignored, Android pointerdown-before-touchstart
   // orphan cleaned up.
   function attachStrokeCapture(svg, mode, scope, target, strokeClass) {
-    var strokes = [], paths = [], current = null, currentPath = null, usingTouch = false;
+    var strokes = [], paths = [], current = null, currentPath = null, usingTouch = false, multi = false;
     saveState(mode, scope, target, { strokes: [] });
+    svg.style.touchAction = "none"; // we own pinch/pan; the browser must not scroll/zoom
 
     function persist() {
       saveState(mode, scope, target, { strokes: resampleStrokes(strokes, 240) });
@@ -857,17 +858,25 @@
     }
 
     svg.addEventListener("pointerdown", function (ev) {
-      if (usingTouch) return;
+      if (usingTouch || (ev.button && ev.button !== 0)) return; // right button = pan
       begin(ev.clientX, ev.clientY);
       ev.preventDefault();
     });
     svg.addEventListener("pointermove", function (ev) {
-      if (!usingTouch) extend(ev.clientX, ev.clientY);
+      if (!usingTouch && current) extend(ev.clientX, ev.clientY);
     });
     svg.addEventListener("pointerup", function () {
       if (!usingTouch) finish();
     });
     svg.addEventListener("touchstart", function (ev) {
+      if (ev.touches.length > 1) {
+        // A second finger means pan/zoom, not draw: abandon any in-progress
+        // stroke and let attachPanZoom handle the gesture.
+        multi = true;
+        if (currentPath) { svg.removeChild(currentPath); current = null; currentPath = null; }
+        return;
+      }
+      if (multi) return; // leftover finger during a multi-touch gesture
       if (!usingTouch && currentPath) {
         svg.removeChild(currentPath);
         current = null;
@@ -879,12 +888,14 @@
       ev.preventDefault();
     }, { passive: false });
     svg.addEventListener("touchmove", function (ev) {
+      if (multi || ev.touches.length > 1) return;
       var t = ev.changedTouches[0];
       extend(t.clientX, t.clientY);
       ev.preventDefault();
     }, { passive: false });
     svg.addEventListener("touchend", function (ev) {
-      finish();
+      if (ev.touches.length === 0) multi = false;
+      if (!multi) finish();
       ev.preventDefault();
     }, { passive: false });
 
@@ -905,9 +916,109 @@
     };
   }
 
-  function drawToolRow(root, surface) {
+  // Pan/zoom on a drawing surface, so fine work (tracing a river on the world
+  // map) is doable: +/- buttons zoom around centre, two fingers pinch-zoom and
+  // pan, the wheel zooms toward the cursor. Only the viewBox changes — svgPoint
+  // uses getScreenCTM, so drawn coordinates stay in map space at any zoom.
+  function attachPanZoom(svg) {
+    var vb = (svg.getAttribute("viewBox") || "0 0 100 100").split(/\s+/).map(Number);
+    var HOME = { x: vb[0], y: vb[1], w: vb[2], h: vb[3] };
+    var aspect = HOME.h / HOME.w;
+    var cur = { x: HOME.x, y: HOME.y, w: HOME.w, h: HOME.h };
+    var MIN_W = HOME.w / 8; // deepest zoom-in
+
+    function apply() {
+      svg.setAttribute("viewBox", cur.x + " " + cur.y + " " + cur.w + " " + cur.h);
+    }
+    function clampPan() {
+      cur.x = Math.max(HOME.x, Math.min(HOME.x + HOME.w - cur.w, cur.x));
+      cur.y = Math.max(HOME.y, Math.min(HOME.y + HOME.h - cur.h, cur.y));
+    }
+    function zoomAt(clientX, clientY, factor) {
+      var rect = svg.getBoundingClientRect();
+      if (!rect.width) return;
+      var relX = (clientX - rect.left) / rect.width;
+      var relY = (clientY - rect.top) / rect.height;
+      var fx = cur.x + relX * cur.w, fy = cur.y + relY * cur.h;
+      var newW = Math.max(MIN_W, Math.min(HOME.w, cur.w / factor));
+      cur.w = newW;
+      cur.h = newW * aspect;
+      cur.x = fx - relX * cur.w;
+      cur.y = fy - relY * cur.h;
+      clampPan();
+      apply();
+    }
+    function zoomCentre(factor) {
+      var rect = svg.getBoundingClientRect();
+      zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, factor);
+    }
+    function panBy(dxScreen, dyScreen) {
+      var rect = svg.getBoundingClientRect();
+      if (!rect.width) return;
+      cur.x -= dxScreen * (cur.w / rect.width);
+      cur.y -= dyScreen * (cur.h / rect.height);
+      clampPan();
+      apply();
+    }
+
+    function twoFinger(ev) {
+      var a = ev.touches[0], b = ev.touches[1];
+      return {
+        mx: (a.clientX + b.clientX) / 2, my: (a.clientY + b.clientY) / 2,
+        dist: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY),
+      };
+    }
+    var pinch = null;
+    svg.addEventListener("touchstart", function (ev) {
+      if (ev.touches.length === 2) { pinch = twoFinger(ev); ev.preventDefault(); }
+    }, { passive: false });
+    svg.addEventListener("touchmove", function (ev) {
+      if (ev.touches.length === 2 && pinch) {
+        var now = twoFinger(ev);
+        panBy(now.mx - pinch.mx, now.my - pinch.my);
+        if (pinch.dist > 0) zoomAt(now.mx, now.my, now.dist / pinch.dist);
+        pinch = now;
+        ev.preventDefault();
+      }
+    }, { passive: false });
+    svg.addEventListener("touchend", function (ev) {
+      if (ev.touches.length < 2) pinch = null;
+    });
+    svg.addEventListener("wheel", function (ev) {
+      zoomAt(ev.clientX, ev.clientY, ev.deltaY < 0 ? 1.2 : 1 / 1.2);
+      ev.preventDefault();
+    }, { passive: false });
+
+    // Desktop pan: right-button drag (left drag draws; two-finger drag pans on
+    // touch). Suppresses the context menu while panning.
+    var panning = null;
+    svg.addEventListener("pointerdown", function (ev) {
+      if (ev.button === 2) { panning = { x: ev.clientX, y: ev.clientY }; ev.preventDefault(); }
+    });
+    svg.addEventListener("pointermove", function (ev) {
+      if (panning) {
+        panBy(ev.clientX - panning.x, ev.clientY - panning.y);
+        panning = { x: ev.clientX, y: ev.clientY };
+      }
+    });
+    svg.addEventListener("pointerup", function () { panning = null; });
+    svg.addEventListener("contextmenu", function (ev) { ev.preventDefault(); });
+
+    return { zoomIn: function () { zoomCentre(1.6); }, zoomOut: function () { zoomCentre(1 / 1.6); } };
+  }
+
+  function drawToolRow(root, surface, panzoom) {
     var row = document.createElement("div");
     row.className = "gt-btnrow";
+    if (panzoom) {
+      var zout = button("−"), zin = button("+"); // − and +
+      zout.className += " gt-zoom";
+      zin.className += " gt-zoom";
+      row.appendChild(zout);
+      row.appendChild(zin);
+      wireTap(zout, panzoom.zoomOut);
+      wireTap(zin, panzoom.zoomIn);
+    }
     var undo = button("Undo"), clear = button("Clear");
     row.appendChild(undo);
     row.appendChild(clear);
@@ -927,7 +1038,7 @@
     var svg = drawCanvas(shape);
     root.appendChild(svg);
     var surface = attachStrokeCapture(svg, "draw", bundle.scope, target);
-    drawToolRow(root, surface);
+    drawToolRow(root, surface, attachPanZoom(svg));
     root.appendChild(bar("Draw the outline from memory, then flip", "gt-hint"));
   }
 
@@ -1162,8 +1273,10 @@
     var svg = built.svg;
     root.appendChild(svg);
     var surface = attachStrokeCapture(svg, "river", bundle.scope, target, "gt-drawn");
-    drawToolRow(root, surface);
-    root.appendChild(bar("Trace the course of the " + name + ", then flip", "gt-hint"));
+    // Zoom/pan so you can dive into the region and trace the line precisely,
+    // even though the front starts on the full world map (no positional hint).
+    drawToolRow(root, surface, attachPanZoom(svg));
+    root.appendChild(bar("Zoom in (＋) to trace the " + name + " precisely, then flip", "gt-hint"));
   }
 
   function riverBack(root, bundle, target) {

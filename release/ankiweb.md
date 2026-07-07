@@ -26,7 +26,11 @@ Light and dark mode included.
 - **Draw** — sketch the outline from memory; scored on whether you captured the real
   shape (a rough enclosing blob fails; an honest freehand attempt passes).
 - **Trace** (rivers) — trace a major river's course over a world map; graded by how
-  closely your line follows the real one.
+  closely your line follows the real one. Starts on the *full* world map (no hint
+  where it is) — pinch or tap **＋** to zoom in and trace precisely.
+
+Drawing surfaces support **zoom & pan** (pinch / two-finger on mobile, +/− buttons
+and mouse-wheel on desktop), so fine work is easy even on a phone.
 
 ## What's covered
 

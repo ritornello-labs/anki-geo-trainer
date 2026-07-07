@@ -209,6 +209,15 @@
 }
 .gt-btn:active { background: #eef1f4; }
 
+/* Zoom +/- buttons: square, bold symbol, sit at the left of the tool row */
+.gt-btn.gt-zoom {
+  padding: 8px 0;
+  width: 42px;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1;
+}
+
 .nightMode .gt-canvas-bg { fill: #23272e; stroke: #4a5260; }
 .nightMode .gt-stroke,
 .nightMode .gt-drawn { stroke: #e8eaed; }

@@ -202,6 +202,52 @@ for (const scope of RIVER_SCOPES) {
   const data = load(scope);
   const rid = Object.keys(data.shapes)[0];
 
+  test(`${scope}: zoom shrinks the viewBox and a zoomed trace still scores`, async ({ page }) => {
+    await mount(page, scope, data, { target: rid, mode: "river", side: "front" });
+    await page.waitForSelector("svg.gt-map");
+    await expect(page.locator(".gt-zoom")).toHaveCount(2); // − and +
+    const wBefore = await page.evaluate(() =>
+      Number(document.querySelector("svg.gt-map").getAttribute("viewBox").split(/\s+/)[2])
+    );
+    // Zoom in (wheel toward the river's midpoint), then trace at the new zoom.
+    const scoreOk = await page.evaluate(
+      ({ scope, id }) => {
+        const svg = document.querySelector("svg.gt-map");
+        const paths = window.GT_SHAPES[scope + ":" + id].paths;
+        const mid = paths[0][Math.floor(paths[0].length / 2)];
+        const toScreen = (p) => {
+          const pt = svg.createSVGPoint();
+          pt.x = p[0];
+          pt.y = p[1];
+          return pt.matrixTransform(svg.getScreenCTM());
+        };
+        const m = toScreen(mid);
+        for (let i = 0; i < 2; i++)
+          svg.dispatchEvent(new WheelEvent("wheel", { clientX: m.x, clientY: m.y, deltaY: -100, bubbles: true }));
+        // trace the true course under the NEW zoom (screen coords recomputed)
+        for (const path of paths) {
+          if (path.length < 2) continue;
+          const c0 = toScreen(path[0]);
+          svg.dispatchEvent(new PointerEvent("pointerdown", { clientX: c0.x, clientY: c0.y, bubbles: true, pointerId: 1, button: 0 }));
+          for (let i = 1; i < path.length; i++) {
+            const c = toScreen(path[i]);
+            svg.dispatchEvent(new PointerEvent("pointermove", { clientX: c.x, clientY: c.y, bubbles: true, pointerId: 1 }));
+          }
+          const cl = toScreen(path[path.length - 1]);
+          svg.dispatchEvent(new PointerEvent("pointerup", { clientX: cl.x, clientY: cl.y, bubbles: true, pointerId: 1 }));
+        }
+        const w = Number(svg.getAttribute("viewBox").split(/\s+/)[2]);
+        return { zoomedW: w };
+      },
+      { scope, id: rid }
+    );
+    expect(scoreOk.zoomedW).toBeLessThan(wBefore); // zoomed in
+    const state = await readState(page, "river", scope, rid);
+    // Coordinates must stay in map space at zoom — a faithful trace still covers
+    // the river (many points recorded, not garbage).
+    expect(state.strokes.reduce((n, s) => n + s.length, 0)).toBeGreaterThan(20);
+  });
+
   test(`${scope}: river trace-the-course grades the drawn line, line on back`, async ({ page }) => {
     await mount(page, scope, data, { target: rid, mode: "river", side: "front" });
     await page.waitForSelector("svg.gt-map");
