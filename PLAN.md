@@ -205,8 +205,27 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   `release/RELEASE.md` + `release/ankiweb.md`; publishing needs Elvis's go-ahead,
   public-repo flip, and the AnkiWeb quota.
   **Remaining:** mountain ranges (10m regions), lakes, more 10m subdivisions; then M5.
+- **Redesign — borderless recall. ✅ Done 2026-07-07.** Elvis studied the deck for
+  real and cut most of it as trivial or redundant. **Dropped:** Locate (tapping a
+  labelled shape isn't recall), Capital (duplicated his Cities deck), Seas (trivial
+  at world scale). **Kept & fixed:** Which + Place + Draw — but the fronts now hide
+  all internal borders (`buildSvg({borderless})` → seamless silhouette), turning them
+  from shape-matching into genuine spatial recall; Draw's score moved from mean-
+  chamfer (rewarded a rough enclosing blob) to an 85th-percentile coverage metric
+  (calibrated on China: faithful trace ~0.3% → Good, honest wobble → Good, a smooth
+  blob that misses the bulges → 11% → Again). **Rivers → Trace-the-course** (a new
+  draw-style mode; graded in km via a shared stroke-capture helper). **New physical
+  scopes:** mountain ranges (29) + deserts (17) as areal polygons — point/place/draw
+  with the feature hidden and only the continents shown for reference (`kind:physical`).
+  Families renumbered (1 Which / 2 Place / 3 Draw). Fixed: US now under
+  `World::North America`. Static analysis (`ruff`) + a Node-version guard on `make
+  test` added. **20 scopes, ~1,716 cards**; suite 204 passed / 4 skipped; the whole
+  live GeoTrainer tree was deleted and re-imported clean. Lesson: verify each card
+  type earns its place before mass-producing — quality over breadth.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
-  `anki-addon-release`), public repo decision, screenshots via workbench.
+  `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
+  (`make apkg-all`) + `release/screenshots/`. Publishing still gated on Elvis's
+  go-ahead + public-repo flip + the AnkiWeb quota.
 
 ## Relationship to existing projects
 

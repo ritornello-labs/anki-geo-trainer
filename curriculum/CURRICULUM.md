@@ -13,16 +13,22 @@ this order. Each rung assumes comfort with the one before it.
 |-------|-------|-----------|-------------|
 | 1 | Recognize | *external* (see below) | Highlighted region on a map → recall its name |
 | 2 | Shape ID | *external* (see below) | Isolated silhouette → recall its name |
-| 3 | Locate | `1 Locate` | Name shown → tap where it is on a blank map |
-| 4 | Point-in-region | `2 Which State/Country` | Random dot on a blank map → name the region under it |
-| 5 | Place | `3 Place` | Drag the region's silhouette to its exact position |
-| 6 | Draw | `4 Draw` | Sketch the region's outline from memory; scored against the true shape (translation/scale-invariant) |
-| 4 | Capital | `5 Capital` | Tap where the named capital city is; distance-graded, true spot starred on the back |
-| 4 | River | `6 River` | Tap where a major river runs; distance-graded to the line, river highlighted on the back (physical scopes) |
+| 4 | Which one? | `1 Which State/Country` | Dot on a **borderless** map → name the region under it (pure spatial recall — no borders to read) |
+| 5 | Place | `2 Place` | Drag the region's silhouette onto the **borderless** map to where it belongs — no labelled slot |
+| 6 | Draw | `3 Draw` | Sketch the outline from memory; scored on capturing the real shape (a rough enclosing blob fails) |
+| 5 | Trace | `1 Trace` (rivers) | Trace a river's course over a world map; graded by km distance to the true line |
 
-A tap-all-neighbors family (F7) shipped briefly in M2 and was retired the same day:
-it duplicates the passive border decks already in the user's collection. The engine
-mode still exists (dormant) if a scope ever wants it back.
+**Redesign (2026-07), after studying the deck for real.** Cut families that were
+trivial or redundant: **Locate** (tapping a labelled shape isn't recall), **Capital**
+(duplicated the Cities/World-Capitals deck), and **Seas** (trivial at world scale).
+The survivors — Which / Place / Draw — were the ones the borders made trivial, so
+their fronts now hide all internal borders (the map is a blank silhouette; you recall
+*where*, not *which shape*). Draw's scoring was rebuilt to reward capturing distinctive
+features. Rivers became **Trace-the-course** (drawing a river is interesting; tapping
+where it is was not). New physical scopes: **mountain ranges** and **deserts** (name /
+place / draw the feature over the continents). A tap-all-neighbors family (F7) was
+retired even earlier (duplicated border decks). The engine keeps the dropped modes
+dormant, so any could return.
 
 Levels 1–2 are passive recognition, already well served by existing shared decks —
 GeoTrainer does not duplicate them. Good on-ramps:

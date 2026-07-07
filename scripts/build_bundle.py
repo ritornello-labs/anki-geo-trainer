@@ -61,9 +61,10 @@ SOURCES = {
     # 10m places (≈19 MB) carries 2,259 province capitals vs the 50m file's 482 —
     # needed for near-complete state/province capital coverage in F8.
     "places": "ne_10m_populated_places.geojson",
-    # Physical features (M4c): named seas/oceans polygons and river centrelines.
-    "marine": "ne_50m_geography_marine_polys.geojson",
+    # Physical features: river centrelines (50m) and areal regions (10m — its
+    # FEATURECLA/NAME_EN are populated; the 50m regions file's are empty).
     "rivers": "ne_50m_rivers_lake_centerlines.geojson",
+    "regions10": "ne_10m_geography_regions_polys.geojson",
 }
 
 EARTH_KM_PER_DEG = 111.32
@@ -780,16 +781,32 @@ def _slug(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
 
 
+# Areal physical features as polygons on a world map. Seas were dropped (useless
+# at world scale). Ranges/deserts come from 10m geography_regions_polys (FEATURECLA
+# = "Range/mtn" / "Desert"), major ones only (scalerank ≤ 3). Point/place hide the
+# feature and show only continents for reference (kind == "physical" → the engine
+# renders context land, not the feature, on the borderless front).
 PHYSICAL_SCOPES = {
-    "world-seas": {
-        "title": "World — Seas & Oceans",
-        "layer": "marine",
-        "featureclasses": {"ocean", "sea", "gulf", "bay"},
-        "noun": "sea",
-        "families": ["locate", "point", "draw"],
-        "box": (-180.0, -78.0, 180.0, 85.0),
-        "width": 1400.0,
-        "deck_root": "GeoTrainer::Physical::Seas & Oceans",
+    "world-ranges": {
+        "title": "World — Mountain Ranges",
+        "layer": "regions10",
+        "featureclasses": {"Range/mtn"},
+        "max_scalerank": 2,  # 31 iconic ranges (≤3 pulls in Andes sub-ranges)
+        "noun": "range",
+        "box": (-165.0, -56.0, 180.0, 75.0),
+        "width": 1500.0,
+        "deck_root": "GeoTrainer::Physical::Mountain Ranges",
+    },
+    "world-deserts": {
+        "title": "World — Deserts",
+        "layer": "regions10",
+        "featureclasses": {"Desert"},
+        "max_scalerank": 3,  # 18 major deserts
+        "exclude": {"Punjab"},  # not a desert
+        "noun": "desert",
+        "box": (-120.0, -40.0, 150.0, 50.0),
+        "width": 1500.0,
+        "deck_root": "GeoTrainer::Physical::Deserts",
     },
 }
 
@@ -798,12 +815,20 @@ def _build_world_polys(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
     box_t = cfg["box"]
     width = cfg.get("width", 1200.0)
     fclasses = cfg.get("featureclasses")
+    max_sr = cfg.get("max_scalerank")
+    exclude = cfg.get("exclude", set())
 
-    feats = [
-        f for f in load_features(cfg["layer"])
-        if f["properties"].get("name")
-        and (fclasses is None or f["properties"].get("featurecla") in fclasses)
-    ]
+    feats = []
+    for f in load_features(cfg["layer"]):
+        props = f["properties"]
+        name = prop(props, "NAME_EN", "NAME")
+        if not name or name in exclude:
+            continue
+        if fclasses is not None and prop(props, "FEATURECLA") not in fclasses:
+            continue
+        if max_sr is not None and (prop(props, "SCALERANK") or 99) > max_sr:
+            continue
+        feats.append(f)
 
     lat0 = math.radians((box_t[1] + box_t[3]) / 2.0)
     cos0 = math.cos(lat0)
@@ -821,7 +846,7 @@ def _build_world_polys(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
     geoms_by_id: dict[str, BaseGeometry] = {}
     seen: set[str] = set()
     for f in feats:
-        name = f["properties"]["name"]
+        name = prop(f["properties"], "NAME_EN", "NAME")
         norm = name.title() if name.isupper() else name
         rid = _slug(norm)
         if rid in seen:
@@ -847,7 +872,7 @@ def _build_world_polys(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
         "title": cfg["title"],
         "noun": cfg.get("noun", "sea"),
         "kind": "physical",
-        "families": cfg.get("families", ["locate", "point", "draw"]),
+        "families": cfg.get("families", ["point", "place", "draw"]),
         "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
         "tray": [90.0, round(view_h - 90.0, 1)],
         "frames": [

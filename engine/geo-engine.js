@@ -131,7 +131,11 @@
     return d;
   }
 
-  function buildSvg(bundle) {
+  function buildSvg(bundle, opts) {
+    // opts.borderless: render the land as one seamless silhouette (no internal
+    // borders, uniform fill, small regions not circled) so the front is a real
+    // blank map — you must recall WHERE things are, not match a labelled shape.
+    var borderless = opts && opts.borderless;
     var v = bundle.view;
     var svg = el("svg", { viewBox: "0 0 " + v.w + " " + v.h, class: "gt-map", role: "img" });
     svg.appendChild(el("rect", { x: 0, y: 0, width: v.w, height: v.h, class: "gt-ocean" }));
@@ -153,14 +157,24 @@
       svg.appendChild(el("path", { d: ringPath(bundle.context), class: "gt-context" }));
     }
 
-    var land = el("g", { class: "gt-land" });
+    var land = el("g", { class: "gt-land" + (borderless ? " gt-borderless" : "") });
     var byId = {};
-    for (var k = 0; k < bundle.regions.length; k++) {
-      var reg = bundle.regions[k];
-      var cls = "gt-region" + (reg.small ? " gt-small" : "") + (reg.tier === 2 ? " gt-tier2" : "");
-      var p = el("path", { d: ringPath(reg.rings), class: cls, "data-id": reg.id });
-      land.appendChild(p);
-      byId[reg.id] = p;
+    // Physical scopes (ranges/deserts): the feature IS the answer, so the
+    // borderless front shows only the context continents (drawn above) — the
+    // feature polygons aren't rendered. The back (not borderless) reveals them.
+    var hideRegions = borderless && bundle.kind === "physical";
+    if (!hideRegions) {
+      for (var k = 0; k < bundle.regions.length; k++) {
+        var reg = bundle.regions[k];
+        var cls = "gt-region";
+        if (!borderless) {
+          if (reg.small) cls += " gt-small";
+          if (reg.tier === 2) cls += " gt-tier2";
+        }
+        var p = el("path", { d: ringPath(reg.rings), class: cls, "data-id": reg.id });
+        land.appendChild(p);
+        byId[reg.id] = p;
+      }
     }
     svg.appendChild(land);
     return { svg: svg, byId: byId };
@@ -359,7 +373,9 @@
     // Lean front: the chip carries the task; no redundant headline.
     root.appendChild(chip("Which " + nounOf(bundle) + "?"));
 
-    var built = buildSvg(bundle);
+    // Borderless: a dot on a blank silhouette — you must recall what's THERE,
+    // not read the label off a bordered shape.
+    var built = buildSvg(bundle, { borderless: true });
     pointDot(built.svg, region, pointIndex(bundle, target));
     root.appendChild(built.svg);
     root.appendChild(bar("Recall the name, then flip", "gt-hint"));
@@ -402,12 +418,10 @@
     root.appendChild(chip("Place"));
     root.appendChild(prompt(region.name)); // instruction lives in the hint bar only
 
-    var built = buildSvg(bundle);
+    // Borderless basemap: the piece floats over a blank silhouette, so there's
+    // no labelled slot to snap it into — you must know where it belongs.
+    var built = buildSvg(bundle, { borderless: true });
     var svg = built.svg;
-    // De-emphasize the target's real footprint: remove it from the basemap so
-    // its hole doesn't give the position away? No — a hole IS a giveaway. Keep
-    // the full basemap; the challenge is matching position, like Sheppard's
-    // hard mode where the piece floats over a complete map.
 
     var tray = trayCenter(bundle);
     var start = { x: tray.x - region.c[0], y: tray.y - region.c[1] };
@@ -716,8 +730,8 @@
     return out;
   }
 
-  function meanNearest(a, b) {
-    var sum = 0;
+  function nearestDists(a, b) {
+    var out = [];
     for (var i = 0; i < a.length; i++) {
       var best = Infinity;
       for (var j = 0; j < b.length; j++) {
@@ -725,9 +739,22 @@
         var d = dx * dx + dy * dy;
         if (d < best) best = d;
       }
-      sum += Math.sqrt(best);
+      out.push(Math.sqrt(best));
     }
-    return sum / a.length;
+    return out;
+  }
+
+  function meanOf(arr) {
+    var s = 0;
+    for (var i = 0; i < arr.length; i++) s += arr[i];
+    return arr.length ? s / arr.length : 0;
+  }
+
+  function percentileOf(arr, p) {
+    if (!arr.length) return 0;
+    var s = arr.slice().sort(function (x, y) { return x - y; });
+    var idx = Math.min(s.length - 1, Math.floor(p * (s.length - 1)));
+    return s[idx];
   }
 
   function drawScore(strokes, shape) {
@@ -739,12 +766,24 @@
     var outline = ringPerimeterPoints(shape.rings, 160);
     var aligned = alignToShape(drawn, outline);
     var diag = Math.hypot(shape.w, shape.h);
-    // Symmetric chamfer: drawn→outline penalises scribble, outline→drawn
-    // penalises missing chunks (forgot Brittany).
-    var pct = ((meanNearest(aligned, outline) + meanNearest(outline, aligned)) / 2 / diag) * 100;
-    // Calibrated on France: perfect trace 1.0, wobbly hand-trace 2.2-2.5,
-    // ellipse-instead-of-hexagon 5.3, square 8.3, zigzag scribble 7.5.
-    var quality = pct < 3.5 ? 2 : pct < 6.5 ? 1 : 0;
+
+    // A smooth loop that "roughly encloses the area" scored well under mean
+    // chamfer even though it missed every distinctive feature. Fix: judge the
+    // WORST-covered part of the true outline (a high percentile of
+    // outline→drawing), so skipping a whole bulge (Xinjiang, Brittany) is
+    // penalised — plus the mean drawing→outline distance to punish scribble
+    // that strays outside. Both as % of the shape's diagonal.
+    var coverage = nearestDists(outline, aligned); // how far each true point is from the drawing
+    var stray = nearestDists(aligned, outline);     // how far each drawn point strays from truth
+    var featureMiss = percentileOf(coverage, 0.85); // your least-covered feature
+    var meanCover = meanOf(coverage);
+    var meanStray = meanOf(stray);
+    var pct = ((0.5 * featureMiss + 0.3 * meanCover + 0.2 * meanStray) / diag) * 100;
+
+    // Recalibrated (China): faithful trace ≈ 2–3 → Good; a recognisable but
+    // rough attempt ≈ 5–7 → Hard; a smooth blob that misses the bulges or a
+    // scribble ≈ 9+ → Again. Honest freehand can reach Good; a blob cannot.
+    var quality = pct < 4.5 ? 2 : pct < 8.5 ? 1 : 0;
     return { pct: pct, quality: quality, aligned: aligned };
   }
 
@@ -767,44 +806,34 @@
     return b;
   }
 
-  function drawFront(root, bundle, target) {
-    var shape = shapeOf(bundle.scope, target);
-    root.appendChild(chip("Draw"));
-    root.appendChild(prompt(root.getAttribute("data-name") || target));
-    if (!shape) {
-      root.appendChild(bar("Shape data missing", "gt-miss"));
-      return;
-    }
+  function wireTap(elm, fn) {
+    elm.addEventListener("click", fn);
+    elm.addEventListener("touchend", function (ev) {
+      fn();
+      ev.preventDefault();
+      ev.stopPropagation();
+    }, { passive: false });
+  }
 
-    var svg = drawCanvas(shape);
-    root.appendChild(svg);
-
-    var row = document.createElement("div");
-    row.className = "gt-btnrow";
-    var undo = button("Undo"), clear = button("Clear");
-    row.appendChild(undo);
-    row.appendChild(clear);
-    root.appendChild(row);
-    root.appendChild(bar("Draw the outline from memory, then flip", "gt-hint"));
-
-    var strokes = [], paths = [], current = null, currentPath = null;
-    var usingTouch = false;
-    saveState("draw", bundle.scope, target, { strokes: [] });
+  // Shared freehand multi-stroke capture on any SVG surface (draw a shape, trace
+  // a river). Persists resampled strokes under (mode, scope, target); returns
+  // undo/clear so the caller can wire buttons. Same pointer/touch discipline as
+  // the drag code: pointercancel ignored, Android pointerdown-before-touchstart
+  // orphan cleaned up.
+  function attachStrokeCapture(svg, mode, scope, target, strokeClass) {
+    var strokes = [], paths = [], current = null, currentPath = null, usingTouch = false;
+    saveState(mode, scope, target, { strokes: [] });
 
     function persist() {
-      saveState("draw", bundle.scope, target, {
-        strokes: resampleStrokes(strokes, 240),
-      });
+      saveState(mode, scope, target, { strokes: resampleStrokes(strokes, 240) });
     }
-
     function begin(x, y) {
       var loc = svgPoint(svg, x, y);
       if (!loc) return;
       current = [[loc.x, loc.y]];
-      currentPath = el("path", { class: "gt-stroke", d: strokePath(current) });
+      currentPath = el("path", { class: strokeClass || "gt-stroke", d: strokePath(current) });
       svg.appendChild(currentPath);
     }
-
     function extend(x, y) {
       if (!current) return;
       var loc = svgPoint(svg, x, y);
@@ -814,7 +843,6 @@
       current.push([loc.x, loc.y]);
       currentPath.setAttribute("d", strokePath(current));
     }
-
     function finish() {
       if (!current) return;
       if (current.length >= 2) {
@@ -834,18 +862,12 @@
       ev.preventDefault();
     });
     svg.addEventListener("pointermove", function (ev) {
-      if (usingTouch) return;
-      extend(ev.clientX, ev.clientY);
+      if (!usingTouch) extend(ev.clientX, ev.clientY);
     });
-    svg.addEventListener("pointerup", function (ev) {
-      if (usingTouch) return;
-      finish();
+    svg.addEventListener("pointerup", function () {
+      if (!usingTouch) finish();
     });
-    // pointercancel is IGNORED on purpose: AnkiDroid's WebView cancels the
-    // pointer stream mid-gesture while touch events keep flowing.
     svg.addEventListener("touchstart", function (ev) {
-      // Android fires pointerdown BEFORE touchstart: drop the pointer-started
-      // stroke so the touch path doesn't leave an orphan <path> behind.
       if (!usingTouch && currentPath) {
         svg.removeChild(currentPath);
         current = null;
@@ -866,23 +888,47 @@
       ev.preventDefault();
     }, { passive: false });
 
-    function wireTap(elm, fn) {
-      elm.addEventListener("click", fn);
-      elm.addEventListener("touchend", function (ev) { fn(); ev.preventDefault(); ev.stopPropagation(); }, { passive: false });
+    return {
+      undo: function () {
+        if (current) finish();
+        var p = paths.pop();
+        if (p) svg.removeChild(p);
+        strokes.pop();
+        persist();
+      },
+      clear: function () {
+        if (current) finish();
+        while (paths.length) svg.removeChild(paths.pop());
+        strokes.length = 0;
+        persist();
+      },
+    };
+  }
+
+  function drawToolRow(root, surface) {
+    var row = document.createElement("div");
+    row.className = "gt-btnrow";
+    var undo = button("Undo"), clear = button("Clear");
+    row.appendChild(undo);
+    row.appendChild(clear);
+    root.appendChild(row);
+    wireTap(undo, surface.undo);
+    wireTap(clear, surface.clear);
+  }
+
+  function drawFront(root, bundle, target) {
+    var shape = shapeOf(bundle.scope, target);
+    root.appendChild(chip("Draw"));
+    root.appendChild(prompt(root.getAttribute("data-name") || target));
+    if (!shape) {
+      root.appendChild(bar("Shape data missing", "gt-miss"));
+      return;
     }
-    wireTap(undo, function () {
-      if (current) { finish(); }
-      var p = paths.pop();
-      if (p) svg.removeChild(p);
-      strokes.pop();
-      persist();
-    });
-    wireTap(clear, function () {
-      if (current) { finish(); }
-      while (paths.length) svg.removeChild(paths.pop());
-      strokes.length = 0;
-      persist();
-    });
+    var svg = drawCanvas(shape);
+    root.appendChild(svg);
+    var surface = attachStrokeCapture(svg, "draw", bundle.scope, target);
+    drawToolRow(root, surface);
+    root.appendChild(bar("Draw the outline from memory, then flip", "gt-hint"));
   }
 
   function drawBack(root, bundle, target) {
@@ -1076,75 +1122,83 @@
     }
   }
 
+  function riverTargetPoints(paths) {
+    var pts = [];
+    for (var i = 0; i < paths.length; i++) {
+      for (var j = 0; j < paths[i].length; j++) pts.push(paths[i][j]);
+    }
+    return pts;
+  }
+
+  // Trace-the-course scoring: direct chamfer (NO alignment — you must draw the
+  // river where it actually runs), graded in real KM via the map's kmPerUnit.
+  // The percentile-coverage penalty makes skipping a whole reach fail; km scale
+  // is intuitive and doesn't blow up for long thin rivers (a bbox-relative % did).
+  function riverScore(strokes, paths, kmPerUnit) {
+    var drawn = [];
+    for (var i = 0; i < strokes.length; i++) {
+      for (var j = 0; j < strokes[i].length; j++) drawn.push(strokes[i][j]);
+    }
+    if (drawn.length < 8) return { km: null, quality: 0, empty: true };
+    var target = riverTargetPoints(paths);
+    var coverage = nearestDists(target, drawn); // reach you missed
+    var stray = nearestDists(drawn, target);     // where you strayed
+    var px = 0.5 * percentileOf(coverage, 0.85) + 0.3 * meanOf(coverage) + 0.2 * meanOf(stray);
+    var km = Math.round(px * (kmPerUnit || 1));
+    // Freehand at world scale: within ~250 km of the course = Good, ~650 = Hard.
+    var quality = km < 250 ? 2 : km < 650 ? 1 : 0;
+    return { km: km, quality: quality };
+  }
+
   function riverFront(root, bundle, target) {
     var data = riverData(bundle.scope, target);
     var name = data ? data.name : target;
-    root.appendChild(chip("River"));
+    root.appendChild(chip("Trace"));
     root.appendChild(prompt(name));
 
+    // The world map (land context, no river drawn) is the drawing surface — you
+    // trace the river's course over the continents where you think it runs.
     var built = buildSvg(bundle);
     var svg = built.svg;
-    var marker = el("circle", { r: 9, class: "gt-attempt", style: "display:none" });
-    svg.appendChild(marker);
     root.appendChild(svg);
-
-    var hint = bar("Tap where the " + name + " is", "gt-hint");
-    root.appendChild(hint);
-    saveState("river", bundle.scope, target, null);
-
-    function place(clientX, clientY) {
-      var loc = svgPoint(svg, clientX, clientY);
-      if (!loc) return;
-      marker.setAttribute("cx", loc.x);
-      marker.setAttribute("cy", loc.y);
-      marker.style.display = "";
-      saveState("river", bundle.scope, target, { x: loc.x, y: loc.y });
-      hint.textContent = "Tap again to adjust · flip to check";
-      hint.className = "gt-bar gt-hint gt-placed";
-    }
-
-    svg.addEventListener("click", function (ev) { place(ev.clientX, ev.clientY); });
-    svg.addEventListener("touchend", function (ev) {
-      if (ev.changedTouches && ev.changedTouches.length) {
-        var t = ev.changedTouches[0];
-        place(t.clientX, t.clientY);
-        ev.preventDefault();
-      }
-    }, { passive: false });
+    var surface = attachStrokeCapture(svg, "river", bundle.scope, target, "gt-drawn");
+    drawToolRow(root, surface);
+    root.appendChild(bar("Trace the course of the " + name + ", then flip", "gt-hint"));
   }
 
   function riverBack(root, bundle, target) {
     var data = riverData(bundle.scope, target);
     var name = data ? data.name : target;
-    var attempt = loadState("river", bundle.scope, target);
+    var state = loadState("river", bundle.scope, target);
+    var strokes = (state && state.strokes) || [];
 
-    root.appendChild(chip("River"));
+    root.appendChild(chip("Trace"));
     root.appendChild(prompt(name));
 
     var built = buildSvg(bundle);
     var svg = built.svg;
-    if (data) riverPaths(svg, data.paths, "gt-river");
-
-    var frame = frameById(bundle, "main");
-    var km = null;
-    if (attempt && data) {
-      var dpx = distToRiver(attempt.x, attempt.y, data.paths);
-      km = Math.round(dpx * frame.kmPerUnit);
-      svg.appendChild(el("circle", { cx: attempt.x, cy: attempt.y, r: 8, class: "gt-attempt gt-bad" }));
+    if (data) riverPaths(svg, data.paths, "gt-river"); // the true course
+    for (var k = 0; k < strokes.length; k++) {
+      if (strokes[k].length >= 2) {
+        svg.appendChild(el("path", { class: "gt-drawn", d: strokePath(strokes[k]) }));
+      }
     }
     root.appendChild(svg);
 
-    if (!attempt) {
-      root.appendChild(bar("No tap recorded — the " + name + " is highlighted", "gt-miss"));
+    var frame = frameById(bundle, "main");
+    var score = data ? riverScore(strokes, data.paths, frame ? frame.kmPerUnit : 1)
+      : { quality: 0, empty: true };
+    if (score.empty) {
+      root.appendChild(bar("Nothing traced — the " + name + " is highlighted", "gt-miss"));
       root.appendChild(bar(suggestFor(0), "gt-suggest"));
       return;
     }
-    var quality = km === null ? 0 : km < 200 ? 2 : km < 600 ? 1 : 0;
-    var msg = km === null
-      ? "The " + name + " is highlighted"
-      : (km < 80 ? "On it — " : "~" + km + " km off — ") + "the " + name;
-    root.appendChild(bar(msg, quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
-    root.appendChild(bar(suggestFor(quality), "gt-suggest"));
+    var msg =
+      score.quality === 2 ? "Good course (~" + score.km + " km off) — the " + name
+      : score.quality === 1 ? "Roughly right (~" + score.km + " km off) — the " + name
+      : "Off course (~" + score.km + " km) — the " + name + " is highlighted";
+    root.appendChild(bar(msg, score.quality === 2 ? "gt-ok" : score.quality === 1 ? "gt-close" : "gt-miss"));
+    root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
   }
 
   // ---- boot ---------------------------------------------------------------------
@@ -1205,6 +1259,7 @@
   window.GeoTrainer = {
     mount: mount, mountAll: mountAll, _boot: boot, _hash: strHash,
     _drawScore: drawScore, // exposed for tests: scoring must be verifiable headlessly
+    _riverScore: riverScore,
   };
 
   if (document.readyState === "loading") {

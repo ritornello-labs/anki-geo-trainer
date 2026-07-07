@@ -1,7 +1,7 @@
 // Render representative GeoTrainer cards to PNGs for the AnkiWeb listing.
-// Uses the shipped fixtures (full inlined engine + data), does the interaction
-// in-page where the *result* is the compelling image (draw overlay, river line,
-// capital star), and screenshots the card. Run: node scripts/capture_screenshots.mjs
+// Loads bundles/shapes directly and mounts cards (works for any scope, incl.
+// physical), does the interaction where the graded result is the compelling
+// image, and screenshots the card. Run: node scripts/capture_screenshots.mjs
 import { chromium } from "@playwright/test";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -9,109 +9,121 @@ import { readFileSync, mkdirSync } from "node:fs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-const FIX = (n) => "file://" + join(ROOT, "tests", "fixtures", n);
+const ENGINE = readFileSync(join(ROOT, "engine", "geo-engine.js"), "utf-8");
+const CSS = readFileSync(join(ROOT, "anki", "shared", "card.css"), "utf-8");
+const BUNDLE_DIR = join(ROOT, "data", "bundles");
 const OUT = join(ROOT, "release", "screenshots");
 mkdirSync(OUT, { recursive: true });
 
-// Re-mount the same card in "back" mode after an interaction (state survives in
-// window/localStorage), the way Anki re-renders the back.
-async function flipToBack(page, scope, target, mode) {
-  await page.evaluate(
-    ({ scope, target, mode }) => {
-      const app = document.querySelector(".gt-app");
-      const attrs = {};
-      for (const a of app.attributes) {
-        if (a.name === "data-gt-mounted") continue; // else mountAll skips the new div
-        attrs[a.name] = a.value;
-      }
-      document.body.innerHTML = "";
-      const back = document.createElement("div");
-      for (const [k, v] of Object.entries(attrs)) back.setAttribute(k, v);
-      back.setAttribute("data-side", "back");
-      document.body.appendChild(back);
-      window.GeoTrainer.mountAll();
-    },
-    { scope, target, mode }
-  );
+function load(scope) {
+  return {
+    bundle: JSON.parse(readFileSync(join(BUNDLE_DIR, `${scope}.json`), "utf-8")),
+    shapes: JSON.parse(readFileSync(join(BUNDLE_DIR, `${scope}-shapes.json`), "utf-8")),
+  };
 }
 
-async function tapAt(page, sx, sy) {
+async function mountCard(page, scope, target, mode, side) {
+  const { bundle, shapes } = load(scope);
+  await page.setContent(`<!doctype html><html><head><style>${CSS}</style></head><body></body></html>`);
   await page.evaluate(
-    ({ x, y }) => {
-      const svg = document.querySelector("svg.gt-map");
+    ({ scope, bundle, shapes }) => {
+      window.GT_BUNDLES = { [scope]: bundle };
+      window.GT_SHAPES = {};
+      for (const id of Object.keys(shapes)) window.GT_SHAPES[scope + ":" + id] = shapes[id];
+    },
+    { scope, bundle, shapes }
+  );
+  const name =
+    mode === "river" ? shapes[target].name
+    : (bundle.regions.find((r) => r.id === target) || {}).name || target;
+  await page.evaluate(
+    ({ scope, target, mode, side, name }) => {
+      const app = document.createElement("div");
+      app.className = "gt-app";
+      app.setAttribute("data-scope", scope);
+      app.setAttribute("data-target", target);
+      app.setAttribute("data-name", name);
+      app.setAttribute("data-side", side);
+      app.setAttribute("data-mode", mode);
+      document.body.appendChild(app);
+    },
+    { scope, target, mode, side, name }
+  );
+  await page.addScriptTag({ content: ENGINE });
+  await page.waitForSelector("svg.gt-map, svg.gt-canvas");
+}
+
+async function flipToBack(page) {
+  await page.evaluate(() => {
+    const app = document.querySelector(".gt-app");
+    const attrs = {};
+    for (const a of app.attributes) if (a.name !== "data-gt-mounted") attrs[a.name] = a.value;
+    document.body.innerHTML = "";
+    const back = document.createElement("div");
+    for (const [k, v] of Object.entries(attrs)) back.setAttribute(k, v);
+    back.setAttribute("data-side", "back");
+    document.body.appendChild(back);
+    window.GeoTrainer.mountAll();
+  });
+}
+
+async function tracePolyline(page, pointsFn) {
+  await page.evaluate((pointsFn) => {
+    const svg = document.querySelector("svg.gt-map, svg.gt-canvas");
+    const toClient = (p) => {
       const pt = svg.createSVGPoint();
-      pt.x = x;
-      pt.y = y;
+      pt.x = p[0];
+      pt.y = p[1];
       const s = pt.matrixTransform(svg.getScreenCTM());
-      svg.dispatchEvent(new MouseEvent("click", { clientX: s.x, clientY: s.y, bubbles: true }));
-    },
-    { x: sx, y: sy }
-  );
+      return { x: s.x, y: s.y };
+    };
+    const pev = (t, c) =>
+      svg.dispatchEvent(new PointerEvent(t, { clientX: c.x, clientY: c.y, bubbles: true, pointerId: 1 }));
+    const strokes = new Function("w", "return (" + pointsFn + ")(w)")(window);
+    for (const pts of strokes) {
+      if (pts.length < 2) continue;
+      pev("pointerdown", toClient(pts[0]));
+      for (let i = 1; i < pts.length; i++) pev("pointermove", toClient(pts[i]));
+      pev("pointerup", toClient(pts[pts.length - 1]));
+    }
+  }, pointsFn.toString());
 }
-
-const SHOTS = [
-  // Clean fronts: the map + the prompt sell "interactive map quiz" on their own.
-  { file: "card-europe-countries-locate-front.html", out: "01-europe-locate.png" },
-  { file: "card-world-seas-point-front.html", out: "02-world-seas.png" },
-  { file: "card-us-states-locate-front.html", out: "03-us-states.png" },
-  // Interaction backs: the graded result is the compelling image.
-  {
-    file: "card-us-states-draw-front.html", out: "04-draw-overlay.png",
-    async act(page) {
-      // trace California's true outline, then flip
-      await page.evaluate(() => {
-        const shape = window.GT_SHAPES["us-states:US-CA"];
-        const svg = document.querySelector("svg.gt-canvas");
-        const toClient = (p) => {
-          const pt = svg.createSVGPoint();
-          pt.x = p[0];
-          pt.y = p[1];
-          const s = pt.matrixTransform(svg.getScreenCTM());
-          return { x: s.x, y: s.y };
-        };
-        const pev = (t, c) =>
-          svg.dispatchEvent(new PointerEvent(t, { clientX: c.x, clientY: c.y, bubbles: true, pointerId: 1 }));
-        const ring = shape.rings[0]; // trace every vertex for a clean overlay
-        pev("pointerdown", toClient(ring[0]));
-        for (let i = 1; i < ring.length; i++) pev("pointermove", toClient(ring[i]));
-        pev("pointerup", toClient(ring[ring.length - 1]));
-      });
-      await flipToBack(page, "us-states", "US-CA", "draw");
-      await page.waitForSelector(".gt-outline");
-    },
-  },
-  {
-    file: "card-world-rivers-river-front.html", out: "05-river-locate.png",
-    async act(page) {
-      const p = await page.evaluate(() => window.GT_SHAPES["world-rivers:amazon"].paths[0][3]);
-      await tapAt(page, p[0] + 5, p[1] + 3); // close: grades "On it"
-      await flipToBack(page, "world-rivers", "amazon", "river");
-      await page.waitForSelector(".gt-river");
-    },
-  },
-  {
-    file: "card-europe-countries-capital-front.html", out: "06-capital.png",
-    async act(page) {
-      const c = await page.evaluate(() => {
-        const a = document.querySelector(".gt-app").getAttribute("data-cappt").split(",").map(Number);
-        return a;
-      });
-      await tapAt(page, c[0] + 18, c[1] + 10);
-      await flipToBack(page, "europe-countries", "FRA", "capital");
-      await page.waitForSelector(".gt-capital");
-    },
-  },
-];
 
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: 1120, height: 900 }, deviceScaleFactor: 2 });
-for (const shot of SHOTS) {
-  await page.setContent(readFileSync(join(ROOT, "tests", "fixtures", shot.file), "utf-8"));
-  await page.waitForSelector("svg.gt-map, svg.gt-canvas");
-  if (shot.act) await shot.act(page);
-  await page.waitForTimeout(150);
-  const card = page.locator("body");
-  await card.screenshot({ path: join(OUT, shot.out) });
-  console.log("wrote", join("release/screenshots", shot.out));
-}
+const page = await browser.newPage({ viewport: { width: 1120, height: 820 }, deviceScaleFactor: 2 });
+
+// 1. Borderless "Which country?" — the hero: blank Europe + a dot to recall.
+await mountCard(page, "europe-countries", "DE", "point", "front");
+await page.locator("body").screenshot({ path: join(OUT, "01-which-borderless.png") });
+console.log("01-which-borderless");
+
+// 2. Deserts — name the feature at the dot (back reveals the Sahara).
+await mountCard(page, "world-deserts", "sahara", "point", "front");
+await tracePolyline(page, (w) => []); // no draw; just flip
+await flipToBack(page);
+await page.locator("body").screenshot({ path: join(OUT, "02-deserts.png") });
+console.log("02-deserts");
+
+// 3. Draw overlay with the honest scoring (trace California).
+await mountCard(page, "us-states", "US-CA", "draw", "front");
+await tracePolyline(page, (w) => [w.GT_SHAPES["us-states:US-CA"].rings[0]]);
+await flipToBack(page);
+await page.waitForSelector(".gt-outline");
+await page.locator("body").screenshot({ path: join(OUT, "03-draw-overlay.png") });
+console.log("03-draw-overlay");
+
+// 4. River trace — draw the Nile's course over the world map.
+await mountCard(page, "world-rivers", "nile", "river", "front");
+await tracePolyline(page, (w) => w.GT_SHAPES["world-rivers:nile"].paths);
+await flipToBack(page);
+await page.waitForSelector(".gt-river");
+await page.locator("body").screenshot({ path: join(OUT, "04-river-trace.png") });
+console.log("04-river-trace");
+
+// 5. Mountain ranges — name the range at the dot (back reveals the Andes).
+await mountCard(page, "world-ranges", "andes", "point", "front");
+await flipToBack(page);
+await page.locator("body").screenshot({ path: join(OUT, "05-ranges.png") });
+console.log("05-ranges");
+
 await browser.close();

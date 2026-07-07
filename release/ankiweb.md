@@ -1,16 +1,17 @@
 ---
-title: "GeoTrainer — Interactive Geography (tap, drag & draw)"
-tags: geography maps interactive world countries capitals rivers
+title: "GeoTrainer — Interactive Geography (borderless recall)"
+tags: geography maps interactive world countries rivers deserts mountains
 support_url: https://github.com/elvis-sik/anki-geo-trainer
 ---
 
 # GeoTrainer — Interactive Geography
 
-Sheppard-Software-style **interactive** geography practice, right inside Anki. Every
-card is a real map you touch: tap where a place is, drag a silhouette into position,
-sketch a country's outline from memory, or point to a capital or river. The card
-grades your answer (correct / how many km off / what you hit) and suggests a button —
-you still press Anki's own answer keys, so scheduling stays 100% Anki.
+Sheppard-Software-style **interactive** geography practice, right inside Anki — but
+with the internal borders hidden, so it's genuine spatial recall, not matching a
+labelled shape. Name the region under a dot, drag a silhouette to where it belongs,
+sketch a country's outline from memory, or trace a river's course. The card grades
+your answer and suggests a button — you still press Anki's own answer keys, so
+scheduling stays 100% Anki.
 
 Works on **Desktop, AnkiMobile (iOS) and AnkiDroid** — all the map code is inlined
 into the note templates, so there are no media downloads and nothing to configure.
@@ -18,23 +19,25 @@ Light and dark mode included.
 
 ## Task families
 
-- **Locate** — name shown, tap where it is on a blank map.
-- **Which one?** — a dot lands inside a region (a different spot each review); name it.
-- **Place** — drag the region's silhouette to its exact position; graded by distance.
-- **Draw** — sketch the outline from memory; scored against the true shape (position
-  and size don't matter, only the form).
-- **Capital** — tap where a capital city is; the true spot is starred on the back.
-- **River** — tap where a major river runs; graded by distance to the line.
+- **Which one?** — a dot lands inside a region (a different spot each review) on a
+  **borderless** map; recall which region it is.
+- **Place** — drag the region's silhouette onto the borderless map to where it
+  belongs — there's no labelled slot to snap into.
+- **Draw** — sketch the outline from memory; scored on whether you captured the real
+  shape (a rough enclosing blob fails; an honest freehand attempt passes).
+- **Trace** (rivers) — trace a major river's course over a world map; graded by how
+  closely your line follows the real one.
 
 ## What's covered
 
 Continents (countries): **Europe, Africa, Asia, South America, Oceania**.
 Country subdivisions: **US states, Brazil, India, Russia, China, Canada, Australia,
-Argentina, Mexico, Indonesia**. Physical: **world seas & oceans** and **major rivers**.
+Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and **deserts** (name /
+place / draw them over the continents), and **major rivers** (trace the course).
 
-Cards are **tagged by skill, scope and difficulty level** (`geotrainer::skill::…`,
-`geotrainer::scope::…`, `geotrainer::level::…`) so you can build your own study path
-with saved searches and filtered decks — see the GitHub README for ready-made recipes.
+Cards are **tagged by skill and scope** (`geotrainer::skill::…`,
+`geotrainer::scope::…`) so you can build your own study path with saved searches and
+filtered decks — see the GitHub README for ready-made recipes.
 
 ## Source & issues
 

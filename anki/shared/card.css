@@ -75,6 +75,14 @@
   transition: fill 0.15s ease;
 }
 
+/* Borderless front: regions share a fill and drop their strokes, so adjacent
+   regions merge into one seamless landmass silhouette (a real blank map — the
+   land/ocean contrast defines the coast; there are no internal lines to read). */
+.gt-land.gt-borderless .gt-region {
+  fill: var(--gt-land);
+  stroke: none;
+}
+
 .gt-region.gt-answer {
   fill: var(--gt-accent);
   fill-opacity: 0.85;

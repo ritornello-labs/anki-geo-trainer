@@ -202,22 +202,32 @@ for (const scope of RIVER_SCOPES) {
   const data = load(scope);
   const rid = Object.keys(data.shapes)[0];
 
-  test(`${scope}: river tap-to-locate grades by distance, line on back`, async ({ page }) => {
+  test(`${scope}: river trace-the-course grades the drawn line, line on back`, async ({ page }) => {
     await mount(page, scope, data, { target: rid, mode: "river", side: "front" });
     await page.waitForSelector("svg.gt-map");
-    await expect(page.locator(".gt-chip")).toHaveText("River");
+    await expect(page.locator(".gt-chip")).toHaveText("Trace");
     await expect(page.locator(".gt-prompt")).toHaveText(data.shapes[rid].name);
-    // tap a point ON the river (its first vertex)
+    // Trace the river's true course faithfully — every path as its own stroke,
+    // so the whole line is covered (scoring compares against all segments).
     await page.evaluate(
       ({ scope, id }) => {
         const r = window.GT_SHAPES[scope + ":" + id];
-        const p = r.paths[0][0];
         const svg = document.querySelector("svg.gt-map");
-        const pt = svg.createSVGPoint();
-        pt.x = p[0];
-        pt.y = p[1];
-        const s = pt.matrixTransform(svg.getScreenCTM());
-        svg.dispatchEvent(new MouseEvent("click", { clientX: s.x, clientY: s.y, bubbles: true }));
+        const toClient = (p) => {
+          const pt = svg.createSVGPoint();
+          pt.x = p[0];
+          pt.y = p[1];
+          const s = pt.matrixTransform(svg.getScreenCTM());
+          return { x: s.x, y: s.y };
+        };
+        const pev = (t, c) =>
+          svg.dispatchEvent(new PointerEvent(t, { clientX: c.x, clientY: c.y, bubbles: true, pointerId: 1 }));
+        for (const path of r.paths) {
+          if (path.length < 2) continue;
+          pev("pointerdown", toClient(path[0]));
+          for (let i = 1; i < path.length; i++) pev("pointermove", toClient(path[i]));
+          pev("pointerup", toClient(path[path.length - 1]));
+        }
       },
       { scope, id: rid }
     );
@@ -241,9 +251,9 @@ for (const scope of RIVER_SCOPES) {
         riverB64: Buffer.from(JSON.stringify(data.shapes[rid])).toString("base64"),
       }
     );
-    await expect(page.locator(".gt-river")).not.toHaveCount(0); // highlighted line
-    await expect(page.locator(".gt-bar.gt-ok")).toContainText(data.shapes[rid].name);
-    await expect(page.locator(".gt-suggest")).toContainText("Good"); // exact tap
+    await expect(page.locator(".gt-river")).not.toHaveCount(0); // true course
+    await expect(page.locator(".gt-drawn")).not.toHaveCount(0); // the traced line
+    await expect(page.locator(".gt-bar.gt-ok")).toContainText("Good course"); // faithful trace
   });
 }
 
@@ -253,8 +263,8 @@ test("all expected scopes are present", () => {
       "africa-countries", "argentina-provinces", "asia-countries", "australia-states",
       "brazil-states", "canada-provinces", "china-provinces", "europe-countries",
       "india-states", "indonesia-provinces", "mexico-states", "oceania-countries",
-      "russia-subjects", "south-america-countries", "us-states", "world-rivers",
-      "world-seas",
+      "russia-subjects", "south-america-countries", "us-states", "world-deserts",
+      "world-ranges", "world-rivers",
     ].sort()
   );
 });

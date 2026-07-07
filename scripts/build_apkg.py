@@ -40,22 +40,26 @@ DIST = ROOT / "dist"
 # ord 3 is RETIRED: it was the tap-all-neighbors family, dropped 2026-07-05
 # because the user's collection already drills borders (Country Borders deck).
 # Never reuse ord 3 — those model/deck ids exist in live collections.
+# Redesign 2026-07 (Elvis's study feedback): Locate and Capital dropped (locate
+# was trivial/redundant with all borders shown; capital duplicated his Cities
+# deck). Point + Place survive but now render a BORDERLESS front, and Draw's
+# scoring was made honest. River is now trace-the-course (draw), not tap-locate.
+# A full delete+reimport of the GeoTrainer tree accompanies the renumbering, so
+# ords need not preserve old ids.
 FAMILY_DEFS = [
-    ("locate", 0, "Locate", "1 Locate", "geotrainer::skill::locate", "geotrainer::level::3"),
-    ("point", 1, "Which {Noun}", "2 Which {Noun}", "geotrainer::skill::point", "geotrainer::level::4"),
-    ("place", 2, "Place", "3 Place", "geotrainer::skill::place", "geotrainer::level::5"),
-    ("draw", 4, "Draw", "4 Draw", "geotrainer::skill::draw", "geotrainer::level::6"),
-    ("capital", 5, "Capital", "5 Capital", "geotrainer::skill::capital", "geotrainer::level::4"),
-    ("river", 6, "River", "6 River", "geotrainer::skill::river", "geotrainer::level::4"),
+    ("point", 0, "Which {Noun}", "1 Which {Noun}", "geotrainer::skill::point", "geotrainer::level::4"),
+    ("place", 1, "Place", "2 Place", "geotrainer::skill::place", "geotrainer::level::5"),
+    ("draw", 2, "Draw", "3 Draw", "geotrainer::skill::draw", "geotrainer::level::6"),
+    ("river", 3, "Trace", "1 Trace", "geotrainer::skill::river", "geotrainer::level::5"),
 ]
 
-# Families a scope gets when it doesn't declare its own. River is opt-in (only
-# river scopes); neighbors (ord 3) is retired.
-DEFAULT_FAMILIES = ["locate", "point", "place", "draw", "capital"]
+# Families a scope gets when it doesn't declare its own. River is opt-in (river
+# scopes only, via the bundle's `families`).
+DEFAULT_FAMILIES = ["point", "place", "draw"]
 
 SCOPE_PACKS = {
     "us-states": {
-        "deck_root": "GeoTrainer::United States::States",
+        "deck_root": "GeoTrainer::World::North America::United States",
         "model_root": "GeoTrainer {family} — US States",
         "scope_tag": "geotrainer::scope::country::usa::states",
         "model_base": 1_607_392_001,   # locate=+0, point=+1, place=+2, neighbors=+3
@@ -174,14 +178,6 @@ SCOPE_PACKS = {
         "deck_base": 1_607_406_050,
         "apkg": "geo-trainer-oceania.apkg",
     },
-    "world-seas": {
-        "deck_root": "GeoTrainer::Physical::Seas & Oceans",
-        "model_root": "GeoTrainer {family} — Seas & Oceans",
-        "scope_tag": "geotrainer::scope::physical::seas",
-        "model_base": 1_607_407_001,
-        "deck_base": 1_607_407_050,
-        "apkg": "geo-trainer-world-seas.apkg",
-    },
     "world-rivers": {
         "deck_root": "GeoTrainer::Physical::Rivers",
         "model_root": "GeoTrainer {family} — Rivers",
@@ -189,6 +185,22 @@ SCOPE_PACKS = {
         "model_base": 1_607_408_001,
         "deck_base": 1_607_408_050,
         "apkg": "geo-trainer-world-rivers.apkg",
+    },
+    "world-ranges": {
+        "deck_root": "GeoTrainer::Physical::Mountain Ranges",
+        "model_root": "GeoTrainer {family} — Mountain Ranges",
+        "scope_tag": "geotrainer::scope::physical::ranges",
+        "model_base": 1_607_409_001,
+        "deck_base": 1_607_409_050,
+        "apkg": "geo-trainer-world-ranges.apkg",
+    },
+    "world-deserts": {
+        "deck_root": "GeoTrainer::Physical::Deserts",
+        "model_root": "GeoTrainer {family} — Deserts",
+        "scope_tag": "geotrainer::scope::physical::deserts",
+        "model_base": 1_607_410_001,
+        "deck_base": 1_607_410_050,
+        "apkg": "geo-trainer-world-deserts.apkg",
     },
 }
 

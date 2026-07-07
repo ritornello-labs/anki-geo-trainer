@@ -30,7 +30,6 @@ OUT = ROOT / "tests" / "fixtures"
 FIXTURE_TARGETS = {
     "us-states": "US-CA",
     "europe-countries": "FRA",
-    "world-seas": "mediterranean-sea",
     "world-rivers": "amazon",
 }
 

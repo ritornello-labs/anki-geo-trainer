@@ -4,38 +4,44 @@ Sheppard-Software-style interactive geography practice for Anki: a comprehensive
 curriculum-ordered set of map-interaction task types rendered by a shared JS engine
 that works on Anki Desktop, AnkiMobile, and AnkiDroid.
 
-Status: M4c — **eighteen scopes** across six task families (Locate, Which
-State/Country, Place, Draw, Capital, River). Continents: **Europe** (46),
-**South America** (12), **Africa** (53), **Asia** (47), **Oceania** (14). Country
-subdivisions: **United States** (50 states), **Brazil** (27), **India** (36),
-**Russia** (85 subjects), **China** (31), **Canada** (13), **Australia** (9),
-**Argentina** (24), **Mexico** (32), **Indonesia** (33). Physical: **world seas &
-oceans** (97) and **major rivers** (84). All rendered by one shared engine and
-verified on Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md) for the roadmap,
-[`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md) for the skill ladder and
-filtered-deck recipes, and [`release/RELEASE.md`](./release/RELEASE.md) for the
-publishing plan.
+Status: redesigned to a lean, **borderless-recall** set after real-world study.
+**Twenty scopes**, ~1,700 cards. Region scopes carry three families — **Which**,
+**Place**, **Draw** — on a *borderless* map (no internal borders, so you recall
+where things are instead of matching a labelled shape). Continents: **Europe**
+(46), **South America** (12), **Africa** (53), **Asia** (47), **Oceania** (14).
+Country subdivisions: **United States** (50), **Brazil** (27), **India** (36),
+**Russia** (85), **China** (31), **Canada** (13), **Australia** (9), **Argentina**
+(24), **Mexico** (32), **Indonesia** (33). Physical: **mountain ranges** (29),
+**deserts** (17) — Which/Place/Draw over the continents — and **major rivers** (42)
+as trace-the-course. All rendered by one shared engine and verified on
+Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md), the skill ladder in
+[`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md), and the publishing plan in
+[`release/RELEASE.md`](./release/RELEASE.md).
 
 New scopes are pure config: a continent is a viewport box + a Natural Earth
 `CONTINENT` filter; a country subdivision is an ISO country code. Both feed the
 same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
 
-## Task families (shipped so far)
+## Task families
 
 | Deck | Skill | Interaction |
 |------|-------|-------------|
-| `…::1 Locate` | name → position | Tap the named region on a blank map; the back grades your tap (inside / missed-by-km / what you hit) |
-| `…::2 Which State/Country` | position → name | A dot appears somewhere *inside* a region (never hugging a border, different spot each review); name it |
-| `…::3 Place` | precise position | Drag the region's silhouette from a tray to its exact spot; graded by how far off you were |
-| `…::4 Draw` | shape recall | Sketch the region's outline from memory (multi-stroke, undo/clear); the back overlays the true shape on your drawing and grades the match — position and size don't matter, form does |
-| `…::5 Capital` | capital location | Tap where the named capital city is on the blank map; the back stars the true spot, draws your tap, and grades by distance in km |
-| `…::6 River` | river location | Tap where a major river runs on a world map; the back highlights the river line and grades by distance to it (physical scopes) |
+| `…::1 Which State/Country` | position → name | A dot appears *inside* a region (different spot each review) on a **borderless** map; recall which one it is |
+| `…::2 Place` | precise position | Drag the region's silhouette onto the **borderless** map to where it belongs — no labelled slot to snap into |
+| `…::3 Draw` | shape recall | Sketch the outline from memory (multi-stroke, undo/clear); the back overlays the true shape and grades the match. Scoring rewards capturing the distinctive features — a rough enclosing blob fails, an honest freehand attempt can pass. Position and size don't matter, form does |
+| `…::1 Trace` (rivers) | river course | Trace a major river's course over a world map; the back overlays the true line and grades by distance (km) to it |
 
-All four are self-graded: the card shows a verdict and a suggested grade; you still
-press Anki's answer buttons. Alaska and Hawaii render in classic inset panels at
-their own scale (cross-panel distances are never reported — they'd be meaningless).
-On the Europe map, microstates are magnified tap-circles, dependencies are muted
-map-context without cards, and Africa/Anatolia appear as neutral land for orientation.
+Cards are self-graded: the card shows a verdict and a suggested grade; you still
+press Anki's answer buttons. Region maps hide internal borders on the front so the
+task is genuine spatial recall, not shape-matching. Alaska and Hawaii render in
+classic inset panels at their own scale; microstates are magnified tap-circles on
+the *back*; Physical scopes (ranges/deserts) hide the feature on the front and show
+only the continents — you name what's at the dot, or place/draw the feature.
+
+**Design note (2026-07):** Locate (redundant), Capital (duplicated a Cities deck),
+and Seas (trivial at world scale) were cut after studying the deck for real; the
+survivors were made non-trivial by hiding the borders. Quality of each card type
+over breadth.
 
 ## Why
 
