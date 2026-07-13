@@ -1,10 +1,17 @@
-# anki-geo-trainer
+# GeoTrainer
 
-Sheppard-Software-style interactive geography practice for Anki: a comprehensive,
-curriculum-ordered set of map-interaction task types rendered by a shared JS engine
-that works on Anki Desktop, AnkiMobile, and AnkiDroid.
+[![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
+![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
+![Deck size](https://img.shields.io/badge/deck-1%2C699%20notes-7C3AED)
 
-Status: redesigned to a lean, **borderless-recall** set after real-world study.
+Interactive geography practice for Anki: a curriculum-ordered set of map tasks that
+asks you to locate, place, draw, and trace from memory on borderless maps. It runs
+offline on Anki Desktop, AnkiMobile, and AnkiDroid.
+
+![GeoTrainer borderless map card](release/screenshots/01-which-borderless.png)
+
+**Release status:** prepared for AnkiWeb. GeoTrainer is a lean, **borderless-recall**
+set redesigned after real-world study.
 **Twenty-two scopes**, ~1,700 cards. Region scopes carry three families — **Which**,
 **Place**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):
