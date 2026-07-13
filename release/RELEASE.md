@@ -1,8 +1,9 @@
 # Release plan (M5)
 
-Status: **prepared, not published.** The artifacts below are ready; actually
-submitting to AnkiWeb needs Elvis's go-ahead, credentials, and awareness of the
-20-shares-per-7-days quota. Nothing here has been uploaded.
+Status: **prepared, public on GitHub, not published to AnkiWeb.** The artifacts
+below are ready; actually submitting to AnkiWeb needs Elvis's go-ahead,
+credentials, and awareness of the 20-shares-per-7-days quota. Nothing here has
+been uploaded.
 
 Verification status (2026-07-07, post borderless-recall redesign + study-feedback
 pass 2 + continents/North-America scopes): all 22 scopes pass the cross-engine suite
@@ -23,9 +24,8 @@ Combined `geo-trainer-all.apkg` = 52 decks, 1,699 notes, 26.9 MB.
 
 ## Open decisions (need Elvis)
 
-1. **Public GitHub repo?** The repo is currently private (`elvis-sik/anki-geo-trainer`).
-   AnkiWeb listings link back to it, so it should be public first. Run the
-   history/secret-leak scan (as the other deck projects did) before flipping it.
+1. **No public-repository blocker remains.** The repo was history/tree audited and
+   made public on 2026-07-13; the AnkiWeb listing can link to it.
 
 ## Ready artifacts
 
@@ -39,7 +39,7 @@ Combined `geo-trainer-all.apkg` = 52 decks, 1,699 notes, 26.9 MB.
 ## Before publishing (checklist)
 
 - [x] MIT `LICENSE` added (2026-07-06); tracked-tree secret/absolute-path scan clean.
-- [ ] Make the GitHub repo public; run a full history (not just tree) secret scan first.
+- [x] Full history/tree secret and absolute-path scan passed; GitHub repo made public (2026-07-13).
 - [x] Listing screenshots captured to `release/screenshots/` (2026-07-06).
 - [x] Single-deck decision made; `dist/geo-trainer-all.apkg` built via `make apkg-all`.
 - [ ] Configure `anki-addon-release` (`pyproject.toml` target + git-ignored `.env`
