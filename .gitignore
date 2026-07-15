@@ -18,6 +18,7 @@ data/raw/
 tests/fixtures/
 
 # Test + tooling artifacts
+.anki-addon-release/
 test-results/
 test-out.json
 test-err.log

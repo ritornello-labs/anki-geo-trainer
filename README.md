@@ -1,6 +1,7 @@
 # GeoTrainer
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
+[![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 ![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
 ![Deck size](https://img.shields.io/badge/deck-1%2C699%20notes-7C3AED)
 
@@ -10,8 +11,11 @@ offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 
 ![A GeoTrainer borderless-map card in Anki's reviewer](release/screenshots/06-which-country-reviewer.png)
 
-**Release status:** prepared for AnkiWeb. GeoTrainer is a lean, **borderless-recall**
-set redesigned after real-world study.
+**Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
+
+**Release status:** submitted to AnkiWeb on 2026-07-15 and awaiting its standard
+24-hour public-visibility review. GeoTrainer is a lean, **borderless-recall** set
+redesigned after real-world study.
 **Twenty-two scopes**, ~1,700 cards. Region scopes carry three families — **Which**,
 **Place**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):

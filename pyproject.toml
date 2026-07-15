@@ -62,6 +62,7 @@ target = "deck"
 
 [tool.anki-addon-release.ankiweb]
 listing_file = "release/ankiweb.md"
+shared_id = "908455862"
 login_email_env = "ANKIWEB_EMAIL"
 login_password_env = "ANKIWEB_PASSWORD"
 
