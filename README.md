@@ -8,7 +8,7 @@ Interactive geography practice for Anki: a curriculum-ordered set of map tasks t
 asks you to locate, place, draw, and trace from memory on borderless maps. It runs
 offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 
-![GeoTrainer borderless map card](release/screenshots/01-which-borderless.png)
+![A GeoTrainer borderless-map card in Anki's reviewer](release/screenshots/06-which-country-reviewer.png)
 
 **Release status:** prepared for AnkiWeb. GeoTrainer is a lean, **borderless-recall**
 set redesigned after real-world study.

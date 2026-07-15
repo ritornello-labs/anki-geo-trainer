@@ -1,10 +1,8 @@
 ---
-title: "GeoTrainer — Interactive Geography (borderless recall)"
+title: "GeoTrainer: Interactive Geography (Borderless Recall)"
 tags: geography maps interactive world countries rivers deserts mountains
 support_url: https://github.com/elvis-sik/anki-geo-trainer
 ---
-
-# GeoTrainer — Interactive Geography
 
 Sheppard-Software-style **interactive** geography practice, right inside Anki — but
 with the internal borders hidden, so it's genuine spatial recall, not matching a
@@ -16,6 +14,21 @@ scheduling stays 100% Anki.
 Works on **Desktop, AnkiMobile (iOS) and AnkiDroid** — all the map code is inlined
 into the note templates, so there are no media downloads and nothing to configure.
 Light and dark mode included.
+
+## See it in Anki
+
+**Which country?** A different point inside the target country appears each review.
+
+![A GeoTrainer Which Country card in Anki's reviewer](https://raw.githubusercontent.com/elvis-sik/anki-geo-trainer/main/release/screenshots/06-which-country-reviewer.png)
+
+**Place.** Drag the silhouette to its real position without a labelled outline to
+match.
+
+![A GeoTrainer Place card in Anki's reviewer](https://raw.githubusercontent.com/elvis-sik/anki-geo-trainer/main/release/screenshots/07-place-reviewer.png)
+
+**Trace.** Start on a full world map, zoom and pan as needed, then trace the river.
+
+![A GeoTrainer Trace card in Anki's reviewer](https://raw.githubusercontent.com/elvis-sik/anki-geo-trainer/main/release/screenshots/08-trace-reviewer.png)
 
 ## Task families
 
