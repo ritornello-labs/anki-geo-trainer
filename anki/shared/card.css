@@ -80,7 +80,10 @@
    land/ocean contrast defines the coast; there are no internal lines to read). */
 .gt-land.gt-borderless .gt-region {
   fill: var(--gt-land);
-  stroke: none;
+  /* A same-colour stroke covers SVG anti-aliasing seams between adjacent paths
+     without reintroducing a readable internal boundary. */
+  stroke: var(--gt-land);
+  stroke-width: 1.5;
 }
 
 .gt-region.gt-answer {
