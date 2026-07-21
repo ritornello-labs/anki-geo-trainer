@@ -1,21 +1,21 @@
 # Release plan (M5)
 
-Status: **submitted to AnkiWeb on 2026-07-15; awaiting its standard 24-hour
-public-visibility review.** [Open the fresh listing](https://ankiweb.net/shared/info/908455862?cb=1784084661007).
+Status: the initial version was submitted to AnkiWeb on 2026-07-15. The new
+contextual **Sketch** family is prepared locally but has not been imported into the
+live collection or uploaded as an AnkiWeb update.
 
-Verification status (2026-07-07, post borderless-recall redesign + study-feedback
-pass 2 + continents/North-America scopes): all 22 scopes pass the cross-engine suite
-(Chromium + WebKit, 224 passed / 6 skipped). Region scopes carry Which/Place/Draw;
+Verification status (2026-07-20, contextual-Sketch update): all 22 scopes are covered
+by the cross-engine suite (Chromium + WebKit, 268 passed / 10 skipped). Region scopes carry Which/Place/Sketch/Draw;
 rivers are Trace-the-course; mountain ranges and deserts are Place-only; the
-Continents scope is Draw-only (all six inhabited continent silhouettes).
-Combined `geo-trainer-all.apkg` = 52 decks, 1,699 notes, 26.9 MB.
+Continents scope carries Sketch + Draw for all six inhabited continent silhouettes.
+Combined `geo-trainer-all.apkg` = 69 decks, 2,200 notes, 38.1 MB.
 
 ## Decisions
 
 1. **Packaging: one shared deck.** Decided (Elvis, 2026-07-06) — ship a single
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
-   (**52 decks, 1,699 notes, 26.9 MB** — well under AnkiWeb's per-deck limit).
+   (**69 decks, 2,200 notes, 38.1 MB** — well under AnkiWeb's per-deck limit).
 2. **Ship everything.** All 22 scopes are import-verified; the single deck includes them
    all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
    problem for a combined deck.)

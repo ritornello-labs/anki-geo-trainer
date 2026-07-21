@@ -145,6 +145,35 @@ for (const scope of POLYGON_SCOPES) {
     expect(quality).toBe(2);
   });
 
+  const allowedFamilies = bundle.families || ["point", "place", "sketch", "draw"];
+  const sketchIt = allowedFamilies.includes("sketch") ? test : test.skip;
+  sketchIt(`${scope}: contextual Sketch accepts a faithful in-place outline`, async ({ page }) => {
+    await mount(page, scope, data, { target: drawTarget.id, mode: "sketch", side: "front" });
+    await page.waitForSelector("svg.gt-sketch-map");
+    await expect(page.locator(".gt-land.gt-borderless")).toHaveCount(1);
+    const quality = await page.evaluate(
+      ({ scope, id }) => {
+        const region = window.GT_BUNDLES[scope].regions.find((r) => r.id === id);
+        const strokes = region.rings.map((ring) => {
+          const stroke = [];
+          for (let i = 1; i < ring.length; i++) {
+            for (let t = 0; t < 4; t++) {
+              const f = t / 4;
+              stroke.push([
+                ring[i - 1][0] + (ring[i][0] - ring[i - 1][0]) * f,
+                ring[i - 1][1] + (ring[i][1] - ring[i - 1][1]) * f,
+              ]);
+            }
+          }
+          return stroke;
+        });
+        return window.GeoTrainer._sketchScore(strokes, region).quality;
+      },
+      { scope, id: drawTarget.id }
+    );
+    expect(quality).toBe(2);
+  });
+
   // F8: exercise the capital family on a region that has a capital. Physical
   // scopes (seas) have no capitals — skip the capital test there.
   const capTarget = tier1.find((r) => capitals[r.id] && capitals[r.id].name);

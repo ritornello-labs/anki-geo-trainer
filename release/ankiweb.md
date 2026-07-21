@@ -7,7 +7,7 @@ support_url: https://github.com/elvis-sik/anki-geo-trainer
 Sheppard-Software-style **interactive** geography practice, right inside Anki — but
 with the internal borders hidden, so it's genuine spatial recall, not matching a
 labelled shape. Name the region under a dot, drag a silhouette to where it belongs,
-sketch a country's outline from memory, or trace a river's course. The card grades
+sketch it in place on a blank parent map, draw it without any map, or trace a river's course. The card grades
 your answer and suggests a button — you still press Anki's own answer keys, so
 scheduling stays 100% Anki.
 
@@ -36,6 +36,9 @@ match.
   **borderless** map; recall which region it is.
 - **Place** — drag the region's silhouette onto the borderless map to where it
   belongs — there's no labelled slot to snap into.
+- **Sketch** — draw a country on its blank continent, a state/province on its blank
+  country, or a continent on the blank world. The map supplies geographic context but
+  no internal borders; shape, position, and scale all count.
 - **Draw** — sketch the outline from memory; scored on both boundary faithfulness
   and area overlap, so a right-size wrong-shape blob (a lazy circle) fails while an
   honest freehand attempt passes.
@@ -43,7 +46,7 @@ match.
   closely your line follows the real one. Starts on the *full* world map (no hint
   where it is) — tap **＋** to zoom in and trace precisely.
 
-Drawing surfaces support **zoom & pan**: +/− buttons and mouse-wheel to zoom, and a
+All drawing surfaces support **zoom & pan**: +/− buttons and mouse-wheel to zoom, and a
 **✋ Move** toggle that turns a drag into a pan so you can reposition a zoomed-in view
 onto the right part of the world. On a phone you can also pinch-zoom and two-finger
 pan — fine work is easy even on a small screen.
@@ -54,8 +57,8 @@ Continents (countries): **Europe, Africa, Asia, South America, North America,
 Oceania**. Country subdivisions: **US states, Brazil, India, Russia, China, Canada,
 Australia, Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and
 **deserts** (place them over the continents), and **major rivers** (trace the
-course). And a **Continents** deck: draw the whole silhouette of all six inhabited
-continents from memory.
+course). And a **Continents** deck: first sketch each one on a blank world map, then
+draw its silhouette from memory without context.
 
 Cards are **tagged by skill and scope** (`geotrainer::skill::…`,
 `geotrainer::scope::…`) so you can build your own study path with saved searches and

@@ -136,6 +136,7 @@
     // borders, uniform fill, small regions not circled) so the front is a real
     // blank map — you must recall WHERE things are, not match a labelled shape.
     var borderless = opts && opts.borderless;
+    var hideSmall = opts && opts.hideSmall;
     var v = bundle.view;
     var svg = el("svg", { viewBox: "0 0 " + v.w + " " + v.h, class: "gt-map", role: "img" });
     svg.appendChild(el("rect", { x: 0, y: 0, width: v.w, height: v.h, class: "gt-ocean" }));
@@ -166,6 +167,7 @@
     if (!hideRegions) {
       for (var k = 0; k < bundle.regions.length; k++) {
         var reg = bundle.regions[k];
+        if (hideSmall && reg.small) continue;
         var cls = "gt-region";
         if (!borderless) {
           if (reg.small) cls += " gt-small";
@@ -800,20 +802,23 @@
     return uni ? inter / uni : 0;
   }
 
-  function drawScore(strokes, shape) {
+  function shapeScore(strokes, shape, alignDrawing) {
     var drawn = [];
     for (var i = 0; i < strokes.length; i++) {
       for (var j = 0; j < strokes[i].length; j++) drawn.push(strokes[i][j]);
     }
     if (drawn.length < 8) return { pct: 100, iou: 0, quality: 0, empty: true };
     var outline = ringPerimeterPoints(shape.rings, 160);
-    var align = alignParams(drawn, outline);
+    var align = alignDrawing ? alignParams(drawn, outline) : {
+      apply: function (pts) { return pts.slice(); },
+    };
     var aligned = align.apply(drawn);
     // Each stroke aligned separately stays a distinct ring, so an archipelago
     // drawn as several strokes keeps its parts for the area overlap below.
     var alignedRings = [];
     for (var k = 0; k < strokes.length; k++) alignedRings.push(align.apply(strokes[k]));
-    var diag = Math.hypot(shape.w, shape.h);
+    var outlineBox = bboxOf(outline);
+    var diag = Math.hypot(shape.w || outlineBox.w, shape.h || outlineBox.h);
 
     // (a) Boundary coverage: the WORST-covered part of the true outline (85th
     // percentile of outline→drawing) so skipping a whole bulge is penalised,
@@ -839,6 +844,18 @@
       : pct < 9 && iou >= 0.78 ? 1
       : 0;
     return { pct: pct, iou: iou, quality: quality, aligned: aligned };
+  }
+
+  function drawScore(strokes, shape) {
+    // Blank-canvas Draw judges form only: where and how large the student drew
+    // the outline are intentionally ignored.
+    return shapeScore(strokes, shape, true);
+  }
+
+  function sketchScore(strokes, region) {
+    // Contextual Sketch judges the outline in map coordinates. Position and
+    // scale matter because the parent map is the scaffold for both.
+    return shapeScore(strokes, region, false);
   }
 
   var GT_CANVAS = 400; // fixed square side for the blank Draw FRONT
@@ -1151,6 +1168,74 @@
     wireTap(clear, surface.clear);
   }
 
+  // ======================== CONTEXTUAL SKETCH-THE-SHAPE =======================
+  // An easier bridge between Place and blank-canvas Draw. The front supplies a
+  // borderless parent map (continent for countries, country for subdivisions),
+  // but no internal boundaries. The student sketches the named region in place;
+  // the back reveals the boundaries and grades shape + position + scale directly.
+
+  function sketchFront(root, bundle, target) {
+    var region = findRegion(bundle, target);
+    root.appendChild(chip("Sketch"));
+    root.appendChild(prompt(region ? region.name : target));
+    if (!region) {
+      root.appendChild(bar("Region data missing", "gt-miss"));
+      return;
+    }
+
+    // Magnified microstate circles are tap affordances, not geography. Sketch
+    // omits them from the blank front so they do not look like stray islands.
+    var built = buildSvg(bundle, { borderless: true, hideSmall: true });
+    var svg = built.svg;
+    svg.classList.add("gt-sketch-map");
+    var panzoom = attachPanZoom(svg);
+    var surface = attachStrokeCapture(
+      svg, "sketch", bundle.scope, target, "gt-stroke", panzoom.isPanMode
+    );
+    drawSurface(root, svg, panzoom);
+    drawToolRow(root, surface);
+    root.appendChild(bar("Sketch it in place on the blank map, then flip", "gt-hint"));
+  }
+
+  function sketchBack(root, bundle, target) {
+    var region = findRegion(bundle, target);
+    root.appendChild(chip("Sketch"));
+    root.appendChild(prompt(region ? region.name : target));
+    if (!region) {
+      root.appendChild(bar("Region data missing", "gt-miss"));
+      return;
+    }
+
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    svg.classList.add("gt-sketch-map");
+    if (built.byId[target]) built.byId[target].classList.add("gt-answer");
+
+    var state = loadState("sketch", bundle.scope, target);
+    var strokes = (state && state.strokes) || [];
+    for (var i = 0; i < strokes.length; i++) {
+      if (strokes[i].length >= 2) {
+        svg.appendChild(el("path", { class: "gt-drawn", d: strokePath(strokes[i]) }));
+      }
+    }
+    root.appendChild(svg);
+
+    var score = sketchScore(strokes, region);
+    if (score.empty) {
+      root.appendChild(bar("No sketch recorded — this is where it goes", "gt-miss"));
+      root.appendChild(bar(suggestFor(0), "gt-suggest"));
+      return;
+    }
+
+    var offset = Math.round(score.pct * 10) / 10;
+    var msg =
+      score.quality === 2 ? "Solid map sketch — average offset " + offset + "% of size"
+      : score.quality === 1 ? "Recognizable in place — average offset " + offset + "% of size"
+      : "Keep practicing shape and position — average offset " + offset + "% of size";
+    root.appendChild(bar(msg, score.quality === 2 ? "gt-ok" : score.quality === 1 ? "gt-close" : "gt-miss"));
+    root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
+  }
+
   function drawFront(root, bundle, target) {
     var shape = shapeOf(bundle.scope, target);
     root.appendChild(chip("Draw"));
@@ -1448,6 +1533,7 @@
     locate: { front: locateFront, back: locateBack },
     point: { front: pointFront, back: pointBack },
     place: { front: placeFront, back: placeBack },
+    sketch: { front: sketchFront, back: sketchBack },
     neighbors: { front: neighborsFront, back: neighborsBack },
     // selfContained: no basemap bundle (draw carries its own outline).
     // needsShape: also requires GT_SHAPES[scope:id] before mounting.
@@ -1498,6 +1584,7 @@
   window.GeoTrainer = {
     mount: mount, mountAll: mountAll, _boot: boot, _hash: strHash,
     _drawScore: drawScore, // exposed for tests: scoring must be verifiable headlessly
+    _sketchScore: sketchScore,
     _riverScore: riverScore,
   };
 

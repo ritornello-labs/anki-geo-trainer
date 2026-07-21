@@ -681,7 +681,7 @@ def _build_continent(scope_name: str, cfg: dict) -> tuple[dict, dict]:
 CONTINENTS_SCOPES = {
     "continents": {
         "title": "World — Continents",
-        "families": ["draw"],
+        "families": ["sketch", "draw"],
         "members": [
             {"name": "Africa", "continents": ["Africa"]},
             {"name": "Asia", "continents": ["Asia"]},

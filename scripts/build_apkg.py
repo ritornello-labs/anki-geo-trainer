@@ -49,13 +49,14 @@ DIST = ROOT / "dist"
 FAMILY_DEFS = [
     ("point", 0, "Which {Noun}", "1 Which {Noun}", "geotrainer::skill::point", "geotrainer::level::4"),
     ("place", 1, "Place", "2 Place", "geotrainer::skill::place", "geotrainer::level::5"),
-    ("draw", 2, "Draw", "3 Draw", "geotrainer::skill::draw", "geotrainer::level::6"),
+    ("sketch", 4, "Sketch", "3 Sketch", "geotrainer::skill::sketch", "geotrainer::level::5.5"),
+    ("draw", 2, "Draw", "4 Draw", "geotrainer::skill::draw", "geotrainer::level::6"),
     ("river", 3, "Trace", "1 Trace", "geotrainer::skill::river", "geotrainer::level::5"),
 ]
 
 # Families a scope gets when it doesn't declare its own. River is opt-in (river
 # scopes only, via the bundle's `families`).
-DEFAULT_FAMILIES = ["point", "place", "draw"]
+DEFAULT_FAMILIES = ["point", "place", "sketch", "draw"]
 
 SCOPE_PACKS = {
     "us-states": {
@@ -346,6 +347,11 @@ def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[g
     for reg in bundle["regions"]:
         if reg.get("tier", 1) != 1:
             continue  # dependencies are map context, not quiz entities
+        if fam["mode"] == "sketch" and reg.get("small"):
+            # Magnified map circles are interaction affordances, not real
+            # geography. At parent-map scale a microstate/island is too small to
+            # sketch honestly, so keep it in blank-canvas Draw only.
+            continue
         fields = [f"{scope}:{reg['id']}", scope, reg["id"], reg["name"]]
         if fam["mode"] == "draw":
             payload = shapes.get(reg["id"])

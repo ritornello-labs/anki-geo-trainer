@@ -15,7 +15,8 @@ this order. Each rung assumes comfort with the one before it.
 | 2 | Shape ID | *external* (see below) | Isolated silhouette → recall its name |
 | 4 | Which one? | `1 Which State/Country` | Dot on a **borderless** map → name the region under it (pure spatial recall — no borders to read) |
 | 5 | Place | `2 Place` | Drag the region's silhouette onto the **borderless** map to where it belongs — no labelled slot |
-| 6 | Draw | `3 Draw` | Sketch the outline from memory; scored on capturing the real shape (a rough enclosing blob fails) |
+| 5.5 | Sketch | `3 Sketch` | Draw the region in place on its **borderless parent map**; the parent outline scaffolds recall, while shape, position, and scale are graded |
+| 6 | Draw | `4 Draw` | Sketch the outline on a completely blank square; scored on capturing the real shape (a rough enclosing blob fails) |
 | 5 | Trace | `1 Trace` (rivers) | Trace a river's course over a world map; graded by km distance to the true line |
 
 **Redesign (2026-07), after studying the deck for real.** Cut families that were
@@ -24,7 +25,9 @@ trivial or redundant: **Locate** (tapping a labelled shape isn't recall), **Capi
 The survivors — Which / Place / Draw — were the ones the borders made trivial, so
 their fronts now hide all internal borders (the map is a blank silhouette; you recall
 *where*, not *which shape*). Draw's scoring was rebuilt to reward capturing distinctive
-features. Rivers became **Trace-the-course** (drawing a river is interesting; tapping
+features. **Sketch** was added later as a scaffolded bridge: draw the same shape in
+place on the blank parent map before graduating to the context-free Draw card. Rivers
+became **Trace-the-course** (drawing a river is interesting; tapping
 where it is was not). New physical scopes: **mountain ranges** and **deserts** (name /
 place / draw the feature over the continents). A tap-all-neighbors family (F7) was
 retired even earlier (duplicated border decks). The engine keeps the dropped modes
@@ -44,10 +47,10 @@ GeoTrainer does not duplicate them. Good on-ramps:
 
 Every note carries three orthogonal tags:
 
-- `geotrainer::skill::locate | point | place | draw | neighbors | feature`
+- `geotrainer::skill::locate | point | place | sketch | draw | neighbors | feature`
 - `geotrainer::scope::<where>` — e.g. `geotrainer::scope::country::usa::states`,
-  `geotrainer::scope::continent::europe` (planned)
-- `geotrainer::level::3..6` — the rung on the ladder above
+  `geotrainer::scope::continent::europe`
+- `geotrainer::level::3..6` (including `5.5`) — the rung on the ladder above
 
 ## Building a study track (filtered decks)
 
@@ -55,25 +58,28 @@ Anki cannot ship filtered decks inside an `.apkg`, so tracks are copy-paste
 searches. Create a Filtered Deck (Tools → Create Filtered Deck) and paste one of
 these, adjusting as you like:
 
-- **US mastery, in ladder order** (study Locate before Which State before Place —
+- **US mastery, in ladder order** (study Which before Place before Sketch before Draw —
   make one filtered deck per level, or study subdecks in order, which is the
   default deck ordering anyway):
   - `deck:GeoTrainer::* tag:geotrainer::level::3 is:due`
   - `deck:GeoTrainer::* tag:geotrainer::level::4 is:due`
   - `deck:GeoTrainer::* tag:geotrainer::level::5 is:due`
+  - `deck:GeoTrainer::* tag:geotrainer::level::5.5 is:due`
+  - `deck:GeoTrainer::* tag:geotrainer::level::6 is:due`
 - **All map-tapping skills across scopes**:
   `deck:GeoTrainer::* (tag:geotrainer::skill::locate OR tag:geotrainer::skill::place) is:due`
 
-The subdeck names are numbered (`1 Locate`, `2 Which State`, `3 Place`) so plain
+The region subdeck names are numbered (`1 Which`, `2 Place`, `3 Sketch`, `4 Draw`) so plain
 deck-order study already follows the ladder.
 
 ## Suggested pacing
 
 - Unlock level N+1 for a scope when level N feels comfortable (say, >90% correct
   over a week) — Anki's own scheduling handles the rest.
-- The three families are complementary, not redundant: Locate builds name→place,
-  Which State builds place→name (and interior geography — the dot is rarely at
-  the centroid), Place builds precise borders-and-neighbors intuition.
+- The four region families are complementary: Which builds place→name (and interior
+  geography — the dot is rarely at the centroid); Place supplies the shape and tests
+  location; Sketch removes the supplied shape but keeps the parent-map scaffold; Draw
+  removes the scaffold as well.
 
 ## Scope roadmap
 

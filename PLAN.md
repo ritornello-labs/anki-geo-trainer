@@ -28,6 +28,7 @@ by difficulty; together they form the level ladder for any given scope.
 | F3 | Locate | name shown → tap/click the region on a blank map | click-on-map games | Engine highlights what you hit, then reveals the answer region; self-grade with distance feedback. Scope = continental blank maps **and** country-internal blank maps for the user's target countries (USA, Russia, India, Brazil, Argentina, …) |
 | F4 | Point-in-region | random dot on a blank map → name the region containing it | "which state is this point in" | Dynamic: point re-randomized per review, stable within one review (front and back must agree). One note per region; the dot varies across reviews but stays inside an **eroded (inset) polygon** so it never hugs a border. Same scope catalog as F3 (US states, Brazilian states, countries of South America, Indian states, …) |
 | F5 | Place-the-piece | drag a floating **silhouette (shape supplied)** to its correct position on a faded/blank map | place-the-state (hard levels) | Tests *location* with the shape given. Score by centroid offset + rotation-free overlap. Distinct from F6 |
+| F5.5 | Contextual Sketch | **name + borderless parent map** → sketch the region in geographic position | scaffolded draw-the-state | Bridges Place and Draw: the parent outline helps orientation, but there are no internal borders to trace. Direct map-coordinate scoring tests shape, position, and scale |
 | F6 | Draw-the-shape | **name only** → sketch the outline of the region on a canvas; engine scores vs. truth | draw-the-state | Tests *shape recall*. This is the "draw the shape of country/state/continent X" task. Hardest to build well: normalization + IoU-style scoring + visual overlay feedback |
 | F7 | Neighbors | given a region (highlighted or named) → tap **all** its bordering regions on the map | border quizzes | Interactive tap-all version of the user's passive Country Borders deck. Engine tracks correct/missed/wrong neighbors and shows the full adjacency on the back |
 | F8 | Feature overlay | tap the named **non-region feature** (river, mountain range, sea, capital) on the map | rivers/landscapes games | Later phase; reuses F3/F4 machinery but the targets are lines (rivers/ranges) and points (capitals) laid over the basemap, not the fill regions |
@@ -273,6 +274,17 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   to top-level `GeoTrainer::Continents` (peer of World/Physical) for discoverability;
   live cards moved with AnkiConnect `changeDeck` + the old nested deck deleted. Suite
   224 passed / 6 skipped; templates re-imported live.
+- **Contextual Sketch. ✅ Built locally 2026-07-20; live/AnkiWeb rollout pending.**
+  Added the missing bridge between Place and blank-canvas Draw: country on a
+  borderless continent, subdivision on a borderless country, or continent on the
+  blank world. The engine reuses freehand capture, zoom/pan, undo/clear, and the
+  honest boundary+IoU grading, but scores directly in map coordinates so position
+  and scale matter. Magnified microstates are omitted because their map circles are
+  interaction affordances rather than real outlines. Deck order is now `1 Which / 2
+  Place / 3 Sketch / 4 Draw`; existing Draw IDs remain stable, retired ord 3 remains
+  untouched, and Sketch uses fresh ord 4. Combined build: 69 decks / 2,200 notes /
+  38.1 MB; cross-engine suite 268 passed / 10 skipped; disposable desktop Anki QA
+  imported 200 US cards and rendered all sampled cards successfully.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
   (`make apkg-all`) + `release/screenshots/`. Publishing still gated on Elvis's

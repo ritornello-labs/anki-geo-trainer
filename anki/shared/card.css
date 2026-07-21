@@ -158,7 +158,11 @@
 }
 .nightMode .gt-river { stroke: #63b3ed; }
 
-/* F6 draw-the-shape */
+/* Contextual Sketch + blank-canvas Draw */
+.gt-sketch-map {
+  cursor: crosshair;
+  touch-action: none;
+}
 .gt-canvas {
   cursor: crosshair;
   touch-action: none; /* the finger draws; the page must not scroll or zoom */

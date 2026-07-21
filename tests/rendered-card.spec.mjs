@@ -11,8 +11,8 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const FIX = (name) => join(HERE, "fixtures", name);
 
 const CASES = [
-  { scope: "us-states", regions: 50, modes: ["locate", "point", "place", "draw"] },
-  { scope: "europe-countries", regions: 51, modes: ["locate", "point", "place", "draw"] },
+  { scope: "us-states", regions: 50, modes: ["locate", "point", "place", "sketch", "draw"] },
+  { scope: "europe-countries", regions: 51, modes: ["locate", "point", "place", "sketch", "draw"] },
 ];
 
 test.describe("shipped inlined cards", () => {
@@ -27,7 +27,10 @@ test.describe("shipped inlined cards", () => {
           // draw ships per-note ShapeData instead of the basemap bundle
           await expect(page.locator("svg.gt-canvas")).toBeVisible();
         } else {
-          await expect(page.locator(".gt-region")).toHaveCount(regions);
+          const expected = mode === "sketch"
+            ? await page.evaluate((s) => window.GT_BUNDLES[s].regions.filter((r) => !r.small).length, scope)
+            : regions;
+          await expect(page.locator(".gt-region")).toHaveCount(expected);
         }
       });
     }
