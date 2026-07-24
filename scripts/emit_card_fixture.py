@@ -1,7 +1,7 @@
 """Emit the exact rendered card HTML (as Anki would produce it) to fixtures.
 
 This lets the Playwright suite verify the *shipped* inlined form — base64 bundle
-(or per-note ShapeData/RiverData field) + brace-guarded engine + {{fields}}
+(or per-note ShapeData/RiverData/CurrentData field) + brace-guarded engine + {{fields}}
 substituted — actually boots in real browser engines, not just the raw engine
 source. One front/back pair per (scope, family). Mirrors the "verify rendered
 output, not just state" lesson.
@@ -31,6 +31,7 @@ FIXTURE_TARGETS = {
     "us-states": "US-CA",
     "europe-countries": "FRA",
     "world-rivers": "amazon",
+    "world-ocean-currents": "gulf-stream",
 }
 
 
@@ -40,7 +41,7 @@ def _b64(obj) -> str:
 
 def render(side_html: str, css: str, scope: str, target: str, mode: str) -> str:
     bundle = load_bundle(scope)
-    if mode == "river":
+    if mode in ("river", "current"):
         name = load_shapes(scope)[target]["name"]
     else:
         name = next(r["name"] for r in bundle["regions"] if r["id"] == target)
@@ -49,6 +50,8 @@ def render(side_html: str, css: str, scope: str, target: str, mode: str) -> str:
         body = body.replace("{{ShapeData}}", _b64(load_shapes(scope)[target]))
     if "{{RiverData}}" in body:
         body = body.replace("{{RiverData}}", _b64(load_shapes(scope)[target]))
+    if "{{CurrentData}}" in body:
+        body = body.replace("{{CurrentData}}", _b64(load_shapes(scope)[target]))
     if "{{CapitalName}}" in body:
         cap = load_capitals(scope)[target]
         body = body.replace("{{CapitalName}}", cap["name"]).replace(

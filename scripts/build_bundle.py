@@ -65,6 +65,15 @@ SOURCES = {
     # FEATURECLA/NAME_EN are populated; the 50m regions file's are empty).
     "rivers": "ne_50m_rivers_lake_centerlines.geojson",
     "regions10": "ne_10m_geography_regions_polys.geojson",
+    "lakes10": "ne_10m_lakes.geojson",
+    "marine50": "ne_50m_geography_marine_polys.geojson",
+}
+EXTERNAL_SOURCES = {
+    "plates": (
+        "PB2002_plates.json",
+        "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/"
+        "PB2002_plates.json",
+    ),
 }
 
 EARTH_KM_PER_DEG = 111.32
@@ -76,10 +85,13 @@ SMALL_CIRCLE_R = 7.0
 
 
 def ensure_source(key: str) -> Path:
-    path = RAW_DIR / SOURCES[key]
+    if key in EXTERNAL_SOURCES:
+        filename, url = EXTERNAL_SOURCES[key]
+    else:
+        filename, url = SOURCES[key], NE_BASE + SOURCES[key]
+    path = RAW_DIR / filename
     if not path.exists():
         RAW_DIR.mkdir(parents=True, exist_ok=True)
-        url = NE_BASE + SOURCES[key]
         print(f"downloading {url} -> {path}")
         with urllib.request.urlopen(url) as resp, path.open("wb") as fh:
             shutil.copyfileobj(resp, fh)
@@ -232,7 +244,13 @@ def circle_ring(cx: float, cy: float, r: float, n: int = 20) -> list[list[float]
 
 
 def make_region(
-    rid: str, name: str, abbr: str, frame: str, projected: BaseGeometry, tier: int = 1
+    rid: str,
+    name: str,
+    abbr: str,
+    frame: str,
+    projected: BaseGeometry,
+    tier: int = 1,
+    magnify_small: bool = True,
 ) -> dict | None:
     """Common per-region packaging: simplify, microstate circle upgrade, samples."""
     if projected.is_empty:
@@ -249,7 +267,7 @@ def make_region(
         "c": [round(c.x, 1), round(c.y, 1)],
         "s": round(s, 1),
     }
-    if s < SMALL_S_PX:
+    if magnify_small and s < SMALL_S_PX:
         # Magnified tap-circle (Ultimate-Geography style): keep it findable and
         # tappable on a continental map.
         region["small"] = True
@@ -904,7 +922,7 @@ PHYSICAL_SCOPES = {
         "featureclasses": {"Range/mtn"},
         "max_scalerank": 2,  # 31 iconic ranges (≤3 pulls in Andes sub-ranges)
         "noun": "range",
-        "families": ["place"],  # Elvis: ranges/deserts get Place only
+        "families": ["place", "sketch"],
         "box": (-165.0, -56.0, 180.0, 75.0),
         "width": 1500.0,
         "deck_root": "GeoTrainer::Physical::Mountain Ranges",
@@ -916,12 +934,170 @@ PHYSICAL_SCOPES = {
         "max_scalerank": 3,  # 18 major deserts
         "exclude": {"Punjab"},  # not a desert
         "noun": "desert",
-        "families": ["place"],
+        "families": ["place", "sketch"],
         "box": (-120.0, -40.0, 150.0, 50.0),
         "width": 1500.0,
         "deck_root": "GeoTrainer::Physical::Deserts",
     },
 }
+
+
+# A deliberately finite world-lakes curriculum. It includes the largest/iconic
+# lakes a learner can reasonably place on a world map, while avoiding a noisy
+# "every named pond in Natural Earth" deck. Caspian is a marine polygon in
+# Natural Earth; the Aral Sea is reconstructed from its north/south polygons.
+LAKE_NAMES = {
+    "Caspian Sea": ("marine50", {"Caspian Sea"}),
+    "Aral Sea": ("lakes10", {"North Aral Sea", "South Aral Sea"}),
+    "Lake Baikal": ("lakes10", {"Baikal"}),
+    "Lake Balkhash": ("lakes10", {"Balkhash"}),
+    "Lake Chad": ("lakes10", {"Chad"}),
+    "Great Bear Lake": ("lakes10", {"Great Bear"}),
+    "Great Slave Lake": ("lakes10", {"Great Slave"}),
+    "Lake Winnipeg": ("lakes10", {"Winnipeg"}),
+    "Lake Superior": ("lakes10", {"Superior"}),
+    "Lake Michigan": ("lakes10", {"Michigan"}),
+    "Lake Huron": ("lakes10", {"Huron"}),
+    "Lake Erie": ("lakes10", {"Erie"}),
+    "Lake Ontario": ("lakes10", {"Ontario"}),
+    "Lake Ladoga": ("lakes10", {"Ladoga"}),
+    "Lake Onega": ("lakes10", {"Onega"}),
+    "Lake Victoria": ("lakes10", {"Nyanza"}),
+    "Lake Tanganyika": ("lakes10", {"Tanganyika"}),
+    "Lake Malawi": ("lakes10", {"Malawi"}),
+    "Lake Turkana": ("lakes10", {"Turkana"}),
+    "Lake Titicaca": ("lakes10", {"Titicaca"}),
+    "Lake Nicaragua": ("lakes10", {"Nicaragua"}),
+    "Great Salt Lake": ("lakes10", {"Great Salt"}),
+    "Dead Sea": ("lakes10", {"Dead Sea"}),
+    "Lake Tana": ("lakes10", {"Tana"}),
+}
+
+PLATE_NAMES = {
+    "Africa": "African Plate",
+    "Antarctica": "Antarctic Plate",
+    "Arabia": "Arabian Plate",
+    "Australia": "Australian Plate",
+    "Caribbean": "Caribbean Plate",
+    "Cocos": "Cocos Plate",
+    "Eurasia": "Eurasian Plate",
+    "India": "Indian Plate",
+    "Juan de Fuca": "Juan de Fuca Plate",
+    "Nazca": "Nazca Plate",
+    "North America": "North American Plate",
+    "Pacific": "Pacific Plate",
+    "Philippine Sea": "Philippine Sea Plate",
+    "South America": "South American Plate",
+    "Scotia": "Scotia Plate",
+    "Somalia": "Somali Plate",
+}
+
+
+def _world_polygon_bundle(
+    scope_name: str,
+    title: str,
+    noun: str,
+    families: list[str],
+    geoms_by_name: dict[str, BaseGeometry],
+) -> tuple[dict, dict, dict]:
+    """Build a physical polygon scope on one consistent whole-world frame."""
+    box_t = (-180.0, -90.0, 180.0, 90.0)
+    width = 1500.0
+    scale = width / (box_t[2] - box_t[0])
+    view_w = width + 2 * PAD
+    view_h = (box_t[3] - box_t[1]) * scale + 2 * PAD
+
+    def project(lon, lat):
+        return (lon - box_t[0]) * scale + PAD, (box_t[3] - lat) * scale + PAD
+
+    regions = []
+    source_geoms = {}
+    for name, geom in geoms_by_name.items():
+        rid = _slug(name)
+        region = make_region(
+            rid, name, "", "main", project_geom(geom, project), magnify_small=False
+        )
+        if region:
+            regions.append(region)
+            source_geoms[rid] = geom
+    regions.sort(key=lambda r: r["name"])
+    shapes = {rid: shape_payload(geom) for rid, geom in source_geoms.items()}
+
+    land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
+    context = rings_of(project_geom(land, project).simplify(0.8, preserve_topology=True))
+    bundle = {
+        "scope": scope_name,
+        "title": title,
+        "noun": noun,
+        "kind": "physical",
+        "families": families,
+        "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
+        "tray": [90.0, round(view_h - 90.0, 1)],
+        "frames": [
+            {
+                "id": "main",
+                "rect": [0.0, 0.0, round(view_w, 1), round(view_h, 1)],
+                "kmPerUnit": round(EARTH_KM_PER_DEG / scale, 3),
+                "label": "",
+            }
+        ],
+        "context": context,
+        "regions": regions,
+    }
+    return bundle, shapes, {}
+
+
+def _build_lakes() -> tuple[dict, dict, dict]:
+    features = {key: load_features(key) for key in {src for src, _ in LAKE_NAMES.values()}}
+    geoms = {}
+    for display, (source, source_names) in LAKE_NAMES.items():
+        matched_features = [
+            f
+            for f in features[source]
+            if prop(f["properties"], "NAME_EN", "NAME") in source_names
+        ]
+        found_names = {
+            prop(f["properties"], "NAME_EN", "NAME") for f in matched_features
+        }
+        if found_names != source_names:
+            raise SystemExit(
+                f"world-lakes: expected source names {sorted(source_names)} for {display}, "
+                f"found {sorted(found_names)}"
+            )
+        geoms[display] = unary_union([shape(f["geometry"]) for f in matched_features])
+    return _world_polygon_bundle(
+        "world-lakes",
+        "World — Major Lakes",
+        "lake",
+        ["point", "place"],
+        geoms,
+    )
+
+
+def _build_plates() -> tuple[dict, dict, dict]:
+    grouped: dict[str, list[BaseGeometry]] = {name: [] for name in PLATE_NAMES}
+    for feature in load_features("plates"):
+        source_name = prop(feature["properties"], "PlateName")
+        if source_name in grouped:
+            grouped[source_name].append(shape(feature["geometry"]))
+    missing = [name for name, geoms in grouped.items() if not geoms]
+    if missing:
+        raise SystemExit(f"world-tectonic-plates: missing {', '.join(missing)}")
+    geoms = {
+        PLATE_NAMES[source_name]: unary_union(parts)
+        for source_name, parts in grouped.items()
+    }
+    bundle, shapes, capitals = _world_polygon_bundle(
+        "world-tectonic-plates",
+        "World — Major Tectonic Plates",
+        "tectonic plate",
+        ["point", "sketch"],
+        geoms,
+    )
+    # Keep the natural in-card noun ("Which tectonic plate?") while giving the
+    # generated deck/model a properly title-cased multiword family label.
+    bundle["family_noun"] = "Tectonic Plate"
+    return bundle, shapes, capitals
 
 
 def _build_world_polys(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
@@ -1124,6 +1300,114 @@ def _build_rivers(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
     return bundle, rivers, {}
 
 
+# ================= direction-aware schematic ocean-current routes =================
+# These ordered centrelines are a study abstraction based on NOAA's global-current
+# teaching diagrams. They encode the major route and direction a learner should
+# remember; they are intentionally not a live velocity field or navigational data.
+CURRENT_ROUTES = {
+    "Gulf Stream": {
+        "temperature": "warm",
+        "coordinates": [
+            (-82, 24), (-79, 29), (-75, 35), (-68, 40),
+            (-55, 44), (-40, 48), (-25, 52), (-12, 55),
+        ],
+    },
+    "Labrador Current": {
+        "temperature": "cold",
+        "coordinates": [(-58, 62), (-55, 55), (-53, 50), (-49, 45), (-45, 41)],
+    },
+    "Canary Current": {
+        "temperature": "cold",
+        "coordinates": [(-15, 40), (-18, 33), (-20, 25), (-22, 18), (-25, 12)],
+    },
+    "Brazil Current": {
+        "temperature": "warm",
+        "coordinates": [(-35, -8), (-38, -15), (-43, -23), (-48, -31), (-52, -38)],
+    },
+    "Benguela Current": {
+        "temperature": "cold",
+        "coordinates": [(15, -37), (12, -30), (10, -23), (10, -15), (8, -7)],
+    },
+    "Kuroshio Current": {
+        "temperature": "warm",
+        "coordinates": [(122, 18), (126, 23), (132, 28), (138, 33), (145, 37), (155, 40)],
+    },
+    "California Current": {
+        "temperature": "cold",
+        "coordinates": [(-135, 44), (-130, 38), (-125, 32), (-120, 25)],
+    },
+    "Humboldt Current": {
+        "temperature": "cold",
+        "coordinates": [(-77, -45), (-75, -35), (-73, -25), (-72, -15), (-77, -5)],
+    },
+    "East Australian Current": {
+        "temperature": "warm",
+        "coordinates": [(153, -15), (154, -23), (153, -30), (149, -36), (144, -41)],
+    },
+    "West Australian Current": {
+        "temperature": "cold",
+        "coordinates": [(108, -35), (110, -28), (112, -20), (115, -13)],
+    },
+    "Agulhas Current": {
+        "temperature": "warm",
+        "coordinates": [(47, -16), (43, -22), (38, -28), (32, -34), (27, -39)],
+    },
+    "North Equatorial Current": {
+        "temperature": "warm",
+        "coordinates": [(-18, 15), (-35, 14), (-55, 13), (-75, 12)],
+    },
+}
+
+
+def _build_currents() -> tuple[dict, dict, dict]:
+    box_t = (-180.0, -60.0, 180.0, 80.0)
+    width = 1400.0
+    scale = width / (box_t[2] - box_t[0])
+    view_w = width + 2 * PAD
+    view_h = (box_t[3] - box_t[1]) * scale + 2 * PAD
+
+    def project(lon, lat):
+        return [
+            round((lon - box_t[0]) * scale + PAD, 1),
+            round((box_t[3] - lat) * scale + PAD, 1),
+        ]
+
+    currents = {}
+    for name, route in CURRENT_ROUTES.items():
+        currents[_slug(name)] = {
+            "name": name,
+            "temperature": route["temperature"],
+            # A route is ordered from origin toward destination. The engine uses
+            # those endpoints to detect a reversed (otherwise accurate) trace.
+            "paths": [[project(lon, lat) for lon, lat in route["coordinates"]]],
+        }
+
+    land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
+    context = rings_of(
+        project_geom(land.intersection(box(*box_t)), lambda lon, lat: project(lon, lat))
+        .simplify(0.8, preserve_topology=True)
+    )
+    bundle = {
+        "scope": "world-ocean-currents",
+        "title": "World — Major Ocean Currents",
+        "noun": "ocean current",
+        "kind": "currents",
+        "families": ["current"],
+        "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
+        "frames": [
+            {
+                "id": "main",
+                "rect": [0.0, 0.0, round(view_w, 1), round(view_h, 1)],
+                "kmPerUnit": round(EARTH_KM_PER_DEG / scale, 3),
+                "label": "",
+            }
+        ],
+        "context": context,
+        "regions": [],
+    }
+    return bundle, currents, {}
+
+
 # ---------------------------------------------------------------------------------
 
 SCOPES = {"us-states": build_us_states}
@@ -1131,6 +1415,9 @@ for _name, _cfg in PHYSICAL_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_world_polys(n, c)))(_name, _cfg)
 for _name, _cfg in RIVER_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_rivers(n, c)))(_name, _cfg)
+SCOPES["world-lakes"] = _build_lakes
+SCOPES["world-tectonic-plates"] = _build_plates
+SCOPES["world-ocean-currents"] = _build_currents
 for _name, _cfg in CONTINENT_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_continent(n, c)))(_name, _cfg)
 for _name, _cfg in CONTINENTS_SCOPES.items():

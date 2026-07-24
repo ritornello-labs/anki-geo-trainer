@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
 [![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 ![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
-![Deck size](https://img.shields.io/badge/deck-2%2C200%20notes-7C3AED)
+![Deck size](https://img.shields.io/badge/deck-2%2C338%20notes-7C3AED)
 
 Interactive geography practice for Anki: a curriculum-ordered set of map tasks that
 asks you to locate, place, sketch, draw, and trace from memory on borderless maps. It runs
@@ -14,18 +14,21 @@ offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
 **Release status:** the initial version was submitted to AnkiWeb on 2026-07-15. The
-new contextual-Sketch update is installed in the live personal collection but not yet
-uploaded to AnkiWeb. GeoTrainer is a
+contextual-Sketch update is installed in the live personal collection, while the
+physical-geography expansion described below is built and tested but not yet installed
+or uploaded to AnkiWeb. GeoTrainer is a
 lean, **borderless-recall** set redesigned after real-world study.
-**Twenty-two scopes**, 2,200 cards. Region scopes carry four families — **Which**,
+**Twenty-five scopes**, 2,338 cards. Region scopes carry four families — **Which**,
 **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):
 **Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),
 **North America** (23), **Oceania** (14). Country subdivisions: **United States**
 (50), **Brazil** (27), **India** (36), **Russia** (85), **China** (31), **Canada**
 (13), **Australia** (9), **Argentina** (24), **Mexico** (32), **Indonesia** (33).
-Physical: **mountain ranges** (29) and **deserts** (17) — **Place** only, dragged
-onto the continents — and **major rivers** (42) as trace-the-course. Plus a
+Physical: **mountain ranges** (29) and **deserts** (17) — **Place + Sketch**;
+**major lakes** (24) — **Which + Place**; **major tectonic plates** (16) —
+**Which + Sketch**; **major rivers** (42) as trace-the-course; and **major ocean
+currents** (12) as direction-aware trace-the-route. Plus a
 **Continents** scope — **Sketch** each one on the blank world, then **Draw** its
 silhouette from memory (Europe is clipped at the Urals, and Asia excludes Siberia, since Natural
 Earth files Russia under Europe). All rendered by one shared engine and verified on
@@ -46,6 +49,7 @@ same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
 | `…::3 Sketch` | scaffolded shape + position recall | Draw the named country on its blank continent, a state/province on its blank country, or a continent on the blank world. The map has no internal borders; the back reveals the target and grades shape, position, and scale. Map-magnified microstates are omitted because their circles are interaction aids, not drawable geography |
 | `…::4 Draw` | unscaffolded shape recall | Sketch the outline from memory on a blank **fixed-square** canvas (uniform for every card, so the frame never hints the answer's aspect ratio; multi-stroke, undo/clear); the back overlays the true shape and grades the match. Scoring gates on **both** boundary faithfulness and area overlap (IoU), so a right-size wrong-shape blob — a lazy circle over Algeria — fails to *Again*, while an honest freehand attempt (even wobbly) passes. Position and size don't matter, form does |
 | `…::1 Trace` (rivers) | river course | Trace a major river's course over a world map; the back overlays the true line and grades by distance (km) to it. Start on the *full* world map (no positional hint), then zoom in to trace precisely |
+| `…::1 Trace` (currents) | current route + direction | Trace a major ocean current from origin to destination. Your stroke ends in an arrow; the back reveals a forgiving route corridor and the true direction. An accurate line drawn backwards is graded *Again* |
 
 Drawing surfaces (Sketch, Draw, Trace) have **zoom + pan** via floating map-style controls
 in the canvas corner (Google-Maps-like): a stacked **＋/−** zoom pill and a **✋**
@@ -58,14 +62,16 @@ Cards are self-graded: the card shows a verdict and a suggested grade; you still
 press Anki's answer buttons. Region maps hide internal borders on the front so the
 task is genuine spatial recall, not shape-matching. Alaska and Hawaii render in
 classic inset panels at their own scale; microstates are magnified tap-circles on
-the *back*; Physical scopes (ranges/deserts) hide the feature on the front and show
-only the continents — you drag the feature's silhouette to where it belongs.
+the *back*; Physical polygon scopes hide the feature on the front and show only the
+continents. Ocean-current routes are deliberately schematic learning corridors, not
+real-time flow or navigational data.
 
 **Design note (2026-07):** Locate (redundant), Capital (duplicated a Cities deck),
 and Seas (trivial at world scale) were cut after studying the deck for real; the
 survivors were made non-trivial by hiding the borders. Sketch was later added as
-the scaffolded bridge from Place to blank-canvas Draw. Quality of each card type
-over breadth.
+the scaffolded bridge from Place to blank-canvas Draw. Lakes and plates use only
+the families that produce honest world-scale practice; chokepoints and island lists
+remain deliberately excluded. Quality of each card type over breadth.
 
 ## Why
 

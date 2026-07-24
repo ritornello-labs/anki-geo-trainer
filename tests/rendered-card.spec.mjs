@@ -70,4 +70,17 @@ test.describe("shipped inlined cards", () => {
     await expect(page.locator(".gt-answer")).toHaveAttribute("data-id", "US-CA");
   });
 
+  test("direction-aware current fixture boots with per-note data", async ({ page }) => {
+    await page.setContent(
+      readFileSync(FIX("card-world-ocean-currents-current-front.html"), "utf-8")
+    );
+    await expect(page.locator("svg.gt-map")).toBeVisible({ timeout: 5000 });
+    await expect(page.locator(".gt-chip")).toHaveText("Trace current");
+    const route = await page.evaluate(
+      () => window.GT_SHAPES["world-ocean-currents:gulf-stream"]
+    );
+    expect(route.name).toBe("Gulf Stream");
+    expect(route.paths[0].length).toBeGreaterThan(4);
+  });
+
 });

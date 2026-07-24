@@ -18,6 +18,7 @@ this order. Each rung assumes comfort with the one before it.
 | 5.5 | Sketch | `3 Sketch` | Draw the region in place on its **borderless parent map**; the parent outline scaffolds recall, while shape, position, and scale are graded |
 | 6 | Draw | `4 Draw` | Sketch the outline on a completely blank square; scored on capturing the real shape (a rough enclosing blob fails) |
 | 5 | Trace | `1 Trace` (rivers) | Trace a river's course over a world map; graded by km distance to the true line |
+| 5.5 | Directed trace | `1 Trace` (ocean currents) | Trace a current from origin to destination; route and arrow direction are both graded |
 
 **Redesign (2026-07), after studying the deck for real.** Cut families that were
 trivial or redundant: **Locate** (tapping a labelled shape isn't recall), **Capital**
@@ -27,9 +28,10 @@ their fronts now hide all internal borders (the map is a blank silhouette; you r
 *where*, not *which shape*). Draw's scoring was rebuilt to reward capturing distinctive
 features. **Sketch** was added later as a scaffolded bridge: draw the same shape in
 place on the blank parent map before graduating to the context-free Draw card. Rivers
-became **Trace-the-course** (drawing a river is interesting; tapping
-where it is was not). New physical scopes: **mountain ranges** and **deserts** (name /
-place / draw the feature over the continents). A tap-all-neighbors family (F7) was
+became **Trace-the-course** (drawing a river is interesting; tapping where it is was
+not). Physical scopes now include ranges/deserts (Place + Sketch), lakes (Which +
+Place), tectonic plates (Which + Sketch), and direction-aware ocean currents. A
+tap-all-neighbors family (F7) was
 retired even earlier (duplicated border decks). The engine keeps the dropped modes
 dormant, so any could return.
 
@@ -47,7 +49,7 @@ GeoTrainer does not duplicate them. Good on-ramps:
 
 Every note carries three orthogonal tags:
 
-- `geotrainer::skill::locate | point | place | sketch | draw | neighbors | feature`
+- `geotrainer::skill::point | place | sketch | draw | river | current`
 - `geotrainer::scope::<where>` — e.g. `geotrainer::scope::country::usa::states`,
   `geotrainer::scope::continent::europe`
 - `geotrainer::level::3..6` (including `5.5`) — the rung on the ladder above
@@ -116,9 +118,13 @@ deck-order study already follows the ladder.
   family — tap where the river runs, graded by distance to the polyline). Physical
   scopes declare a `families` list so they ship only the sensible tasks; a `kind`
   marker (physical/rivers) drives the test suite.
-- **Later**: mountain ranges (needs the 10m geography-regions file — the 50m has no
-  `featurecla`); lakes; more country subdivisions from 10m admin-1. Then AnkiWeb
-  release — see [`release/RELEASE.md`](../release/RELEASE.md).
+- **Built, awaiting live/AnkiWeb rollout (2026-07-24)**: contextual Sketch for all
+  **29 mountain ranges** and **17 deserts**; **24 major lakes** (Which + Place);
+  **16 major tectonic plates** (Which + Sketch); and **12 major ocean currents**
+  (directed trace). Current routes are schematic accepted corridors: the learner
+  draws an arrow from origin to destination, and a reversed route fails even when
+  its position is accurate. Chokepoints and island/archipelago lists remain excluded
+  because they do not create good GeoTrainer interactions.
 
 ### Adding a scope (for future me)
 

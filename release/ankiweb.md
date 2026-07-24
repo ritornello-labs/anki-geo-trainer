@@ -7,7 +7,8 @@ support_url: https://github.com/ritornello-labs/anki-geo-trainer
 Sheppard-Software-style **interactive** geography practice, right inside Anki — but
 with the internal borders hidden, so it's genuine spatial recall, not matching a
 labelled shape. Name the region under a dot, drag a silhouette to where it belongs,
-sketch it in place on a blank parent map, draw it without any map, or trace a river's course. The card grades
+sketch it in place on a blank parent map, draw it without any map, or trace a
+river/current route. The card grades
 your answer and suggests a button — you still press Anki's own answer keys, so
 scheduling stays 100% Anki.
 
@@ -45,6 +46,9 @@ match.
 - **Trace** (rivers) — trace a major river's course over a world map; graded by how
   closely your line follows the real one. Starts on the *full* world map (no hint
   where it is) — tap **＋** to zoom in and trace precisely.
+- **Trace** (ocean currents) — trace from origin to destination. Your stroke ends
+  in an arrow; the back reveals a forgiving route corridor and direction. Drawing
+  the right route backwards is still wrong.
 
 All drawing surfaces support **zoom & pan**: +/− buttons and mouse-wheel to zoom, and a
 **✋ Move** toggle that turns a drag into a pan so you can reposition a zoomed-in view
@@ -56,8 +60,10 @@ pan — fine work is easy even on a small screen.
 Continents (countries): **Europe, Africa, Asia, South America, North America,
 Oceania**. Country subdivisions: **US states, Brazil, India, Russia, China, Canada,
 Australia, Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and
-**deserts** (place them over the continents), and **major rivers** (trace the
-course). And a **Continents** deck: first sketch each one on a blank world map, then
+**deserts** (place or sketch them over the continents), **major lakes** (identify
+and place), **tectonic plates** (identify and sketch), **major rivers** (trace the
+course), and **ocean currents** (trace route + direction). And a **Continents**
+deck: first sketch each one on a blank world map, then
 draw its silhouette from memory without context.
 
 Cards are **tagged by skill and scope** (`geotrainer::skill::…`,
@@ -68,5 +74,7 @@ filtered decks — see the GitHub README for ready-made recipes.
 
 GitHub: [https://github.com/ritornello-labs/anki-geo-trainer](https://github.com/ritornello-labs/anki-geo-trainer)
 
-Maps are rendered from [Natural Earth](https://www.naturalearthdata.com/) public-domain
-data. Built with the open-source generator in the repository above.
+Maps are rendered primarily from [Natural Earth](https://www.naturalearthdata.com/)
+public-domain data. Tectonic plates use the PB2002-derived GeoJSON credited in the
+repository's data-source notes; current routes are schematic adaptations of NOAA
+education maps. Built with the open-source generator in the repository above.

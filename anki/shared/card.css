@@ -158,6 +158,46 @@
 }
 .nightMode .gt-river { stroke: #63b3ed; }
 
+/* Direction-aware ocean-current trace: broad accepted corridor, ordered
+   centreline, and a contrasting learner trace with its own arrowhead. */
+.gt-current-corridor {
+  fill: none;
+  stroke: #4299e1;
+  stroke-width: 15;
+  stroke-opacity: 0.18;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.gt-current {
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.gt-current-warm { stroke: #d8583c; }
+.gt-current-cold { stroke: #2b6cb0; }
+.gt-current-neutral { stroke: #5b6470; }
+.gt-current-arrow-warm { fill: #d8583c; }
+.gt-current-arrow-cold { fill: #2b6cb0; }
+.gt-current-arrow-neutral { fill: #5b6470; }
+.gt-current-user {
+  fill: none;
+  stroke: #2d3742;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.gt-current-user-arrow { fill: #2d3742; }
+.nightMode .gt-current-corridor { stroke: #63b3ed; }
+.nightMode .gt-current-warm { stroke: #fc8d72; }
+.nightMode .gt-current-cold { stroke: #63b3ed; }
+.nightMode .gt-current-neutral { stroke: #b8c2cc; }
+.nightMode .gt-current-arrow-warm { fill: #fc8d72; }
+.nightMode .gt-current-arrow-cold { fill: #63b3ed; }
+.nightMode .gt-current-arrow-neutral { fill: #b8c2cc; }
+.nightMode .gt-current-user { stroke: #edf2f7; }
+.nightMode .gt-current-user-arrow { fill: #edf2f7; }
+
 /* Contextual Sketch + blank-canvas Draw */
 .gt-sketch-map {
   cursor: crosshair;

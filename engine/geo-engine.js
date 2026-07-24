@@ -898,7 +898,7 @@
   // undo/clear so the caller can wire buttons. Same pointer/touch discipline as
   // the drag code: pointercancel ignored, Android pointerdown-before-touchstart
   // orphan cleaned up.
-  function attachStrokeCapture(svg, mode, scope, target, strokeClass, isPan) {
+  function attachStrokeCapture(svg, mode, scope, target, strokeClass, isPan, markerId) {
     var strokes = [], paths = [], current = null, currentPath = null, usingTouch = false, multi = false;
     var panActive = isPan || function () { return false; }; // Move-mode drags pan, don't draw
     saveState(mode, scope, target, { strokes: [] });
@@ -912,6 +912,7 @@
       if (!loc) return;
       current = [[loc.x, loc.y]];
       currentPath = el("path", { class: strokeClass || "gt-stroke", d: strokePath(current) });
+      if (markerId) currentPath.setAttribute("marker-end", "url(#" + markerId + ")");
       svg.appendChild(currentPath);
     }
     function extend(x, y) {
@@ -1443,6 +1444,35 @@
     }
   }
 
+  function addArrowMarker(svg, id, cls) {
+    var defs = el("defs");
+    var marker = el("marker", {
+      id: id,
+      viewBox: "0 0 10 10",
+      refX: "8.2",
+      refY: "5",
+      markerWidth: "4",
+      markerHeight: "4",
+      orient: "auto-start-reverse",
+      markerUnits: "strokeWidth",
+    });
+    marker.appendChild(el("path", { d: "M 0 0 L 10 5 L 0 10 z", class: cls }));
+    defs.appendChild(marker);
+    svg.insertBefore(defs, svg.firstChild);
+  }
+
+  function directedPaths(svg, paths, cls, markerId) {
+    for (var i = 0; i < paths.length; i++) {
+      if (paths[i].length >= 2) {
+        svg.appendChild(el("path", {
+          d: strokePath(paths[i]),
+          class: cls,
+          "marker-end": "url(#" + markerId + ")",
+        }));
+      }
+    }
+  }
+
   function riverTargetPoints(paths) {
     var pts = [];
     for (var i = 0; i < paths.length; i++) {
@@ -1525,6 +1555,136 @@
     root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
   }
 
+  // ==================== DIRECTION-AWARE OCEAN-CURRENT TRACE ===================
+  // Current routes use the river tracing surface, but their ordered endpoints
+  // matter: a geographically accurate line drawn backwards is still wrong.
+
+  function longestPath(paths) {
+    var best = [];
+    for (var i = 0; i < paths.length; i++) {
+      if (paths[i].length > best.length) best = paths[i];
+    }
+    return best;
+  }
+
+  function endpointDistance(a, b) {
+    return Math.hypot(a[0] - b[0], a[1] - b[1]);
+  }
+
+  function currentScore(strokes, paths, kmPerUnit) {
+    var drawn = [];
+    for (var i = 0; i < strokes.length; i++) {
+      for (var j = 0; j < strokes[i].length; j++) drawn.push(strokes[i][j]);
+    }
+    if (drawn.length < 8) return { km: null, quality: 0, empty: true, reversed: false };
+
+    var target = riverTargetPoints(paths);
+    var coverage = nearestDists(target, drawn);
+    var stray = nearestDists(drawn, target);
+    var px = 0.5 * percentileOf(coverage, 0.85) + 0.3 * meanOf(coverage) + 0.2 * meanOf(stray);
+    var km = Math.round(px * (kmPerUnit || 1));
+
+    var trace = longestPath(strokes);
+    var route = longestPath(paths);
+    var reversed = false;
+    if (trace.length >= 2 && route.length >= 2) {
+      var forward = endpointDistance(trace[0], route[0])
+        + endpointDistance(trace[trace.length - 1], route[route.length - 1]);
+      var backward = endpointDistance(trace[0], route[route.length - 1])
+        + endpointDistance(trace[trace.length - 1], route[0]);
+      reversed = backward < forward;
+    }
+
+    // Routes are schematic corridors on a full-world map, so tolerate more
+    // positional error than the detailed Natural Earth river polylines.
+    var quality = reversed ? 0 : km < 500 ? 2 : km < 1000 ? 1 : 0;
+    return { km: km, quality: quality, reversed: reversed };
+  }
+
+  function currentFront(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    var name = data ? data.name : target;
+    root.appendChild(chip("Trace current"));
+    root.appendChild(prompt(name));
+
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    var markerId = "gt-user-current-arrow";
+    addArrowMarker(svg, markerId, "gt-current-user-arrow");
+    var panzoom = attachPanZoom(svg);
+    var surface = attachStrokeCapture(
+      svg, "current", bundle.scope, target, "gt-current-user", panzoom.isPanMode, markerId
+    );
+    drawSurface(root, svg, panzoom);
+    drawToolRow(root, surface);
+    root.appendChild(bar("Trace from origin to destination — your arrow shows direction", "gt-hint"));
+  }
+
+  function currentBack(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    var name = data ? data.name : target;
+    var state = loadState("current", bundle.scope, target);
+    var strokes = (state && state.strokes) || [];
+
+    root.appendChild(chip("Trace current"));
+    root.appendChild(prompt(name));
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    var targetMarker = "gt-target-current-arrow";
+    var userMarker = "gt-user-current-arrow";
+    addArrowMarker(
+      svg,
+      targetMarker,
+      "gt-current-arrow gt-current-arrow-" + ((data && data.temperature) || "neutral")
+    );
+    addArrowMarker(svg, userMarker, "gt-current-user-arrow");
+    if (data) {
+      riverPaths(svg, data.paths, "gt-current-corridor");
+      directedPaths(
+        svg,
+        data.paths,
+        "gt-current gt-current-" + (data.temperature || "neutral"),
+        targetMarker
+      );
+    }
+    for (var k = 0; k < strokes.length; k++) {
+      if (strokes[k].length >= 2) {
+        svg.appendChild(el("path", {
+          class: "gt-current-user",
+          d: strokePath(strokes[k]),
+          "marker-end": "url(#" + userMarker + ")",
+        }));
+      }
+    }
+    root.appendChild(svg);
+
+    var frame = frameById(bundle, "main");
+    var score = data ? currentScore(strokes, data.paths, frame ? frame.kmPerUnit : 1)
+      : { quality: 0, empty: true, reversed: false };
+    if (score.empty) {
+      root.appendChild(bar("Nothing traced — the directed route is highlighted", "gt-miss"));
+      root.appendChild(bar(suggestFor(0), "gt-suggest"));
+      return;
+    }
+    if (score.reversed) {
+      root.appendChild(bar(
+        "Right corridor, reversed direction — follow the highlighted arrow",
+        "gt-miss"
+      ));
+      root.appendChild(bar(suggestFor(0), "gt-suggest"));
+      return;
+    }
+    var msg =
+      score.quality === 2 ? "Good route and direction (~" + score.km + " km off)"
+      : score.quality === 1 ? "Rough route, correct direction (~" + score.km + " km off)"
+      : "Off route (~" + score.km + " km) — follow the highlighted arrow";
+    root.appendChild(bar(
+      msg,
+      score.quality === 2 ? "gt-ok" : score.quality === 1 ? "gt-close" : "gt-miss"
+    ));
+    root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
+  }
+
   // ---- boot ---------------------------------------------------------------------
 
   // neighbors stays dormant: the family was retired from the packs (2026-07-05,
@@ -1540,6 +1700,7 @@
     draw: { front: drawFront, back: drawBack, selfContained: true, needsShape: true },
     capital: { front: capitalFront, back: capitalBack },
     river: { front: riverFront, back: riverBack, needsShape: true },
+    current: { front: currentFront, back: currentBack, needsShape: true },
   };
 
   function mount(root) {
@@ -1586,6 +1747,7 @@
     _drawScore: drawScore, // exposed for tests: scoring must be verifiable headlessly
     _sketchScore: sketchScore,
     _riverScore: riverScore,
+    _currentScore: currentScore,
   };
 
   if (document.readyState === "loading") {

@@ -51,6 +51,9 @@ seed_apkgs = [
     "dist/geo-trainer-world-rivers.apkg",
     "dist/geo-trainer-world-ranges.apkg",
     "dist/geo-trainer-world-deserts.apkg",
+    "dist/geo-trainer-world-lakes.apkg",
+    "dist/geo-trainer-world-tectonic-plates.apkg",
+    "dist/geo-trainer-world-ocean-currents.apkg",
 ]
 anki_version = "25.09"
 docker_image = "anki-geo-trainer-workbench"

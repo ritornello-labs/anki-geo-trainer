@@ -59,7 +59,7 @@ async function mount(page, scope, data, { target, mode, side }) {
 
 const POLYGON_SCOPES = SCOPES.filter((s) => {
   const b = JSON.parse(readFileSync(join(BUNDLE_DIR, `${s}.json`), "utf-8"));
-  return b.kind !== "rivers"; // river scopes have no regions; tested separately
+  return !["rivers", "currents"].includes(b.kind); // line scopes are tested separately
 });
 
 for (const scope of POLYGON_SCOPES) {
@@ -380,6 +380,107 @@ for (const scope of RIVER_SCOPES) {
   });
 }
 
+const CURRENT_SCOPES = SCOPES.filter((s) => {
+  const b = JSON.parse(readFileSync(join(BUNDLE_DIR, `${s}.json`), "utf-8"));
+  return b.kind === "currents";
+});
+
+for (const scope of CURRENT_SCOPES) {
+  const data = load(scope);
+  const cid = Object.keys(data.shapes)[0];
+
+  test(`${scope}: current trace shows arrows and accepts a faithful directed route`, async ({ page }) => {
+    await mount(page, scope, data, { target: cid, mode: "current", side: "front" });
+    await page.waitForSelector("svg.gt-map");
+    await expect(page.locator(".gt-chip")).toHaveText("Trace current");
+    await expect(page.locator(".gt-current-user")).toHaveCount(0);
+
+    const score = await page.evaluate(
+      ({ scope, id }) => {
+        const route = window.GT_SHAPES[scope + ":" + id].paths;
+        const frame = window.GT_BUNDLES[scope].frames[0];
+        return {
+          forward: window.GeoTrainer._currentScore([route[0]], route, frame.kmPerUnit),
+          reverse: window.GeoTrainer._currentScore(
+            [route[0].slice().reverse()], route, frame.kmPerUnit
+          ),
+        };
+      },
+      { scope, id: cid }
+    );
+    expect(score.forward.quality).toBe(2);
+    expect(score.forward.reversed).toBe(false);
+    expect(score.reverse.quality).toBe(0);
+    expect(score.reverse.reversed).toBe(true);
+
+    // Draw the ordered route through the actual capture surface so the persisted
+    // state and learner arrow are exercised, then flip to the answer.
+    await page.evaluate(
+      ({ scope, id }) => {
+        const svg = document.querySelector("svg.gt-map");
+        const route = window.GT_SHAPES[scope + ":" + id].paths[0];
+        const toClient = (p) => {
+          const pt = svg.createSVGPoint();
+          pt.x = p[0];
+          pt.y = p[1];
+          const s = pt.matrixTransform(svg.getScreenCTM());
+          return { x: s.x, y: s.y };
+        };
+        const emit = (type, p) => svg.dispatchEvent(new PointerEvent(type, {
+          clientX: p.x, clientY: p.y, bubbles: true, pointerId: 1, button: 0,
+        }));
+        emit("pointerdown", toClient(route[0]));
+        for (let i = 1; i < route.length; i++) emit("pointermove", toClient(route[i]));
+        emit("pointerup", toClient(route[route.length - 1]));
+      },
+      { scope, id: cid }
+    );
+    await expect(page.locator(".gt-current-user")).toHaveAttribute(
+      "marker-end", "url(#gt-user-current-arrow)"
+    );
+
+    await page.evaluate(
+      ({ scope, id, name }) => {
+        document.body.innerHTML = "";
+        const app = document.createElement("div");
+        app.className = "gt-app";
+        app.setAttribute("data-scope", scope);
+        app.setAttribute("data-target", id);
+        app.setAttribute("data-name", name);
+        app.setAttribute("data-side", "back");
+        app.setAttribute("data-mode", "current");
+        document.body.appendChild(app);
+        window.GeoTrainer.mountAll();
+      },
+      { scope, id: cid, name: data.shapes[cid].name }
+    );
+    await expect(page.locator(".gt-current")).toHaveAttribute(
+      "marker-end", "url(#gt-target-current-arrow)"
+    );
+    await expect(page.locator(".gt-current-corridor")).toHaveCount(1);
+    await expect(page.locator(".gt-bar.gt-ok")).toContainText("Good route and direction");
+  });
+}
+
+test("new physical curricula have deliberate, stable membership", () => {
+  const lakes = load("world-lakes");
+  const plates = load("world-tectonic-plates");
+  const currents = load("world-ocean-currents");
+  expect(lakes.bundle.regions).toHaveLength(24);
+  expect(lakes.bundle.families).toEqual(["point", "place"]);
+  expect(lakes.bundle.regions.map((r) => r.name)).toContain("Lake Victoria");
+  expect(plates.bundle.regions).toHaveLength(16);
+  expect(plates.bundle.families).toEqual(["point", "sketch"]);
+  expect(plates.bundle.regions.map((r) => r.name)).toContain("Pacific Plate");
+  expect(Object.keys(currents.shapes)).toHaveLength(12);
+  expect(currents.bundle.families).toEqual(["current"]);
+  for (const route of Object.values(currents.shapes)) {
+    expect(["warm", "cold"]).toContain(route.temperature);
+    expect(route.paths).toHaveLength(1);
+    expect(route.paths[0].length).toBeGreaterThanOrEqual(4);
+  }
+});
+
 test("all expected scopes are present", () => {
   expect(SCOPES.sort()).toEqual(
     [
@@ -388,7 +489,8 @@ test("all expected scopes are present", () => {
       "europe-countries", "india-states", "indonesia-provinces", "mexico-states",
       "north-america-countries", "oceania-countries", "russia-subjects",
       "south-america-countries", "us-states", "world-deserts",
-      "world-ranges", "world-rivers",
+      "world-lakes", "world-ocean-currents", "world-ranges", "world-rivers",
+      "world-tectonic-plates",
     ].sort()
   );
 });

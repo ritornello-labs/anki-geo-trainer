@@ -52,6 +52,10 @@ FAMILY_DEFS = [
     ("sketch", 4, "Sketch", "3 Sketch", "geotrainer::skill::sketch", "geotrainer::level::5.5"),
     ("draw", 2, "Draw", "4 Draw", "geotrainer::skill::draw", "geotrainer::level::6"),
     ("river", 3, "Trace", "1 Trace", "geotrainer::skill::river", "geotrainer::level::5"),
+    (
+        "current", 5, "Trace Current", "1 Trace",
+        "geotrainer::skill::current", "geotrainer::level::5.5",
+    ),
 ]
 
 # Families a scope gets when it doesn't declare its own. River is opt-in (river
@@ -222,6 +226,30 @@ SCOPE_PACKS = {
         "deck_base": 1_607_410_050,
         "apkg": "geo-trainer-world-deserts.apkg",
     },
+    "world-lakes": {
+        "deck_root": "GeoTrainer::Physical::Lakes",
+        "model_root": "GeoTrainer {family} — Major Lakes",
+        "scope_tag": "geotrainer::scope::physical::lakes",
+        "model_base": 1_607_413_001,
+        "deck_base": 1_607_413_050,
+        "apkg": "geo-trainer-world-lakes.apkg",
+    },
+    "world-tectonic-plates": {
+        "deck_root": "GeoTrainer::Physical::Tectonic Plates",
+        "model_root": "GeoTrainer {family} — Tectonic Plates",
+        "scope_tag": "geotrainer::scope::physical::tectonic-plates",
+        "model_base": 1_607_414_001,
+        "deck_base": 1_607_414_050,
+        "apkg": "geo-trainer-world-tectonic-plates.apkg",
+    },
+    "world-ocean-currents": {
+        "deck_root": "GeoTrainer::Physical::Ocean Currents",
+        "model_root": "GeoTrainer {family} — Ocean Currents",
+        "scope_tag": "geotrainer::scope::physical::ocean-currents",
+        "model_base": 1_607_415_001,
+        "deck_base": 1_607_415_050,
+        "apkg": "geo-trainer-world-ocean-currents.apkg",
+    },
 }
 
 
@@ -251,11 +279,15 @@ def build_templates(scope: str, mode: str) -> tuple[str, str, str]:
             f'window.GT_BUNDLES["{scope}"]=JSON.parse(atob("{b64}"));</script>'
         )
 
-    if mode in ("draw", "river"):
+    if mode in ("draw", "river", "current"):
         # Per-note geometry (draw outline / river polyline) in a base64 field, so
         # the substitution can't collide with markup. Draw needs no basemap;
         # rivers still inline the world-land bundle above.
-        field = "ShapeData" if mode == "draw" else "RiverData"
+        field = {
+            "draw": "ShapeData",
+            "river": "RiverData",
+            "current": "CurrentData",
+        }[mode]
         shape_boot = (
             "<script>window.GT_SHAPES=window.GT_SHAPES||{ };"
             f'window.GT_SHAPES["{scope}:" + "{{{{RegionId}}}}"]='
@@ -283,7 +315,7 @@ def build_templates(scope: str, mode: str) -> tuple[str, str, str]:
 
 def families_for(scope: str, pack: dict, test_ids: bool = False) -> list[dict]:
     bundle = load_bundle(scope)
-    noun = bundle.get("noun", "region").capitalize()
+    noun = bundle.get("family_noun") or bundle.get("noun", "region").capitalize()
     # A scope may declare which families make sense for it (physical scopes skip
     # place/capital; river scopes are river-only); default is the standard set.
     allowed = bundle.get("families") or DEFAULT_FAMILIES
@@ -326,17 +358,18 @@ def _b64(obj) -> str:
 
 def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[genanki.Note]:
     bundle = load_bundle(scope)
-    shapes = load_shapes(scope) if fam["mode"] in ("draw", "river") else {}
+    shapes = load_shapes(scope) if fam["mode"] in ("draw", "river", "current") else {}
     capitals = load_capitals(scope) if fam["mode"] == "capital" else {}
 
-    # Rivers have no regions; each river is a shapes-file entry {name, paths}.
-    if fam["mode"] == "river":
+    # Line scopes have no regions; each entity is a shapes-file entry
+    # {name, paths, ...} carried per note.
+    if fam["mode"] in ("river", "current"):
         notes = []
-        for rid, river in sorted(shapes.items()):
+        for rid, line in sorted(shapes.items()):
             notes.append(
                 genanki.Note(
                     model=model,
-                    fields=[f"{scope}:{rid}", scope, rid, river["name"], _b64(river)],
+                    fields=[f"{scope}:{rid}", scope, rid, line["name"], _b64(line)],
                     guid=genanki.guid_for("geotrainer", scope, fam["guid_ns"], rid),
                     tags=[fam["skill_tag"], pack["scope_tag"], fam["level_tag"]],
                 )
@@ -397,6 +430,8 @@ def scope_decks(scope: str, test_ids: bool = False) -> tuple[list, int]:
             fields.append({"name": "CapitalPt"})
         elif fam["mode"] == "river":
             fields.append({"name": "RiverData"})
+        elif fam["mode"] == "current":
+            fields.append({"name": "CurrentData"})
         model = genanki.Model(
             fam["model_id"],
             fam["model_name"],

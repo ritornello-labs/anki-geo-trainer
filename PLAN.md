@@ -1,6 +1,7 @@
 # anki-geo-trainer — Plan
 
-Status: planning. Created 2026-07-05.
+Status: active; personal deck in use, next physical-geography batch built and under
+validation. Created 2026-07-05.
 
 ## Vision
 
@@ -292,6 +293,23 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   `3 Draw` to `4 Draw`. Timestamped before/after snapshots and a scheduled APKG
   rollback are under `backups/live-imports/20260724T150455-0700-before/` and
   `backups/live-imports/20260724T150959-0700-after/`.
+- **Physical-geography expansion. ✅ Built and browser-verified 2026-07-24;
+  live/AnkiWeb rollout pending.** Added contextual Sketch to the existing **29
+  mountain ranges** and **17 deserts**. Added three curated scopes: **24 major
+  lakes** (Which + Place; actual lake polygons, never magnified circles), **16
+  major tectonic plates** (Which + Sketch; PB2002-derived polygons), and **12 major
+  ocean currents** (new direction-aware Trace family). Current routes are ordered,
+  schematic NOAA-derived learning corridors: the learner's stroke carries an
+  arrowhead, the back reveals a wide accepted corridor plus the directed
+  centreline, and a geometrically accurate reversed trace is forced to Again.
+  Chokepoints and island/archipelago lists remain excluded by design because they
+  do not fit GeoTrainer's interaction strengths. New scope/model/deck IDs use fresh
+  deterministic bases `1607413xxx`–`1607415xxx`; no existing family IDs were
+  reused. Combined target: **76 leaf decks / 2,338 notes**. Browser validation:
+  **292 passed / 12 intentional skips** across Chromium + WebKit, including the
+  exact inlined current template and forward/reverse grading. Disposable desktop
+  Anki QA run `b4f905dfb463` passed: real Anki imported all 2,338 notes/cards,
+  discovered the full new deck/note-type tree, and rendered all five sampled cards.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
   (`make apkg-all`) + `release/screenshots/`. Publishing still gated on Elvis's
