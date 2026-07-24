@@ -19,16 +19,16 @@ Light and dark mode included.
 
 **Which country?** A different point inside the target country appears each review.
 
-![A GeoTrainer Which Country card in Anki's reviewer](https://raw.githubusercontent.com/elvis-sik/anki-geo-trainer/main/release/screenshots/06-which-country-reviewer.png)
+![A GeoTrainer Which Country card in Anki's reviewer](https://raw.githubusercontent.com/ritornello-labs/anki-geo-trainer/main/release/screenshots/06-which-country-reviewer.png)
 
 **Place.** Drag the silhouette to its real position without a labelled outline to
 match.
 
-![A GeoTrainer Place card in Anki's reviewer](https://raw.githubusercontent.com/elvis-sik/anki-geo-trainer/main/release/screenshots/07-place-reviewer.png)
+![A GeoTrainer Place card in Anki's reviewer](https://raw.githubusercontent.com/ritornello-labs/anki-geo-trainer/main/release/screenshots/07-place-reviewer.png)
 
 **Trace.** Start on a full world map, zoom and pan as needed, then trace the river.
 
-![A GeoTrainer Trace card in Anki's reviewer](https://raw.githubusercontent.com/elvis-sik/anki-geo-trainer/main/release/screenshots/08-trace-reviewer.png)
+![A GeoTrainer Trace card in Anki's reviewer](https://raw.githubusercontent.com/ritornello-labs/anki-geo-trainer/main/release/screenshots/08-trace-reviewer.png)
 
 ## Task families
 
