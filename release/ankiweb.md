@@ -1,7 +1,7 @@
 ---
 title: "GeoTrainer: Interactive Geography (Borderless Recall)"
 tags: geography maps interactive world countries rivers deserts mountains
-support_url: https://github.com/elvis-sik/anki-geo-trainer
+support_url: https://github.com/ritornello-labs/anki-geo-trainer
 ---
 
 Sheppard-Software-style **interactive** geography practice, right inside Anki — but
@@ -66,7 +66,7 @@ filtered decks — see the GitHub README for ready-made recipes.
 
 ## Source & issues
 
-GitHub: [https://github.com/elvis-sik/anki-geo-trainer](https://github.com/elvis-sik/anki-geo-trainer)
+GitHub: [https://github.com/ritornello-labs/anki-geo-trainer](https://github.com/ritornello-labs/anki-geo-trainer)
 
 Maps are rendered from [Natural Earth](https://www.naturalearthdata.com/) public-domain
 data. Built with the open-source generator in the repository above.
