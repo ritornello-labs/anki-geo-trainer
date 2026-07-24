@@ -14,7 +14,8 @@ offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
 **Release status:** the initial version was submitted to AnkiWeb on 2026-07-15. The
-new contextual-Sketch update is built locally but not yet uploaded. GeoTrainer is a
+new contextual-Sketch update is installed in the live personal collection but not yet
+uploaded to AnkiWeb. GeoTrainer is a
 lean, **borderless-recall** set redesigned after real-world study.
 **Twenty-two scopes**, 2,200 cards. Region scopes carry four families — **Which**,
 **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall

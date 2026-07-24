@@ -274,7 +274,8 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   to top-level `GeoTrainer::Continents` (peer of World/Physical) for discoverability;
   live cards moved with AnkiConnect `changeDeck` + the old nested deck deleted. Suite
   224 passed / 6 skipped; templates re-imported live.
-- **Contextual Sketch. ✅ Built locally 2026-07-20; live/AnkiWeb rollout pending.**
+- **Contextual Sketch. ✅ Built 2026-07-20; installed in the live personal
+  collection 2026-07-24; AnkiWeb rollout pending.**
   Added the missing bridge between Place and blank-canvas Draw: country on a
   borderless continent, subdivision on a borderless country, or continent on the
   blank world. The engine reuses freehand capture, zoom/pan, undo/clear, and the
@@ -284,7 +285,13 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   Place / 3 Sketch / 4 Draw`; existing Draw IDs remain stable, retired ord 3 remains
   untouched, and Sketch uses fresh ord 4. Combined build: 69 decks / 2,200 notes /
   38.1 MB; cross-engine suite 268 passed / 10 skipped; disposable desktop Anki QA
-  imported 200 US cards and rendered all sampled cards successfully.
+  imported 200 US cards and rendered all sampled cards successfully. The controlled
+  live rollout preserved all 1,699 prior note/card IDs, fields, tags, and scheduling,
+  added exactly 501 Sketch cards, nested them under
+  `Decks::Geography::GeoTrainer`, and moved the 541 existing Draw cards from
+  `3 Draw` to `4 Draw`. Timestamped before/after snapshots and a scheduled APKG
+  rollback are under `backups/live-imports/20260724T150455-0700-before/` and
+  `backups/live-imports/20260724T150959-0700-after/`.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
   (`make apkg-all`) + `release/screenshots/`. Publishing still gated on Elvis's
