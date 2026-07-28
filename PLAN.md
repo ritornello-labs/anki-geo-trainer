@@ -1,7 +1,7 @@
 # anki-geo-trainer — Plan
 
-Status: active; personal deck in use, next physical-geography batch built and under
-validation. Created 2026-07-05.
+Status: active; the 2,338-card physical-geography release is installed in the
+personal collection and queued for the existing AnkiWeb listing. Created 2026-07-05.
 
 ## Vision
 
@@ -294,7 +294,7 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   rollback are under `backups/live-imports/20260724T150455-0700-before/` and
   `backups/live-imports/20260724T150959-0700-after/`.
 - **Physical-geography expansion. ✅ Built and browser-verified 2026-07-24;
-  live/AnkiWeb rollout pending.** Added contextual Sketch to the existing **29
+  installed live 2026-07-28; AnkiWeb update queued.** Added contextual Sketch to the existing **29
   mountain ranges** and **17 deserts**. Added three curated scopes: **24 major
   lakes** (Which + Place; actual lake polygons, never magnified circles), **16
   major tectonic plates** (Which + Sketch; PB2002-derived polygons), and **12 major
@@ -310,10 +310,17 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   exact inlined current template and forward/reverse grading. Disposable desktop
   Anki QA run `b4f905dfb463` passed: real Anki imported all 2,338 notes/cards,
   discovered the full new deck/note-type tree, and rendered all five sampled cards.
+  The controlled live rollout added exactly 138 notes/cards in seven leaf decks,
+  preserved all 2,200 prior note/card IDs, fields, tags, models, deck assignments,
+  and scheduling, and left no temporary top-level `GeoTrainer` tree. Timestamped
+  snapshots and the local scheduled rollback package are under
+  `backups/live-imports/20260728T153543-0700-before/` and
+  `backups/live-imports/20260728T153543-0700-after/`.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
-  (`make apkg-all`) + `release/screenshots/`. Publishing still gated on Elvis's
-  go-ahead + public-repo flip + the AnkiWeb quota.
+  (`make apkg-all`) + `release/screenshots/`. The 2,338-card update is in the
+  workspace's active AnkiWeb queue for existing shared deck `908455862`; uploading
+  it remains a separate Publisher action subject to the AnkiWeb quota.
 
 ## Relationship to existing projects
 
