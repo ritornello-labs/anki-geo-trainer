@@ -1,0 +1,10 @@
+{
+  "action": "deleteDecks",
+  "version": 6,
+  "params": {
+    "decks": [
+      "GeoTrainer"
+    ],
+    "cardsToo": true
+  }
+}

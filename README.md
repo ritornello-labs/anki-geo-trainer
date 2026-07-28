@@ -14,11 +14,11 @@ offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
 **Release status:** the initial version was submitted to AnkiWeb on 2026-07-15. The
-contextual-Sketch update is installed in the live personal collection, while the
-physical-geography expansion described below is built and tested but not yet installed
-or uploaded to AnkiWeb. GeoTrainer is a
+contextual-Sketch and physical-geography updates are installed in the live personal
+collection. The combined update is queued for the existing AnkiWeb listing but has not
+yet been uploaded. GeoTrainer is a
 lean, **borderless-recall** set redesigned after real-world study.
-**Twenty-five scopes**, 2,338 cards. Region scopes carry four families — **Which**,
+**Twenty-three scopes**, 2,338 cards. Region scopes carry four families — **Which**,
 **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):
 **Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),

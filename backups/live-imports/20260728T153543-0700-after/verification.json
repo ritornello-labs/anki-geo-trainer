@@ -1,0 +1,53 @@
+{
+  "root": "Decks::Geography::GeoTrainer",
+  "before": {
+    "notes": 2200,
+    "cards": 2200
+  },
+  "after": {
+    "notes": 2338,
+    "cards": 2338,
+    "stray_top_level_cards": 0,
+    "stray_top_level_decks": 0
+  },
+  "preservation": {
+    "original_notes_missing": 0,
+    "original_note_identity_or_content_changes": 0,
+    "original_cards_missing": 0,
+    "original_card_identity_deck_or_scheduling_changes": 0,
+    "expected_rendered_template_refreshes": 576
+  },
+  "additions": [
+    {
+      "deck": "Decks::Geography::GeoTrainer::Physical::Deserts::3 Sketch",
+      "cards": 17
+    },
+    {
+      "deck": "Decks::Geography::GeoTrainer::Physical::Lakes::1 Which Lake",
+      "cards": 24
+    },
+    {
+      "deck": "Decks::Geography::GeoTrainer::Physical::Lakes::2 Place",
+      "cards": 24
+    },
+    {
+      "deck": "Decks::Geography::GeoTrainer::Physical::Mountain Ranges::3 Sketch",
+      "cards": 29
+    },
+    {
+      "deck": "Decks::Geography::GeoTrainer::Physical::Ocean Currents::1 Trace",
+      "cards": 12
+    },
+    {
+      "deck": "Decks::Geography::GeoTrainer::Physical::Tectonic Plates::1 Which Tectonic Plate",
+      "cards": 16
+    },
+    {
+      "deck": "Decks::Geography::GeoTrainer::Physical::Tectonic Plates::3 Sketch",
+      "cards": 16
+    }
+  ],
+  "cloud_sync_run": false,
+  "ankiweb_shared_id": 908455862,
+  "ankiweb_queue_status": "prepared-awaiting-upload"
+}
