@@ -5,22 +5,22 @@ Status: the initial version was submitted to AnkiWeb on 2026-07-15. The contextu
 personal collection. The combined update is queued for existing shared deck
 `908455862` but has not yet been uploaded.
 
-Verification status (2026-07-24, combined update): all 23 scopes are covered by
-the cross-engine suite (Chromium + WebKit, 292 passed / 12 intentional skips).
+Verification status (2026-07-31, combined update): all 23 scopes are covered by
+the cross-engine suite (Chromium + WebKit): **294 passed / 12 intentional skips**.
+Every one of the 34 current routes is tested in both directions.
 Region scopes carry Which/Place/Sketch/Draw; rivers are Trace-the-course; mountain
 ranges and deserts carry Place + Sketch; lakes carry Which + Place; tectonic plates
-carry Which + Sketch; ocean currents use direction-aware Trace. The Continents
+carry Which + Place + Sketch; ocean currents use direction-aware Trace. The Continents
 scope carries Sketch + Draw for all six inhabited continent silhouettes. Combined
-`geo-trainer-all.apkg` = 76 leaf decks, 2,338 notes, 44.2 MB. Disposable Desktop
-Anki QA run `b4f905dfb463` imported all 2,338 notes/cards and rendered all five
-sampled cards.
+`geo-trainer-all.apkg` = 77 leaf decks, 2,376 notes, 44.9 MB. A disposable
+Desktop Anki 25.09 run imported all 2,376 notes/cards and rendered its samples.
 
 ## Decisions
 
 1. **Packaging: one shared deck.** Decided (Elvis, 2026-07-06) — ship a single
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
-   (**76 leaf decks, 2,338 notes, 44.2 MB** — well under AnkiWeb's per-deck limit).
+   (**77 leaf decks, 2,376 notes, 44.9 MB** — well under AnkiWeb's per-deck limit).
 2. **Ship everything.** All 23 scopes are import-verified; the single deck includes them
    all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
    problem for a combined deck.)
@@ -35,6 +35,9 @@ sampled cards.
    AnkiConnect on 2026-07-28. It added exactly 138 cards while preserving all 2,200
    prior note/card IDs, content, deck assignments, and scheduling. The active
    AnkiWeb queue now targets the existing listing `908455862`.
+4. The 2,376-card follow-up was installed through AnkiConnect on 2026-07-31. It
+   added 16 tectonic-plate Place cards and 22 current cards, preserved all 2,338
+   original note/card IDs and scheduling, and left no temporary import tree.
 
 ## Ready artifacts
 
@@ -55,7 +58,7 @@ sampled cards.
       process-boundary 1Password credentials.
 - [x] Preview the rendered listing and pass the visible-clickable-GitHub-URL check.
 - [x] Submit the first version; record shared id `908455862` and link it from the README.
-- [x] Install and verify the 2,338-card combined update in the daily collection.
+- [x] Install and verify the 2,376-card combined update in the daily collection.
 - [x] Add the update to the workspace's active AnkiWeb publication queue.
 - [ ] Import the update into the isolated Publisher collection, render the proposed
       updated listing for review, and upload only after explicit approval.

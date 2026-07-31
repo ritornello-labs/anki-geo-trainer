@@ -1091,7 +1091,7 @@ def _build_plates() -> tuple[dict, dict, dict]:
         "world-tectonic-plates",
         "World — Major Tectonic Plates",
         "tectonic plate",
-        ["point", "sketch"],
+        ["point", "place", "sketch"],
         geoms,
     )
     # Keep the natural in-card noun ("Which tectonic plate?") while giving the
@@ -1304,57 +1304,199 @@ def _build_rivers(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
 # These ordered centrelines are a study abstraction based on NOAA's global-current
 # teaching diagrams. They encode the major route and direction a learner should
 # remember; they are intentionally not a live velocity field or navigational data.
+# The mapping key is a stable curriculum id. Keep existing ids unchanged so an
+# APKG re-import updates the original 12 notes in place; display names can be
+# made more precise without changing note/card identity.
 CURRENT_ROUTES = {
-    "Gulf Stream": {
+    # North Atlantic subtropical gyre and connected branches.
+    "gulf-stream": {
+        "name": "Gulf Stream",
         "temperature": "warm",
-        "coordinates": [
-            (-82, 24), (-79, 29), (-75, 35), (-68, 40),
-            (-55, 44), (-40, 48), (-25, 52), (-12, 55),
+        "paths": [[
+            (-82, 24), (-81, 27), (-79, 30), (-76, 34),
+            (-73, 37), (-68, 40), (-59, 42), (-50, 40),
+        ]],
+    },
+    "north-atlantic-current": {
+        "name": "North Atlantic Current",
+        "temperature": "warm",
+        "paths": [[(-50, 40), (-43, 45), (-34, 49), (-24, 53), (-14, 57)]],
+    },
+    "norwegian-current": {
+        "name": "Norwegian Current",
+        "temperature": "warm",
+        "paths": [[(-14, 57), (-8, 61), (-2, 65), (6, 68), (15, 71)]],
+    },
+    "east-greenland-current": {
+        "name": "East Greenland Current",
+        "temperature": "cold",
+        "paths": [[(-18, 78), (-24, 73), (-30, 68), (-37, 63), (-43, 59)]],
+    },
+    "labrador-current": {
+        "name": "Labrador Current",
+        "temperature": "cold",
+        "paths": [[(-58, 62), (-55, 55), (-53, 50), (-49, 45), (-45, 41)]],
+    },
+    "canary-current": {
+        "name": "Canary Current",
+        "temperature": "cold",
+        "paths": [[(-12, 43), (-16, 36), (-19, 29), (-21, 21), (-24, 14)]],
+    },
+    "north-equatorial-current": {
+        "name": "North Equatorial Current — Atlantic",
+        "temperature": "warm",
+        "paths": [[(-18, 15), (-35, 14), (-55, 13), (-75, 12)]],
+    },
+    "equatorial-countercurrent-atlantic": {
+        "name": "Equatorial Countercurrent — Atlantic",
+        "temperature": "warm",
+        "paths": [[(-52, 7), (-40, 7), (-27, 7), (-14, 7), (-2, 6)]],
+    },
+    "south-equatorial-current-atlantic": {
+        "name": "South Equatorial Current — Atlantic",
+        "temperature": "warm",
+        "paths": [[(8, -5), (-5, -6), (-20, -7), (-35, -7), (-48, -5)]],
+    },
+    "north-brazil-current": {
+        "name": "North Brazil Current",
+        "temperature": "warm",
+        "paths": [[(-37, -5), (-42, -2), (-47, 2), (-51, 6), (-56, 9)]],
+    },
+    "guinea-current": {
+        "name": "Guinea Current",
+        "temperature": "warm",
+        "paths": [[(-17, 5), (-10, 5), (-3, 5), (4, 4), (9, 3)]],
+    },
+    "brazil-current": {
+        "name": "Brazil Current",
+        "temperature": "warm",
+        "paths": [[(-35, -8), (-38, -15), (-43, -23), (-48, -31), (-52, -38)]],
+    },
+    "south-atlantic-current": {
+        "name": "South Atlantic Current",
+        "temperature": "cold",
+        "paths": [[(-52, -39), (-36, -41), (-18, -42), (0, -41), (14, -39)]],
+    },
+    "benguela-current": {
+        "name": "Benguela Current",
+        "temperature": "cold",
+        "paths": [[(15, -37), (12, -30), (10, -23), (10, -15), (8, -7)]],
+    },
+    "falkland-current": {
+        "name": "Falkland (Malvinas) Current",
+        "temperature": "cold",
+        "paths": [[(-65, -54), (-62, -49), (-59, -44), (-56, -40), (-53, -37)]],
+    },
+
+    # North and South Pacific gyres plus their subpolar/equatorial branches.
+    "kuroshio-current": {
+        "name": "Kuroshio Current",
+        "temperature": "warm",
+        "paths": [[(122, 18), (126, 23), (132, 28), (138, 33), (145, 37), (155, 40)]],
+    },
+    "oyashio-current": {
+        "name": "Oyashio Current",
+        "temperature": "cold",
+        "paths": [[(166, 54), (158, 50), (151, 46), (146, 42), (142, 37)]],
+    },
+    "north-pacific-current": {
+        "name": "North Pacific Current",
+        "temperature": "warm",
+        "paths": [
+            [(155, 40), (167, 41), (178, 42)],
+            [(-178, 42), (-165, 43), (-151, 44), (-138, 45), (-128, 46)],
         ],
     },
-    "Labrador Current": {
-        "temperature": "cold",
-        "coordinates": [(-58, 62), (-55, 55), (-53, 50), (-49, 45), (-45, 41)],
-    },
-    "Canary Current": {
-        "temperature": "cold",
-        "coordinates": [(-15, 40), (-18, 33), (-20, 25), (-22, 18), (-25, 12)],
-    },
-    "Brazil Current": {
+    "alaska-current": {
+        "name": "Alaska Current",
         "temperature": "warm",
-        "coordinates": [(-35, -8), (-38, -15), (-43, -23), (-48, -31), (-52, -38)],
+        "paths": [[(-132, 47), (-137, 52), (-145, 56), (-154, 59), (-164, 57)]],
     },
-    "Benguela Current": {
+    "california-current": {
+        "name": "California Current",
         "temperature": "cold",
-        "coordinates": [(15, -37), (12, -30), (10, -23), (10, -15), (8, -7)],
+        "paths": [[(-135, 44), (-130, 38), (-125, 32), (-120, 25)]],
     },
-    "Kuroshio Current": {
+    "north-equatorial-current-pacific": {
+        "name": "North Equatorial Current — Pacific",
         "temperature": "warm",
-        "coordinates": [(122, 18), (126, 23), (132, 28), (138, 33), (145, 37), (155, 40)],
+        "paths": [[(-110, 13), (-128, 14), (-147, 15), (-165, 16), (-178, 17)]],
     },
-    "California Current": {
+    "equatorial-countercurrent-pacific": {
+        "name": "Equatorial Countercurrent — Pacific",
+        "temperature": "warm",
+        "paths": [[(-165, 7), (-145, 7), (-125, 7), (-105, 7), (-87, 7)]],
+    },
+    "south-equatorial-current-pacific": {
+        "name": "South Equatorial Current — Pacific",
+        "temperature": "warm",
+        "paths": [[(-82, -8), (-103, -9), (-126, -10), (-151, -11), (-178, -12)]],
+    },
+    "east-australian-current": {
+        "name": "East Australian Current",
+        "temperature": "warm",
+        "paths": [[(153, -15), (154, -23), (153, -30), (149, -36), (144, -41)]],
+    },
+    "south-pacific-current": {
+        "name": "South Pacific Current",
         "temperature": "cold",
-        "coordinates": [(-135, 44), (-130, 38), (-125, 32), (-120, 25)],
+        "paths": [
+            [(145, -42), (161, -43), (178, -44)],
+            [(-178, -44), (-159, -44), (-138, -45), (-116, -45), (-92, -44)],
+        ],
     },
-    "Humboldt Current": {
+    "humboldt-current": {
+        "name": "Humboldt Current",
         "temperature": "cold",
-        "coordinates": [(-77, -45), (-75, -35), (-73, -25), (-72, -15), (-77, -5)],
+        "paths": [[(-77, -45), (-75, -35), (-73, -25), (-72, -15), (-77, -5)]],
     },
-    "East Australian Current": {
+
+    # Indian Ocean gyre and the major Indonesian/Australian throughflow branch.
+    "south-equatorial-current-indian": {
+        "name": "South Equatorial Current — Indian Ocean",
         "temperature": "warm",
-        "coordinates": [(153, -15), (154, -23), (153, -30), (149, -36), (144, -41)],
+        "paths": [[(104, -12), (91, -12), (77, -12), (63, -13), (49, -15)]],
     },
-    "West Australian Current": {
+    "mozambique-current": {
+        "name": "Mozambique Current",
+        "temperature": "warm",
+        "paths": [[(42, -11), (41, -17), (40, -23), (38, -28), (35, -32)]],
+    },
+    "agulhas-current": {
+        "name": "Agulhas Current",
+        "temperature": "warm",
+        "paths": [[(37, -25), (33, -31), (28, -36), (21, -39), (28, -42)]],
+    },
+    "south-indian-current": {
+        "name": "South Indian Current",
         "temperature": "cold",
-        "coordinates": [(108, -35), (110, -28), (112, -20), (115, -13)],
+        "paths": [[(28, -41), (47, -41), (67, -40), (87, -39), (106, -39)]],
     },
-    "Agulhas Current": {
-        "temperature": "warm",
-        "coordinates": [(47, -16), (43, -22), (38, -28), (32, -34), (27, -39)],
+    "west-australian-current": {
+        "name": "West Australian Current",
+        "temperature": "cold",
+        "paths": [[(108, -35), (109, -29), (110, -23), (112, -17), (115, -13)]],
     },
-    "North Equatorial Current": {
+    "leeuwin-current": {
+        "name": "Leeuwin Current",
         "temperature": "warm",
-        "coordinates": [(-18, 15), (-35, 14), (-55, 13), (-75, 12)],
+        "paths": [[(116, -12), (114, -19), (113, -26), (114, -33), (120, -38)]],
+    },
+    "indonesian-throughflow": {
+        "name": "Indonesian Throughflow",
+        "temperature": "warm",
+        "paths": [[(125, 3), (122, -1), (120, -5), (117, -9), (114, -12)]],
+    },
+
+    # The one current joining the Atlantic, Indian, and Pacific basins.
+    "antarctic-circumpolar-current": {
+        "name": "Antarctic Circumpolar Current",
+        "temperature": "cold",
+        "paths": [
+            [(20, -51), (52, -52), (85, -53), (118, -53), (150, -54), (178, -55)],
+            [(-178, -55), (-150, -56), (-120, -57), (-90, -57), (-65, -56)],
+            [(-65, -56), (-43, -54), (-20, -52), (2, -51), (20, -51)],
+        ],
     },
 }
 
@@ -1373,13 +1515,16 @@ def _build_currents() -> tuple[dict, dict, dict]:
         ]
 
     currents = {}
-    for name, route in CURRENT_ROUTES.items():
-        currents[_slug(name)] = {
-            "name": name,
+    for rid, route in CURRENT_ROUTES.items():
+        currents[rid] = {
+            "name": route["name"],
             "temperature": route["temperature"],
             # A route is ordered from origin toward destination. The engine uses
             # those endpoints to detect a reversed (otherwise accurate) trace.
-            "paths": [[project(lon, lat) for lon, lat in route["coordinates"]]],
+            "paths": [
+                [project(lon, lat) for lon, lat in coordinates]
+                for coordinates in route["paths"]
+            ],
         }
 
     land = unary_union([shape(f["geometry"]) for f in load_features("land110")])

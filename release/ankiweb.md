@@ -46,7 +46,7 @@ Continents (countries): **Europe, Africa, Asia, South America, North America,
 Oceania**. Country subdivisions: **US states, Brazil, India, Russia, China, Canada,
 Australia, Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and
 **deserts** (place or sketch them over the continents), **major lakes** (identify
-and place), **tectonic plates** (identify and sketch), **major rivers** (trace the
+and place), **tectonic plates** (identify, place, and sketch), **major rivers** (trace the
 course), and **ocean currents** (trace route + direction). And a **Continents**
 deck: first sketch each one on a blank world map, then
 draw its silhouette from memory without context.

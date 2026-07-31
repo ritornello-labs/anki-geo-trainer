@@ -28,11 +28,18 @@ source attribution and ODbL terms. GeoTrainer's generator code remains MIT-licen
 
 ## Ocean currents
 
-The 12 ordered current centrelines are deliberately schematic study routes drawn
-from NOAA educational descriptions and maps, including:
+The 34 ordered current centrelines are deliberately schematic study routes. The
+curriculum closes the four named limbs of each of the five major subtropical
+gyres, then adds major subpolar, equatorial, regional-throughflow, and
+circumpolar branches. Route names and directions were checked against:
 
 - [NOAA Ocean Service: Boundary Currents](https://oceanservice.noaa.gov/education/tutorial_currents/04currents3.html)
+- [NOAA Tides & Currents glossary](https://tidesandcurrents.noaa.gov/glossary.html)
+- [NOAA/AOML: Antarctic Circumpolar Current](https://www.aoml.noaa.gov/phod/altimetry/cvar/acc/index.php)
+- [Australian Bureau of Meteorology: Ocean currents](https://www.bom.gov.au/resources/learn-and-explore/marine-knowledge-centre/ocean-currents)
 
 They encode a memorable route and direction, not an instantaneous ocean-velocity
-field and not navigational data. NOAA material produced by the United States
-government is public domain.
+field and not navigational data. Season-reversing Somali/monsoon currents and
+deep thermohaline circulation are intentionally deferred because they require
+season-specific or depth-aware prompts. NOAA material produced by the United
+States government is public domain.

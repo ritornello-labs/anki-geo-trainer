@@ -35,6 +35,8 @@ project_name = "GeoTrainer"
 seed_apkgs = [
     "dist/geo-trainer-us-states.apkg",
     "dist/geo-trainer-europe.apkg",
+    "dist/geo-trainer-north-america.apkg",
+    "dist/geo-trainer-continents.apkg",
     "dist/geo-trainer-south-america.apkg",
     "dist/geo-trainer-africa.apkg",
     "dist/geo-trainer-asia.apkg",
