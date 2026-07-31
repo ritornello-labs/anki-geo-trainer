@@ -141,6 +141,29 @@
     var svg = el("svg", { viewBox: "0 0 " + v.w + " " + v.h, class: "gt-map", role: "img" });
     svg.appendChild(el("rect", { x: 0, y: 0, width: v.w, height: v.h, class: "gt-ocean" }));
 
+    // Optional instructional scaffold for latitude belts and vertical
+    // cross-sections. These guides are context, never the answer geometry.
+    if (bundle.guideLines && bundle.guideLines.length) {
+      var guides = el("g", { class: "gt-guides" });
+      for (var gi = 0; gi < bundle.guideLines.length; gi++) {
+        var gl = bundle.guideLines[gi];
+        guides.appendChild(el("line", {
+          x1: gl[0], y1: gl[1], x2: gl[2], y2: gl[3], class: "gt-guide",
+        }));
+      }
+      svg.appendChild(guides);
+    }
+    if (bundle.guideLabels && bundle.guideLabels.length) {
+      var labels = el("g", { class: "gt-guide-labels" });
+      for (var gli = 0; gli < bundle.guideLabels.length; gli++) {
+        var label = bundle.guideLabels[gli];
+        var text = el("text", { x: label.x, y: label.y, class: "gt-guide-label" });
+        text.textContent = label.text;
+        labels.appendChild(text);
+      }
+      svg.appendChild(labels);
+    }
+
     // Inset frame boxes behind the land.
     for (var i = 0; i < bundle.frames.length; i++) {
       var f = bundle.frames[i];
@@ -1601,51 +1624,146 @@
     return { km: km, quality: quality, reversed: reversed };
   }
 
-  function currentFront(root, bundle, target) {
+  function closestPointIndex(point, route) {
+    var best = 0, dist = Infinity;
+    for (var i = 0; i < route.length; i++) {
+      var d = endpointDistance(point, route[i]);
+      if (d < dist) { dist = d; best = i; }
+    }
+    return best;
+  }
+
+  // A circulation cell is a closed loop, so endpoints cannot distinguish
+  // forward from reverse. Project the learner's stroke onto a dense ordered
+  // loop and accumulate wrapped index movement instead.
+  function cellScore(strokes, paths) {
+    var drawn = [];
+    for (var i = 0; i < strokes.length; i++) {
+      for (var j = 0; j < strokes[i].length; j++) drawn.push(strokes[i][j]);
+    }
+    if (drawn.length < 8) return { offset: null, quality: 0, empty: true, reversed: false };
+
+    var target = riverTargetPoints(paths);
+    var coverage = nearestDists(target, drawn);
+    var stray = nearestDists(drawn, target);
+    var offset = 0.5 * percentileOf(coverage, 0.85) + 0.3 * meanOf(coverage) + 0.2 * meanOf(stray);
+
+    var route = ringPerimeterPoints([longestPath(paths)], 220);
+    var trace = longestPath(strokes);
+    var total = 0, previous = null;
+    for (var k = 0; k < trace.length; k += Math.max(1, Math.floor(trace.length / 80))) {
+      var idx = closestPointIndex(trace[k], route);
+      if (previous !== null) {
+        var delta = idx - previous;
+        if (delta > route.length / 2) delta -= route.length;
+        if (delta < -route.length / 2) delta += route.length;
+        total += delta;
+      }
+      previous = idx;
+    }
+    var reversed = total < 0;
+    var quality = reversed ? 0 : offset < 26 ? 2 : offset < 58 ? 1 : 0;
+    return { offset: Math.round(offset), quality: quality, reversed: reversed };
+  }
+
+  function traceSpec(mode) {
+    var specs = {
+      current: {
+        chip: "Trace current",
+        hint: "Trace from origin to destination — your arrow shows direction",
+        good: "Good route and direction",
+        rough: "Rough route, correct direction",
+        off: "Off route",
+      },
+      seasonalcurrent: {
+        chip: "Trace seasonal current",
+        hint: "Trace the route for the named season — your arrow shows direction",
+        good: "Good seasonal route and direction",
+        rough: "Rough seasonal route, correct direction",
+        off: "Off seasonal route",
+      },
+      wind: {
+        chip: "Trace prevailing wind",
+        hint: "Trace the generalized surface flow — your arrow shows direction",
+        good: "Good wind belt and direction",
+        rough: "Rough wind belt, correct direction",
+        off: "Off wind belt",
+      },
+      seasonalwind: {
+        chip: "Trace seasonal wind",
+        hint: "Trace the flow for the named season — your arrow shows direction",
+        good: "Good seasonal wind and direction",
+        rough: "Rough seasonal wind, correct direction",
+        off: "Off seasonal wind route",
+      },
+      jet: {
+        chip: "Trace jet stream",
+        hint: "Trace the broad west-to-east corridor — a schematic meander is enough",
+        good: "Good jet corridor and direction",
+        rough: "Rough jet corridor, correct direction",
+        off: "Off jet corridor",
+      },
+      cell: {
+        chip: "Trace circulation cell",
+        hint: "Start at the dot and trace the overturning loop in the direction air moves",
+        good: "Good circulation loop and direction",
+        rough: "Rough circulation loop, correct direction",
+        off: "Off circulation loop",
+      },
+    };
+    return specs[mode] || specs.current;
+  }
+
+  function directedTraceFront(root, bundle, target, mode) {
     var data = riverData(bundle.scope, target);
     var name = data ? data.name : target;
-    root.appendChild(chip("Trace current"));
+    var spec = traceSpec(mode);
+    root.appendChild(chip(spec.chip));
     root.appendChild(prompt(name));
+    if (data && data.season) {
+      root.appendChild(bar(data.season, "gt-season"));
+    }
 
     var built = buildSvg(bundle);
     var svg = built.svg;
-    var markerId = "gt-user-current-arrow";
+    var markerId = "gt-user-" + mode + "-arrow";
     addArrowMarker(svg, markerId, "gt-current-user-arrow");
+    if (mode === "cell" && data && data.paths.length && data.paths[0].length) {
+      svg.appendChild(el("circle", {
+        cx: data.paths[0][0][0], cy: data.paths[0][0][1], r: 8, class: "gt-flow-start",
+      }));
+    }
     var panzoom = attachPanZoom(svg);
     var surface = attachStrokeCapture(
-      svg, "current", bundle.scope, target, "gt-current-user", panzoom.isPanMode, markerId
+      svg, mode, bundle.scope, target, "gt-current-user", panzoom.isPanMode, markerId
     );
     drawSurface(root, svg, panzoom);
     drawToolRow(root, surface);
-    root.appendChild(bar("Trace from origin to destination — your arrow shows direction", "gt-hint"));
+    root.appendChild(bar(spec.hint, "gt-hint"));
   }
 
-  function currentBack(root, bundle, target) {
+  function directedTraceBack(root, bundle, target, mode) {
     var data = riverData(bundle.scope, target);
     var name = data ? data.name : target;
-    var state = loadState("current", bundle.scope, target);
+    var state = loadState(mode, bundle.scope, target);
     var strokes = (state && state.strokes) || [];
+    var spec = traceSpec(mode);
 
-    root.appendChild(chip("Trace current"));
+    root.appendChild(chip(spec.chip));
     root.appendChild(prompt(name));
+    if (data && data.season) {
+      root.appendChild(bar(data.season, "gt-season"));
+    }
     var built = buildSvg(bundle);
     var svg = built.svg;
-    var targetMarker = "gt-target-current-arrow";
-    var userMarker = "gt-user-current-arrow";
-    addArrowMarker(
-      svg,
-      targetMarker,
-      "gt-current-arrow gt-current-arrow-" + ((data && data.temperature) || "neutral")
-    );
+    var targetMarker = "gt-target-" + mode + "-arrow";
+    var userMarker = "gt-user-" + mode + "-arrow";
+    var variant = (data && (data.temperature || data.style)) || "neutral";
+    addArrowMarker(svg, targetMarker, "gt-current-arrow gt-current-arrow-" + variant);
     addArrowMarker(svg, userMarker, "gt-current-user-arrow");
     if (data) {
       riverPaths(svg, data.paths, "gt-current-corridor");
-      directedPaths(
-        svg,
-        data.paths,
-        "gt-current gt-current-" + (data.temperature || "neutral"),
-        targetMarker
-      );
+      directedPaths(svg, data.paths, "gt-current gt-current-" + variant, targetMarker);
     }
     for (var k = 0; k < strokes.length; k++) {
       if (strokes[k].length >= 2) {
@@ -1659,7 +1777,10 @@
     root.appendChild(svg);
 
     var frame = frameById(bundle, "main");
-    var score = data ? currentScore(strokes, data.paths, frame ? frame.kmPerUnit : 1)
+    var score = data
+      ? (mode === "cell"
+        ? cellScore(strokes, data.paths)
+        : currentScore(strokes, data.paths, frame ? frame.kmPerUnit : 1))
       : { quality: 0, empty: true, reversed: false };
     if (score.empty) {
       root.appendChild(bar("Nothing traced — the directed route is highlighted", "gt-miss"));
@@ -1674,14 +1795,145 @@
       root.appendChild(bar(suggestFor(0), "gt-suggest"));
       return;
     }
+    var distance = mode === "cell"
+      ? " (~" + score.offset + " px off)"
+      : " (~" + score.km + " km off)";
     var msg =
-      score.quality === 2 ? "Good route and direction (~" + score.km + " km off)"
-      : score.quality === 1 ? "Rough route, correct direction (~" + score.km + " km off)"
-      : "Off route (~" + score.km + " km) — follow the highlighted arrow";
+      score.quality === 2 ? spec.good + distance
+      : score.quality === 1 ? spec.rough + distance
+      : spec.off + distance + " — follow the highlighted arrow";
     root.appendChild(bar(
       msg,
       score.quality === 2 ? "gt-ok" : score.quality === 1 ? "gt-close" : "gt-miss"
     ));
+    root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
+  }
+
+  function currentFront(root, bundle, target) {
+    directedTraceFront(root, bundle, target, "current");
+  }
+
+  function currentBack(root, bundle, target) {
+    directedTraceBack(root, bundle, target, "current");
+  }
+
+  function seasonalCurrentFront(root, bundle, target) { directedTraceFront(root, bundle, target, "seasonalcurrent"); }
+  function seasonalCurrentBack(root, bundle, target) { directedTraceBack(root, bundle, target, "seasonalcurrent"); }
+  function windFront(root, bundle, target) { directedTraceFront(root, bundle, target, "wind"); }
+  function windBack(root, bundle, target) { directedTraceBack(root, bundle, target, "wind"); }
+  function seasonalWindFront(root, bundle, target) { directedTraceFront(root, bundle, target, "seasonalwind"); }
+  function seasonalWindBack(root, bundle, target) { directedTraceBack(root, bundle, target, "seasonalwind"); }
+  function jetFront(root, bundle, target) { directedTraceFront(root, bundle, target, "jet"); }
+  function jetBack(root, bundle, target) { directedTraceBack(root, bundle, target, "jet"); }
+  function cellFront(root, bundle, target) { directedTraceFront(root, bundle, target, "cell"); }
+  function cellBack(root, bundle, target) { directedTraceBack(root, bundle, target, "cell"); }
+
+  function beltScore(taps, bands) {
+    if (!taps || !bands || taps.length !== bands.length) {
+      return { quality: 0, empty: !taps || !taps.length, maxOffset: null };
+    }
+    var unused = bands.slice();
+    var maxOffset = 0;
+    for (var i = 0; i < taps.length; i++) {
+      var y = taps[i].y;
+      var best = -1, bestOffset = Infinity;
+      for (var j = 0; j < unused.length; j++) {
+        var rect = unused[j];
+        var top = rect[1], bottom = rect[1] + rect[3];
+        var offset = y < top ? top - y : y > bottom ? y - bottom : 0;
+        if (offset < bestOffset) { bestOffset = offset; best = j; }
+      }
+      maxOffset = Math.max(maxOffset, bestOffset);
+      unused.splice(best, 1);
+    }
+    return {
+      maxOffset: Math.round(maxOffset),
+      quality: maxOffset === 0 ? 2 : maxOffset < 34 ? 1 : 0,
+      empty: false,
+    };
+  }
+
+  function beltFront(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    var bands = (data && data.bands) || [];
+    root.appendChild(chip("Place pressure belt"));
+    root.appendChild(prompt(data ? data.name : target));
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    var taps = [];
+    var markers = [];
+    root.appendChild(svg);
+    var hint = bar("Tap each latitude band where it belongs", "gt-hint");
+    root.appendChild(hint);
+    var row = document.createElement("div");
+    row.className = "gt-btnrow";
+    var clear = button("Clear");
+    row.appendChild(clear);
+    root.appendChild(row);
+    saveState("belt", bundle.scope, target, { taps: [] });
+
+    function refresh() {
+      hint.textContent = "Placed " + taps.length + " / " + bands.length + " bands · flip to check";
+      hint.className = "gt-bar gt-hint" + (taps.length === bands.length ? " gt-placed" : "");
+      saveState("belt", bundle.scope, target, { taps: taps });
+    }
+    function place(clientX, clientY) {
+      if (taps.length >= bands.length) return;
+      var loc = svgPoint(svg, clientX, clientY);
+      if (!loc) return;
+      taps.push({ x: loc.x, y: loc.y });
+      var marker = el("circle", { cx: loc.x, cy: loc.y, r: 9, class: "gt-attempt" });
+      markers.push(marker);
+      svg.appendChild(marker);
+      refresh();
+    }
+    svg.addEventListener("click", function (ev) { place(ev.clientX, ev.clientY); });
+    svg.addEventListener("touchend", function (ev) {
+      if (ev.changedTouches && ev.changedTouches.length) {
+        place(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY);
+        ev.preventDefault();
+      }
+    }, { passive: false });
+    wireTap(clear, function () {
+      taps = [];
+      for (var i = 0; i < markers.length; i++) {
+        if (markers[i].parentNode) markers[i].parentNode.removeChild(markers[i]);
+      }
+      markers = [];
+      refresh();
+    });
+  }
+
+  function beltBack(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    var bands = (data && data.bands) || [];
+    var state = loadState("belt", bundle.scope, target);
+    var taps = (state && state.taps) || [];
+    root.appendChild(chip("Place pressure belt"));
+    root.appendChild(prompt(data ? data.name : target));
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    for (var i = 0; i < bands.length; i++) {
+      svg.appendChild(el("rect", {
+        x: bands[i][0], y: bands[i][1], width: bands[i][2], height: bands[i][3],
+        class: "gt-belt-target",
+      }));
+    }
+    for (var j = 0; j < taps.length; j++) {
+      svg.appendChild(el("circle", {
+        cx: taps[j].x, cy: taps[j].y, r: 9, class: "gt-attempt",
+      }));
+    }
+    root.appendChild(svg);
+    var score = beltScore(taps, bands);
+    var msg = score.empty
+      ? "No belts placed — the answer bands are highlighted"
+      : score.quality === 2
+        ? "All pressure belts placed correctly"
+        : score.quality === 1
+          ? "Close to the correct latitude bands"
+          : "One or more belts are at the wrong latitude";
+    root.appendChild(bar(msg, score.quality === 2 ? "gt-ok" : score.quality === 1 ? "gt-close" : "gt-miss"));
     root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
   }
 
@@ -1701,6 +1953,12 @@
     capital: { front: capitalFront, back: capitalBack },
     river: { front: riverFront, back: riverBack, needsShape: true },
     current: { front: currentFront, back: currentBack, needsShape: true },
+    seasonalcurrent: { front: seasonalCurrentFront, back: seasonalCurrentBack, needsShape: true },
+    wind: { front: windFront, back: windBack, needsShape: true },
+    seasonalwind: { front: seasonalWindFront, back: seasonalWindBack, needsShape: true },
+    jet: { front: jetFront, back: jetBack, needsShape: true },
+    cell: { front: cellFront, back: cellBack, needsShape: true },
+    belt: { front: beltFront, back: beltBack, needsShape: true },
   };
 
   function mount(root) {
@@ -1748,6 +2006,8 @@
     _sketchScore: sketchScore,
     _riverScore: riverScore,
     _currentScore: currentScore,
+    _cellScore: cellScore,
+    _beltScore: beltScore,
   };
 
   if (document.readyState === "loading") {

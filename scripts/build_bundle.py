@@ -1553,6 +1553,261 @@ def _build_currents() -> tuple[dict, dict, dict]:
     return bundle, currents, {}
 
 
+# ======================== atmospheric + seasonal flow curricula ========================
+# These are deliberately idealized teaching corridors, not forecasts. Atmospheric
+# cells use a latitude/altitude cross-section; winds and jets use a world map with
+# latitude guides; the monsoon scopes name the season directly on every prompt.
+
+
+def _build_line_scope(
+    *,
+    scope: str,
+    title: str,
+    noun: str,
+    kind: str,
+    family: str,
+    routes: dict,
+    box_t: tuple[float, float, float, float] = (-180.0, -70.0, 180.0, 80.0),
+    width: float = 1400.0,
+    guide_lats: tuple[int, ...] = (-60, -30, 0, 30, 60),
+) -> tuple[dict, dict, dict]:
+    scale = width / (box_t[2] - box_t[0])
+    view_w = width + 2 * PAD
+    view_h = (box_t[3] - box_t[1]) * scale + 2 * PAD
+
+    def project(lon, lat):
+        return [
+            round((lon - box_t[0]) * scale + PAD, 1),
+            round((box_t[3] - lat) * scale + PAD, 1),
+        ]
+
+    shapes = {}
+    for rid, route in routes.items():
+        shapes[rid] = {
+            key: value
+            for key, value in route.items()
+            if key not in {"paths"}
+        }
+        shapes[rid]["paths"] = [
+            [project(lon, lat) for lon, lat in coordinates]
+            for coordinates in route["paths"]
+        ]
+
+    land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
+    context = rings_of(
+        project_geom(land.intersection(box(*box_t)), lambda lon, lat: project(lon, lat))
+        .simplify(0.8, preserve_topology=True)
+    )
+    guide_lines = []
+    guide_labels = []
+    for lat in guide_lats:
+        left = project(box_t[0], lat)
+        right = project(box_t[2], lat)
+        guide_lines.append([left[0], left[1], right[0], right[1]])
+        guide_labels.append({"x": left[0] + 8, "y": left[1] - 6, "text": f"{abs(lat)}°{'S' if lat < 0 else 'N' if lat > 0 else ''}"})
+
+    bundle = {
+        "scope": scope,
+        "title": title,
+        "noun": noun,
+        "kind": kind,
+        "families": [family],
+        "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
+        "frames": [
+            {
+                "id": "main",
+                "rect": [0.0, 0.0, round(view_w, 1), round(view_h, 1)],
+                "kmPerUnit": round(EARTH_KM_PER_DEG / scale, 3),
+                "label": "",
+            }
+        ],
+        "context": context,
+        "guideLines": guide_lines,
+        "guideLabels": guide_labels,
+        "regions": [],
+    }
+    return bundle, shapes, {}
+
+
+ATMOSPHERIC_CELLS = {
+    "hadley-north": {
+        "name": "Hadley cell — Northern Hemisphere",
+        "style": "cell",
+        "paths": [[(30, 0), (15, 0), (0, 0), (0, 12), (0, 16), (15, 16), (30, 14), (30, 0)]],
+    },
+    "ferrel-north": {
+        "name": "Ferrel cell — Northern Hemisphere",
+        "style": "cell",
+        "paths": [[(30, 0), (45, 0), (60, 0), (60, 10), (60, 13), (45, 15), (30, 14), (30, 0)]],
+    },
+    "polar-north": {
+        "name": "Polar cell — Northern Hemisphere",
+        "style": "cell",
+        "paths": [[(90, 0), (75, 0), (60, 0), (60, 8), (60, 11), (75, 9), (90, 7), (90, 0)]],
+    },
+    "hadley-south": {
+        "name": "Hadley cell — Southern Hemisphere",
+        "style": "cell",
+        "paths": [[(-30, 0), (-15, 0), (0, 0), (0, 12), (0, 16), (-15, 16), (-30, 14), (-30, 0)]],
+    },
+    "ferrel-south": {
+        "name": "Ferrel cell — Southern Hemisphere",
+        "style": "cell",
+        "paths": [[(-30, 0), (-45, 0), (-60, 0), (-60, 10), (-60, 13), (-45, 15), (-30, 14), (-30, 0)]],
+    },
+    "polar-south": {
+        "name": "Polar cell — Southern Hemisphere",
+        "style": "cell",
+        "paths": [[(-90, 0), (-75, 0), (-60, 0), (-60, 8), (-60, 11), (-75, 9), (-90, 7), (-90, 0)]],
+    },
+}
+
+
+def _build_atmospheric_cells() -> tuple[dict, dict, dict]:
+    width, height = 1000.0, 520.0
+    left, right, top, surface = 70.0, 950.0, 55.0, 450.0
+
+    def project(lat, altitude):
+        x = left + ((lat + 90.0) / 180.0) * (right - left)
+        y = surface - (altitude / 18.0) * (surface - top)
+        return [round(x, 1), round(y, 1)]
+
+    shapes = {}
+    for rid, route in ATMOSPHERIC_CELLS.items():
+        shapes[rid] = {
+            "name": route["name"],
+            "style": route["style"],
+            "paths": [[project(lat, altitude) for lat, altitude in route["paths"][0]]],
+        }
+
+    guide_lines = [[left, surface, right, surface], [left, top, right, top]]
+    guide_labels = [
+        {"x": left, "y": 28, "text": "latitude–altitude cross-section"},
+        {"x": 8, "y": surface + 5, "text": "surface"},
+        {"x": 8, "y": top + 5, "text": "upper troposphere"},
+    ]
+    for lat in (-90, -60, -30, 0, 30, 60, 90):
+        x, _ = project(lat, 0)
+        guide_lines.append([x, top, x, surface])
+        label = "0°" if lat == 0 else f"{abs(lat)}°{'S' if lat < 0 else 'N'}"
+        guide_labels.append({"x": x - 14, "y": surface + 27, "text": label})
+
+    bundle = {
+        "scope": "atmospheric-cells",
+        "title": "Atmospheric Circulation — Cells",
+        "noun": "atmospheric circulation cell",
+        "kind": "atmospheric-cells",
+        "families": ["cell"],
+        "view": {"w": width, "h": height},
+        "frames": [{"id": "main", "rect": [0.0, 0.0, width, height], "kmPerUnit": 1.0, "label": ""}],
+        "context": [],
+        "guideLines": guide_lines,
+        "guideLabels": guide_labels,
+        "regions": [],
+    }
+    return bundle, shapes, {}
+
+
+def _build_pressure_belts() -> tuple[dict, dict, dict]:
+    width = 1400.0
+    scale = width / 360.0
+    view_w = width + 2 * PAD
+    view_h = 180.0 * scale + 2 * PAD
+
+    def project(lon, lat):
+        return [
+            round((lon + 180.0) * scale + PAD, 1),
+            round((90.0 - lat) * scale + PAD, 1),
+        ]
+
+    targets = {
+        "equatorial-low": ("ITCZ / equatorial low", [(-5, 5)]),
+        "subtropical-highs": ("Subtropical highs", [(25, 35), (-35, -25)]),
+        "subpolar-lows": ("Subpolar lows / polar fronts", [(55, 65), (-65, -55)]),
+        "polar-highs": ("Polar highs", [(80, 90), (-90, -80)]),
+    }
+    belts = {}
+    for rid, (name, latitude_bands) in targets.items():
+        rects = []
+        for south, north in latitude_bands:
+            y_north = project(0, north)[1]
+            y_south = project(0, south)[1]
+            rects.append([PAD, y_north, width, y_south - y_north])
+        belts[rid] = {"name": name, "bands": rects}
+
+    land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
+    context = rings_of(project_geom(land, lambda lon, lat: project(lon, lat)).simplify(0.8, preserve_topology=True))
+    guide_lines, guide_labels = [], []
+    for lat in (-90, -60, -30, 0, 30, 60, 90):
+        p = project(-180, lat)
+        guide_lines.append([PAD, p[1], PAD + width, p[1]])
+        label = "0°" if lat == 0 else f"{abs(lat)}°{'S' if lat < 0 else 'N'}"
+        guide_labels.append({"x": PAD + 8, "y": p[1] - 6, "text": label})
+
+    bundle = {
+        "scope": "atmospheric-pressure-belts",
+        "title": "Atmospheric Circulation — Pressure Belts",
+        "noun": "pressure belt",
+        "kind": "atmospheric-belts",
+        "families": ["belt"],
+        "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
+        "frames": [{"id": "main", "rect": [0.0, 0.0, round(view_w, 1), round(view_h, 1)], "kmPerUnit": round(EARTH_KM_PER_DEG / scale, 3), "label": ""}],
+        "context": context,
+        "guideLines": guide_lines,
+        "guideLabels": guide_labels,
+        "regions": [],
+    }
+    return bundle, belts, {}
+
+
+PREVAILING_WINDS = {
+    "northeast-trades": {"name": "Northeast trade winds", "style": "wind", "paths": [[(-15, 27), (-28, 21), (-42, 14), (-58, 7)]]},
+    "southeast-trades": {"name": "Southeast trade winds", "style": "wind", "paths": [[(-15, -27), (-28, -21), (-42, -14), (-58, -7)]]},
+    "northern-westerlies": {"name": "Northern Hemisphere westerlies", "style": "wind", "paths": [[(-70, 35), (-50, 41), (-30, 48), (-8, 55)]]},
+    "southern-westerlies": {"name": "Southern Hemisphere westerlies", "style": "wind", "paths": [[(20, -35), (45, -41), (75, -47), (110, -54)]]},
+    "northern-polar-easterlies": {"name": "Northern polar easterlies", "style": "wind", "paths": [[(-10, 77), (-27, 72), (-45, 66), (-64, 60)]]},
+    "southern-polar-easterlies": {"name": "Southern polar easterlies", "style": "wind", "paths": [[(105, -77), (88, -72), (68, -66), (47, -60)]]},
+}
+
+
+JET_STREAMS = {
+    "subtropical-jet-north": {"name": "Northern subtropical jet", "style": "jet", "paths": [[(-160, 30), (-110, 27), (-60, 32), (-10, 29), (45, 33), (100, 28), (160, 31)]]},
+    "polar-front-jet-north": {"name": "Northern polar-front jet", "style": "jet", "paths": [[(-160, 58), (-110, 52), (-60, 62), (-10, 55), (45, 63), (100, 53), (160, 59)]]},
+    "subtropical-jet-south": {"name": "Southern subtropical jet", "style": "jet", "paths": [[(-160, -30), (-110, -27), (-60, -32), (-10, -29), (45, -33), (100, -28), (160, -31)]]},
+    "polar-front-jet-south": {"name": "Southern polar-front jet", "style": "jet", "paths": [[(-160, -58), (-110, -52), (-60, -62), (-10, -55), (45, -63), (100, -53), (160, -59)]]},
+}
+
+
+MONSOON_WINDS = {
+    "south-asia-summer": {"name": "South Asian monsoon winds — boreal summer", "style": "seasonal", "season": "June–September", "paths": [[(45, -8), (57, -2), (68, 5), (77, 13), (83, 22)]]},
+    "south-asia-winter": {"name": "South Asian monsoon winds — boreal winter", "style": "seasonal", "season": "December–February", "paths": [[(90, 26), (83, 20), (76, 13), (67, 7), (55, 1)]]},
+}
+
+
+SEASONAL_CURRENTS = {
+    "somali-current-summer": {"name": "Somali Current — boreal summer", "style": "seasonal", "season": "June–September", "paths": [[(43, -3), (46, 2), (49, 7), (51, 12), (52, 16)]]},
+    "somali-current-winter": {"name": "Somali Current — boreal winter", "style": "seasonal", "season": "January–March", "paths": [[(52, 16), (51, 12), (49, 7), (46, 2), (43, -3)]]},
+    "southwest-monsoon-current": {"name": "Southwest Monsoon Current — boreal summer", "style": "seasonal", "season": "May–September", "paths": [[(54, 8), (64, 7), (74, 6), (82, 6), (91, 9)]]},
+    "northeast-monsoon-current": {"name": "Northeast Monsoon Current — boreal winter", "style": "seasonal", "season": "November–February", "paths": [[(91, 9), (82, 6), (74, 5), (64, 6), (54, 8)]]},
+}
+
+
+def _build_prevailing_winds() -> tuple[dict, dict, dict]:
+    return _build_line_scope(scope="world-prevailing-winds", title="Atmospheric Circulation — Prevailing Winds", noun="prevailing wind belt", kind="atmospheric-flow", family="wind", routes=PREVAILING_WINDS)
+
+
+def _build_jet_streams() -> tuple[dict, dict, dict]:
+    return _build_line_scope(scope="world-jet-streams", title="Atmospheric Circulation — Jet Streams", noun="jet stream", kind="atmospheric-flow", family="jet", routes=JET_STREAMS)
+
+
+def _build_monsoon_winds() -> tuple[dict, dict, dict]:
+    return _build_line_scope(scope="south-asia-monsoon-winds", title="Atmospheric Circulation — Seasonal Monsoon Winds", noun="seasonal monsoon wind", kind="atmospheric-flow", family="seasonalwind", routes=MONSOON_WINDS, box_t=(35.0, -15.0, 105.0, 35.0), width=1000.0, guide_lats=(0, 15, 30))
+
+
+def _build_seasonal_currents() -> tuple[dict, dict, dict]:
+    return _build_line_scope(scope="indian-ocean-seasonal-currents", title="Northern Indian Ocean — Seasonal Currents", noun="seasonal ocean current", kind="seasonal-currents", family="seasonalcurrent", routes=SEASONAL_CURRENTS, box_t=(30.0, -15.0, 110.0, 30.0), width=1000.0, guide_lats=(0, 15, 30))
+
+
 # ---------------------------------------------------------------------------------
 
 SCOPES = {"us-states": build_us_states}
@@ -1563,6 +1818,12 @@ for _name, _cfg in RIVER_SCOPES.items():
 SCOPES["world-lakes"] = _build_lakes
 SCOPES["world-tectonic-plates"] = _build_plates
 SCOPES["world-ocean-currents"] = _build_currents
+SCOPES["atmospheric-cells"] = _build_atmospheric_cells
+SCOPES["atmospheric-pressure-belts"] = _build_pressure_belts
+SCOPES["world-prevailing-winds"] = _build_prevailing_winds
+SCOPES["world-jet-streams"] = _build_jet_streams
+SCOPES["south-asia-monsoon-winds"] = _build_monsoon_winds
+SCOPES["indian-ocean-seasonal-currents"] = _build_seasonal_currents
 for _name, _cfg in CONTINENT_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_continent(n, c)))(_name, _cfg)
 for _name, _cfg in CONTINENTS_SCOPES.items():

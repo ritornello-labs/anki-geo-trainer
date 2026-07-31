@@ -59,7 +59,7 @@ async function mount(page, scope, data, { target, mode, side }) {
 
 const POLYGON_SCOPES = SCOPES.filter((s) => {
   const b = JSON.parse(readFileSync(join(BUNDLE_DIR, `${s}.json`), "utf-8"));
-  return !["rivers", "currents"].includes(b.kind); // line scopes are tested separately
+  return b.regions.length > 0; // line/belt/cross-section scopes are tested separately
 });
 
 for (const scope of POLYGON_SCOPES) {
@@ -501,10 +501,129 @@ for (const scope of CURRENT_SCOPES) {
   });
 }
 
+const DIRECTED_FLOW_SCOPES = [
+  { scope: "world-prevailing-winds", mode: "wind", count: 6, chip: "Trace prevailing wind" },
+  { scope: "world-jet-streams", mode: "jet", count: 4, chip: "Trace jet stream" },
+  { scope: "south-asia-monsoon-winds", mode: "seasonalwind", count: 2, chip: "Trace seasonal wind" },
+  { scope: "indian-ocean-seasonal-currents", mode: "seasonalcurrent", count: 4, chip: "Trace seasonal current" },
+];
+
+for (const spec of DIRECTED_FLOW_SCOPES) {
+  const data = load(spec.scope);
+  const target = Object.keys(data.shapes)[0];
+
+  test(`${spec.scope}: every route accepts forward flow and rejects reverse flow`, async ({ page }) => {
+    await mount(page, spec.scope, data, { target, mode: spec.mode, side: "front" });
+    await page.waitForSelector("svg.gt-map");
+    await expect(page.locator(".gt-chip")).toHaveText(spec.chip);
+    const scores = await page.evaluate(({ scope }) => {
+      const frame = window.GT_BUNDLES[scope].frames[0];
+      const densify = (path) => {
+        const out = [];
+        for (let i = 1; i < path.length; i++) {
+          const a = path[i - 1], b = path[i];
+          for (let step = 0; step < 5; step++) {
+            const t = step / 5;
+            out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+          }
+        }
+        out.push(path[path.length - 1]);
+        return out;
+      };
+      return Object.entries(window.GT_SHAPES)
+        .filter(([key]) => key.startsWith(scope + ":"))
+        .map(([key, flow]) => {
+          const strokes = flow.paths.map(densify);
+          return {
+            id: key.slice(scope.length + 1),
+            forward: window.GeoTrainer._currentScore(strokes, flow.paths, frame.kmPerUnit),
+            reverse: window.GeoTrainer._currentScore(
+              strokes.map((path) => path.slice().reverse()), flow.paths, frame.kmPerUnit
+            ),
+          };
+        });
+    }, { scope: spec.scope });
+    expect(scores).toHaveLength(spec.count);
+    for (const score of scores) {
+      expect(score.forward.quality, score.id).toBe(2);
+      expect(score.forward.reversed, score.id).toBe(false);
+      expect(score.reverse.quality, score.id).toBe(0);
+      expect(score.reverse.reversed, score.id).toBe(true);
+    }
+  });
+}
+
+test("atmospheric cells grade closed-loop direction without relying on endpoints", async ({ page }) => {
+  const scope = "atmospheric-cells";
+  const data = load(scope);
+  const target = "hadley-north";
+  await mount(page, scope, data, { target, mode: "cell", side: "front" });
+  await page.waitForSelector("svg.gt-map");
+  await expect(page.locator(".gt-chip")).toHaveText("Trace circulation cell");
+  await expect(page.locator(".gt-flow-start")).toHaveCount(1);
+  const scores = await page.evaluate(({ scope }) => {
+    const densify = (path) => {
+      const out = [];
+      for (let i = 1; i < path.length; i++) {
+        const a = path[i - 1], b = path[i];
+        for (let step = 0; step < 7; step++) {
+          const t = step / 7;
+          out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+        }
+      }
+      out.push(path[path.length - 1]);
+      return out;
+    };
+    return Object.entries(window.GT_SHAPES)
+      .filter(([key]) => key.startsWith(scope + ":"))
+      .map(([key, cell]) => {
+        const stroke = densify(cell.paths[0]);
+        return {
+          id: key.slice(scope.length + 1),
+          forward: window.GeoTrainer._cellScore([stroke], cell.paths),
+          reverse: window.GeoTrainer._cellScore([stroke.slice().reverse()], cell.paths),
+        };
+      });
+  }, { scope });
+  expect(scores).toHaveLength(6);
+  for (const score of scores) {
+    expect(score.forward.quality, score.id).toBe(2);
+    expect(score.forward.reversed, score.id).toBe(false);
+    expect(score.reverse.quality, score.id).toBe(0);
+    expect(score.reverse.reversed, score.id).toBe(true);
+  }
+});
+
+test("pressure belts grade all required hemispheric bands", async ({ page }) => {
+  const scope = "atmospheric-pressure-belts";
+  const data = load(scope);
+  const target = "subtropical-highs";
+  await mount(page, scope, data, { target, mode: "belt", side: "front" });
+  await page.waitForSelector("svg.gt-map");
+  await expect(page.locator(".gt-chip")).toHaveText("Place pressure belt");
+  const scores = await page.evaluate(({ scope, target }) => {
+    const belts = window.GT_SHAPES[scope + ":" + target].bands;
+    const perfect = belts.map((rect) => ({ x: rect[0] + rect[2] / 2, y: rect[1] + rect[3] / 2 }));
+    const wrong = perfect.map((tap) => ({ x: tap.x, y: tap.y + 120 }));
+    return {
+      perfect: window.GeoTrainer._beltScore(perfect, belts),
+      wrong: window.GeoTrainer._beltScore(wrong, belts),
+    };
+  }, { scope, target });
+  expect(scores.perfect.quality).toBe(2);
+  expect(scores.wrong.quality).toBe(0);
+});
+
 test("new physical curricula have deliberate, stable membership", () => {
   const lakes = load("world-lakes");
   const plates = load("world-tectonic-plates");
   const currents = load("world-ocean-currents");
+  const cells = load("atmospheric-cells");
+  const belts = load("atmospheric-pressure-belts");
+  const winds = load("world-prevailing-winds");
+  const jets = load("world-jet-streams");
+  const monsoonWinds = load("south-asia-monsoon-winds");
+  const seasonalCurrents = load("indian-ocean-seasonal-currents");
   expect(lakes.bundle.regions).toHaveLength(24);
   expect(lakes.bundle.families).toEqual(["point", "place"]);
   expect(lakes.bundle.regions.map((r) => r.name)).toContain("Lake Victoria");
@@ -535,6 +654,20 @@ test("new physical curricula have deliberate, stable membership", () => {
       expect(path.length).toBeGreaterThanOrEqual(3);
     }
   }
+  expect(Object.keys(cells.shapes)).toHaveLength(6);
+  expect(cells.bundle.families).toEqual(["cell"]);
+  expect(Object.keys(belts.shapes)).toHaveLength(4);
+  expect(belts.bundle.families).toEqual(["belt"]);
+  expect(Object.keys(winds.shapes)).toHaveLength(6);
+  expect(winds.bundle.families).toEqual(["wind"]);
+  expect(Object.keys(jets.shapes)).toHaveLength(4);
+  expect(jets.bundle.families).toEqual(["jet"]);
+  expect(Object.keys(monsoonWinds.shapes)).toHaveLength(2);
+  expect(monsoonWinds.bundle.families).toEqual(["seasonalwind"]);
+  expect(Object.keys(seasonalCurrents.shapes)).toHaveLength(4);
+  expect(seasonalCurrents.bundle.families).toEqual(["seasonalcurrent"]);
+  expect(seasonalCurrents.shapes["somali-current-summer"].name).toContain("boreal summer");
+  expect(seasonalCurrents.shapes["somali-current-winter"].name).toContain("boreal winter");
 });
 
 test("all expected scopes are present", () => {
@@ -546,7 +679,9 @@ test("all expected scopes are present", () => {
       "north-america-countries", "oceania-countries", "russia-subjects",
       "south-america-countries", "us-states", "world-deserts",
       "world-lakes", "world-ocean-currents", "world-ranges", "world-rivers",
-      "world-tectonic-plates",
+      "world-tectonic-plates", "atmospheric-cells", "atmospheric-pressure-belts",
+      "world-prevailing-winds", "world-jet-streams", "south-asia-monsoon-winds",
+      "indian-ocean-seasonal-currents",
     ].sort()
   );
 });

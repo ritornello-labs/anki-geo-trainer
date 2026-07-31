@@ -19,6 +19,9 @@ this order. Each rung assumes comfort with the one before it.
 | 6 | Draw | `4 Draw` | Sketch the outline on a completely blank square; scored on capturing the real shape (a rough enclosing blob fails) |
 | 5 | Trace | `1 Trace` (rivers) | Trace a river's course over a world map; graded by km distance to the true line |
 | 5.5 | Directed trace | `1 Trace` (ocean currents) | Trace a current from origin to destination; route and arrow direction are both graded |
+| 5.5 | Directed loop | `1 Trace Cells` | Trace an atmospheric overturning cell on a latitude–altitude cross-section in the direction air moves |
+| 5 | Latitude placement | `2 Place Pressure Belts` | Tap every idealized latitude band occupied by the named pressure feature |
+| 5.5 | Directed atmospheric trace | `3–5 Trace` | Trace prevailing winds, broad jet corridors, or a named season's monsoon flow |
 
 **Redesign (2026-07), after studying the deck for real.** Cut families that were
 trivial or redundant: **Locate** (tapping a labelled shape isn't recall), **Capital**
@@ -30,7 +33,8 @@ features. **Sketch** was added later as a scaffolded bridge: draw the same shape
 place on the blank parent map before graduating to the context-free Draw card. Rivers
 became **Trace-the-course** (drawing a river is interesting; tapping where it is was
 not). Physical scopes now include ranges/deserts (Place + Sketch), lakes (Which +
-Place), tectonic plates (Which + Place + Sketch), and direction-aware ocean currents. A
+Place), tectonic plates (Which + Place + Sketch), direction-aware ocean currents,
+and representation-specific atmospheric circulation. A
 tap-all-neighbors family (F7) was
 retired even earlier (duplicated border decks). The engine keeps the dropped modes
 dormant, so any could return.
@@ -49,7 +53,7 @@ GeoTrainer does not duplicate them. Good on-ramps:
 
 Every note carries three orthogonal tags:
 
-- `geotrainer::skill::point | place | sketch | draw | river | current`
+- `geotrainer::skill::point | place | sketch | draw | river | current | cell | belt | wind | jet`
 - `geotrainer::scope::<where>` — e.g. `geotrainer::scope::country::usa::states`,
   `geotrainer::scope::continent::europe`
 - `geotrainer::level::3..6` (including `5.5`) — the rung on the ladder above
@@ -125,6 +129,14 @@ deck-order study already follows the ladder.
   draws an arrow from origin to destination, and a reversed route fails even when
   its position is accurate. Chokepoints and island/archipelago lists remain excluded
   because they do not create good GeoTrainer interactions.
+- **Shipped live, AnkiWeb update queued (2026-07-31)**: **26 atmospheric and
+  season-aware circulation cards** across six new note types. The 20-card stable
+  global core covers six overturning cells, four pressure-belt placements, six
+  prevailing-wind traces, and four broad jet-stream traces. Six paired seasonal
+  cards cover South Asian summer/winter monsoon winds and four northern Indian
+  Ocean monsoon currents; every seasonal front shows the boreal season and month
+  range. Deep thermohaline circulation remains deferred until a depth-aware
+  exercise proves worthwhile. Combined target: **83 leaf decks / 2,402 notes**.
 
 ### Adding a scope (for future me)
 

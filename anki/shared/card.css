@@ -108,6 +108,20 @@
   pointer-events: none;
 }
 
+.gt-guide {
+  stroke: #aab4c0;
+  stroke-width: 1;
+  stroke-dasharray: 5 5;
+  opacity: 0.68;
+  pointer-events: none;
+}
+.gt-guide-label {
+  fill: #687482;
+  font-size: 14px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
 /* Dependencies etc.: on the map and tappable, but visually muted */
 .gt-region.gt-tier2 { fill: #e3e3e3; }
 
@@ -177,9 +191,17 @@
 .gt-current-warm { stroke: #d8583c; }
 .gt-current-cold { stroke: #2b6cb0; }
 .gt-current-neutral { stroke: #5b6470; }
+.gt-current-wind { stroke: #2f855a; }
+.gt-current-jet { stroke: #805ad5; }
+.gt-current-cell { stroke: #d97706; }
+.gt-current-seasonal { stroke: #0f766e; }
 .gt-current-arrow-warm { fill: #d8583c; }
 .gt-current-arrow-cold { fill: #2b6cb0; }
 .gt-current-arrow-neutral { fill: #5b6470; }
+.gt-current-arrow-wind { fill: #2f855a; }
+.gt-current-arrow-jet { fill: #805ad5; }
+.gt-current-arrow-cell { fill: #d97706; }
+.gt-current-arrow-seasonal { fill: #0f766e; }
 .gt-current-user {
   fill: none;
   stroke: #2d3742;
@@ -192,11 +214,35 @@
 .nightMode .gt-current-warm { stroke: #fc8d72; }
 .nightMode .gt-current-cold { stroke: #63b3ed; }
 .nightMode .gt-current-neutral { stroke: #b8c2cc; }
+.nightMode .gt-current-wind { stroke: #68d391; }
+.nightMode .gt-current-jet { stroke: #b794f4; }
+.nightMode .gt-current-cell { stroke: #f6ad55; }
+.nightMode .gt-current-seasonal { stroke: #4fd1c5; }
 .nightMode .gt-current-arrow-warm { fill: #fc8d72; }
 .nightMode .gt-current-arrow-cold { fill: #63b3ed; }
 .nightMode .gt-current-arrow-neutral { fill: #b8c2cc; }
+.nightMode .gt-current-arrow-wind { fill: #68d391; }
+.nightMode .gt-current-arrow-jet { fill: #b794f4; }
+.nightMode .gt-current-arrow-cell { fill: #f6ad55; }
+.nightMode .gt-current-arrow-seasonal { fill: #4fd1c5; }
 .nightMode .gt-current-user { stroke: #edf2f7; }
 .nightMode .gt-current-user-arrow { fill: #edf2f7; }
+
+.gt-flow-start {
+  fill: var(--gt-accent);
+  stroke: #ffffff;
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.gt-belt-target {
+  fill: var(--gt-accent);
+  fill-opacity: 0.24;
+  stroke: var(--gt-accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  pointer-events: none;
+}
 
 /* Contextual Sketch + blank-canvas Draw */
 .gt-sketch-map {
@@ -399,6 +445,17 @@
 
 .gt-hint { color: var(--gt-muted); font-weight: 500; }
 .gt-hint.gt-placed { color: var(--gt-accent); font-weight: 600; }
+.gt-season {
+  width: auto;
+  margin: -0.2rem auto 0.6rem;
+  padding: 0.25rem 0.7rem;
+  border: 0;
+  background: transparent;
+  color: var(--gt-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
 
 .gt-ok { color: var(--gt-good); border-color: var(--gt-good); }
 .gt-miss { color: var(--gt-bad); border-color: var(--gt-bad); }

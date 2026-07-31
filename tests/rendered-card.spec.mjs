@@ -15,6 +15,15 @@ const CASES = [
   { scope: "europe-countries", regions: 51, modes: ["locate", "point", "place", "sketch", "draw"] },
 ];
 
+const PHYSICAL_CASES = [
+  { scope: "atmospheric-cells", mode: "cell", chip: "Trace circulation cell" },
+  { scope: "atmospheric-pressure-belts", mode: "belt", chip: "Place pressure belt" },
+  { scope: "world-prevailing-winds", mode: "wind", chip: "Trace prevailing wind" },
+  { scope: "world-jet-streams", mode: "jet", chip: "Trace jet stream" },
+  { scope: "south-asia-monsoon-winds", mode: "seasonalwind", chip: "Trace seasonal wind" },
+  { scope: "indian-ocean-seasonal-currents", mode: "seasonalcurrent", chip: "Trace seasonal current" },
+];
+
 test.describe("shipped inlined cards", () => {
   test.skip(!existsSync(FIX("card-us-states-locate-front.html")), "run make apkg first");
 
@@ -82,5 +91,23 @@ test.describe("shipped inlined cards", () => {
     expect(route.name).toBe("Gulf Stream");
     expect(route.paths[0].length).toBeGreaterThan(4);
   });
+
+  for (const { scope, mode, chip } of PHYSICAL_CASES) {
+    test(`${scope}/${mode} shipped fixture boots with per-note data`, async ({ page }) => {
+      await page.setContent(readFileSync(FIX(`card-${scope}-${mode}-front.html`), "utf-8"));
+      await expect(page.locator("svg.gt-map")).toBeVisible({ timeout: 5000 });
+      await expect(page.locator(".gt-chip")).toHaveText(chip);
+      const payload = await page.evaluate(([s, m]) => window.GT_SHAPES[`${s}:${m}`], [scope,
+        scope === "atmospheric-cells" ? "hadley-north" :
+        scope === "atmospheric-pressure-belts" ? "subtropical-highs" :
+        scope === "world-prevailing-winds" ? "northeast-trades" :
+        scope === "world-jet-streams" ? "polar-front-jet-north" :
+        scope === "south-asia-monsoon-winds" ? "south-asia-summer" : "somali-current-summer"]);
+      expect(payload.name).toBeTruthy();
+      if (mode.startsWith("seasonal")) {
+        await expect(page.locator(".gt-season")).toHaveText(payload.season);
+      }
+    });
+  }
 
 });
