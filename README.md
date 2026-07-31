@@ -18,7 +18,7 @@ contextual-Sketch and physical-geography updates are installed in the live perso
 collection. The combined update is queued for the existing AnkiWeb listing but has not
 yet been uploaded. GeoTrainer is a
 lean, **borderless-recall** set redesigned after real-world study.
-**Twenty-three scopes**, 2,338 cards. Region scopes carry four families — **Which**,
+**Twenty-three scopes**, 2,376 cards. Region scopes carry four families — **Which**,
 **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):
 **Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),
@@ -27,8 +27,8 @@ where things are instead of matching a labelled shape). Continents (countries):
 (13), **Australia** (9), **Argentina** (24), **Mexico** (32), **Indonesia** (33).
 Physical: **mountain ranges** (29) and **deserts** (17) — **Place + Sketch**;
 **major lakes** (24) — **Which + Place**; **major tectonic plates** (16) —
-**Which + Sketch**; **major rivers** (42) as trace-the-course; and **major ocean
-currents** (12) as direction-aware trace-the-route. Plus a
+**Which + Place + Sketch**; **major rivers** (42) as trace-the-course; and **major ocean
+currents** (34) as direction-aware trace-the-route. Plus a
 **Continents** scope — **Sketch** each one on the blank world, then **Draw** its
 silhouette from memory (Europe is clipped at the Urals, and Asia excludes Siberia, since Natural
 Earth files Russia under Europe). All rendered by one shared engine and verified on
@@ -39,6 +39,10 @@ Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md), the skill ladder in
 New scopes are pure config: a continent is a viewport box + a Natural Earth
 `CONTINENT` filter; a country subdivision is an ISO country code. Both feed the
 same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
+
+Atmospheric circulation is designed as a separate follow-up curriculum rather
+than being folded into ocean-current cards: see
+[`curriculum/ATMOSPHERIC_CIRCULATION.md`](./curriculum/ATMOSPHERIC_CIRCULATION.md).
 
 ## Task families
 

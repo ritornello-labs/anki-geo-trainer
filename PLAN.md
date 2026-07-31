@@ -1,6 +1,6 @@
 # anki-geo-trainer — Plan
 
-Status: active; the 2,338-card physical-geography release is installed in the
+Status: active; the 2,376-card physical-geography release is installed in the
 personal collection and queued for the existing AnkiWeb listing. Created 2026-07-05.
 
 ## Vision
@@ -316,9 +316,27 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   snapshots and the local scheduled rollback package are under
   `backups/live-imports/20260728T153543-0700-before/` and
   `backups/live-imports/20260728T153543-0700-after/`.
+- **Plate Place + system-complete surface currents. ✅ Built, verified, and installed
+  live 2026-07-31; AnkiWeb update remains queued.** Added a 16-card Place family
+  for tectonic plates. Expanded ocean-current Trace from 12 to **34** cards: all
+  four named limbs of each of the five major subtropical gyres plus important
+  subpolar, equatorial, regional-throughflow, and Antarctic Circumpolar branches.
+  Existing current IDs remain stable; five route/name payloads updated in place.
+  Seasonal Somali/monsoon currents and deep thermohaline circulation remain
+  deferred because they require season- or depth-aware prompts. Combined build:
+  **77 leaf decks / 2,376 notes / 44.9 MB**. Cross-engine tests exercise every
+  current forward and reversed (**294 passed / 12 intentional skips**); disposable
+  Anki 25.09 imported all 2,376 cards and rendered its samples. The live rollout
+  added exactly 38 notes/cards,
+  preserved all 2,338 original IDs and every original scheduling record, and
+  left no temporary top-level deck. Snapshots and rollback are under
+  `backups/live-imports/20260731T153402-0700-before/` and
+  `backups/live-imports/20260731T153655-0700-after/`. A 20-card, four-note-type
+  atmospheric-circulation design is recorded in
+  `curriculum/ATMOSPHERIC_CIRCULATION.md`; it is designed but not built.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
-  (`make apkg-all`) + `release/screenshots/`. The 2,338-card update is in the
+  (`make apkg-all`) + `release/screenshots/`. The 2,376-card update is in the
   workspace's active AnkiWeb queue for existing shared deck `908455862`; uploading
   it remains a separate Publisher action subject to the AnkiWeb quota.
 

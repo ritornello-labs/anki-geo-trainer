@@ -389,6 +389,45 @@ for (const scope of CURRENT_SCOPES) {
   const data = load(scope);
   const cid = Object.keys(data.shapes)[0];
 
+  test(`${scope}: every current accepts its route and rejects the reverse direction`, async ({ page }) => {
+    await mount(page, scope, data, { target: cid, mode: "current", side: "front" });
+    await page.waitForSelector("svg.gt-map");
+    const scores = await page.evaluate(({ scope }) => {
+      const frame = window.GT_BUNDLES[scope].frames[0];
+      const densify = (path) => {
+        const out = [];
+        for (let i = 1; i < path.length; i++) {
+          const a = path[i - 1], b = path[i];
+          for (let step = 0; step < 4; step++) {
+            const t = step / 4;
+            out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+          }
+        }
+        out.push(path[path.length - 1]);
+        return out;
+      };
+      return Object.entries(window.GT_SHAPES)
+        .filter(([key]) => key.startsWith(scope + ":"))
+        .map(([key, current]) => {
+          const strokes = current.paths.map(densify);
+          return {
+            id: key.slice(scope.length + 1),
+            forward: window.GeoTrainer._currentScore(strokes, current.paths, frame.kmPerUnit),
+            reverse: window.GeoTrainer._currentScore(
+              strokes.map((path) => path.slice().reverse()), current.paths, frame.kmPerUnit
+            ),
+          };
+        });
+    }, { scope });
+    expect(scores).toHaveLength(34);
+    for (const score of scores) {
+      expect(score.forward.quality, score.id).toBe(2);
+      expect(score.forward.reversed, score.id).toBe(false);
+      expect(score.reverse.quality, score.id).toBe(0);
+      expect(score.reverse.reversed, score.id).toBe(true);
+    }
+  });
+
   test(`${scope}: current trace shows arrows and accepts a faithful directed route`, async ({ page }) => {
     await mount(page, scope, data, { target: cid, mode: "current", side: "front" });
     await page.waitForSelector("svg.gt-map");
@@ -470,14 +509,31 @@ test("new physical curricula have deliberate, stable membership", () => {
   expect(lakes.bundle.families).toEqual(["point", "place"]);
   expect(lakes.bundle.regions.map((r) => r.name)).toContain("Lake Victoria");
   expect(plates.bundle.regions).toHaveLength(16);
-  expect(plates.bundle.families).toEqual(["point", "sketch"]);
+  expect(plates.bundle.families).toEqual(["point", "place", "sketch"]);
   expect(plates.bundle.regions.map((r) => r.name)).toContain("Pacific Plate");
-  expect(Object.keys(currents.shapes)).toHaveLength(12);
+  expect(Object.keys(currents.shapes)).toHaveLength(34);
   expect(currents.bundle.families).toEqual(["current"]);
+  expect(currents.shapes["north-equatorial-current"].name)
+    .toBe("North Equatorial Current — Atlantic");
+  expect(currents.shapes).toHaveProperty("antarctic-circumpolar-current");
+  expect(currents.shapes).toHaveProperty("indonesian-throughflow");
+  for (const gyreLimb of [
+    "gulf-stream", "north-atlantic-current", "canary-current", "north-equatorial-current",
+    "brazil-current", "south-atlantic-current", "benguela-current",
+    "south-equatorial-current-atlantic", "kuroshio-current", "north-pacific-current",
+    "california-current", "north-equatorial-current-pacific", "east-australian-current",
+    "south-pacific-current", "humboldt-current", "south-equatorial-current-pacific",
+    "agulhas-current", "south-indian-current", "west-australian-current",
+    "south-equatorial-current-indian",
+  ]) {
+    expect(currents.shapes).toHaveProperty(gyreLimb);
+  }
   for (const route of Object.values(currents.shapes)) {
     expect(["warm", "cold"]).toContain(route.temperature);
-    expect(route.paths).toHaveLength(1);
-    expect(route.paths[0].length).toBeGreaterThanOrEqual(4);
+    expect(route.paths.length).toBeGreaterThanOrEqual(1);
+    for (const path of route.paths) {
+      expect(path.length).toBeGreaterThanOrEqual(3);
+    }
   }
 });
 

@@ -27,3 +27,6 @@ pw-*.log
 final.json
 final.err
 playwright-report/
+
+# Superseded preflight snapshot from the interrupted 2026-07-31 rollout attempt.
+backups/live-imports/20260731T152744-0700-before/

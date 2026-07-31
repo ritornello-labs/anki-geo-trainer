@@ -30,7 +30,7 @@ features. **Sketch** was added later as a scaffolded bridge: draw the same shape
 place on the blank parent map before graduating to the context-free Draw card. Rivers
 became **Trace-the-course** (drawing a river is interesting; tapping where it is was
 not). Physical scopes now include ranges/deserts (Place + Sketch), lakes (Which +
-Place), tectonic plates (Which + Sketch), and direction-aware ocean currents. A
+Place), tectonic plates (Which + Place + Sketch), and direction-aware ocean currents. A
 tap-all-neighbors family (F7) was
 retired even earlier (duplicated border decks). The engine keeps the dropped modes
 dormant, so any could return.
@@ -120,7 +120,7 @@ deck-order study already follows the ladder.
   marker (physical/rivers) drives the test suite.
 - **Built, awaiting live/AnkiWeb rollout (2026-07-24)**: contextual Sketch for all
   **29 mountain ranges** and **17 deserts**; **24 major lakes** (Which + Place);
-  **16 major tectonic plates** (Which + Sketch); and **12 major ocean currents**
+  **16 major tectonic plates** (Which + Place + Sketch); and **34 major ocean currents**
   (directed trace). Current routes are schematic accepted corridors: the learner
   draws an arrow from origin to destination, and a reversed route fails even when
   its position is accurate. Chokepoints and island/archipelago lists remain excluded
