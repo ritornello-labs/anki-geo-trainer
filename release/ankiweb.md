@@ -16,42 +16,6 @@ Works on **Desktop, AnkiMobile (iOS) and AnkiDroid** — all the map code is inl
 into the note templates, so there are no media downloads and nothing to configure.
 Light and dark mode included.
 
-## See it in Anki
-
-![Real GeoTrainer placement review captured in Anki](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/preview.gif)
-
-[Watch the full GeoTrainer interaction (MP4)](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/demo.mp4)
-
-**Borderless recall.** Identify a country from a point without internal borders.
-
-![GeoTrainer borderless country-identification card](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/01-which-borderless.png)
-
-**Physical geography.** Place deserts and mountain ranges in geographic context.
-
-![GeoTrainer desert placement card](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/02-deserts.png)
-
-![GeoTrainer mountain-range card](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/05-ranges.png)
-
-**Draw and trace.** Sketch a shape, then compare it with the real outline; trace
-linear features directly on the map.
-
-![GeoTrainer draw-the-shape answer overlay](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/03-draw-overlay.png)
-
-![GeoTrainer river-tracing card](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/04-river-trace.png)
-
-**Which country?** A different point inside the target country appears each review.
-
-![A GeoTrainer Which Country card in Anki's reviewer](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/06-which-country-reviewer.png)
-
-**Place.** Drag the silhouette to its real position without a labelled outline to
-match.
-
-![A GeoTrainer Place card in Anki's reviewer](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/07-place-reviewer.png)
-
-**Trace.** Start on a full world map, zoom and pan as needed, then trace the river.
-
-![A GeoTrainer Trace card in Anki's reviewer](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/08-trace-reviewer.png)
-
 ## Task families
 
 - **Which one?** — a dot lands inside a region (a different spot each review) on a

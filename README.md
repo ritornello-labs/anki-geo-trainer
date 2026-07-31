@@ -11,9 +11,6 @@ offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 
 ![A GeoTrainer borderless-map card in Anki's reviewer](release/screenshots/06-which-country-reviewer.png)
 
-[Real Anki interaction](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/preview.gif)
-· [MP4 video](https://ritornello.dev/media/ankiweb/2026-07-31/geo-trainer/demo.mp4)
-
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
 **Release status:** the initial version was submitted to AnkiWeb on 2026-07-15. The
