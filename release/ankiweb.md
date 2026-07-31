@@ -16,6 +16,20 @@ Works on **Desktop, AnkiMobile (iOS) and AnkiDroid** — all the map code is inl
 into the note templates, so there are no media downloads and nothing to configure.
 Light and dark mode included.
 
+## See it in Anki
+
+![GeoTrainer place-the-shape review](https://ritornello.dev/media/ankiweb/2026-07-31-v2/geo-trainer/preview.gif)
+
+![Which-country card](https://ritornello.dev/media/ankiweb/2026-07-31-v2/geo-trainer/gallery-03.png)
+
+![Desert location card](https://ritornello.dev/media/ankiweb/2026-07-31-v2/geo-trainer/gallery-04.png)
+
+![Draw-from-memory card](https://ritornello.dev/media/ankiweb/2026-07-31-v2/geo-trainer/gallery-05.png)
+
+![River tracing card](https://ritornello.dev/media/ankiweb/2026-07-31-v2/geo-trainer/gallery-06.png)
+
+[Full-resolution MP4](https://ritornello.dev/media/ankiweb/2026-07-31-v2/geo-trainer/demo.mp4)
+
 ## Task families
 
 - **Which one?** — a dot lands inside a region (a different spot each review) on a

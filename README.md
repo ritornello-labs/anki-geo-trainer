@@ -9,7 +9,9 @@ Interactive geography practice for Anki: a curriculum-ordered set of map tasks t
 asks you to locate, place, sketch, draw, and trace from memory on borderless maps. It runs
 offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 
-![A GeoTrainer borderless-map card in Anki's reviewer](release/screenshots/06-which-country-reviewer.png)
+[![GeoTrainer place-the-shape review in Anki](https://ritornello.dev/media/ankiweb/2026-07-31-v2/geo-trainer/preview.gif)](https://ritornello.dev/media/ankiweb/2026-07-31-v2/geo-trainer/demo.mp4)
+
+The animation is hosted with the public listing media at ritornello.dev; click it for the full-resolution MP4. [Browse all GeoTrainer samples](https://ritornello.dev/#geo-trainer).
 
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
