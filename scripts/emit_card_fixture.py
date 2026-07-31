@@ -32,6 +32,12 @@ FIXTURE_TARGETS = {
     "europe-countries": "FRA",
     "world-rivers": "amazon",
     "world-ocean-currents": "gulf-stream",
+    "atmospheric-cells": "hadley-north",
+    "atmospheric-pressure-belts": "subtropical-highs",
+    "world-prevailing-winds": "northeast-trades",
+    "world-jet-streams": "polar-front-jet-north",
+    "south-asia-monsoon-winds": "south-asia-summer",
+    "indian-ocean-seasonal-currents": "somali-current-summer",
 }
 
 
@@ -41,7 +47,7 @@ def _b64(obj) -> str:
 
 def render(side_html: str, css: str, scope: str, target: str, mode: str) -> str:
     bundle = load_bundle(scope)
-    if mode in ("river", "current"):
+    if mode in {"river", "current", "cell", "belt", "wind", "jet", "seasonalwind", "seasonalcurrent"}:
         name = load_shapes(scope)[target]["name"]
     else:
         name = next(r["name"] for r in bundle["regions"] if r["id"] == target)
@@ -52,6 +58,14 @@ def render(side_html: str, css: str, scope: str, target: str, mode: str) -> str:
         body = body.replace("{{RiverData}}", _b64(load_shapes(scope)[target]))
     if "{{CurrentData}}" in body:
         body = body.replace("{{CurrentData}}", _b64(load_shapes(scope)[target]))
+    if "{{CellData}}" in body:
+        body = body.replace("{{CellData}}", _b64(load_shapes(scope)[target]))
+    if "{{BeltData}}" in body:
+        body = body.replace("{{BeltData}}", _b64(load_shapes(scope)[target]))
+    if "{{WindData}}" in body:
+        body = body.replace("{{WindData}}", _b64(load_shapes(scope)[target]))
+    if "{{JetData}}" in body:
+        body = body.replace("{{JetData}}", _b64(load_shapes(scope)[target]))
     if "{{CapitalName}}" in body:
         cap = load_capitals(scope)[target]
         body = body.replace("{{CapitalName}}", cap["name"]).replace(

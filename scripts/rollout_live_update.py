@@ -18,8 +18,8 @@ BACKUPS = ROOT / "backups" / "live-imports"
 PACKAGE = ROOT / "dist" / "geo-trainer-all.apkg"
 LIVE_ROOT = "Decks::Geography::GeoTrainer"
 IMPORT_ROOT = "GeoTrainer"
-EXPECTED_BEFORE = 2_338
-EXPECTED_ADDED = 38
+EXPECTED_BEFORE = 2_376
+EXPECTED_ADDED = 26
 
 SCHEDULING_FIELDS = (
     "cardId",
@@ -159,21 +159,13 @@ def verify(before: dict, after: dict) -> dict:
     if scheduling_changes:
         raise RuntimeError(f"original scheduling changed on {len(scheduling_changes)} cards")
 
-    current_note_ids = {
-        note_id
-        for note_id, note in before_notes.items()
-        if "geotrainer::skill::current" in note["tags"]
-    }
     note_changes = {
         note_id
         for note_id, old in before_notes.items()
         if normalized_note(old) != normalized_note(after_notes[note_id])
     }
-    unexpected_note_changes = note_changes - current_note_ids
-    if unexpected_note_changes:
-        raise RuntimeError(
-            f"unexpected original note changes: {sorted(unexpected_note_changes)}"
-        )
+    if note_changes:
+        raise RuntimeError(f"original note content changed on {len(note_changes)} notes")
 
     added_cards = sorted(set(after_cards) - set(before_cards))
     added_notes = sorted(set(after_notes) - set(before_notes))
@@ -187,18 +179,19 @@ def verify(before: dict, after: dict) -> dict:
     for card_id in added_cards:
         added_by_deck[after_cards[card_id]["deckName"]] += 1
     expected_by_deck = {
-        f"{LIVE_ROOT}::Physical::Tectonic Plates::2 Place": 16,
-        f"{LIVE_ROOT}::Physical::Ocean Currents::1 Trace": 22,
+        f"{LIVE_ROOT}::Physical::Atmospheric Circulation::1 Trace Cells": 6,
+        f"{LIVE_ROOT}::Physical::Atmospheric Circulation::2 Place Pressure Belts": 4,
+        f"{LIVE_ROOT}::Physical::Atmospheric Circulation::3 Trace Prevailing Winds": 6,
+        f"{LIVE_ROOT}::Physical::Atmospheric Circulation::4 Trace Jet Streams": 4,
+        f"{LIVE_ROOT}::Physical::Atmospheric Circulation::5 Trace Seasonal Monsoon Winds": 2,
+        f"{LIVE_ROOT}::Physical::Ocean Currents::2 Trace Seasonal Monsoon Currents": 4,
     }
     if dict(added_by_deck) != expected_by_deck:
         raise RuntimeError(f"unexpected additions by deck: {dict(added_by_deck)}")
 
-    key_to_note = {
-        note["fields"]["Key"]["value"]: note for note in after["notes"]
-    }
-    atlantic = key_to_note["world-ocean-currents:north-equatorial-current"]
-    if atlantic["fields"]["RegionName"]["value"] != "North Equatorial Current — Atlantic":
-        raise RuntimeError("the existing Atlantic current note was not updated in place")
+    for note_id in added_notes:
+        if "ai-created" not in after_notes[note_id]["tags"]:
+            raise RuntimeError(f"new note {note_id} is missing the ai-created tag")
 
     return {
         "beforeNotes": len(before_notes),
@@ -208,7 +201,7 @@ def verify(before: dict, after: dict) -> dict:
         "addedNotes": len(added_notes),
         "addedCards": len(added_cards),
         "addedByDeck": dict(added_by_deck),
-        "changedOriginalCurrentNotes": len(note_changes),
+        "changedOriginalNotes": len(note_changes),
         "changedOriginalScheduling": len(scheduling_changes),
         "missingOriginalNotes": len(missing_notes),
         "missingOriginalCards": len(missing_cards),

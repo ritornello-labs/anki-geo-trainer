@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
 [![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 ![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
-![Deck size](https://img.shields.io/badge/deck-2%2C338%20notes-7C3AED)
+![Deck size](https://img.shields.io/badge/deck-2%2C402%20notes-7C3AED)
 
 Interactive geography practice for Anki: a curriculum-ordered set of map tasks that
 asks you to locate, place, sketch, draw, and trace from memory on borderless maps. It runs
@@ -18,7 +18,7 @@ contextual-Sketch and physical-geography updates are installed in the live perso
 collection. The combined update is queued for the existing AnkiWeb listing but has not
 yet been uploaded. GeoTrainer is a
 lean, **borderless-recall** set redesigned after real-world study.
-**Twenty-three scopes**, 2,376 cards. Region scopes carry four families — **Which**,
+**Twenty-nine scopes**, 2,402 cards. Region scopes carry four families — **Which**,
 **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):
 **Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),
@@ -28,7 +28,9 @@ where things are instead of matching a labelled shape). Continents (countries):
 Physical: **mountain ranges** (29) and **deserts** (17) — **Place + Sketch**;
 **major lakes** (24) — **Which + Place**; **major tectonic plates** (16) —
 **Which + Place + Sketch**; **major rivers** (42) as trace-the-course; and **major ocean
-currents** (34) as direction-aware trace-the-route. Plus a
+currents** (34) as direction-aware trace-the-route; **atmospheric circulation**
+(20) as cells, pressure belts, prevailing winds, and jets; and **seasonal South
+Asian monsoon circulation** (6) as paired summer/winter wind and current traces. Plus a
 **Continents** scope — **Sketch** each one on the blank world, then **Draw** its
 silhouette from memory (Europe is clipped at the Urals, and Asia excludes Siberia, since Natural
 Earth files Russia under Europe). All rendered by one shared engine and verified on
@@ -40,8 +42,8 @@ New scopes are pure config: a continent is a viewport box + a Natural Earth
 `CONTINENT` filter; a country subdivision is an ISO country code. Both feed the
 same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
 
-Atmospheric circulation is designed as a separate follow-up curriculum rather
-than being folded into ocean-current cards: see
+Atmospheric circulation uses purpose-built representations rather than being
+folded into ordinary ocean-current cards: see
 [`curriculum/ATMOSPHERIC_CIRCULATION.md`](./curriculum/ATMOSPHERIC_CIRCULATION.md).
 
 ## Task families
@@ -54,6 +56,10 @@ than being folded into ocean-current cards: see
 | `…::4 Draw` | unscaffolded shape recall | Sketch the outline from memory on a blank **fixed-square** canvas (uniform for every card, so the frame never hints the answer's aspect ratio; multi-stroke, undo/clear); the back overlays the true shape and grades the match. Scoring gates on **both** boundary faithfulness and area overlap (IoU), so a right-size wrong-shape blob — a lazy circle over Algeria — fails to *Again*, while an honest freehand attempt (even wobbly) passes. Position and size don't matter, form does |
 | `…::1 Trace` (rivers) | river course | Trace a major river's course over a world map; the back overlays the true line and grades by distance (km) to it. Start on the *full* world map (no positional hint), then zoom in to trace precisely |
 | `…::1 Trace` (currents) | current route + direction | Trace a major ocean current from origin to destination. Your stroke ends in an arrow; the back reveals a forgiving route corridor and the true direction. An accurate line drawn backwards is graded *Again* |
+| `…::1 Trace Cells` | vertical circulation + direction | Trace an overturning cell on a latitude–altitude cross-section, starting at the marked point; a closed-loop direction scorer distinguishes the correct circulation from the same loop backwards |
+| `…::2 Place Pressure Belts` | latitude placement | Tap every idealized latitude band occupied by the named pressure feature, including paired hemispheric bands |
+| `…::3–5 Trace` (winds/jets/monsoon) | atmospheric route + direction | Trace prevailing winds, broad variable jet corridors, or a season-labelled South Asian monsoon flow. Seasonal cards show both boreal season and month range |
+| `…::2 Trace Seasonal Monsoon Currents` | season-specific current + direction | Trace the summer or winter Somali/monsoon current; season and month range are explicit, and the reversed seasonal route fails |
 
 Drawing surfaces (Sketch, Draw, Trace) have **zoom + pan** via floating map-style controls
 in the canvas corner (Google-Maps-like): a stacked **＋/−** zoom pill and a **✋**
@@ -67,8 +73,8 @@ press Anki's answer buttons. Region maps hide internal borders on the front so t
 task is genuine spatial recall, not shape-matching. Alaska and Hawaii render in
 classic inset panels at their own scale; microstates are magnified tap-circles on
 the *back*; Physical polygon scopes hide the feature on the front and show only the
-continents. Ocean-current routes are deliberately schematic learning corridors, not
-real-time flow or navigational data.
+continents. Ocean-current and atmospheric routes are deliberately schematic learning
+corridors, not real-time forecasts or navigational data.
 
 **Design note (2026-07):** Locate (redundant), Capital (duplicated a Cities deck),
 and Seas (trivial at world scale) were cut after studying the deck for real; the

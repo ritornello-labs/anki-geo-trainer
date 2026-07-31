@@ -1,6 +1,6 @@
 # anki-geo-trainer — Plan
 
-Status: active; the 2,376-card physical-geography release is installed in the
+Status: active; the 2,402-card physical- and atmospheric-geography release is installed in the
 personal collection and queued for the existing AnkiWeb listing. Created 2026-07-05.
 
 ## Vision
@@ -322,8 +322,8 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   four named limbs of each of the five major subtropical gyres plus important
   subpolar, equatorial, regional-throughflow, and Antarctic Circumpolar branches.
   Existing current IDs remain stable; five route/name payloads updated in place.
-  Seasonal Somali/monsoon currents and deep thermohaline circulation remain
-  deferred because they require season- or depth-aware prompts. Combined build:
+  Seasonal Somali/monsoon currents and deep thermohaline circulation remained
+  deferred at this point because they required season- or depth-aware prompts. Combined build:
   **77 leaf decks / 2,376 notes / 44.9 MB**. Cross-engine tests exercise every
   current forward and reversed (**294 passed / 12 intentional skips**); disposable
   Anki 25.09 imported all 2,376 cards and rendered its samples. The live rollout
@@ -332,11 +332,27 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   left no temporary top-level deck. Snapshots and rollback are under
   `backups/live-imports/20260731T153402-0700-before/` and
   `backups/live-imports/20260731T153655-0700-after/`. A 20-card, four-note-type
-  atmospheric-circulation design is recorded in
-  `curriculum/ATMOSPHERIC_CIRCULATION.md`; it is designed but not built.
+  atmospheric-circulation design was recorded in
+  `curriculum/ATMOSPHERIC_CIRCULATION.md` for the next batch.
+- **Atmospheric circulation + season-aware monsoon flow. ✅ Built, verified, and
+  installed live 2026-07-31; AnkiWeb update remains queued.** Added a 20-card
+  stable global core: six latitude–altitude circulation-cell loops, four
+  pressure-belt placement cards, six prevailing-wind traces, and four broad
+  jet-stream traces. Added six season-aware cards: South Asian monsoon winds for
+  boreal summer/winter and summer/winter Somali plus Southwest/Northeast Monsoon
+  Currents. Seasonal fronts show the named boreal season and explicit month
+  range. Deep thermohaline circulation remains deferred pending a credible
+  depth-aware exercise. Combined build: **83 leaf decks / 2,402 notes / 51.2 MB**.
+  Cross-engine validation: **318 passed / 12 intentional skips**, including exact
+  inlined templates for every new note type and forward/reverse scoring for every
+  directed route. Disposable Anki imported all 2,402 notes/cards. The guarded
+  live rollout added exactly 26 notes/cards, preserved all 2,376 original IDs,
+  note content, and scheduling, and left no temporary top-level deck. Snapshots
+  and rollback are under `backups/live-imports/20260731T163538-0700-before/` and
+  `backups/live-imports/20260731T163538-0700-after/`.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
-  (`make apkg-all`) + `release/screenshots/`. The 2,376-card update is in the
+  (`make apkg-all`) + `release/screenshots/`. The 2,402-card update is in the
   workspace's active AnkiWeb queue for existing shared deck `908455862`; uploading
   it remains a separate Publisher action subject to the AnkiWeb quota.
 

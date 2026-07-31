@@ -39,7 +39,28 @@ circumpolar branches. Route names and directions were checked against:
 - [Australian Bureau of Meteorology: Ocean currents](https://www.bom.gov.au/resources/learn-and-explore/marine-knowledge-centre/ocean-currents)
 
 They encode a memorable route and direction, not an instantaneous ocean-velocity
-field and not navigational data. Season-reversing Somali/monsoon currents and
-deep thermohaline circulation are intentionally deferred because they require
-season-specific or depth-aware prompts. NOAA material produced by the United
-States government is public domain.
+field and not navigational data. Four additional northern Indian Ocean cards are
+explicitly season-specific: the summer/winter Somali Current and the Southwest/
+Northeast Monsoon Currents. Their direction and month ranges were checked against:
+
+- [NOAA Tides & Currents glossary](https://tidesandcurrents.noaa.gov/glossary.html)
+- [NOAA repository: *Observations of the Somali Current during 1970*](https://repository.library.noaa.gov/view/noaa/59095)
+- [NOAA repository: *Circulation in the northern Indian Ocean during the northeast monsoon*](https://repository.library.noaa.gov/view/noaa/45610)
+- [NOAA/IndOOS observing-system report](https://www.pmel.noaa.gov/tao/drupal/disdel/doc/IndOOS_report_small.pdf)
+
+Deep thermohaline circulation remains deferred because it requires a depth-aware
+representation. NOAA material produced by the United States government is public
+domain.
+
+## Atmospheric circulation
+
+The cell, pressure-belt, prevailing-wind, and jet-stream cards are idealized
+teaching models. Jet cards use broad schematic meanders rather than claiming a
+fixed daily route. The South Asian monsoon-wind pair always names the boreal season
+and month range.
+
+- [Met Office: Global circulation patterns](https://weather.metoffice.gov.uk/learn-about/weather/atmosphere/global-circulation-patterns)
+- [Met Office: What is the jet stream?](https://weather.metoffice.gov.uk/learn-about/weather/types-of-weather/wind/what-is-the-jet-stream)
+- [NOAA JetStream: Global atmospheric circulations](https://prod-01-alb-www-noaa.woc.noaa.gov/jetstream/global/global-atmospheric-circulations)
+- [NOAA NESDIS: What is the jet stream?](https://www.nesdis.noaa.gov/about/k-12-education/atmosphere/what-the-jet-stream)
+- [NOAA NESDIS: What is a monsoon?](https://www.nesdis.noaa.gov/about/k-12-education/severe-weather/what-monsoon)

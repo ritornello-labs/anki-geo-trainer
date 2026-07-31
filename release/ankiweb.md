@@ -34,6 +34,12 @@ Light and dark mode included.
 - **Trace** (ocean currents) — trace from origin to destination. Your stroke ends
   in an arrow; the back reveals a forgiving route corridor and direction. Drawing
   the right route backwards is still wrong.
+- **Atmospheric circulation** — trace the six overturning cells on a
+  latitude–altitude cross-section, place global pressure belts, and trace prevailing
+  winds and broad jet-stream corridors.
+- **Seasonal circulation** — paired summer/winter monsoon-wind and northern Indian
+  Ocean current cards name the boreal season and month range explicitly; tracing the
+  other season's direction is wrong.
 
 All drawing surfaces support **zoom & pan**: +/− buttons and mouse-wheel to zoom, and a
 **✋ Move** toggle that turns a drag into a pan so you can reposition a zoomed-in view
@@ -47,7 +53,8 @@ Oceania**. Country subdivisions: **US states, Brazil, India, Russia, China, Cana
 Australia, Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and
 **deserts** (place or sketch them over the continents), **major lakes** (identify
 and place), **tectonic plates** (identify, place, and sketch), **major rivers** (trace the
-course), and **ocean currents** (trace route + direction). And a **Continents**
+course), **ocean currents** (trace route + direction), and **atmospheric circulation**
+(cells, pressure belts, winds, jets, and season-aware monsoon flows). And a **Continents**
 deck: first sketch each one on a blank world map, then
 draw its silhouette from memory without context.
 

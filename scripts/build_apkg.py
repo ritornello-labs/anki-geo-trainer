@@ -56,6 +56,30 @@ FAMILY_DEFS = [
         "current", 5, "Trace Current", "1 Trace",
         "geotrainer::skill::current", "geotrainer::level::5.5",
     ),
+    (
+        "cell", 6, "Trace Cell", "1 Trace Cells",
+        "geotrainer::skill::cell", "geotrainer::level::5.5",
+    ),
+    (
+        "belt", 7, "Place Belt", "2 Place Pressure Belts",
+        "geotrainer::skill::belt", "geotrainer::level::5",
+    ),
+    (
+        "wind", 8, "Trace Wind", "3 Trace Prevailing Winds",
+        "geotrainer::skill::wind", "geotrainer::level::5.5",
+    ),
+    (
+        "jet", 9, "Trace Jet", "4 Trace Jet Streams",
+        "geotrainer::skill::jet", "geotrainer::level::6",
+    ),
+    (
+        "seasonalwind", 10, "Trace Seasonal Wind", "5 Trace Seasonal Monsoon Winds",
+        "geotrainer::skill::seasonal-wind", "geotrainer::level::6",
+    ),
+    (
+        "seasonalcurrent", 11, "Trace Seasonal Current", "2 Trace Seasonal Monsoon Currents",
+        "geotrainer::skill::seasonal-current", "geotrainer::level::6",
+    ),
 ]
 
 # Families a scope gets when it doesn't declare its own. River is opt-in (river
@@ -250,7 +274,76 @@ SCOPE_PACKS = {
         "deck_base": 1_607_415_050,
         "apkg": "geo-trainer-world-ocean-currents.apkg",
     },
+    "atmospheric-cells": {
+        "deck_root": "GeoTrainer::Physical::Atmospheric Circulation",
+        "model_root": "GeoTrainer {family} — Atmospheric Circulation Cells",
+        "scope_tag": "geotrainer::scope::physical::atmosphere::cells",
+        "model_base": 1_607_416_001,
+        "deck_base": 1_607_416_050,
+        "apkg": "geo-trainer-atmospheric-cells.apkg",
+        "extra_tags": ["ai-created"],
+    },
+    "atmospheric-pressure-belts": {
+        "deck_root": "GeoTrainer::Physical::Atmospheric Circulation",
+        "model_root": "GeoTrainer {family} — Atmospheric Pressure Belts",
+        "scope_tag": "geotrainer::scope::physical::atmosphere::pressure-belts",
+        "model_base": 1_607_417_001,
+        "deck_base": 1_607_417_050,
+        "apkg": "geo-trainer-atmospheric-pressure-belts.apkg",
+        "extra_tags": ["ai-created"],
+    },
+    "world-prevailing-winds": {
+        "deck_root": "GeoTrainer::Physical::Atmospheric Circulation",
+        "model_root": "GeoTrainer {family} — Prevailing Winds",
+        "scope_tag": "geotrainer::scope::physical::atmosphere::prevailing-winds",
+        "model_base": 1_607_418_001,
+        "deck_base": 1_607_418_050,
+        "apkg": "geo-trainer-world-prevailing-winds.apkg",
+        "extra_tags": ["ai-created"],
+    },
+    "world-jet-streams": {
+        "deck_root": "GeoTrainer::Physical::Atmospheric Circulation",
+        "model_root": "GeoTrainer {family} — Jet Streams",
+        "scope_tag": "geotrainer::scope::physical::atmosphere::jet-streams",
+        "model_base": 1_607_419_001,
+        "deck_base": 1_607_419_050,
+        "apkg": "geo-trainer-world-jet-streams.apkg",
+        "extra_tags": ["ai-created"],
+    },
+    "south-asia-monsoon-winds": {
+        "deck_root": "GeoTrainer::Physical::Atmospheric Circulation",
+        "model_root": "GeoTrainer {family} — South Asian Monsoon",
+        "scope_tag": "geotrainer::scope::physical::atmosphere::monsoon",
+        "model_base": 1_607_420_001,
+        "deck_base": 1_607_420_050,
+        "apkg": "geo-trainer-south-asia-monsoon-winds.apkg",
+        "extra_tags": ["ai-created"],
+    },
+    "indian-ocean-seasonal-currents": {
+        "deck_root": "GeoTrainer::Physical::Ocean Currents",
+        "model_root": "GeoTrainer {family} — Indian Ocean Monsoon Currents",
+        "scope_tag": "geotrainer::scope::physical::ocean-currents::monsoon",
+        "model_base": 1_607_421_001,
+        "deck_base": 1_607_421_050,
+        "apkg": "geo-trainer-indian-ocean-seasonal-currents.apkg",
+        "extra_tags": ["ai-created"],
+    },
 }
+
+
+SHAPE_FIELDS = {
+    "draw": "ShapeData",
+    "river": "RiverData",
+    "current": "CurrentData",
+    "cell": "CellData",
+    "belt": "BeltData",
+    "wind": "WindData",
+    "jet": "JetData",
+    "seasonalwind": "WindData",
+    "seasonalcurrent": "CurrentData",
+}
+
+LINE_MODES = {"river", "current", "cell", "belt", "wind", "jet", "seasonalwind", "seasonalcurrent"}
 
 
 def load_bundle(scope: str) -> dict:
@@ -279,15 +372,11 @@ def build_templates(scope: str, mode: str) -> tuple[str, str, str]:
             f'window.GT_BUNDLES["{scope}"]=JSON.parse(atob("{b64}"));</script>'
         )
 
-    if mode in ("draw", "river", "current"):
+    if mode in SHAPE_FIELDS:
         # Per-note geometry (draw outline / river polyline) in a base64 field, so
         # the substitution can't collide with markup. Draw needs no basemap;
         # rivers still inline the world-land bundle above.
-        field = {
-            "draw": "ShapeData",
-            "river": "RiverData",
-            "current": "CurrentData",
-        }[mode]
+        field = SHAPE_FIELDS[mode]
         shape_boot = (
             "<script>window.GT_SHAPES=window.GT_SHAPES||{ };"
             f'window.GT_SHAPES["{scope}:" + "{{{{RegionId}}}}"]='
@@ -358,12 +447,12 @@ def _b64(obj) -> str:
 
 def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[genanki.Note]:
     bundle = load_bundle(scope)
-    shapes = load_shapes(scope) if fam["mode"] in ("draw", "river", "current") else {}
+    shapes = load_shapes(scope) if fam["mode"] in SHAPE_FIELDS else {}
     capitals = load_capitals(scope) if fam["mode"] == "capital" else {}
 
     # Line scopes have no regions; each entity is a shapes-file entry
     # {name, paths, ...} carried per note.
-    if fam["mode"] in ("river", "current"):
+    if fam["mode"] in LINE_MODES:
         notes = []
         for rid, line in sorted(shapes.items()):
             notes.append(
@@ -371,7 +460,8 @@ def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[g
                     model=model,
                     fields=[f"{scope}:{rid}", scope, rid, line["name"], _b64(line)],
                     guid=genanki.guid_for("geotrainer", scope, fam["guid_ns"], rid),
-                    tags=[fam["skill_tag"], pack["scope_tag"], fam["level_tag"]],
+                    tags=[fam["skill_tag"], pack["scope_tag"], fam["level_tag"]]
+                    + pack.get("extra_tags", []),
                 )
             )
         return notes
@@ -406,7 +496,8 @@ def notes_for(scope: str, model: genanki.Model, fam: dict, pack: dict) -> list[g
                 model=model,
                 fields=fields,
                 guid=genanki.guid_for("geotrainer", scope, fam["guid_ns"], reg["id"]),
-                tags=[fam["skill_tag"], pack["scope_tag"], fam["level_tag"]],
+                tags=[fam["skill_tag"], pack["scope_tag"], fam["level_tag"]]
+                + pack.get("extra_tags", []),
             )
         )
     return notes
@@ -423,15 +514,11 @@ def scope_decks(scope: str, test_ids: bool = False) -> tuple[list, int]:
         # first field for duplicate detection and (here) as the sort field, so it
         # must be unique — the old first field "Scope" was constant per note type.
         fields = [{"name": "Key"}, {"name": "Scope"}, {"name": "RegionId"}, {"name": "RegionName"}]
-        if fam["mode"] == "draw":
-            fields.append({"name": "ShapeData"})
+        if fam["mode"] in SHAPE_FIELDS:
+            fields.append({"name": SHAPE_FIELDS[fam["mode"]]})
         elif fam["mode"] == "capital":
             fields.append({"name": "CapitalName"})
             fields.append({"name": "CapitalPt"})
-        elif fam["mode"] == "river":
-            fields.append({"name": "RiverData"})
-        elif fam["mode"] == "current":
-            fields.append({"name": "CurrentData"})
         model = genanki.Model(
             fam["model_id"],
             fam["model_name"],
