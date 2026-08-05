@@ -344,7 +344,11 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   boreal summer/winter and summer/winter Somali plus Southwest/Northeast Monsoon
   Currents. Seasonal fronts show the named boreal season and explicit month
   range. Deep thermohaline circulation remains deferred pending a credible
-  depth-aware exercise. Combined build: **83 leaf decks / 2,402 notes / 51.2 MB**.
+  depth-aware exercise. The blocker is curriculum design and scientific
+  representation, not line-tracing implementation: a flat global "conveyor belt"
+  collapses surface and deep flows into a misleading route. Plausible future drills
+  are a depth-sliced surface/deep trace or a latitude–depth AMOC cross-section.
+  Combined build: **83 leaf decks / 2,402 notes / 51.2 MB**.
   Cross-engine validation: **318 passed / 12 intentional skips**, including exact
   inlined templates for every new note type and forward/reverse scoring for every
   directed route. Disposable Anki imported all 2,402 notes/cards. The guarded
@@ -355,6 +359,9 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   On 2026-08-05, the exact 26-card batch was moved without scheduling or content
   changes to `Process::GeoTrainer QA` for manual QA. Restore it with
   `scripts/stage_live_qa.py --restore` after review.
+- **Demand-driven expansion policy.** Additional country subdivision scopes are not
+  part of the core backlog: package them as optional expansion packs only if learner
+  demand appears. Elvis would not use them now, so no speculative build is planned.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
   (`make apkg-all`) + `release/screenshots/`. The 2,402-card update is in the

@@ -74,5 +74,7 @@ Desktop Anki 25.09 run imported all 2,402 notes/cards and rendered its samples.
 ## Not blocking release
 
 - Two orphan "GeoTrainer Neighbors" note types remain in Elvis's collection from the
-  F7 retirement (Tools → Manage Note Types to drop).
-- Deferred content: more country subdivisions from the 10m admin-1 file.
+  F7 retirement. Delete them later, but not until Elvis can afford the full sync that
+  the collection schema change would require.
+- Additional country subdivisions are intentionally outside the core release. Build
+  them as optional expansion packs only if demand appears.
