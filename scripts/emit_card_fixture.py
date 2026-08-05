@@ -38,6 +38,7 @@ FIXTURE_TARGETS = {
     "world-jet-streams": "polar-front-jet-north",
     "south-asia-monsoon-winds": "south-asia-summer",
     "indian-ocean-seasonal-currents": "somali-current-summer",
+    "atlantic-overturning": "04-complete-pathway",
 }
 
 
@@ -47,7 +48,10 @@ def _b64(obj) -> str:
 
 def render(side_html: str, css: str, scope: str, target: str, mode: str) -> str:
     bundle = load_bundle(scope)
-    if mode in {"river", "current", "cell", "belt", "wind", "jet", "seasonalwind", "seasonalcurrent"}:
+    if mode in {
+        "river", "current", "cell", "belt", "wind", "jet", "seasonalwind",
+        "seasonalcurrent", "amoc",
+    }:
         name = load_shapes(scope)[target]["name"]
     else:
         name = next(r["name"] for r in bundle["regions"] if r["id"] == target)

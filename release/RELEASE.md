@@ -3,29 +3,31 @@
 Status: the initial version was submitted to AnkiWeb on 2026-07-15. The contextual
 **Sketch** family and the physical-geography expansion are installed in the live
 personal collection. The combined update is queued for existing shared deck
-`908455862` but has not yet been uploaded. The 26-card atmospheric/seasonal batch
-is temporarily staged under `Process::GeoTrainer QA` for manual review; restore it
-to the normal GeoTrainer tree before the Publisher export.
+`908455862` but has not yet been uploaded. The 30-card atmospheric, seasonal, and
+Atlantic-overturning batch is temporarily staged under `Process::GeoTrainer QA`
+for manual review; restore it to the normal GeoTrainer tree before the Publisher
+export.
 
-Verification status (2026-07-31, combined update): all 29 scopes are covered by
-the cross-engine suite (Chromium + WebKit): **318 passed / 12 intentional skips**.
+Verification status (2026-08-05, combined update): all 30 scopes are covered by
+the cross-engine suite (Chromium + WebKit): **334 passed / 12 intentional skips**.
 Every one of the 34 current routes is tested in both directions.
 Region scopes carry Which/Place/Sketch/Draw; rivers are Trace-the-course; mountain
 ranges and deserts carry Place + Sketch; lakes carry Which + Place; tectonic plates
 carry Which + Place + Sketch; ocean currents use direction-aware Trace; atmospheric
 circulation has dedicated cell, pressure-belt, prevailing-wind, jet, and seasonal
-monsoon interactions. The Continents
+monsoon interactions; Atlantic overturning uses a latitude–depth trace. The Continents
 scope carries Sketch + Draw for all six inhabited continent silhouettes. Combined
-`geo-trainer-all.apkg` = 83 leaf decks, 2,402 notes, 51.2 MB. A disposable
-Desktop Anki 25.09 run imported all 2,402 notes/cards and rendered its samples.
+`geo-trainer-all.apkg` = 84 leaf decks, 2,406 notes, 53.3 MB. The guarded live
+AnkiConnect rollout imported the new four-card scope successfully; manual visual
+review in the installed client remains pending.
 
 ## Decisions
 
 1. **Packaging: one shared deck.** Decided (Elvis, 2026-07-06) — ship a single
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
-   (**83 leaf decks, 2,402 notes, 51.2 MB** — well under AnkiWeb's per-deck limit).
-2. **Ship everything.** All 29 scopes are import-verified; the single deck includes them
+   (**84 leaf decks, 2,406 notes, 53.3 MB** — well under AnkiWeb's per-deck limit).
+2. **Ship everything.** All 30 scopes are import-verified; the single deck includes them
    all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
    problem for a combined deck.)
 
@@ -46,6 +48,9 @@ Desktop Anki 25.09 run imported all 2,402 notes/cards and rendered its samples.
    on 2026-07-31. It added exactly 26 cards across six new note types, preserved
    all 2,376 original note/card IDs, content, and scheduling, and left no temporary
    import tree. The AnkiWeb queue now targets this artifact.
+6. The 2,406-card Atlantic-overturning follow-up added four prerequisite-ordered
+   latitude–depth traces directly to the manual-QA tree. It preserved all 2,402
+   existing notes, cards, deck assignments, and scheduling.
 
 ## Ready artifacts
 
@@ -54,7 +59,7 @@ Desktop Anki 25.09 run imported all 2,402 notes/cards and rendered its samples.
 - `dist/geo-trainer-all.apkg` — the single shareable deck (`make apkg-all`).
 - `release/screenshots/` — three public listing images captured from real Anki reviewer
   cards in a disposable `anki-addon-workbench` profile.
-- Per-scope APKGs in `dist/` (29 packs) remain for anyone who wants just one scope.
+- Per-scope APKGs in `dist/` (30 packs) remain for anyone who wants just one scope.
 
 ## Before publishing (checklist)
 
@@ -66,7 +71,7 @@ Desktop Anki 25.09 run imported all 2,402 notes/cards and rendered its samples.
       process-boundary 1Password credentials.
 - [x] Preview the rendered listing and pass the visible-clickable-GitHub-URL check.
 - [x] Submit the first version; record shared id `908455862` and link it from the README.
-- [x] Install and verify the 2,402-card combined update in the daily collection.
+- [x] Install and verify the 2,406-card combined update in the local collection.
 - [x] Add the update to the workspace's active AnkiWeb publication queue.
 - [ ] Import the update into the isolated Publisher collection, render the proposed
       updated listing for review, and upload only after explicit approval.

@@ -38,3 +38,8 @@ backups/live-imports/20260731T163405-0700-before/
 # Live QA move snapshots retain full local card/note state. Commit the concise
 # verification/report records, not duplicate multi-megabyte state dumps.
 backups/live-moves/**/state.json
+
+# Full live-import state and rollback APKGs stay local; commit the concise
+# verification/report evidence from a guarded rollout.
+backups/live-imports/**/*state.json
+backups/live-imports/**/*.apkg

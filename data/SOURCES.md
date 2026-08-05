@@ -48,9 +48,20 @@ Northeast Monsoon Currents. Their direction and month ranges were checked agains
 - [NOAA repository: *Circulation in the northern Indian Ocean during the northeast monsoon*](https://repository.library.noaa.gov/view/noaa/45610)
 - [NOAA/IndOOS observing-system report](https://www.pmel.noaa.gov/tao/drupal/disdel/doc/IndOOS_report_small.pdf)
 
-Deep thermohaline circulation remains deferred because it requires a depth-aware
-representation. NOAA material produced by the United States government is public
-domain.
+The depth-aware follow-up represents the Atlantic Meridional Overturning
+Circulation as a zonally integrated latitude–depth section rather than a flat
+global conveyor route. Its upper, sinking, deep-return, and integrated pathways
+were checked against:
+
+- [NOAA 2024 AMOC state-of-the-science fact sheet](https://doi.org/10.25923/pav0-be22)
+- [NOAA GFDL: AMOC decadal variability and predictability](https://www.gfdl.noaa.gov/amoc-decadal-predictability/)
+- [NOAA Ocean Service: What is the AMOC?](https://oceanservice.noaa.gov/facts/amoc.html)
+
+The Atlantic pathway ends at the deep South Atlantic boundary rather than
+inventing a local upwelling limb. NOAA identifies mixing and upwelling in the
+Southern Ocean and Indo-Pacific as part of the wider transformation back toward
+upper-ocean waters. NOAA material produced by the United States government is
+public domain.
 
 ## Atmospheric circulation
 

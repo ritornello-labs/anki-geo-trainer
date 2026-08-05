@@ -118,7 +118,7 @@ types**: 20 stable global cards plus six season-aware monsoon cards.
 | Seasonal ITCZ migration | Defer to phase 2 | Needs two spatial target states rather than a line route |
 | South Asian monsoon winds | Include | Paired summer/winter routes name both boreal season and month range |
 | Northern Indian Ocean monsoon currents | Include | Four season-specific surface routes, including Somali reversal |
-| Deep thermohaline circulation | Defer | The design is the blocker, not trace scoring: a flat global conveyor route hides surface-vs-deep flow. Consider separate depth slices or a latitude–depth AMOC cross-section before implementation |
+| Atlantic overturning / deep thermohaline circulation | Implemented follow-up | Four-card latitude–depth AMOC cross-section; avoids a flat global conveyor route |
 | Walker circulation / ENSO | Defer to phase 2 | Needs equatorial Pacific cross-sections for neutral, El Niño, and La Niña states |
 | Sea/land and mountain/valley breezes | Defer outside GeoTrainer | Local diagram retrieval, not geographic placement on a world map |
 | Cyclone/anticyclone flow | Defer outside GeoTrainer | Best learned as hemisphere-specific pressure-system diagrams |
@@ -143,8 +143,8 @@ types**: 20 stable global cards plus six season-aware monsoon cards.
 3. Imported the complete 2,402-card package into disposable Desktop Anki, then
    installed the 26 new cards through a guarded AnkiConnect rollout.
 4. Study this first release before deciding whether ITCZ migration or Walker/ENSO
-   states earn a second season/state-aware batch. Depth-aware circulation remains
-   a separate design question.
+   states earn a second season/state-aware batch. The separate four-card AMOC
+   cross-section is specified in `curriculum/ATLANTIC_OVERTURNING.md`.
 
 ## Sources for the model
 

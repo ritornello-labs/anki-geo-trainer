@@ -22,6 +22,7 @@ const PHYSICAL_CASES = [
   { scope: "world-jet-streams", mode: "jet", chip: "Trace jet stream" },
   { scope: "south-asia-monsoon-winds", mode: "seasonalwind", chip: "Trace seasonal wind" },
   { scope: "indian-ocean-seasonal-currents", mode: "seasonalcurrent", chip: "Trace seasonal current" },
+  { scope: "atlantic-overturning", mode: "amoc", chip: "Trace Atlantic overturning" },
 ];
 
 test.describe("shipped inlined cards", () => {
@@ -102,7 +103,9 @@ test.describe("shipped inlined cards", () => {
         scope === "atmospheric-pressure-belts" ? "subtropical-highs" :
         scope === "world-prevailing-winds" ? "northeast-trades" :
         scope === "world-jet-streams" ? "polar-front-jet-north" :
-        scope === "south-asia-monsoon-winds" ? "south-asia-summer" : "somali-current-summer"]);
+        scope === "south-asia-monsoon-winds" ? "south-asia-summer" :
+        scope === "indian-ocean-seasonal-currents" ? "somali-current-summer" :
+        "04-complete-pathway"]);
       expect(payload.name).toBeTruthy();
       if (mode.startsWith("seasonal")) {
         await expect(page.locator(".gt-season")).toHaveText(payload.season);

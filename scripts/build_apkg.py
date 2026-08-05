@@ -80,6 +80,10 @@ FAMILY_DEFS = [
         "seasonalcurrent", 11, "Trace Seasonal Current", "2 Trace Seasonal Monsoon Currents",
         "geotrainer::skill::seasonal-current", "geotrainer::level::6",
     ),
+    (
+        "amoc", 12, "Trace Atlantic Overturning", "3 Trace Atlantic Overturning",
+        "geotrainer::skill::amoc", "geotrainer::level::6",
+    ),
 ]
 
 # Families a scope gets when it doesn't declare its own. River is opt-in (river
@@ -328,6 +332,15 @@ SCOPE_PACKS = {
         "apkg": "geo-trainer-indian-ocean-seasonal-currents.apkg",
         "extra_tags": ["ai-created"],
     },
+    "atlantic-overturning": {
+        "deck_root": "GeoTrainer::Physical::Ocean Currents",
+        "model_root": "GeoTrainer {family} — AMOC Cross-section",
+        "scope_tag": "geotrainer::scope::physical::ocean-currents::amoc",
+        "model_base": 1_607_422_001,
+        "deck_base": 1_607_422_050,
+        "apkg": "geo-trainer-atlantic-overturning.apkg",
+        "extra_tags": ["ai-created"],
+    },
 }
 
 
@@ -341,9 +354,13 @@ SHAPE_FIELDS = {
     "jet": "JetData",
     "seasonalwind": "WindData",
     "seasonalcurrent": "CurrentData",
+    "amoc": "CurrentData",
 }
 
-LINE_MODES = {"river", "current", "cell", "belt", "wind", "jet", "seasonalwind", "seasonalcurrent"}
+LINE_MODES = {
+    "river", "current", "cell", "belt", "wind", "jet", "seasonalwind",
+    "seasonalcurrent", "amoc",
+}
 
 
 def load_bundle(scope: str) -> dict:

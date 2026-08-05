@@ -1685,6 +1685,37 @@
     return { km: km, quality: quality, reversed: reversed };
   }
 
+  // Latitude–depth sections use plot coordinates rather than map kilometres.
+  // Keep the open-route direction check from currentScore, but calibrate the
+  // corridor in pixels so a trace must occupy the correct depth as well as the
+  // correct latitude range.
+  function sectionScore(strokes, paths) {
+    var drawn = [];
+    for (var i = 0; i < strokes.length; i++) {
+      for (var j = 0; j < strokes[i].length; j++) drawn.push(strokes[i][j]);
+    }
+    if (drawn.length < 8) return { offset: null, quality: 0, empty: true, reversed: false };
+
+    var target = riverTargetPoints(paths);
+    var coverage = nearestDists(target, drawn);
+    var stray = nearestDists(drawn, target);
+    var offset = 0.5 * percentileOf(coverage, 0.85)
+      + 0.3 * meanOf(coverage) + 0.2 * meanOf(stray);
+
+    var trace = longestPath(strokes);
+    var route = longestPath(paths);
+    var reversed = false;
+    if (trace.length >= 2 && route.length >= 2) {
+      var forward = endpointDistance(trace[0], route[0])
+        + endpointDistance(trace[trace.length - 1], route[route.length - 1]);
+      var backward = endpointDistance(trace[0], route[route.length - 1])
+        + endpointDistance(trace[trace.length - 1], route[0]);
+      reversed = backward < forward;
+    }
+    var quality = reversed ? 0 : offset < 28 ? 2 : offset < 65 ? 1 : 0;
+    return { offset: Math.round(offset), quality: quality, reversed: reversed };
+  }
+
   function closestPointIndex(point, route) {
     var best = 0, dist = Infinity;
     for (var i = 0; i < route.length; i++) {
@@ -1771,6 +1802,13 @@
         rough: "Rough circulation loop, correct direction",
         off: "Off circulation loop",
       },
+      amoc: {
+        chip: "Trace Atlantic overturning",
+        hint: "Start at the dot and trace the flow through latitude and depth",
+        good: "Good depth pathway and direction",
+        rough: "Rough depth pathway, correct direction",
+        off: "Off depth pathway",
+      },
     };
     return specs[mode] || specs.current;
   }
@@ -1789,7 +1827,8 @@
     var svg = built.svg;
     var markerId = "gt-user-" + mode + "-arrow";
     addArrowMarker(svg, markerId, "gt-current-user-arrow");
-    if (mode === "cell" && data && data.paths.length && data.paths[0].length) {
+    if ((mode === "cell" || mode === "amoc")
+        && data && data.paths.length && data.paths[0].length) {
       svg.appendChild(el("circle", {
         cx: data.paths[0][0][0], cy: data.paths[0][0][1], r: 8, class: "gt-flow-start",
       }));
@@ -1841,7 +1880,9 @@
     var score = data
       ? (mode === "cell"
         ? cellScore(strokes, data.paths)
-        : currentScore(strokes, data.paths, frame ? frame.kmPerUnit : 1))
+        : mode === "amoc"
+          ? sectionScore(strokes, data.paths)
+          : currentScore(strokes, data.paths, frame ? frame.kmPerUnit : 1))
       : { quality: 0, empty: true, reversed: false };
     if (score.empty) {
       root.appendChild(bar("Nothing traced — the directed route is highlighted", "gt-miss"));
@@ -1858,7 +1899,9 @@
     }
     var distance = mode === "cell"
       ? " (~" + score.offset + " px off)"
-      : " (~" + score.km + " km off)";
+      : mode === "amoc"
+        ? ""
+        : " (~" + score.km + " km off)";
     var msg =
       score.quality === 2 ? spec.good + distance
       : score.quality === 1 ? spec.rough + distance
@@ -1888,6 +1931,8 @@
   function jetBack(root, bundle, target) { directedTraceBack(root, bundle, target, "jet"); }
   function cellFront(root, bundle, target) { directedTraceFront(root, bundle, target, "cell"); }
   function cellBack(root, bundle, target) { directedTraceBack(root, bundle, target, "cell"); }
+  function amocFront(root, bundle, target) { directedTraceFront(root, bundle, target, "amoc"); }
+  function amocBack(root, bundle, target) { directedTraceBack(root, bundle, target, "amoc"); }
 
   function beltScore(taps, bands) {
     if (!taps || !bands || taps.length !== bands.length) {
@@ -2022,6 +2067,7 @@
     seasonalwind: { front: seasonalWindFront, back: seasonalWindBack, needsShape: true },
     jet: { front: jetFront, back: jetBack, needsShape: true },
     cell: { front: cellFront, back: cellBack, needsShape: true },
+    amoc: { front: amocFront, back: amocBack, needsShape: true },
     belt: { front: beltFront, back: beltBack, needsShape: true },
   };
 
@@ -2072,6 +2118,7 @@
     _riverScore: riverScore,
     _currentScore: currentScore,
     _cellScore: cellScore,
+    _sectionScore: sectionScore,
     _beltScore: beltScore,
   };
 

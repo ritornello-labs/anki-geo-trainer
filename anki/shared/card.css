@@ -195,6 +195,10 @@
 .gt-current-jet { stroke: #805ad5; }
 .gt-current-cell { stroke: #d97706; }
 .gt-current-seasonal { stroke: #0f766e; }
+.gt-current-amoc-upper { stroke: #d8583c; }
+.gt-current-amoc-sinking { stroke: #805ad5; }
+.gt-current-amoc-deep { stroke: #2b6cb0; }
+.gt-current-amoc-full { stroke: #0f766e; }
 .gt-current-arrow-warm { fill: #d8583c; }
 .gt-current-arrow-cold { fill: #2b6cb0; }
 .gt-current-arrow-neutral { fill: #5b6470; }
@@ -202,6 +206,10 @@
 .gt-current-arrow-jet { fill: #805ad5; }
 .gt-current-arrow-cell { fill: #d97706; }
 .gt-current-arrow-seasonal { fill: #0f766e; }
+.gt-current-arrow-amoc-upper { fill: #d8583c; }
+.gt-current-arrow-amoc-sinking { fill: #805ad5; }
+.gt-current-arrow-amoc-deep { fill: #2b6cb0; }
+.gt-current-arrow-amoc-full { fill: #0f766e; }
 .gt-current-user {
   fill: none;
   stroke: #2d3742;
@@ -218,6 +226,10 @@
 .nightMode .gt-current-jet { stroke: #b794f4; }
 .nightMode .gt-current-cell { stroke: #f6ad55; }
 .nightMode .gt-current-seasonal { stroke: #4fd1c5; }
+.nightMode .gt-current-amoc-upper { stroke: #fc8d72; }
+.nightMode .gt-current-amoc-sinking { stroke: #b794f4; }
+.nightMode .gt-current-amoc-deep { stroke: #63b3ed; }
+.nightMode .gt-current-amoc-full { stroke: #4fd1c5; }
 .nightMode .gt-current-arrow-warm { fill: #fc8d72; }
 .nightMode .gt-current-arrow-cold { fill: #63b3ed; }
 .nightMode .gt-current-arrow-neutral { fill: #b8c2cc; }
@@ -225,6 +237,10 @@
 .nightMode .gt-current-arrow-jet { fill: #b794f4; }
 .nightMode .gt-current-arrow-cell { fill: #f6ad55; }
 .nightMode .gt-current-arrow-seasonal { fill: #4fd1c5; }
+.nightMode .gt-current-arrow-amoc-upper { fill: #fc8d72; }
+.nightMode .gt-current-arrow-amoc-sinking { fill: #b794f4; }
+.nightMode .gt-current-arrow-amoc-deep { fill: #63b3ed; }
+.nightMode .gt-current-arrow-amoc-full { fill: #4fd1c5; }
 .nightMode .gt-current-user { stroke: #edf2f7; }
 .nightMode .gt-current-user-arrow { fill: #edf2f7; }
 
