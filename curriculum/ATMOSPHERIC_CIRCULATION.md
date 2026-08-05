@@ -118,7 +118,7 @@ types**: 20 stable global cards plus six season-aware monsoon cards.
 | Seasonal ITCZ migration | Defer to phase 2 | Needs two spatial target states rather than a line route |
 | South Asian monsoon winds | Include | Paired summer/winter routes name both boreal season and month range |
 | Northern Indian Ocean monsoon currents | Include | Four season-specific surface routes, including Somali reversal |
-| Deep thermohaline circulation | Defer | Requires an honest depth-aware representation; not needed for this surface curriculum |
+| Deep thermohaline circulation | Defer | The design is the blocker, not trace scoring: a flat global conveyor route hides surface-vs-deep flow. Consider separate depth slices or a latitude–depth AMOC cross-section before implementation |
 | Walker circulation / ENSO | Defer to phase 2 | Needs equatorial Pacific cross-sections for neutral, El Niño, and La Niña states |
 | Sea/land and mountain/valley breezes | Defer outside GeoTrainer | Local diagram retrieval, not geographic placement on a world map |
 | Cyclone/anticyclone flow | Defer outside GeoTrainer | Best learned as hemisphere-specific pressure-system diagrams |
