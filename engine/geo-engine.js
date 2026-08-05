@@ -563,45 +563,61 @@
     root.appendChild(bar(suggestFor(quality), "gt-suggest"));
   }
 
-  // ========================= F7: TAP-ALL-NEIGHBORS =============================
+  // ===================== F7: TAP-A-SET (neighbors, members) ====================
+  // One interaction — "tap every region that belongs to this answer set" — with
+  // the set injected by the caller. `neighbors` reads it off the target region;
+  // `members` reads an arbitrary list supplied per note, which is what lets a
+  // membership drill (which countries are in ASEAN?) reuse this wholesale.
+  // A spec is: {key, chip, title, ids, exclude, highlight, instruction, verb}.
 
-  function nbState(bundle, target) {
-    return loadState("nb", bundle.scope, target) || { found: [], wrong: [] };
+  function setOf(scope, target) {
+    return (window.GT_SETS || {})[scope + ":" + target] || null;
   }
 
-  function neighborsFront(root, bundle, target) {
-    var region = findRegion(bundle, target);
-    var nbs = region.nb || [];
-    root.appendChild(chip("Neighbors"));
-    root.appendChild(prompt(region.name));
+  function tapSetState(spec, bundle, target) {
+    return loadState(spec.key, bundle.scope, target) || { found: [], wrong: [] };
+  }
+
+  function tapSetFront(root, bundle, target, spec) {
+    root.appendChild(chip(spec.chip));
+    root.appendChild(prompt(spec.title));
 
     var built = buildSvg(bundle);
     var svg = built.svg;
-    if (built.byId[target]) built.byId[target].classList.add("gt-target");
+    if (spec.highlight && built.byId[spec.highlight]) {
+      built.byId[spec.highlight].classList.add("gt-target");
+    }
     root.appendChild(svg);
 
     var state = { found: [], wrong: [] };
-    saveState("nb", bundle.scope, target, state);
+    saveState(spec.key, bundle.scope, target, state);
 
-    var hint = bar("Tap every bordering " + nounOf(bundle) + " · 0 / " + nbs.length, "gt-hint");
+    var hint = bar(spec.instruction + " · 0 / " + spec.ids.length, "gt-hint");
     root.appendChild(hint);
 
     function refresh() {
       hint.textContent =
-        "Tap every bordering " + nounOf(bundle) + " · " + state.found.length + " / " +
-        nbs.length + (state.wrong.length ? " · " + state.wrong.length + " wrong" : "");
-      hint.className = "gt-bar gt-hint" + (state.found.length === nbs.length ? " gt-placed" : "");
+        spec.instruction + " · " + state.found.length + " / " + spec.ids.length +
+        (state.wrong.length ? " · " + state.wrong.length + " wrong" : "");
+      hint.className =
+        "gt-bar gt-hint" + (state.found.length === spec.ids.length ? " gt-placed" : "");
     }
 
     function tapAt(clientX, clientY) {
       var loc = svgPoint(svg, clientX, clientY);
       if (!loc) return;
       var hit = regionAt(loc.x, loc.y, bundle);
-      if (!hit || hit.id === target) return;
-      if (nbs.indexOf(hit.id) >= 0) {
-        if (state.found.indexOf(hit.id) < 0) {
+      if (!hit || hit.id === spec.exclude) return;
+      if (spec.ids.indexOf(hit.id) >= 0) {
+        // Tapping a found region again un-picks it, so a misfire near a border
+        // is recoverable; without this the only fix is redoing the card.
+        var at = state.found.indexOf(hit.id);
+        if (at < 0) {
           state.found.push(hit.id);
           built.byId[hit.id].classList.add("gt-nb-found");
+        } else {
+          state.found.splice(at, 1);
+          built.byId[hit.id].classList.remove("gt-nb-found");
         }
       } else {
         if (state.wrong.indexOf(hit.id) < 0) state.wrong.push(hit.id);
@@ -609,7 +625,7 @@
         p.classList.add("gt-nb-wrong");
         setTimeout(function () { p.classList.remove("gt-nb-wrong"); }, 700);
       }
-      saveState("nb", bundle.scope, target, state);
+      saveState(spec.key, bundle.scope, target, state);
       refresh();
     }
 
@@ -623,41 +639,86 @@
     }, { passive: false });
   }
 
-  function neighborsBack(root, bundle, target) {
-    var region = findRegion(bundle, target);
-    var nbs = region.nb || [];
-    var state = nbState(bundle, target);
+  function tapSetBack(root, bundle, target, spec) {
+    var state = tapSetState(spec, bundle, target);
 
-    root.appendChild(chip("Neighbors"));
-    root.appendChild(prompt(region.name));
+    root.appendChild(chip(spec.chip));
+    root.appendChild(prompt(spec.title));
 
     var built = buildSvg(bundle);
-    if (built.byId[target]) built.byId[target].classList.add("gt-target");
+    if (spec.highlight && built.byId[spec.highlight]) {
+      built.byId[spec.highlight].classList.add("gt-target");
+    }
     var missed = [];
-    for (var i = 0; i < nbs.length; i++) {
-      var id = nbs[i];
+    for (var i = 0; i < spec.ids.length; i++) {
+      var id = spec.ids[i];
+      var path = built.byId[id];
       if (state.found.indexOf(id) >= 0) {
-        built.byId[id].classList.add("gt-nb-found");
+        if (path) path.classList.add("gt-nb-found");
       } else {
-        built.byId[id].classList.add("gt-nb-missed");
-        missed.push((findRegion(bundle, id) || {}).name);
+        if (path) path.classList.add("gt-nb-missed");
+        missed.push((findRegion(bundle, id) || { name: id }).name);
       }
     }
+    var wrongNames = [];
     for (var k = 0; k < state.wrong.length; k++) {
       var w = built.byId[state.wrong[k]];
       if (w) w.classList.add("gt-nb-wrong");
+      wrongNames.push((findRegion(bundle, state.wrong[k]) || { name: state.wrong[k] }).name);
     }
     root.appendChild(built.svg);
 
+    // A set is either right or it isn't: full marks demand every member and no
+    // false positives. Partial credit exists only to separate "nearly" from
+    // "not really" when grading.
     var quality =
-      state.found.length === nbs.length && state.wrong.length === 0 ? 2
-      : state.found.length * 2 >= nbs.length && state.wrong.length <= 1 ? 1
+      state.found.length === spec.ids.length && state.wrong.length === 0 ? 2
+      : state.found.length * 2 >= spec.ids.length && state.wrong.length <= 1 ? 1
       : 0;
-    var msg = "Found " + state.found.length + " of " + nbs.length;
-    if (state.wrong.length) msg += " · " + state.wrong.length + " wrong";
+    var msg = "Found " + state.found.length + " of " + spec.ids.length;
     if (missed.length) msg += " — missed: " + missed.join(", ");
+    if (wrongNames.length) msg += " — wrong: " + wrongNames.join(", ");
     root.appendChild(bar(msg, quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
     root.appendChild(bar(suggestFor(quality), "gt-suggest"));
+  }
+
+  function neighborsSpec(bundle, target) {
+    var region = findRegion(bundle, target) || {};
+    return {
+      key: "nb",
+      chip: "Neighbors",
+      title: region.name || target,
+      ids: region.nb || [],
+      exclude: target,
+      highlight: target,
+      instruction: "Tap every bordering " + nounOf(bundle),
+    };
+  }
+
+  function membersSpec(bundle, target) {
+    var set = setOf(bundle.scope, target) || {};
+    return {
+      key: "ms",
+      chip: set.chip || "Members",
+      title: set.name || target,
+      ids: set.ids || [],
+      exclude: null,
+      highlight: null,
+      instruction: set.instruction || ("Tap every member " + nounOf(bundle)),
+    };
+  }
+
+  function neighborsFront(root, bundle, target) {
+    tapSetFront(root, bundle, target, neighborsSpec(bundle, target));
+  }
+  function neighborsBack(root, bundle, target) {
+    tapSetBack(root, bundle, target, neighborsSpec(bundle, target));
+  }
+  function membersFront(root, bundle, target) {
+    tapSetFront(root, bundle, target, membersSpec(bundle, target));
+  }
+  function membersBack(root, bundle, target) {
+    tapSetBack(root, bundle, target, membersSpec(bundle, target));
   }
 
   // ============================ F6: DRAW-THE-SHAPE =============================
@@ -1947,6 +2008,9 @@
     place: { front: placeFront, back: placeBack },
     sketch: { front: sketchFront, back: sketchBack },
     neighbors: { front: neighborsFront, back: neighborsBack },
+    // members: same tap-a-set interaction, answer list injected per note via
+    // GT_SETS[scope:target] — needsSet gates mounting on that script arriving.
+    members: { front: membersFront, back: membersBack, needsSet: true },
     // selfContained: no basemap bundle (draw carries its own outline).
     // needsShape: also requires GT_SHAPES[scope:id] before mounting.
     draw: { front: drawFront, back: drawBack, selfContained: true, needsShape: true },
@@ -1977,6 +2041,7 @@
       bundle = window.GT_BUNDLES && window.GT_BUNDLES[scope];
       if (!bundle) return; // bundle script not evaluated yet; boot() retries
       if (impl.needsShape && !shapeOf(scope, target)) return; // per-note data not ready
+      if (impl.needsSet && !setOf(scope, target)) return; // answer-set script not ready
     }
     root.setAttribute("data-gt-mounted", "1");
     root.innerHTML = "";
