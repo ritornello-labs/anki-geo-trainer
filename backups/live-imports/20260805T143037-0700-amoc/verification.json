@@ -1,0 +1,29 @@
+{
+  "addedCardIds": [
+    1785965360867,
+    1785965360869,
+    1785965360871,
+    1785965360873
+  ],
+  "addedNoteIds": [
+    1785965360866,
+    1785965360868,
+    1785965360870,
+    1785965360872
+  ],
+  "afterCards": 2406,
+  "afterNotes": 2406,
+  "beforeCards": 2402,
+  "beforeNotes": 2402,
+  "changedExistingNotes": 0,
+  "changedExistingScheduling": 0,
+  "destination": "Process::GeoTrainer QA::Physical::Ocean Currents::3 Trace Atlantic Overturning",
+  "filteredDeckCollisions": 0,
+  "orderedKeys": [
+    "atlantic-overturning:01-upper-limb",
+    "atlantic-overturning:02-sinking-limb",
+    "atlantic-overturning:03-deep-return-limb",
+    "atlantic-overturning:04-complete-pathway"
+  ],
+  "syncPerformed": false
+}

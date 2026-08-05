@@ -1,9 +1,10 @@
 # anki-geo-trainer — Plan
 
-Status: active; the 2,402-card physical- and atmospheric-geography release is in the
-personal collection and queued for the existing AnkiWeb listing. Its 26-card
-atmospheric/seasonal batch is temporarily staged under `Process::GeoTrainer QA`
-for manual review before restoration to the normal GeoTrainer tree. Created 2026-07-05.
+Status: active; the 2,406-card physical- and atmospheric-geography release is in the
+personal collection and queued for the existing AnkiWeb listing. Its 30-card
+atmospheric, seasonal, and Atlantic-overturning batch is temporarily staged under
+`Process::GeoTrainer QA` for manual review before restoration to the normal GeoTrainer
+tree. Created 2026-07-05.
 
 ## Vision
 
@@ -359,12 +360,22 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   On 2026-08-05, the exact 26-card batch was moved without scheduling or content
   changes to `Process::GeoTrainer QA` for manual QA. Restore it with
   `scripts/stage_live_qa.py --restore` after review.
+- **Atlantic overturning cross-section. ✅ Built, verified, and staged live
+  2026-08-05; AnkiWeb update remains queued.** Added four prerequisite-ordered
+  direction-aware traces: the northward upper-ocean limb, northern high-latitude
+  sinking limb, southward deep-ocean return limb, and integrated Atlantic pathway.
+  A latitude–depth cross-section replaces the misleading flat global conveyor map;
+  the integrated route ends at the deep South Atlantic boundary rather than inventing
+  a local upwelling limb. Combined build: **84 leaf decks / 2,406 notes / 53.3 MB**.
+  Cross-engine validation: **334 passed / 12 intentional skips**. The four new cards
+  were imported directly into `Process::GeoTrainer QA` with all 2,402 existing notes,
+  card identities, deck assignments, and scheduling preserved.
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
-  (`make apkg-all`) + `release/screenshots/`. The 2,402-card update is in the
+  (`make apkg-all`) + `release/screenshots/`. The 2,406-card update is in the
   workspace's active AnkiWeb queue for existing shared deck `908455862`; uploading
   it remains a separate Publisher action subject to the AnkiWeb quota.
 

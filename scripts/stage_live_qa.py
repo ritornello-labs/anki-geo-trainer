@@ -1,6 +1,6 @@
-"""Stage the atmospheric GeoTrainer batch under Process for manual QA.
+"""Stage the physical-systems GeoTrainer batch under Process for manual QA.
 
-The default is a read-only forward audit. ``--apply`` moves the exact 26-card
+The default is a read-only forward audit. ``--apply`` moves the exact 30-card
 batch from the daily GeoTrainer tree to ``Process::GeoTrainer QA``. ``--restore``
 moves that same tag-defined batch back after manual QA. All operations use
 AnkiConnect and verify that only deck assignment changed.
@@ -51,7 +51,14 @@ TARGETS = (
         "Physical::Ocean Currents::2 Trace Seasonal Monsoon Currents",
         4,
     ),
+    (
+        "geotrainer::scope::physical::ocean-currents::amoc",
+        "Physical::Ocean Currents::3 Trace Atlantic Overturning",
+        4,
+    ),
 )
+
+EXPECTED_TOTAL = sum(count for _, _, count in TARGETS)
 
 SCHEDULING_FIELDS = (
     "cardId",
@@ -122,12 +129,16 @@ def collect(expected_root: str) -> dict:
             expected_by_card[card_id] = deck
         card_ids.extend(ids)
 
-    if len(card_ids) != 26:
-        raise RuntimeError(f"expected 26 unique cards, found {len(card_ids)}")
+    if len(card_ids) != EXPECTED_TOTAL:
+        raise RuntimeError(
+            f"expected {EXPECTED_TOTAL} unique cards, found {len(card_ids)}"
+        )
     cards = cards_info(sorted(card_ids))
     note_ids = sorted({card["note"] for card in cards})
-    if len(note_ids) != 26:
-        raise RuntimeError(f"expected 26 unique notes, found {len(note_ids)}")
+    if len(note_ids) != EXPECTED_TOTAL:
+        raise RuntimeError(
+            f"expected {EXPECTED_TOTAL} unique notes, found {len(note_ids)}"
+        )
     notes = notes_info(note_ids)
 
     filtered = []
@@ -203,7 +214,9 @@ def verify(before: dict, after: dict, destination_root: str) -> dict:
     for card in after["cards"]:
         by_deck[card["deckName"]].append(card["cardId"])
     if {deck: len(ids) for deck, ids in by_deck.items()} != after["counts"]:
-        raise RuntimeError("post-move deck membership does not match the six target decks")
+        raise RuntimeError(
+            f"post-move deck membership does not match the {len(TARGETS)} target decks"
+        )
 
     return {
         "destinationRoot": destination_root,

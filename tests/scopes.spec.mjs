@@ -594,6 +594,53 @@ test("atmospheric cells grade closed-loop direction without relying on endpoints
   }
 });
 
+test("Atlantic overturning cross-section grades latitude, depth, and direction", async ({ page }) => {
+  const scope = "atlantic-overturning";
+  const data = load(scope);
+  const target = "04-complete-pathway";
+  await mount(page, scope, data, { target, mode: "amoc", side: "front" });
+  await page.waitForSelector("svg.gt-map");
+  await expect(page.locator(".gt-chip")).toHaveText("Trace Atlantic overturning");
+  await expect(page.locator(".gt-flow-start")).toHaveCount(1);
+  await expect(page.locator(".gt-guide-label")).toContainText([
+    "Atlantic latitude–depth cross-section",
+  ]);
+  const scores = await page.evaluate(({ scope }) => {
+    const densify = (path) => {
+      const out = [];
+      for (let i = 1; i < path.length; i++) {
+        const a = path[i - 1], b = path[i];
+        for (let step = 0; step < 8; step++) {
+          const t = step / 8;
+          out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+        }
+      }
+      out.push(path[path.length - 1]);
+      return out;
+    };
+    return Object.entries(window.GT_SHAPES)
+      .filter(([key]) => key.startsWith(scope + ":"))
+      .map(([key, flow]) => {
+        const stroke = densify(flow.paths[0]);
+        const tooShallow = stroke.map(([x, y]) => [x, y - 135]);
+        return {
+          id: key.slice(scope.length + 1),
+          forward: window.GeoTrainer._sectionScore([stroke], flow.paths),
+          reverse: window.GeoTrainer._sectionScore([stroke.slice().reverse()], flow.paths),
+          tooShallow: window.GeoTrainer._sectionScore([tooShallow], flow.paths),
+        };
+      });
+  }, { scope });
+  expect(scores).toHaveLength(4);
+  for (const score of scores) {
+    expect(score.forward.quality, score.id).toBe(2);
+    expect(score.forward.reversed, score.id).toBe(false);
+    expect(score.reverse.quality, score.id).toBe(0);
+    expect(score.reverse.reversed, score.id).toBe(true);
+    expect(score.tooShallow.quality, score.id).toBe(0);
+  }
+});
+
 test("pressure belts grade all required hemispheric bands", async ({ page }) => {
   const scope = "atmospheric-pressure-belts";
   const data = load(scope);
@@ -624,6 +671,7 @@ test("new physical curricula have deliberate, stable membership", () => {
   const jets = load("world-jet-streams");
   const monsoonWinds = load("south-asia-monsoon-winds");
   const seasonalCurrents = load("indian-ocean-seasonal-currents");
+  const amoc = load("atlantic-overturning");
   expect(lakes.bundle.regions).toHaveLength(24);
   expect(lakes.bundle.families).toEqual(["point", "place"]);
   expect(lakes.bundle.regions.map((r) => r.name)).toContain("Lake Victoria");
@@ -668,6 +716,10 @@ test("new physical curricula have deliberate, stable membership", () => {
   expect(seasonalCurrents.bundle.families).toEqual(["seasonalcurrent"]);
   expect(seasonalCurrents.shapes["somali-current-summer"].name).toContain("boreal summer");
   expect(seasonalCurrents.shapes["somali-current-winter"].name).toContain("boreal winter");
+  expect(Object.keys(amoc.shapes)).toHaveLength(4);
+  expect(amoc.bundle.families).toEqual(["amoc"]);
+  expect(amoc.shapes["01-upper-limb"].name).toBe("Northward upper-ocean limb");
+  expect(amoc.shapes["04-complete-pathway"].paths[0].length).toBeGreaterThan(10);
 });
 
 test("all expected scopes are present", () => {
@@ -681,7 +733,7 @@ test("all expected scopes are present", () => {
       "world-lakes", "world-ocean-currents", "world-ranges", "world-rivers",
       "world-tectonic-plates", "atmospheric-cells", "atmospheric-pressure-belts",
       "world-prevailing-winds", "world-jet-streams", "south-asia-monsoon-winds",
-      "indian-ocean-seasonal-currents",
+      "indian-ocean-seasonal-currents", "atlantic-overturning",
     ].sort()
   );
 });

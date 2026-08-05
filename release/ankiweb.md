@@ -68,7 +68,9 @@ Australia, Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and
 **deserts** (place or sketch them over the continents), **major lakes** (identify
 and place), **tectonic plates** (identify, place, and sketch), **major rivers** (trace the
 course), **ocean currents** (trace route + direction), and **atmospheric circulation**
-(cells, pressure belts, winds, jets, and season-aware monsoon flows). And a **Continents**
+(cells, pressure belts, winds, jets, and season-aware monsoon flows). A depth-aware
+Atlantic cross-section adds the upper, sinking, and deep-return limbs of the **Atlantic
+Meridional Overturning Circulation**. And a **Continents**
 deck: first sketch each one on a blank world map, then
 draw its silhouette from memory without context.
 

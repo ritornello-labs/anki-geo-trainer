@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
 [![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 ![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
-![Deck size](https://img.shields.io/badge/deck-2%2C402%20notes-7C3AED)
+![Deck size](https://img.shields.io/badge/deck-2%2C406%20notes-7C3AED)
 
 Interactive geography practice for Anki: a curriculum-ordered set of map tasks that
 asks you to locate, place, sketch, draw, and trace from memory on borderless maps. It runs
@@ -18,10 +18,11 @@ The animation is hosted with the public listing media at ritornello.dev; click i
 **Release status:** the initial version was submitted to AnkiWeb on 2026-07-15. The
 contextual-Sketch and physical-geography updates are installed in the live personal
 collection. The combined update is queued for the existing AnkiWeb listing but has not
-yet been uploaded. The 26 atmospheric/seasonal cards are temporarily staged under
-`Process::GeoTrainer QA` for manual review before returning to this tree. GeoTrainer is a
+yet been uploaded. The 30 atmospheric, seasonal, and Atlantic-overturning cards are
+temporarily staged under `Process::GeoTrainer QA` for manual review before returning to
+this tree. GeoTrainer is a
 lean, **borderless-recall** set redesigned after real-world study.
-**Twenty-nine scopes**, 2,402 cards. Region scopes carry four families — **Which**,
+**Thirty scopes**, 2,406 cards. Region scopes carry four families — **Which**,
 **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):
 **Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),
@@ -30,10 +31,11 @@ where things are instead of matching a labelled shape). Continents (countries):
 (13), **Australia** (9), **Argentina** (24), **Mexico** (32), **Indonesia** (33).
 Physical: **mountain ranges** (29) and **deserts** (17) — **Place + Sketch**;
 **major lakes** (24) — **Which + Place**; **major tectonic plates** (16) —
-**Which + Place + Sketch**; **major rivers** (42) as trace-the-course; and **major ocean
-currents** (34) as direction-aware trace-the-route; **atmospheric circulation**
+**Which + Place + Sketch**; **major rivers** (42) as trace-the-course; **major surface
+ocean currents** (34 stable + 4 season-specific) as direction-aware traces; a four-card
+latitude–depth **Atlantic overturning** sequence; and **atmospheric circulation**
 (20) as cells, pressure belts, prevailing winds, and jets; and **seasonal South
-Asian monsoon circulation** (6) as paired summer/winter wind and current traces. Plus a
+Asian monsoon winds** (2) as paired summer/winter traces. Plus a
 **Continents** scope — **Sketch** each one on the blank world, then **Draw** its
 silhouette from memory (Europe is clipped at the Urals, and Asia excludes Siberia, since Natural
 Earth files Russia under Europe). All rendered by one shared engine and verified on

@@ -1808,6 +1808,100 @@ def _build_seasonal_currents() -> tuple[dict, dict, dict]:
     return _build_line_scope(scope="indian-ocean-seasonal-currents", title="Northern Indian Ocean — Seasonal Currents", noun="seasonal ocean current", kind="seasonal-currents", family="seasonalcurrent", routes=SEASONAL_CURRENTS, box_t=(30.0, -15.0, 110.0, 30.0), width=1000.0, guide_lats=(0, 15, 30))
 
 
+# AMOC is taught as a zonally integrated Atlantic latitude–depth section, not as
+# a falsely precise global "conveyor belt" line. The complete pathway ends at
+# the South Atlantic boundary because most transformation back toward the upper
+# ocean occurs through the Southern Ocean and Indo-Pacific, outside this section.
+AMOC_ROUTES = {
+    "01-upper-limb": {
+        "name": "Northward upper-ocean limb",
+        "style": "amoc-upper",
+        "paths": [[(-30, 900), (-10, 750), (10, 600), (30, 450), (50, 350), (60, 600)]],
+    },
+    "02-sinking-limb": {
+        "name": "Northern high-latitude sinking limb",
+        "style": "amoc-sinking",
+        "paths": [[(60, 600), (60, 1100), (59, 1700), (57, 2300), (55, 2800)]],
+    },
+    "03-deep-return-limb": {
+        "name": "Southward deep-ocean return limb",
+        "style": "amoc-deep",
+        "paths": [[(55, 2800), (35, 2850), (15, 3000), (-5, 3200), (-30, 3400)]],
+    },
+    "04-complete-pathway": {
+        "name": "Complete Atlantic overturning pathway",
+        "style": "amoc-full",
+        "paths": [[
+            (-30, 900), (-10, 750), (10, 600), (30, 450), (50, 350), (60, 600),
+            (60, 1100), (59, 1700), (57, 2300), (55, 2800),
+            (35, 2850), (15, 3000), (-5, 3200), (-30, 3400),
+        ]],
+    },
+}
+
+
+def _build_amoc_cross_section() -> tuple[dict, dict, dict]:
+    width, height = 1000.0, 620.0
+    left, right, top, bottom = 90.0, 950.0, 62.0, 535.0
+    min_lat, max_lat, max_depth = -35.0, 70.0, 5000.0
+
+    def project(lat, depth):
+        x = left + ((lat - min_lat) / (max_lat - min_lat)) * (right - left)
+        y = top + (depth / max_depth) * (bottom - top)
+        return [round(x, 1), round(y, 1)]
+
+    shapes = {}
+    for rid, route in AMOC_ROUTES.items():
+        shapes[rid] = {
+            "name": route["name"],
+            "style": route["style"],
+            "paths": [
+                [project(lat, depth) for lat, depth in path]
+                for path in route["paths"]
+            ],
+        }
+
+    guide_lines = []
+    guide_labels = [
+        {"x": left, "y": 30, "text": "Atlantic latitude–depth cross-section"},
+        {"x": 8, "y": top + 5, "text": "surface"},
+    ]
+    for depth in (0, 1000, 2000, 3000, 4000, 5000):
+        _, y = project(min_lat, depth)
+        guide_lines.append([left, y, right, y])
+        if depth:
+            guide_labels.append({"x": 24, "y": y + 5, "text": f"{depth // 1000} km"})
+    for lat in (-30, 0, 30, 60):
+        x, _ = project(lat, 0)
+        guide_lines.append([x, top, x, bottom])
+        label = "0°" if lat == 0 else f"{abs(lat)}°{'S' if lat < 0 else 'N'}"
+        guide_labels.append({"x": x - 15, "y": bottom + 28, "text": label})
+    guide_labels.extend([
+        {"x": left, "y": bottom + 58, "text": "toward Southern Ocean"},
+        {"x": right - 225, "y": bottom + 58, "text": "subpolar North Atlantic"},
+    ])
+
+    bundle = {
+        "scope": "atlantic-overturning",
+        "title": "Atlantic Meridional Overturning Circulation",
+        "noun": "overturning pathway",
+        "kind": "ocean-depth-cross-section",
+        "families": ["amoc"],
+        "view": {"w": width, "h": height},
+        "frames": [{
+            "id": "main",
+            "rect": [0.0, 0.0, width, height],
+            "kmPerUnit": 1.0,
+            "label": "",
+        }],
+        "context": [],
+        "guideLines": guide_lines,
+        "guideLabels": guide_labels,
+        "regions": [],
+    }
+    return bundle, shapes, {}
+
+
 # ---------------------------------------------------------------------------------
 
 SCOPES = {"us-states": build_us_states}
@@ -1824,6 +1918,7 @@ SCOPES["world-prevailing-winds"] = _build_prevailing_winds
 SCOPES["world-jet-streams"] = _build_jet_streams
 SCOPES["south-asia-monsoon-winds"] = _build_monsoon_winds
 SCOPES["indian-ocean-seasonal-currents"] = _build_seasonal_currents
+SCOPES["atlantic-overturning"] = _build_amoc_cross_section
 for _name, _cfg in CONTINENT_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_continent(n, c)))(_name, _cfg)
 for _name, _cfg in CONTINENTS_SCOPES.items():
