@@ -18,7 +18,8 @@ The animation is hosted with the public listing media at ritornello.dev; click i
 **Release status:** the initial version was submitted to AnkiWeb on 2026-07-15. The
 contextual-Sketch and physical-geography updates are installed in the live personal
 collection. The combined update is queued for the existing AnkiWeb listing but has not
-yet been uploaded. GeoTrainer is a
+yet been uploaded. The 26 atmospheric/seasonal cards are temporarily staged under
+`Process::GeoTrainer QA` for manual review before returning to this tree. GeoTrainer is a
 lean, **borderless-recall** set redesigned after real-world study.
 **Twenty-nine scopes**, 2,402 cards. Region scopes carry four families — **Which**,
 **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall

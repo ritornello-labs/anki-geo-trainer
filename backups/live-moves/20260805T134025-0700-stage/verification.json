@@ -1,0 +1,76 @@
+{
+  "cardIds": [
+    1785540781318,
+    1785540781320,
+    1785540781322,
+    1785540781324,
+    1785540781326,
+    1785540781328,
+    1785540781330,
+    1785540781332,
+    1785540781334,
+    1785540781336,
+    1785540781338,
+    1785540781340,
+    1785540781342,
+    1785540781344,
+    1785540781346,
+    1785540781348,
+    1785540781350,
+    1785540781352,
+    1785540781354,
+    1785540781356,
+    1785540781358,
+    1785540781360,
+    1785540781362,
+    1785540781364,
+    1785540781366,
+    1785540781368
+  ],
+  "cards": 26,
+  "cardsByDeck": {
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::1 Trace Cells": [
+      1785540781318,
+      1785540781320,
+      1785540781322,
+      1785540781324,
+      1785540781326,
+      1785540781328
+    ],
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::2 Place Pressure Belts": [
+      1785540781330,
+      1785540781332,
+      1785540781334,
+      1785540781336
+    ],
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::3 Trace Prevailing Winds": [
+      1785540781338,
+      1785540781340,
+      1785540781342,
+      1785540781344,
+      1785540781346,
+      1785540781348
+    ],
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::4 Trace Jet Streams": [
+      1785540781350,
+      1785540781352,
+      1785540781354,
+      1785540781356
+    ],
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::5 Trace Seasonal Monsoon Winds": [
+      1785540781358,
+      1785540781360
+    ],
+    "Process::GeoTrainer QA::Physical::Ocean Currents::2 Trace Seasonal Monsoon Currents": [
+      1785540781362,
+      1785540781364,
+      1785540781366,
+      1785540781368
+    ]
+  },
+  "destinationRoot": "Process::GeoTrainer QA",
+  "filteredDeckCollisions": 0,
+  "noteChanges": 0,
+  "notes": 26,
+  "schedulingChanges": []
+}

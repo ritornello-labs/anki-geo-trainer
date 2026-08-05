@@ -3,7 +3,9 @@
 Status: the initial version was submitted to AnkiWeb on 2026-07-15. The contextual
 **Sketch** family and the physical-geography expansion are installed in the live
 personal collection. The combined update is queued for existing shared deck
-`908455862` but has not yet been uploaded.
+`908455862` but has not yet been uploaded. The 26-card atmospheric/seasonal batch
+is temporarily staged under `Process::GeoTrainer QA` for manual review; restore it
+to the normal GeoTrainer tree before the Publisher export.
 
 Verification status (2026-07-31, combined update): all 29 scopes are covered by
 the cross-engine suite (Chromium + WebKit): **318 passed / 12 intentional skips**.
