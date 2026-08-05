@@ -1,7 +1,9 @@
 # anki-geo-trainer — Plan
 
-Status: active; the 2,402-card physical- and atmospheric-geography release is installed in the
-personal collection and queued for the existing AnkiWeb listing. Created 2026-07-05.
+Status: active; the 2,402-card physical- and atmospheric-geography release is in the
+personal collection and queued for the existing AnkiWeb listing. Its 26-card
+atmospheric/seasonal batch is temporarily staged under `Process::GeoTrainer QA`
+for manual review before restoration to the normal GeoTrainer tree. Created 2026-07-05.
 
 ## Vision
 
@@ -350,6 +352,9 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   note content, and scheduling, and left no temporary top-level deck. Snapshots
   and rollback are under `backups/live-imports/20260731T163538-0700-before/` and
   `backups/live-imports/20260731T163538-0700-after/`.
+  On 2026-08-05, the exact 26-card batch was moved without scheduling or content
+  changes to `Process::GeoTrainer QA` for manual QA. Restore it with
+  `scripts/stage_live_qa.py --restore` after review.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
   (`make apkg-all`) + `release/screenshots/`. The 2,402-card update is in the
