@@ -18,15 +18,15 @@ Light and dark mode included.
 
 ## See it in Anki
 
-![GeoTrainer place-the-shape review](https://ritornello.dev/media/ankiweb/2026-08-05-v3/geo-trainer/preview.gif)
+![GeoTrainer place-the-shape review](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/preview.gif)
 
-![Place Alabama on a borderless map](https://ritornello.dev/media/ankiweb/2026-08-05-v3/geo-trainer/gallery-01.png)
+![Place the Libyan Desert on a borderless map](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/gallery-01.png)
 
-![Trace the Amazon from memory](https://ritornello.dev/media/ankiweb/2026-08-05-v3/geo-trainer/gallery-02.png)
+![Trace the Amazon from memory](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/gallery-02.png)
 
-[Full-resolution Place MP4](https://ritornello.dev/media/ankiweb/2026-08-05-v3/geo-trainer/place.mp4)
+[3.75-second Place MP4](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/place.mp4)
 
-[Full-resolution Amazon Trace MP4](https://ritornello.dev/media/ankiweb/2026-08-05-v3/geo-trainer/river.mp4)
+[3-second Amazon Trace MP4](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/river.mp4)
 
 ## Task families
 
