@@ -73,13 +73,14 @@ review in the installed client remains pending.
 - [x] Submit the first version; record shared id `908455862` and link it from the README.
 - [x] Install and verify the 2,406-card combined update in the local collection.
 - [x] Add the update to the workspace's active AnkiWeb publication queue.
+- [x] Delete the two orphan `GeoTrainer Neighbors` note types left by the F7
+      retirement. Verified absent from the live collection on 2026-08-05; a
+      fresh backup preceded the successful full sync, and the pending-change
+      counts were zero afterward.
 - [ ] Import the update into the isolated Publisher collection, render the proposed
       updated listing for review, and upload only after explicit approval.
 
 ## Not blocking release
 
-- Two orphan "GeoTrainer Neighbors" note types remain in Elvis's collection from the
-  F7 retirement. Delete them later, but not until Elvis can afford the full sync that
-  the collection schema change would require.
 - Additional country subdivisions are intentionally outside the core release. Build
   them as optional expansion packs only if demand appears.
