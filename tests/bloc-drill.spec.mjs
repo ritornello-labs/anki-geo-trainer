@@ -80,6 +80,31 @@ test("microstate members are tappable at world scale", async ({ page }) => {
   await expect(page.locator(".gt-hint")).toContainText("3 / 15");
 });
 
+// Regression: the bundle used to carry each country twice, once per ISO key,
+// so tapping the middle of France hit its map-unit twin and scored wrong.
+// ASEAN and CARICOM contain none of the nine affected countries, which is the
+// only reason the original tests passed.
+test("a country appears on the map exactly once", async ({ page }) => {
+  await page.goto(base + "schengen-area-front.html");
+  await page.waitForSelector("svg.gt-map");
+  const dupes = await page.evaluate(() => {
+    const by = {};
+    for (const r of window.GT_BUNDLES["world-countries"].regions) {
+      (by[r.name] = by[r.name] || []).push(r.id);
+    }
+    return Object.entries(by).filter(([, ids]) => ids.length > 1);
+  });
+  expect(dupes).toEqual([]);
+});
+
+test("tapping a large member's own centre credits that member", async ({ page }) => {
+  await page.goto(base + "schengen-area-front.html");
+  await page.waitForSelector("svg.gt-map");
+  for (const id of ["FRA", "NLD"]) await tap(page, id);
+  await expect(page.locator(".gt-hint")).toContainText("2 / 29");
+  await expect(page.locator(".gt-hint")).not.toContainText("wrong");
+});
+
 test("back scores hits, misses and false positives", async ({ page }) => {
   await page.goto(base + "asean-front.html");
   await page.waitForSelector("svg.gt-map");
