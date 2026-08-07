@@ -1,6 +1,6 @@
 """Stage the physical-systems GeoTrainer batch under Process for manual QA.
 
-The default is a read-only forward audit. ``--apply`` moves the exact 30-card
+The default is a read-only forward audit. ``--apply`` moves the exact 29-card
 batch from the daily GeoTrainer tree to ``Process::GeoTrainer QA``. ``--restore``
 moves that same tag-defined batch back after manual QA. All operations use
 AnkiConnect and verify that only deck assignment changed.
@@ -24,7 +24,7 @@ TARGETS = (
     (
         "geotrainer::scope::physical::atmosphere::cells",
         "Physical::Atmospheric Circulation::1 Trace Cells",
-        6,
+        3,
     ),
     (
         "geotrainer::scope::physical::atmosphere::pressure-belts",
@@ -53,7 +53,12 @@ TARGETS = (
     ),
     (
         "geotrainer::scope::physical::ocean-currents::amoc",
-        "Physical::Ocean Currents::3 Trace Atlantic Overturning",
+        "Physical::Ocean Currents::3 Learn Atlantic Overturning",
+        2,
+    ),
+    (
+        "geotrainer::scope::physical::ocean-atmosphere::enso",
+        "Physical::Ocean–Atmosphere Coupling::1 Compare ENSO States",
         4,
     ),
 )

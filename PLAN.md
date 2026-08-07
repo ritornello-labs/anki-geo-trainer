@@ -1,8 +1,8 @@
 # anki-geo-trainer — Plan
 
-Status: active; the 2,406-card physical- and atmospheric-geography release is in the
-personal collection and queued for the existing AnkiWeb listing. Its 30-card
-atmospheric, seasonal, and Atlantic-overturning batch is temporarily staged under
+Status: active; the 2,405-card physical- and atmospheric-geography release is in the
+personal collection and queued for the existing AnkiWeb listing. Its 29-card
+atmospheric, seasonal, ENSO, and Atlantic-overturning batch is temporarily staged under
 `Process::GeoTrainer QA` for manual review before restoration to the normal GeoTrainer
 tree. Created 2026-07-05.
 
@@ -370,12 +370,25 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   Cross-engine validation: **334 passed / 12 intentional skips**. The four new cards
   were imported directly into `Process::GeoTrainer QA` with all 2,402 existing notes,
   card identities, deck assignments, and scheduling preserved.
+- **Physical-systems QA redesign + ENSO. ✅ Built, cross-engine verified, and
+  staged live 2026-08-06; manual QA remains.** Replaced six unreviewed
+  hemisphere-specific cell cards with three paired-loop cards on a curved global
+  cross-section; removed the pressure-belt count hint; changed prevailing-wind
+  grading to broad latitude belts; moved monsoon winds to a world map; replaced
+  four confusing AMOC traces with two direction/sequence cards; and added four
+  neutral/El Niño/La Niña comparison cards. Cross-engine validation: **350 passed /
+  12 intentional skips**. Combined build: **85 leaf decks / 2,405 notes / 60.0 MB**.
+  The guarded live replacement deleted only the ten exact zero-review legacy notes,
+  added nine redesigned notes, preserved scheduling on all 2,396 retained cards,
+  found no filtered-deck collision, and performed no sync. Rollback packages and
+  verification are under
+  `backups/live-imports/20260806T181704-0700-physical-redesign/`.
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
-  (`make apkg-all`) + `release/screenshots/`. The 2,406-card update is in the
+  (`make apkg-all`) + `release/screenshots/`. The 2,405-card update is in the
   workspace's active AnkiWeb queue for existing shared deck `908455862`; uploading
   it remains a separate Publisher action subject to the AnkiWeb quota.
 

@@ -32,13 +32,14 @@ FIXTURE_TARGETS = {
     "europe-countries": "FRA",
     "world-rivers": "amazon",
     "world-ocean-currents": "gulf-stream",
-    "atmospheric-cells": "hadley-north",
+    "atmospheric-cells": "01-hadley-pair",
     "atmospheric-pressure-belts": "subtropical-highs",
     "world-prevailing-winds": "northeast-trades",
     "world-jet-streams": "polar-front-jet-north",
     "south-asia-monsoon-winds": "south-asia-summer",
     "indian-ocean-seasonal-currents": "somali-current-summer",
-    "atlantic-overturning": "04-complete-pathway",
+    "atlantic-overturning": "02-pathway-order",
+    "equatorial-pacific-enso": "02-el-nino",
 }
 
 
@@ -51,6 +52,7 @@ def render(side_html: str, css: str, scope: str, target: str, mode: str) -> str:
     if mode in {
         "river", "current", "cell", "belt", "wind", "jet", "seasonalwind",
         "seasonalcurrent", "amoc",
+        "enso",
     }:
         name = load_shapes(scope)[target]["name"]
     else:
@@ -70,6 +72,8 @@ def render(side_html: str, css: str, scope: str, target: str, mode: str) -> str:
         body = body.replace("{{WindData}}", _b64(load_shapes(scope)[target]))
     if "{{JetData}}" in body:
         body = body.replace("{{JetData}}", _b64(load_shapes(scope)[target]))
+    if "{{EnsoData}}" in body:
+        body = body.replace("{{EnsoData}}", _b64(load_shapes(scope)[target]))
     if "{{CapitalName}}" in body:
         cap = load_capitals(scope)[target]
         body = body.replace("{{CapitalName}}", cap["name"]).replace(

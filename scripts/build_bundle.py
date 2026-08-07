@@ -1586,12 +1586,24 @@ def _build_line_scope(
         shapes[rid] = {
             key: value
             for key, value in route.items()
-            if key not in {"paths"}
+            if key not in {"paths", "latitudeBand"}
         }
         shapes[rid]["paths"] = [
             [project(lon, lat) for lon, lat in coordinates]
             for coordinates in route["paths"]
         ]
+        if route.get("latitudeBand"):
+            south, north = route["latitudeBand"]
+            shapes[rid]["acceptBand"] = [
+                round(project(0, north)[1], 1),
+                round(project(0, south)[1], 1),
+            ]
+            first = shapes[rid]["paths"][0][0]
+            last = shapes[rid]["paths"][0][-1]
+            shapes[rid]["directionVector"] = [
+                round(last[0] - first[0], 1),
+                round(last[1] - first[1], 1),
+            ]
 
     land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
     context = rings_of(
@@ -1630,46 +1642,45 @@ def _build_line_scope(
 
 
 ATMOSPHERIC_CELLS = {
-    "hadley-north": {
-        "name": "Hadley cell — Northern Hemisphere",
+    "01-hadley-pair": {
+        "name": "Hadley cells",
         "style": "cell",
-        "paths": [[(30, 0), (15, 0), (0, 0), (0, 12), (0, 16), (15, 16), (30, 14), (30, 0)]],
+        "paths": [
+            [(30, 0), (15, 0), (0, 0), (0, 12), (0, 16), (15, 16), (30, 14), (30, 0)],
+            [(-30, 0), (-15, 0), (0, 0), (0, 12), (0, 16), (-15, 16), (-30, 14), (-30, 0)],
+        ],
     },
-    "ferrel-north": {
-        "name": "Ferrel cell — Northern Hemisphere",
+    "02-ferrel-pair": {
+        "name": "Ferrel cells",
         "style": "cell",
-        "paths": [[(30, 0), (45, 0), (60, 0), (60, 10), (60, 13), (45, 15), (30, 14), (30, 0)]],
+        "paths": [
+            [(30, 0), (45, 0), (60, 0), (60, 10), (60, 13), (45, 15), (30, 14), (30, 0)],
+            [(-30, 0), (-45, 0), (-60, 0), (-60, 10), (-60, 13), (-45, 15), (-30, 14), (-30, 0)],
+        ],
     },
-    "polar-north": {
-        "name": "Polar cell — Northern Hemisphere",
+    "03-polar-pair": {
+        "name": "Polar cells",
         "style": "cell",
-        "paths": [[(90, 0), (75, 0), (60, 0), (60, 8), (60, 11), (75, 9), (90, 7), (90, 0)]],
-    },
-    "hadley-south": {
-        "name": "Hadley cell — Southern Hemisphere",
-        "style": "cell",
-        "paths": [[(-30, 0), (-15, 0), (0, 0), (0, 12), (0, 16), (-15, 16), (-30, 14), (-30, 0)]],
-    },
-    "ferrel-south": {
-        "name": "Ferrel cell — Southern Hemisphere",
-        "style": "cell",
-        "paths": [[(-30, 0), (-45, 0), (-60, 0), (-60, 10), (-60, 13), (-45, 15), (-30, 14), (-30, 0)]],
-    },
-    "polar-south": {
-        "name": "Polar cell — Southern Hemisphere",
-        "style": "cell",
-        "paths": [[(-90, 0), (-75, 0), (-60, 0), (-60, 8), (-60, 11), (-75, 9), (-90, 7), (-90, 0)]],
+        "paths": [
+            [(90, 0), (75, 0), (60, 0), (60, 8), (60, 11), (75, 9), (90, 7), (90, 0)],
+            [(-90, 0), (-75, 0), (-60, 0), (-60, 8), (-60, 11), (-75, 9), (-90, 7), (-90, 0)],
+        ],
     },
 }
 
 
 def _build_atmospheric_cells() -> tuple[dict, dict, dict]:
     width, height = 1000.0, 520.0
-    left, right, top, surface = 70.0, 950.0, 55.0, 450.0
+    left, right, top = 70.0, 950.0, 52.0
+
+    def surface_y(lat):
+        return 438.0 - 42.0 * math.cos(math.radians(lat))
 
     def project(lat, altitude):
         x = left + ((lat + 90.0) / 180.0) * (right - left)
-        y = surface - (altitude / 18.0) * (surface - top)
+        local_surface = surface_y(lat)
+        local_top = top + 20.0 * abs(lat) / 90.0
+        y = local_surface - (altitude / 18.0) * (local_surface - local_top)
         return [round(x, 1), round(y, 1)]
 
     shapes = {}
@@ -1677,20 +1688,26 @@ def _build_atmospheric_cells() -> tuple[dict, dict, dict]:
         shapes[rid] = {
             "name": route["name"],
             "style": route["style"],
-            "paths": [[project(lat, altitude) for lat, altitude in route["paths"][0]]],
+            "paths": [
+                [project(lat, altitude) for lat, altitude in path]
+                for path in route["paths"]
+            ],
         }
 
-    guide_lines = [[left, surface, right, surface], [left, top, right, top]]
+    surface_path = [project(lat, 0) for lat in range(-90, 91, 5)]
+    tropopause_path = [project(lat, 18) for lat in range(-90, 91, 5)]
+    guide_lines = []
     guide_labels = [
-        {"x": left, "y": 28, "text": "latitude–altitude cross-section"},
-        {"x": 8, "y": surface + 5, "text": "surface"},
-        {"x": 8, "y": top + 5, "text": "upper troposphere"},
+        {"x": left, "y": 27, "text": "global latitude–altitude cross-section"},
+        {"x": 8, "y": surface_y(-90) + 5, "text": "surface"},
+        {"x": 8, "y": top + 8, "text": "upper troposphere"},
     ]
     for lat in (-90, -60, -30, 0, 30, 60, 90):
-        x, _ = project(lat, 0)
-        guide_lines.append([x, top, x, surface])
+        x, bottom_y = project(lat, 0)
+        _, top_y = project(lat, 18)
+        guide_lines.append([x, top_y, x, bottom_y])
         label = "0°" if lat == 0 else f"{abs(lat)}°{'S' if lat < 0 else 'N'}"
-        guide_labels.append({"x": x - 14, "y": surface + 27, "text": label})
+        guide_labels.append({"x": x - 14, "y": bottom_y + 27, "text": label})
 
     bundle = {
         "scope": "atmospheric-cells",
@@ -1702,6 +1719,10 @@ def _build_atmospheric_cells() -> tuple[dict, dict, dict]:
         "frames": [{"id": "main", "rect": [0.0, 0.0, width, height], "kmPerUnit": 1.0, "label": ""}],
         "context": [],
         "guideLines": guide_lines,
+        "guidePaths": [
+            {"points": surface_path, "className": "gt-earth-surface"},
+            {"points": tropopause_path, "className": "gt-tropopause"},
+        ],
         "guideLabels": guide_labels,
         "regions": [],
     }
@@ -1742,7 +1763,8 @@ def _build_pressure_belts() -> tuple[dict, dict, dict]:
         p = project(-180, lat)
         guide_lines.append([PAD, p[1], PAD + width, p[1]])
         label = "0°" if lat == 0 else f"{abs(lat)}°{'S' if lat < 0 else 'N'}"
-        guide_labels.append({"x": PAD + 8, "y": p[1] - 6, "text": label})
+        label_y = p[1] + 17 if lat == 90 else p[1] - 6
+        guide_labels.append({"x": PAD + 8, "y": label_y, "text": label})
 
     bundle = {
         "scope": "atmospheric-pressure-belts",
@@ -1761,20 +1783,20 @@ def _build_pressure_belts() -> tuple[dict, dict, dict]:
 
 
 PREVAILING_WINDS = {
-    "northeast-trades": {"name": "Northeast trade winds", "style": "wind", "paths": [[(-15, 27), (-28, 21), (-42, 14), (-58, 7)]]},
-    "southeast-trades": {"name": "Southeast trade winds", "style": "wind", "paths": [[(-15, -27), (-28, -21), (-42, -14), (-58, -7)]]},
-    "northern-westerlies": {"name": "Northern Hemisphere westerlies", "style": "wind", "paths": [[(-70, 35), (-50, 41), (-30, 48), (-8, 55)]]},
-    "southern-westerlies": {"name": "Southern Hemisphere westerlies", "style": "wind", "paths": [[(20, -35), (45, -41), (75, -47), (110, -54)]]},
-    "northern-polar-easterlies": {"name": "Northern polar easterlies", "style": "wind", "paths": [[(-10, 77), (-27, 72), (-45, 66), (-64, 60)]]},
-    "southern-polar-easterlies": {"name": "Southern polar easterlies", "style": "wind", "paths": [[(105, -77), (88, -72), (68, -66), (47, -60)]]},
+    "northeast-trades": {"name": "Northeast trade winds", "style": "wind", "latitudeBand": (0, 30), "paths": [[(-15, 27), (-28, 21), (-42, 14), (-58, 7)]]},
+    "southeast-trades": {"name": "Southeast trade winds", "style": "wind", "latitudeBand": (-30, 0), "paths": [[(-15, -27), (-28, -21), (-42, -14), (-58, -7)]]},
+    "northern-westerlies": {"name": "Northern Hemisphere westerlies", "style": "wind", "latitudeBand": (30, 60), "paths": [[(-70, 35), (-50, 41), (-30, 48), (-8, 55)]]},
+    "southern-westerlies": {"name": "Southern Hemisphere westerlies", "style": "wind", "latitudeBand": (-60, -30), "paths": [[(20, -35), (45, -41), (75, -47), (110, -54)]]},
+    "northern-polar-easterlies": {"name": "Northern polar easterlies", "style": "wind", "latitudeBand": (60, 90), "paths": [[(-10, 77), (-27, 72), (-45, 66), (-64, 60)]]},
+    "southern-polar-easterlies": {"name": "Southern polar easterlies", "style": "wind", "latitudeBand": (-90, -60), "paths": [[(105, -77), (88, -72), (68, -66), (47, -60)]]},
 }
 
 
 JET_STREAMS = {
-    "subtropical-jet-north": {"name": "Northern subtropical jet", "style": "jet", "paths": [[(-160, 30), (-110, 27), (-60, 32), (-10, 29), (45, 33), (100, 28), (160, 31)]]},
-    "polar-front-jet-north": {"name": "Northern polar-front jet", "style": "jet", "paths": [[(-160, 58), (-110, 52), (-60, 62), (-10, 55), (45, 63), (100, 53), (160, 59)]]},
-    "subtropical-jet-south": {"name": "Southern subtropical jet", "style": "jet", "paths": [[(-160, -30), (-110, -27), (-60, -32), (-10, -29), (45, -33), (100, -28), (160, -31)]]},
-    "polar-front-jet-south": {"name": "Southern polar-front jet", "style": "jet", "paths": [[(-160, -58), (-110, -52), (-60, -62), (-10, -55), (45, -63), (100, -53), (160, -59)]]},
+    "subtropical-jet-north": {"name": "Northern subtropical jet", "style": "jet", "latitudeBand": (20, 40), "paths": [[(-160, 30), (-110, 27), (-60, 32), (-10, 29), (45, 33), (100, 28), (160, 31)]]},
+    "polar-front-jet-north": {"name": "Northern polar-front jet", "style": "jet", "latitudeBand": (45, 70), "paths": [[(-160, 58), (-110, 52), (-60, 62), (-10, 55), (45, 63), (100, 53), (160, 59)]]},
+    "subtropical-jet-south": {"name": "Southern subtropical jet", "style": "jet", "latitudeBand": (-40, -20), "paths": [[(-160, -30), (-110, -27), (-60, -32), (-10, -29), (45, -33), (100, -28), (160, -31)]]},
+    "polar-front-jet-south": {"name": "Southern polar-front jet", "style": "jet", "latitudeBand": (-70, -45), "paths": [[(-160, -58), (-110, -52), (-60, -62), (-10, -55), (45, -63), (100, -53), (160, -59)]]},
 }
 
 
@@ -1801,41 +1823,66 @@ def _build_jet_streams() -> tuple[dict, dict, dict]:
 
 
 def _build_monsoon_winds() -> tuple[dict, dict, dict]:
-    return _build_line_scope(scope="south-asia-monsoon-winds", title="Atmospheric Circulation — Seasonal Monsoon Winds", noun="seasonal monsoon wind", kind="atmospheric-flow", family="seasonalwind", routes=MONSOON_WINDS, box_t=(35.0, -15.0, 105.0, 35.0), width=1000.0, guide_lats=(0, 15, 30))
+    return _build_line_scope(scope="south-asia-monsoon-winds", title="Atmospheric Circulation — Seasonal Monsoon Winds", noun="seasonal monsoon wind", kind="atmospheric-flow", family="seasonalwind", routes=MONSOON_WINDS)
 
 
 def _build_seasonal_currents() -> tuple[dict, dict, dict]:
     return _build_line_scope(scope="indian-ocean-seasonal-currents", title="Northern Indian Ocean — Seasonal Currents", noun="seasonal ocean current", kind="seasonal-currents", family="seasonalcurrent", routes=SEASONAL_CURRENTS, box_t=(30.0, -15.0, 110.0, 30.0), width=1000.0, guide_lats=(0, 15, 30))
 
 
-# AMOC is taught as a zonally integrated Atlantic latitude–depth section, not as
-# a falsely precise global "conveyor belt" line. The complete pathway ends at
-# the South Atlantic boundary because most transformation back toward the upper
-# ocean occurs through the Southern Ocean and Indo-Pacific, outside this section.
-AMOC_ROUTES = {
-    "01-upper-limb": {
-        "name": "Northward upper-ocean limb",
+# AMOC is taught as a small causal model, not as a precision drawing exercise.
+# The first card retrieves the two limb directions. The second orders four
+# waypoints through the upper-ocean, sinking, and deep-return stages.
+AMOC_SEGMENTS = [
+    {
         "style": "amoc-upper",
-        "paths": [[(-30, 900), (-10, 750), (10, 600), (30, 450), (50, 350), (60, 600)]],
+        "path": [(-30, 850), (-10, 700), (10, 550), (30, 400), (50, 350), (60, 600)],
     },
-    "02-sinking-limb": {
-        "name": "Northern high-latitude sinking limb",
+    {
         "style": "amoc-sinking",
-        "paths": [[(60, 600), (60, 1100), (59, 1700), (57, 2300), (55, 2800)]],
+        "path": [(60, 600), (60, 1200), (59, 1900), (57, 2600), (55, 3000)],
     },
-    "03-deep-return-limb": {
-        "name": "Southward deep-ocean return limb",
+    {
         "style": "amoc-deep",
-        "paths": [[(55, 2800), (35, 2850), (15, 3000), (-5, 3200), (-30, 3400)]],
+        "path": [(55, 3000), (35, 3050), (15, 3150), (-5, 3300), (-30, 3500)],
     },
-    "04-complete-pathway": {
-        "name": "Complete Atlantic overturning pathway",
-        "style": "amoc-full",
-        "paths": [[
-            (-30, 900), (-10, 750), (10, 600), (30, 450), (50, 350), (60, 600),
-            (60, 1100), (59, 1700), (57, 2300), (55, 2800),
-            (35, 2850), (15, 3000), (-5, 3200), (-30, 3400),
-        ]],
+]
+
+
+ENSO_STATES = {
+    "01-neutral": {
+        "name": "ENSO-neutral equatorial Pacific",
+        "state": "neutral",
+        "windStrength": "normal",
+        "warmCenter": 0.26,
+        "warmWidth": 0.30,
+        "rainCenter": 0.27,
+        "thermocline": [0.72, 0.34],
+        "upwelling": "normal",
+    },
+    "02-el-nino": {
+        "name": "El Niño equatorial Pacific",
+        "state": "el-nino",
+        "windStrength": "weak",
+        "warmCenter": 0.58,
+        "warmWidth": 0.55,
+        "rainCenter": 0.58,
+        "thermocline": [0.62, 0.57],
+        "upwelling": "weak",
+    },
+    "03-la-nina": {
+        "name": "La Niña equatorial Pacific",
+        "state": "la-nina",
+        "windStrength": "strong",
+        "warmCenter": 0.20,
+        "warmWidth": 0.24,
+        "rainCenter": 0.20,
+        "thermocline": [0.80, 0.23],
+        "upwelling": "strong",
+    },
+    "04-comparison": {
+        "name": "Compare ENSO-neutral, El Niño, and La Niña",
+        "state": "comparison",
     },
 }
 
@@ -1850,16 +1897,38 @@ def _build_amoc_cross_section() -> tuple[dict, dict, dict]:
         y = top + (depth / max_depth) * (bottom - top)
         return [round(x, 1), round(y, 1)]
 
-    shapes = {}
-    for rid, route in AMOC_ROUTES.items():
-        shapes[rid] = {
-            "name": route["name"],
-            "style": route["style"],
-            "paths": [
-                [project(lat, depth) for lat, depth in path]
-                for path in route["paths"]
-            ],
+    segments = [
+        {
+            "style": segment["style"],
+            "path": [project(lat, depth) for lat, depth in segment["path"]],
         }
+        for segment in AMOC_SEGMENTS
+    ]
+    waypoint_coords = [(-30, 850), (60, 600), (55, 3000), (-30, 3500)]
+    waypoint_labels = [
+        "upper South Atlantic",
+        "upper North Atlantic",
+        "deep North Atlantic",
+        "deep South Atlantic",
+    ]
+    waypoints = [
+        {"point": project(lat, depth), "label": label}
+        for (lat, depth), label in zip(waypoint_coords, waypoint_labels, strict=True)
+    ]
+    shapes = {
+        "01-limb-directions": {
+            "name": "Directions of the Atlantic overturning limbs",
+            "interaction": "directions",
+            "segments": segments,
+            "waypoints": waypoints,
+        },
+        "02-pathway-order": {
+            "name": "Order the Atlantic overturning pathway",
+            "interaction": "sequence",
+            "segments": segments,
+            "waypoints": waypoints,
+        },
+    }
 
     guide_lines = []
     guide_labels = [
@@ -1902,6 +1971,28 @@ def _build_amoc_cross_section() -> tuple[dict, dict, dict]:
     return bundle, shapes, {}
 
 
+def _build_enso() -> tuple[dict, dict, dict]:
+    bundle = {
+        "scope": "equatorial-pacific-enso",
+        "title": "El Niño–Southern Oscillation",
+        "noun": "ENSO state",
+        "kind": "ocean-atmosphere-coupling",
+        "families": ["enso"],
+        "view": {"w": 1000.0, "h": 590.0},
+        "frames": [{"id": "main", "rect": [0.0, 0.0, 1000.0, 590.0], "kmPerUnit": 1.0, "label": ""}],
+        "context": [],
+        "guideLines": [],
+        "guideLabels": [],
+        "regions": [],
+    }
+    shapes = {key: dict(value) for key, value in ENSO_STATES.items()}
+    shapes["04-comparison"]["states"] = [
+        dict(ENSO_STATES[key])
+        for key in ("01-neutral", "02-el-nino", "03-la-nina")
+    ]
+    return bundle, shapes, {}
+
+
 # ---------------------------------------------------------------------------------
 
 SCOPES = {"us-states": build_us_states}
@@ -1919,6 +2010,7 @@ SCOPES["world-jet-streams"] = _build_jet_streams
 SCOPES["south-asia-monsoon-winds"] = _build_monsoon_winds
 SCOPES["indian-ocean-seasonal-currents"] = _build_seasonal_currents
 SCOPES["atlantic-overturning"] = _build_amoc_cross_section
+SCOPES["equatorial-pacific-enso"] = _build_enso
 for _name, _cfg in CONTINENT_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_continent(n, c)))(_name, _cfg)
 for _name, _cfg in CONTINENTS_SCOPES.items():

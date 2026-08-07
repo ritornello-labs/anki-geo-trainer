@@ -50,8 +50,8 @@ Northeast Monsoon Currents. Their direction and month ranges were checked agains
 
 The depth-aware follow-up represents the Atlantic Meridional Overturning
 Circulation as a zonally integrated latitude–depth section rather than a flat
-global conveyor route. Its upper, sinking, deep-return, and integrated pathways
-were checked against:
+global conveyor route. Its upper-limb direction, sinking transition, deep-return
+direction, and pathway order were checked against:
 
 - [NOAA 2024 AMOC state-of-the-science fact sheet](https://doi.org/10.25923/pav0-be22)
 - [NOAA GFDL: AMOC decadal variability and predictability](https://www.gfdl.noaa.gov/amoc-decadal-predictability/)
@@ -63,12 +63,24 @@ Southern Ocean and Indo-Pacific as part of the wider transformation back toward
 upper-ocean waters. NOAA material produced by the United States government is
 public domain.
 
+## ENSO
+
+The ENSO cards are idealized coupled-state schematics, not forecasts. Neutral,
+El Niño, and La Niña compare equatorial-Pacific trade-wind strength, warm-pool and
+rainfall position, thermocline slope, and eastern-Pacific upwelling. The fourth
+card places all three states side by side.
+
+- [NOAA PMEL: What is El Niño?](https://www.pmel.noaa.gov/elnino/what-is-el-nino)
+- [NOAA CPC: ENSO cycle schematic](https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/ensocycle/enso_schem.shtml)
+- [NOAA CPC: ENSO winds](https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/ensocycle/cycle_winds_body.html)
+
 ## Atmospheric circulation
 
 The cell, pressure-belt, prevailing-wind, and jet-stream cards are idealized
-teaching models. Jet cards use broad schematic meanders rather than claiming a
-fixed daily route. The South Asian monsoon-wind pair always names the boreal season
-and month range.
+teaching models. Cells are paired hemispheric loops on a curved pole-to-pole
+cross-section. Wind and jet cards accept broad latitude corridors rather than
+grading against one exact route. The South Asian monsoon-wind pair uses a world
+map and always names the boreal season and month range.
 
 - [Met Office: Global circulation patterns](https://weather.metoffice.gov.uk/learn-about/weather/atmosphere/global-circulation-patterns)
 - [Met Office: What is the jet stream?](https://weather.metoffice.gov.uk/learn-about/weather/types-of-weather/wind/what-is-the-jet-stream)
