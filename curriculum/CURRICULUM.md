@@ -19,10 +19,11 @@ this order. Each rung assumes comfort with the one before it.
 | 6 | Draw | `4 Draw` | Sketch the outline on a completely blank square; scored on capturing the real shape (a rough enclosing blob fails) |
 | 5 | Trace | `1 Trace` (rivers) | Trace a river's course over a world map; graded by km distance to the true line |
 | 5.5 | Directed trace | `1 Trace` (ocean currents) | Trace a current from origin to destination; route and arrow direction are both graded |
-| 6 | Directed depth trace | `3 Trace Atlantic Overturning` | Trace an AMOC component through both latitude and depth on an Atlantic cross-section |
-| 5.5 | Directed loop | `1 Trace Cells` | Trace an atmospheric overturning cell on a latitude–altitude cross-section in the direction air moves |
+| 6 | Depth relationship | `3 Learn Atlantic Overturning` | Choose AMOC limb directions and order the pathway on an Atlantic latitude–depth cross-section |
+| 5.5 | Paired directed loops | `1 Trace Cells` | Trace both hemispheric loops of a named atmospheric cell on a curved pole-to-pole cross-section |
 | 5 | Latitude placement | `2 Place Pressure Belts` | Tap every idealized latitude band occupied by the named pressure feature |
 | 5.5 | Directed atmospheric trace | `3–5 Trace` | Trace prevailing winds, broad jet corridors, or a named season's monsoon flow |
+| 6 | Coupled-state comparison | `1 Compare ENSO States` | Compare neutral, El Niño, and La Niña in paired Pacific plan/depth schematics |
 
 **Redesign (2026-07), after studying the deck for real.** Cut families that were
 trivial or redundant: **Locate** (tapping a labelled shape isn't recall), **Capital**
@@ -54,7 +55,7 @@ GeoTrainer does not duplicate them. Good on-ramps:
 
 Every note carries three orthogonal tags:
 
-- `geotrainer::skill::point | place | sketch | draw | river | current | seasonal-current | amoc | cell | belt | wind | seasonal-wind | jet`
+- `geotrainer::skill::point | place | sketch | draw | river | current | seasonal-current | amoc | enso | cell | belt | wind | seasonal-wind | jet`
 - `geotrainer::scope::<where>` — e.g. `geotrainer::scope::country::usa::states`,
   `geotrainer::scope::continent::europe`
 - `geotrainer::level::3..6` (including `5.5`) — the rung on the ladder above
@@ -130,16 +131,15 @@ deck-order study already follows the ladder.
   draws an arrow from origin to destination, and a reversed route fails even when
   its position is accurate. Chokepoints and island/archipelago lists remain excluded
   because they do not create good GeoTrainer interactions.
-- **Shipped live, AnkiWeb update queued (2026-07-31)**: **26 atmospheric and
-  season-aware circulation cards** across six new note types. The 20-card stable
-  global core covers six overturning cells, four pressure-belt placements, six
-  prevailing-wind traces, and four broad jet-stream traces. Six paired seasonal
-  cards cover South Asian summer/winter monsoon winds and four northern Indian
-  Ocean monsoon currents; every seasonal front shows the boreal season and month
-  range. A follow-up adds four prerequisite-ordered AMOC traces in an Atlantic
-  latitude–depth cross-section: upper limb, northern sinking, deep return, then the
-  integrated pathway. See `ATLANTIC_OVERTURNING.md`. Combined target: **84 leaf
-  decks / 2,406 notes**.
+- **Staged live, AnkiWeb update queued (2026-08-06)**: **29 atmospheric,
+  seasonal, ENSO, and AMOC cards**. The global core has three paired cell cards,
+  four pressure-belt placements, six broad-belt prevailing-wind traces, and four
+  jet corridors. Six seasonal cards cover South Asian summer/winter monsoon winds
+  on a world map and four northern Indian Ocean currents. Four coupled-state cards
+  cover neutral, El Niño, La Niña, and a three-state comparison. Two AMOC cards
+  test limb directions and pathway order on an Atlantic latitude–depth section.
+  See `ATMOSPHERIC_CIRCULATION.md` and `ATLANTIC_OVERTURNING.md`. Combined target:
+  **85 leaf decks / 2,405 notes**.
 
 ### Adding a scope (for future me)
 

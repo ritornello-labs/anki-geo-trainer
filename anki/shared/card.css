@@ -251,6 +251,105 @@
   pointer-events: none;
 }
 
+.gt-flow-band {
+  fill: #2f855a;
+  fill-opacity: 0.10;
+  stroke: #2f855a;
+  stroke-opacity: 0.45;
+  stroke-width: 1.5;
+  stroke-dasharray: 7 5;
+  pointer-events: none;
+}
+
+.gt-earth-surface {
+  fill: none;
+  stroke: #7c8794;
+  stroke-width: 5;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+.gt-tropopause {
+  fill: none;
+  stroke: #aab4c0;
+  stroke-width: 1.5;
+  stroke-dasharray: 8 6;
+  pointer-events: none;
+}
+
+/* AMOC is deliberately a direction/sequence model rather than a freehand
+   precision trace. The zones supply depth context; the answer adds the flow. */
+.gt-amoc-upper-zone { fill: #f7d9cf; fill-opacity: 0.42; pointer-events: none; }
+.gt-amoc-deep-zone { fill: #d8e9f7; fill-opacity: 0.52; pointer-events: none; }
+.gt-amoc-zone-label,
+.gt-amoc-waypoint-label,
+.gt-diagram-label {
+  fill: #596675;
+  font-size: 14px;
+  font-weight: 650;
+  pointer-events: none;
+}
+.gt-amoc-waypoint-answer {
+  fill: #ffffff;
+  stroke: var(--gt-accent);
+  stroke-width: 2.5;
+}
+.gt-amoc-waypoint-number,
+.gt-amoc-attempt-number {
+  fill: #1c2430;
+  font-size: 14px;
+  font-weight: 800;
+  pointer-events: none;
+}
+.gt-choice-grid {
+  display: grid;
+  gap: 8px;
+  max-width: 560px;
+  margin: 10px auto 0;
+}
+.gt-choice-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) 1fr 1fr;
+  gap: 8px;
+  align-items: center;
+}
+.gt-choice-label { text-align: left; font-weight: 700; }
+.gt-btn.gt-selected {
+  background: var(--gt-accent);
+  border-color: var(--gt-accent);
+  color: #ffffff;
+}
+
+/* ENSO cards use one coupled plan-view + depth-section schematic so the
+   atmosphere and ocean are recalled as one mechanism. */
+.gt-enso-panel { fill: #fbfcfd; stroke: #c7d0db; stroke-width: 1.5; }
+.gt-enso-land { fill: #d7d0be; stroke: #b6aa8d; stroke-width: 1; }
+.gt-enso-title { fill: #24303d; font-size: 20px; font-weight: 800; }
+.gt-enso-place { fill: #687482; font-size: 12px; font-weight: 650; }
+.gt-enso-surface { stroke: #5a9fc9; stroke-width: 3; }
+.gt-enso-warm-pool { fill: #ed7659; fill-opacity: 0.72; stroke: #d8583c; stroke-width: 1.5; }
+.gt-enso-wind { fill: none; stroke: #2f855a; stroke-linecap: round; }
+.gt-enso-wind-normal { stroke-width: 5; }
+.gt-enso-wind-weak { stroke-width: 3; stroke-dasharray: 7 5; opacity: 0.65; }
+.gt-enso-wind-strong { stroke-width: 8; }
+.gt-enso-wind-arrow { fill: #2f855a; }
+.gt-enso-rain { fill: #276f9d; font-size: 15px; font-weight: 800; }
+.gt-enso-thermocline { fill: none; stroke: #805ad5; stroke-width: 4; }
+.gt-enso-upwelling { fill: none; stroke: #2b6cb0; stroke-linecap: round; }
+.gt-enso-upwelling-weak { stroke-width: 2; stroke-dasharray: 5 5; opacity: 0.55; }
+.gt-enso-upwelling-normal { stroke-width: 4; }
+.gt-enso-upwelling-strong { stroke-width: 7; }
+.gt-enso-upwelling-arrow { fill: #2b6cb0; }
+.gt-enso-label { fill: #4d5967; font-size: 14px; font-weight: 700; }
+
+.nightMode .gt-amoc-upper-zone { fill: #5c332d; }
+.nightMode .gt-amoc-deep-zone { fill: #243f58; }
+.nightMode .gt-amoc-zone-label,
+.nightMode .gt-amoc-waypoint-label,
+.nightMode .gt-diagram-label { fill: #aab4c0; }
+.nightMode .gt-enso-panel { fill: #23272d; stroke: #4a5260; }
+.nightMode .gt-enso-title { fill: #e9edf2; }
+.nightMode .gt-enso-label { fill: #c3ccd6; }
+
 .gt-belt-target {
   fill: var(--gt-accent);
   fill-opacity: 0.24;

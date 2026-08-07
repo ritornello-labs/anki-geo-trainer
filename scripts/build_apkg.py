@@ -81,8 +81,12 @@ FAMILY_DEFS = [
         "geotrainer::skill::seasonal-current", "geotrainer::level::6",
     ),
     (
-        "amoc", 12, "Trace Atlantic Overturning", "3 Trace Atlantic Overturning",
+        "amoc", 12, "Learn Atlantic Overturning", "3 Learn Atlantic Overturning",
         "geotrainer::skill::amoc", "geotrainer::level::6",
+    ),
+    (
+        "enso", 13, "Compare ENSO States", "1 Compare ENSO States",
+        "geotrainer::skill::enso", "geotrainer::level::6",
     ),
 ]
 
@@ -341,6 +345,15 @@ SCOPE_PACKS = {
         "apkg": "geo-trainer-atlantic-overturning.apkg",
         "extra_tags": ["ai-created"],
     },
+    "equatorial-pacific-enso": {
+        "deck_root": "GeoTrainer::Physical::Ocean–Atmosphere Coupling",
+        "model_root": "GeoTrainer {family} — Equatorial Pacific ENSO",
+        "scope_tag": "geotrainer::scope::physical::ocean-atmosphere::enso",
+        "model_base": 1_607_423_001,
+        "deck_base": 1_607_423_050,
+        "apkg": "geo-trainer-equatorial-pacific-enso.apkg",
+        "extra_tags": ["ai-created"],
+    },
 }
 
 
@@ -355,11 +368,13 @@ SHAPE_FIELDS = {
     "seasonalwind": "WindData",
     "seasonalcurrent": "CurrentData",
     "amoc": "CurrentData",
+    "enso": "EnsoData",
 }
 
 LINE_MODES = {
     "river", "current", "cell", "belt", "wind", "jet", "seasonalwind",
     "seasonalcurrent", "amoc",
+    "enso",
 }
 
 

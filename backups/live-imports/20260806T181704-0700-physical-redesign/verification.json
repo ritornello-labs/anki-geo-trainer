@@ -1,0 +1,59 @@
+{
+  "addedCardIds": [
+    1786065353141,
+    1786065353143,
+    1786065353145,
+    1786065353196,
+    1786065353198,
+    1786065353206,
+    1786065353208,
+    1786065353210,
+    1786065353212
+  ],
+  "afterCards": 2405,
+  "beforeCards": 2406,
+  "cardsByDeck": {
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::1 Trace Cells": 3,
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::2 Place Pressure Belts": 4,
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::3 Trace Prevailing Winds": 6,
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::4 Trace Jet Streams": 4,
+    "Process::GeoTrainer QA::Physical::Atmospheric Circulation::5 Trace Seasonal Monsoon Winds": 2,
+    "Process::GeoTrainer QA::Physical::Ocean Currents::2 Trace Seasonal Monsoon Currents": 4,
+    "Process::GeoTrainer QA::Physical::Ocean Currents::3 Learn Atlantic Overturning": 2,
+    "Process::GeoTrainer QA::Physical::Ocean\u2013Atmosphere Coupling::1 Compare ENSO States": 4
+  },
+  "deletedLegacyCardIds": [
+    1785540781318,
+    1785540781320,
+    1785540781322,
+    1785540781324,
+    1785540781326,
+    1785540781328,
+    1785965360867,
+    1785965360869,
+    1785965360871,
+    1785965360873
+  ],
+  "filteredDeckCollisions": 0,
+  "orderedKeys": {
+    "geotrainer::scope::physical::atmosphere::cells": [
+      "atmospheric-cells:01-hadley-pair",
+      "atmospheric-cells:02-ferrel-pair",
+      "atmospheric-cells:03-polar-pair"
+    ],
+    "geotrainer::scope::physical::ocean-atmosphere::enso": [
+      "equatorial-pacific-enso:01-neutral",
+      "equatorial-pacific-enso:02-el-nino",
+      "equatorial-pacific-enso:03-la-nina",
+      "equatorial-pacific-enso:04-comparison"
+    ],
+    "geotrainer::scope::physical::ocean-currents::amoc": [
+      "atlantic-overturning:01-limb-directions",
+      "atlantic-overturning:02-pathway-order"
+    ]
+  },
+  "preservedSchedulingChanges": 0,
+  "qaCards": 29,
+  "recoveryVerification": true,
+  "syncPerformed": false
+}

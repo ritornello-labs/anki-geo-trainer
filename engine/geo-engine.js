@@ -153,6 +153,17 @@
       }
       svg.appendChild(guides);
     }
+    if (bundle.guidePaths && bundle.guidePaths.length) {
+      var guidePaths = el("g", { class: "gt-guide-paths" });
+      for (var gp = 0; gp < bundle.guidePaths.length; gp++) {
+        var guidePath = bundle.guidePaths[gp];
+        guidePaths.appendChild(el("path", {
+          d: strokePath(guidePath.points || []),
+          class: guidePath.className || "gt-guide",
+        }));
+      }
+      svg.appendChild(guidePaths);
+    }
     if (bundle.guideLabels && bundle.guideLabels.length) {
       var labels = el("g", { class: "gt-guide-labels" });
       for (var gli = 0; gli < bundle.guideLabels.length; gli++) {
@@ -1685,6 +1696,49 @@
     return { km: km, quality: quality, reversed: reversed };
   }
 
+  // Prevailing winds and jets occupy broad latitude belts. A learner may draw
+  // a representative arrow anywhere in the belt, so scoring against one fixed
+  // longitude corridor would create false failures. Grade latitude, direction,
+  // and a minimally useful stroke length instead.
+  function atmosphericBandScore(strokes, data) {
+    var trace = longestPath(strokes);
+    if (!trace || trace.length < 2) {
+      return { offset: null, quality: 0, empty: true, reversed: false };
+    }
+    var first = trace[0], last = trace[trace.length - 1];
+    var dx = last[0] - first[0], dy = last[1] - first[1];
+    var length = Math.sqrt(dx * dx + dy * dy);
+    if (length < 35) return { offset: null, quality: 0, empty: true, reversed: false };
+
+    var expected = data.directionVector || [1, 0];
+    var expectedLength = Math.sqrt(expected[0] * expected[0] + expected[1] * expected[1]) || 1;
+    var cosine = (dx * expected[0] + dy * expected[1]) / (length * expectedLength);
+    var reversed = cosine < 0;
+    var band = data.acceptBand || [0, Infinity];
+    var outside = [];
+    for (var i = 0; i < trace.length; i++) {
+      var y = trace[i][1];
+      outside.push(y < band[0] ? band[0] - y : y > band[1] ? y - band[1] : 0);
+    }
+    var offset = meanOf(outside);
+    var quality = reversed ? 0
+      : cosine >= 0.55 && offset <= 12 ? 2
+      : cosine >= 0.15 && offset <= 42 ? 1
+      : 0;
+    return {
+      offset: Math.round(offset), quality: quality, empty: false,
+      reversed: reversed, cosine: cosine,
+    };
+  }
+
+  function atmosphericRouteScore(strokes, paths, kmPerUnit) {
+    var result = currentScore(strokes, paths, kmPerUnit);
+    if (!result.empty && !result.reversed) {
+      result.quality = result.km < 1200 ? 2 : result.km < 2400 ? 1 : 0;
+    }
+    return result;
+  }
+
   // Latitude–depth sections use plot coordinates rather than map kilometres.
   // Keep the open-route direction check from currentScore, but calibrate the
   // corridor in pixels so a trace must occupy the correct depth as well as the
@@ -1728,20 +1782,18 @@
   // A circulation cell is a closed loop, so endpoints cannot distinguish
   // forward from reverse. Project the learner's stroke onto a dense ordered
   // loop and accumulate wrapped index movement instead.
-  function cellScore(strokes, paths) {
+  function singleCellScore(stroke, path) {
     var drawn = [];
-    for (var i = 0; i < strokes.length; i++) {
-      for (var j = 0; j < strokes[i].length; j++) drawn.push(strokes[i][j]);
-    }
+    for (var i = 0; i < stroke.length; i++) drawn.push(stroke[i]);
     if (drawn.length < 8) return { offset: null, quality: 0, empty: true, reversed: false };
 
-    var target = riverTargetPoints(paths);
+    var target = riverTargetPoints([path]);
     var coverage = nearestDists(target, drawn);
     var stray = nearestDists(drawn, target);
     var offset = 0.5 * percentileOf(coverage, 0.85) + 0.3 * meanOf(coverage) + 0.2 * meanOf(stray);
 
-    var route = ringPerimeterPoints([longestPath(paths)], 220);
-    var trace = longestPath(strokes);
+    var route = ringPerimeterPoints([path], 220);
+    var trace = stroke;
     var total = 0, previous = null;
     for (var k = 0; k < trace.length; k += Math.max(1, Math.floor(trace.length / 80))) {
       var idx = closestPointIndex(trace[k], route);
@@ -1756,6 +1808,34 @@
     var reversed = total < 0;
     var quality = reversed ? 0 : offset < 26 ? 2 : offset < 58 ? 1 : 0;
     return { offset: Math.round(offset), quality: quality, reversed: reversed };
+  }
+
+  function cellScore(strokes, paths) {
+    var usable = [];
+    for (var i = 0; i < strokes.length; i++) {
+      if (strokes[i].length >= 8) usable.push(strokes[i]);
+    }
+    if (!usable.length) return { offset: null, quality: 0, empty: true, reversed: false };
+    if (paths.length === 1) return singleCellScore(longestPath(usable), paths[0]);
+    if (usable.length < paths.length) {
+      return { offset: null, quality: 0, empty: false, reversed: false, incomplete: true };
+    }
+
+    // The paired-cell cards have two target loops. Try both assignments so the
+    // learner may draw the hemispheres in either order.
+    var a0 = singleCellScore(usable[0], paths[0]);
+    var a1 = singleCellScore(usable[1], paths[1]);
+    var b0 = singleCellScore(usable[0], paths[1]);
+    var b1 = singleCellScore(usable[1], paths[0]);
+    var scoreA = a0.quality + a1.quality;
+    var scoreB = b0.quality + b1.quality;
+    var chosen = scoreB > scoreA ? [b0, b1] : [a0, a1];
+    return {
+      offset: Math.round((chosen[0].offset + chosen[1].offset) / 2),
+      quality: Math.min(chosen[0].quality, chosen[1].quality),
+      empty: false,
+      reversed: chosen[0].reversed || chosen[1].reversed,
+    };
   }
 
   function traceSpec(mode) {
@@ -1776,7 +1856,7 @@
       },
       wind: {
         chip: "Trace prevailing wind",
-        hint: "Trace the generalized surface flow — your arrow shows direction",
+        hint: "Draw a representative arrow inside the correct latitude belt",
         good: "Good wind belt and direction",
         rough: "Rough wind belt, correct direction",
         off: "Off wind belt",
@@ -1797,7 +1877,7 @@
       },
       cell: {
         chip: "Trace circulation cell",
-        hint: "Start at the dot and trace the overturning loop in the direction air moves",
+        hint: "Start at both dots and trace the paired loops in the direction air moves",
         good: "Good circulation loop and direction",
         rough: "Rough circulation loop, correct direction",
         off: "Off circulation loop",
@@ -1827,17 +1907,23 @@
     var svg = built.svg;
     var markerId = "gt-user-" + mode + "-arrow";
     addArrowMarker(svg, markerId, "gt-current-user-arrow");
-    if ((mode === "cell" || mode === "amoc")
-        && data && data.paths.length && data.paths[0].length) {
-      svg.appendChild(el("circle", {
-        cx: data.paths[0][0][0], cy: data.paths[0][0][1], r: 8, class: "gt-flow-start",
-      }));
+    if (mode === "cell" && data && data.paths.length) {
+      for (var pi = 0; pi < data.paths.length; pi++) {
+        if (data.paths[pi].length) {
+          svg.appendChild(el("circle", {
+            cx: data.paths[pi][0][0], cy: data.paths[pi][0][1], r: 8,
+            class: "gt-flow-start",
+          }));
+        }
+      }
     }
-    var panzoom = attachPanZoom(svg);
+    var panzoom = mode === "cell" ? null : attachPanZoom(svg);
     var surface = attachStrokeCapture(
-      svg, mode, bundle.scope, target, "gt-current-user", panzoom.isPanMode, markerId
+      svg, mode, bundle.scope, target, "gt-current-user",
+      panzoom ? panzoom.isPanMode : function () { return false; }, markerId
     );
-    drawSurface(root, svg, panzoom);
+    if (panzoom) drawSurface(root, svg, panzoom);
+    else root.appendChild(svg);
     drawToolRow(root, surface);
     root.appendChild(bar(spec.hint, "gt-hint"));
   }
@@ -1862,6 +1948,12 @@
     addArrowMarker(svg, targetMarker, "gt-current-arrow gt-current-arrow-" + variant);
     addArrowMarker(svg, userMarker, "gt-current-user-arrow");
     if (data) {
+      if ((mode === "wind" || mode === "jet") && data.acceptBand) {
+        svg.appendChild(el("rect", {
+          x: 0, y: data.acceptBand[0], width: bundle.view.w,
+          height: data.acceptBand[1] - data.acceptBand[0], class: "gt-flow-band",
+        }));
+      }
       riverPaths(svg, data.paths, "gt-current-corridor");
       directedPaths(svg, data.paths, "gt-current gt-current-" + variant, targetMarker);
     }
@@ -1880,9 +1972,11 @@
     var score = data
       ? (mode === "cell"
         ? cellScore(strokes, data.paths)
-        : mode === "amoc"
-          ? sectionScore(strokes, data.paths)
-          : currentScore(strokes, data.paths, frame ? frame.kmPerUnit : 1))
+        : mode === "wind" || mode === "jet"
+          ? atmosphericBandScore(strokes, data)
+          : mode === "seasonalwind"
+            ? atmosphericRouteScore(strokes, data.paths, frame ? frame.kmPerUnit : 1)
+            : currentScore(strokes, data.paths, frame ? frame.kmPerUnit : 1))
       : { quality: 0, empty: true, reversed: false };
     if (score.empty) {
       root.appendChild(bar("Nothing traced — the directed route is highlighted", "gt-miss"));
@@ -1897,11 +1991,14 @@
       root.appendChild(bar(suggestFor(0), "gt-suggest"));
       return;
     }
-    var distance = mode === "cell"
-      ? " (~" + score.offset + " px off)"
-      : mode === "amoc"
-        ? ""
-        : " (~" + score.km + " km off)";
+    if (score.incomplete) {
+      root.appendChild(bar("Trace both hemispheric cells before flipping", "gt-miss"));
+      root.appendChild(bar(suggestFor(0), "gt-suggest"));
+      return;
+    }
+    var distance = mode === "current" || mode === "seasonalcurrent"
+      ? " (~" + score.km + " km off)"
+      : "";
     var msg =
       score.quality === 2 ? spec.good + distance
       : score.quality === 1 ? spec.rough + distance
@@ -1931,8 +2028,297 @@
   function jetBack(root, bundle, target) { directedTraceBack(root, bundle, target, "jet"); }
   function cellFront(root, bundle, target) { directedTraceFront(root, bundle, target, "cell"); }
   function cellBack(root, bundle, target) { directedTraceBack(root, bundle, target, "cell"); }
-  function amocFront(root, bundle, target) { directedTraceFront(root, bundle, target, "amoc"); }
-  function amocBack(root, bundle, target) { directedTraceBack(root, bundle, target, "amoc"); }
+
+  function svgText(svg, x, y, textValue, cls, anchor) {
+    var textNode = el("text", {
+      x: x, y: y, class: cls || "gt-diagram-label",
+      "text-anchor": anchor || "start",
+    });
+    textNode.textContent = textValue;
+    svg.appendChild(textNode);
+    return textNode;
+  }
+
+  function drawAmocZones(svg) {
+    svg.appendChild(el("rect", { x: 90, y: 62, width: 860, height: 145, class: "gt-amoc-upper-zone" }));
+    svg.appendChild(el("rect", { x: 90, y: 250, width: 860, height: 190, class: "gt-amoc-deep-zone" }));
+    svgText(svg, 925, 192, "upper ocean", "gt-amoc-zone-label", "end");
+    svgText(svg, 925, 430, "deep ocean", "gt-amoc-zone-label", "end");
+  }
+
+  function drawAmocAnswer(svg, data, numbered) {
+    var segments = (data && data.segments) || [];
+    for (var i = 0; i < segments.length; i++) {
+      var markerId = "gt-amoc-segment-" + i;
+      addArrowMarker(svg, markerId, "gt-current-arrow gt-current-arrow-" + segments[i].style);
+      directedPaths(svg, [segments[i].path], "gt-current gt-current-" + segments[i].style, markerId);
+    }
+    if (numbered && data && data.waypoints) {
+      for (var k = 0; k < data.waypoints.length; k++) {
+        var waypoint = data.waypoints[k];
+        svg.appendChild(el("circle", {
+          cx: waypoint.point[0], cy: waypoint.point[1], r: 15, class: "gt-amoc-waypoint-answer",
+        }));
+        svgText(svg, waypoint.point[0], waypoint.point[1] + 5, String(k + 1),
+          "gt-amoc-waypoint-number", "middle");
+        var labelY = waypoint.point[1] + (k < 2 ? -25 : 34);
+        svgText(svg, waypoint.point[0], labelY, waypoint.label,
+          "gt-amoc-waypoint-label", k === 0 || k === 3 ? "start" : "end");
+      }
+    }
+  }
+
+  function amocDirectionFront(root, bundle, target, data) {
+    root.appendChild(chip("Atlantic overturning directions"));
+    root.appendChild(prompt(data.name));
+    var built = buildSvg(bundle);
+    drawAmocZones(built.svg);
+    root.appendChild(built.svg);
+
+    var state = { upper: null, deep: null };
+    saveState("amoc", bundle.scope, target, state);
+    var choices = document.createElement("div");
+    choices.className = "gt-choice-grid";
+    var specs = [
+      { key: "upper", label: "Upper-ocean limb" },
+      { key: "deep", label: "Deep return limb" },
+    ];
+    for (var i = 0; i < specs.length; i++) {
+      (function (spec) {
+        var row = document.createElement("div");
+        row.className = "gt-choice-row";
+        var label = document.createElement("div");
+        label.className = "gt-choice-label";
+        label.textContent = spec.label;
+        row.appendChild(label);
+        var north = button("Northward");
+        var south = button("Southward");
+        row.appendChild(north);
+        row.appendChild(south);
+        function select(value) {
+          state[spec.key] = value;
+          north.classList.toggle("gt-selected", value === "northward");
+          south.classList.toggle("gt-selected", value === "southward");
+          saveState("amoc", bundle.scope, target, state);
+        }
+        wireTap(north, function () { select("northward"); });
+        wireTap(south, function () { select("southward"); });
+        choices.appendChild(row);
+      })(specs[i]);
+    }
+    root.appendChild(choices);
+    root.appendChild(bar("Choose one direction for each limb, then flip", "gt-hint"));
+  }
+
+  function amocSequenceFront(root, bundle, target, data) {
+    root.appendChild(chip("Order Atlantic overturning"));
+    root.appendChild(prompt(data.name));
+    var built = buildSvg(bundle);
+    var svg = built.svg;
+    drawAmocZones(svg);
+    root.appendChild(svg);
+    var order = [];
+    var markers = [];
+    saveState("amoc", bundle.scope, target, { order: order });
+
+    function refresh() {
+      saveState("amoc", bundle.scope, target, { order: order });
+    }
+    function place(clientX, clientY) {
+      var loc = svgPoint(svg, clientX, clientY);
+      if (!loc) return;
+      var best = 0, bestDistance = Infinity;
+      for (var i = 0; i < data.waypoints.length; i++) {
+        var p = data.waypoints[i].point;
+        var distance = endpointDistance([loc.x, loc.y], p);
+        if (distance < bestDistance) { bestDistance = distance; best = i; }
+      }
+      order.push(best);
+      var marker = el("g", { class: "gt-amoc-attempt-marker" });
+      marker.appendChild(el("circle", { cx: loc.x, cy: loc.y, r: 14, class: "gt-attempt" }));
+      var number = el("text", {
+        x: loc.x, y: loc.y + 5, class: "gt-amoc-attempt-number", "text-anchor": "middle",
+      });
+      number.textContent = String(order.length);
+      marker.appendChild(number);
+      svg.appendChild(marker);
+      markers.push(marker);
+      refresh();
+    }
+    svg.addEventListener("click", function (ev) { place(ev.clientX, ev.clientY); });
+    svg.addEventListener("touchend", function (ev) {
+      if (ev.changedTouches && ev.changedTouches.length) {
+        place(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY);
+        ev.preventDefault();
+      }
+    }, { passive: false });
+    var row = document.createElement("div");
+    row.className = "gt-btnrow";
+    var undo = button("Undo");
+    var clear = button("Clear");
+    row.appendChild(undo);
+    row.appendChild(clear);
+    root.appendChild(row);
+    wireTap(undo, function () {
+      if (!order.length) return;
+      order.pop();
+      var marker = markers.pop();
+      if (marker && marker.parentNode) marker.parentNode.removeChild(marker);
+      refresh();
+    });
+    wireTap(clear, function () {
+      order = [];
+      for (var i = 0; i < markers.length; i++) {
+        if (markers[i].parentNode) markers[i].parentNode.removeChild(markers[i]);
+      }
+      markers = [];
+      refresh();
+    });
+    root.appendChild(bar("Tap each stage in pathway order; flip when complete", "gt-hint"));
+  }
+
+  function amocFront(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    if (data && data.interaction === "sequence") {
+      amocSequenceFront(root, bundle, target, data);
+    } else {
+      amocDirectionFront(root, bundle, target, data || { name: target });
+    }
+  }
+
+  function amocBack(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    var state = loadState("amoc", bundle.scope, target) || {};
+    var sequence = data && data.interaction === "sequence";
+    root.appendChild(chip(sequence ? "Order Atlantic overturning" : "Atlantic overturning directions"));
+    root.appendChild(prompt(data ? data.name : target));
+    var built = buildSvg(bundle);
+    drawAmocZones(built.svg);
+    drawAmocAnswer(built.svg, data, sequence);
+    root.appendChild(built.svg);
+
+    if (sequence) {
+      var order = state.order || [];
+      var expected = [0, 1, 2, 3];
+      var exact = order.length === expected.length;
+      var prefix = 0;
+      for (var i = 0; i < Math.min(order.length, expected.length); i++) {
+        if (order[i] !== expected[i]) { exact = false; break; }
+        prefix += 1;
+      }
+      var quality = exact ? 2 : prefix >= 2 ? 1 : 0;
+      var msg = exact
+        ? "Correct: upper south → upper north → deep north → deep south"
+        : "Follow the numbered upper, sinking, and deep-return pathway";
+      root.appendChild(bar(msg, quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
+      root.appendChild(bar(suggestFor(quality), "gt-suggest"));
+      return;
+    }
+
+    var upperCorrect = state.upper === "northward";
+    var deepCorrect = state.deep === "southward";
+    var correctCount = (upperCorrect ? 1 : 0) + (deepCorrect ? 1 : 0);
+    var directionQuality = correctCount === 2 ? 2 : correctCount === 1 ? 1 : 0;
+    root.appendChild(bar(
+      "Upper ocean: northward · deep return: southward",
+      directionQuality === 2 ? "gt-ok" : directionQuality === 1 ? "gt-close" : "gt-miss"
+    ));
+    root.appendChild(bar(suggestFor(directionQuality), "gt-suggest"));
+  }
+
+  function ensoFrame(svg, x, y, width, height, title) {
+    svg.appendChild(el("rect", { x: x, y: y, width: width, height: height, rx: 12, class: "gt-enso-panel" }));
+    svg.appendChild(el("rect", { x: x + 18, y: y + 48, width: 42, height: 116, class: "gt-enso-land" }));
+    svg.appendChild(el("rect", { x: x + width - 60, y: y + 48, width: 42, height: 116, class: "gt-enso-land" }));
+    svgText(svg, x + width / 2, y + 28, title || "equatorial Pacific", "gt-enso-title", "middle");
+    svgText(svg, x + 38, y + 180, "Indonesia", "gt-enso-place", "middle");
+    svgText(svg, x + width - 38, y + 180, "Americas", "gt-enso-place", "middle");
+    svg.appendChild(el("line", {
+      x1: x + 60, y1: y + 202, x2: x + width - 60, y2: y + 202, class: "gt-enso-surface",
+    }));
+    return { x: x, y: y, width: width, height: height };
+  }
+
+  function drawEnsoState(svg, state, box, compact) {
+    var oceanLeft = box.x + 60, oceanRight = box.x + box.width - 60;
+    var oceanWidth = oceanRight - oceanLeft;
+    var planY = box.y + 105;
+    var warmX = oceanLeft + state.warmCenter * oceanWidth;
+    svg.appendChild(el("ellipse", {
+      cx: warmX, cy: planY, rx: Math.max(28, state.warmWidth * oceanWidth / 2),
+      ry: compact ? 19 : 27, class: "gt-enso-warm-pool",
+    }));
+    var windId = "gt-enso-wind-" + state.state + "-" + Math.round(box.x);
+    addArrowMarker(svg, windId, "gt-enso-wind-arrow");
+    var windPath = [[oceanLeft + oceanWidth * 0.78, box.y + 75], [oceanLeft + oceanWidth * 0.30, box.y + 75]];
+    svg.appendChild(el("path", {
+      d: strokePath(windPath),
+      class: "gt-enso-wind gt-enso-wind-" + state.windStrength,
+      "marker-end": "url(#" + windId + ")",
+    }));
+    svgText(svg, oceanLeft + oceanWidth * state.rainCenter, box.y + 137, "rain",
+      "gt-enso-rain", "middle");
+
+    var crossTop = box.y + 202, crossBottom = box.y + box.height - 28;
+    var westDepth = crossTop + state.thermocline[0] * (crossBottom - crossTop);
+    var eastDepth = crossTop + state.thermocline[1] * (crossBottom - crossTop);
+    svg.appendChild(el("path", {
+      d: "M" + oceanLeft + "," + westDepth + " L" + oceanRight + "," + eastDepth,
+      class: "gt-enso-thermocline",
+    }));
+    var upId = "gt-enso-up-" + state.state + "-" + Math.round(box.x);
+    addArrowMarker(svg, upId, "gt-enso-upwelling-arrow");
+    svg.appendChild(el("path", {
+      d: "M" + (oceanRight - 18) + "," + (crossTop + 65) + " L" + (oceanRight - 18) + "," + (crossTop + 12),
+      class: "gt-enso-upwelling gt-enso-upwelling-" + state.upwelling,
+      "marker-end": "url(#" + upId + ")",
+    }));
+    if (!compact) {
+      svgText(svg, oceanLeft + 10, westDepth + 24, "thermocline", "gt-enso-label", "start");
+      svgText(svg, oceanRight - 25, crossTop + 82, state.upwelling + " upwelling", "gt-enso-label", "end");
+      svgText(svg, oceanLeft + oceanWidth * 0.54, box.y + 67,
+        state.windStrength + " easterly trades", "gt-enso-label", "middle");
+    }
+  }
+
+  function ensoFront(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    root.appendChild(chip("Recall ENSO pattern"));
+    root.appendChild(prompt(data ? data.name : target));
+    var built = buildSvg(bundle);
+    if (data && data.state === "comparison") {
+      var titles = ["ENSO-neutral", "El Niño", "La Niña"];
+      for (var i = 0; i < 3; i++) ensoFrame(built.svg, 20 + i * 325, 70, 305, 425, titles[i]);
+    } else {
+      ensoFrame(built.svg, 90, 45, 820, 485, "equatorial Pacific");
+    }
+    root.appendChild(built.svg);
+    root.appendChild(bar(
+      data && data.state === "comparison"
+        ? "Compare the trades, warm water, upwelling, rainfall, and thermocline"
+        : "Recall the trades, warm water, upwelling, rainfall, and thermocline",
+      "gt-hint"
+    ));
+  }
+
+  function ensoBack(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    root.appendChild(chip("Recall ENSO pattern"));
+    root.appendChild(prompt(data ? data.name : target));
+    var built = buildSvg(bundle);
+    if (data && data.state === "comparison") {
+      var titles = ["ENSO-neutral", "El Niño", "La Niña"];
+      for (var i = 0; i < data.states.length; i++) {
+        var box = ensoFrame(built.svg, 20 + i * 325, 70, 305, 425, titles[i]);
+        drawEnsoState(built.svg, data.states[i], box, true);
+      }
+    } else if (data) {
+      var stateBox = ensoFrame(built.svg, 90, 45, 820, 485, "equatorial Pacific");
+      drawEnsoState(built.svg, data, stateBox, false);
+    }
+    root.appendChild(built.svg);
+    root.appendChild(bar("Grade yourself: did you recall the coupled pattern?", "gt-suggest"));
+  }
 
   function beltScore(taps, bands) {
     if (!taps || !bands || taps.length !== bands.length) {
@@ -1973,18 +2359,21 @@
     root.appendChild(hint);
     var row = document.createElement("div");
     row.className = "gt-btnrow";
+    var undo = button("Undo");
     var clear = button("Clear");
+    row.appendChild(undo);
     row.appendChild(clear);
     root.appendChild(row);
     saveState("belt", bundle.scope, target, { taps: [] });
 
     function refresh() {
-      hint.textContent = "Placed " + taps.length + " / " + bands.length + " bands · flip to check";
-      hint.className = "gt-bar gt-hint" + (taps.length === bands.length ? " gt-placed" : "");
+      hint.textContent = taps.length
+        ? "Markers placed · flip when you think every band is marked"
+        : "Tap every latitude band where it belongs";
+      hint.className = "gt-bar gt-hint" + (taps.length ? " gt-placed" : "");
       saveState("belt", bundle.scope, target, { taps: taps });
     }
     function place(clientX, clientY) {
-      if (taps.length >= bands.length) return;
       var loc = svgPoint(svg, clientX, clientY);
       if (!loc) return;
       taps.push({ x: loc.x, y: loc.y });
@@ -2000,6 +2389,13 @@
         ev.preventDefault();
       }
     }, { passive: false });
+    wireTap(undo, function () {
+      if (!taps.length) return;
+      taps.pop();
+      var marker = markers.pop();
+      if (marker && marker.parentNode) marker.parentNode.removeChild(marker);
+      refresh();
+    });
     wireTap(clear, function () {
       taps = [];
       for (var i = 0; i < markers.length; i++) {
@@ -2068,6 +2464,7 @@
     jet: { front: jetFront, back: jetBack, needsShape: true },
     cell: { front: cellFront, back: cellBack, needsShape: true },
     amoc: { front: amocFront, back: amocBack, needsShape: true },
+    enso: { front: ensoFront, back: ensoBack, needsShape: true },
     belt: { front: beltFront, back: beltBack, needsShape: true },
   };
 
@@ -2117,6 +2514,8 @@
     _sketchScore: sketchScore,
     _riverScore: riverScore,
     _currentScore: currentScore,
+    _atmosphericBandScore: atmosphericBandScore,
+    _atmosphericRouteScore: atmosphericRouteScore,
     _cellScore: cellScore,
     _sectionScore: sectionScore,
     _beltScore: beltScore,
