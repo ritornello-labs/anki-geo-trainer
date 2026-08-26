@@ -28,18 +28,7 @@ final.json
 final.err
 playwright-report/
 
-# Superseded preflight snapshot from the interrupted 2026-07-31 rollout attempt.
-backups/live-imports/20260731T152744-0700-before/
-
-# Read-only preflight snapshot; the controlled rollout below captured its own
-# authoritative before/after pair and rollback package.
-backups/live-imports/20260731T163405-0700-before/
-
-# Live QA move snapshots retain full local card/note state. Commit the concise
-# verification/report records, not duplicate multi-megabyte state dumps.
-backups/live-moves/**/state.json
-
-# Full live-import state and rollback APKGs stay local; commit the concise
-# verification/report evidence from a guarded rollout.
-backups/live-imports/**/*state.json
-backups/live-imports/**/*.apkg
+# Live Anki rollout and move snapshots contain personal collection content,
+# identifiers, and scheduling history. They are local recovery artifacts only.
+backups/live-imports/
+backups/live-moves/

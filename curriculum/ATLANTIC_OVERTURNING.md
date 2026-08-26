@@ -59,8 +59,9 @@ The guarded 2026-08-06 update deleted only the four exact old AMOC notes, all of
 which still had zero reviews, and installed the two new notes under
 `Process::GeoTrainer QA::Physical::Ocean Currents::3 Learn Atlantic Overturning`.
 All retained GeoTrainer scheduling was unchanged; no sync was performed. Rollback
-exports and the verification report are under
-`backups/live-imports/20260806T181704-0700-physical-redesign/`.
+exports and the verification report were captured locally under the timestamped
+`20260806T181704-0700-physical-redesign` recovery directory. Live snapshots are
+private local artifacts and are no longer stored in Git.
 
 ## Sources
 

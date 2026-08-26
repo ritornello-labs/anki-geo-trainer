@@ -6,6 +6,16 @@ atmospheric, seasonal, ENSO, and Atlantic-overturning batch is temporarily stage
 `Process::GeoTrainer QA` for manual review before restoration to the normal GeoTrainer
 tree. Created 2026-07-05.
 
+## Privacy boundary
+
+Live Anki collection snapshots, rollback exports, and move-state captures are
+private local recovery artifacts. The repository was made private on 2026-08-26
+after such artifacts were found in Git history; the tracked
+`backups/live-imports/` and `backups/live-moves/` trees were removed from the
+active branch. Both paths are now ignored, and `make privacy-check` rejects
+tracked live-collection artifacts. Do not make this repository public again
+unless its reachable history has first been sanitized.
+
 ## Vision
 
 Bring Sheppard-Software-class interactive geography practice into Anki: a comprehensive,
@@ -294,8 +304,9 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   added exactly 501 Sketch cards, nested them under
   `Decks::Geography::GeoTrainer`, and moved the 541 existing Draw cards from
   `3 Draw` to `4 Draw`. Timestamped before/after snapshots and a scheduled APKG
-  rollback are under `backups/live-imports/20260724T150455-0700-before/` and
-  `backups/live-imports/20260724T150959-0700-after/`.
+  rollback were captured locally under the timestamped `20260724T150455-0700-before`
+  and `20260724T150959-0700-after` recovery directories; live snapshots are no
+  longer stored in Git.
 - **Physical-geography expansion. ✅ Built and browser-verified 2026-07-24;
   installed live 2026-07-28; AnkiWeb update queued.** Added contextual Sketch to the existing **29
   mountain ranges** and **17 deserts**. Added three curated scopes: **24 major
@@ -316,9 +327,9 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   The controlled live rollout added exactly 138 notes/cards in seven leaf decks,
   preserved all 2,200 prior note/card IDs, fields, tags, models, deck assignments,
   and scheduling, and left no temporary top-level `GeoTrainer` tree. Timestamped
-  snapshots and the local scheduled rollback package are under
-  `backups/live-imports/20260728T153543-0700-before/` and
-  `backups/live-imports/20260728T153543-0700-after/`.
+  snapshots and the scheduled rollback package were captured locally under the
+  timestamped `20260728T153543-0700-before` and `20260728T153543-0700-after`
+  recovery directories; live snapshots are no longer stored in Git.
 - **Plate Place + system-complete surface currents. ✅ Built, verified, and installed
   live 2026-07-31; AnkiWeb update remains queued.** Added a 16-card Place family
   for tectonic plates. Expanded ocean-current Trace from 12 to **34** cards: all
@@ -332,9 +343,10 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   Anki 25.09 imported all 2,376 cards and rendered its samples. The live rollout
   added exactly 38 notes/cards,
   preserved all 2,338 original IDs and every original scheduling record, and
-  left no temporary top-level deck. Snapshots and rollback are under
-  `backups/live-imports/20260731T153402-0700-before/` and
-  `backups/live-imports/20260731T153655-0700-after/`. A 20-card, four-note-type
+  left no temporary top-level deck. Snapshots and rollback were captured locally
+  under the timestamped `20260731T153402-0700-before` and
+  `20260731T153655-0700-after` recovery directories; live snapshots are no longer
+  stored in Git. A 20-card, four-note-type
   atmospheric-circulation design was recorded in
   `curriculum/ATMOSPHERIC_CIRCULATION.md` for the next batch.
 - **Atmospheric circulation + season-aware monsoon flow. ✅ Built, verified, and
@@ -355,8 +367,9 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   directed route. Disposable Anki imported all 2,402 notes/cards. The guarded
   live rollout added exactly 26 notes/cards, preserved all 2,376 original IDs,
   note content, and scheduling, and left no temporary top-level deck. Snapshots
-  and rollback are under `backups/live-imports/20260731T163538-0700-before/` and
-  `backups/live-imports/20260731T163538-0700-after/`.
+  and rollback were captured locally under the timestamped
+  `20260731T163538-0700-before` and `20260731T163538-0700-after` recovery
+  directories; live snapshots are no longer stored in Git.
   On 2026-08-05, the exact 26-card batch was moved without scheduling or content
   changes to `Process::GeoTrainer QA` for manual QA. Restore it with
   `scripts/stage_live_qa.py --restore` after review.
@@ -381,8 +394,9 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   The guarded live replacement deleted only the ten exact zero-review legacy notes,
   added nine redesigned notes, preserved scheduling on all 2,396 retained cards,
   found no filtered-deck collision, and performed no sync. Rollback packages and
-  verification are under
-  `backups/live-imports/20260806T181704-0700-physical-redesign/`.
+  verification were captured locally under the timestamped
+  `20260806T181704-0700-physical-redesign` recovery directory; live snapshots are
+  no longer stored in Git.
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.

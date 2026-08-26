@@ -2,13 +2,14 @@ WORKBENCH ?= uvx --from 'anki-addon-workbench[gui]==0.4.1' anki-workbench
 DOCKER_IMAGE ?= anki-geo-trainer-workbench
 WORKBENCH_DOCKERFILE ?= .tmp/anki-workbench/Dockerfile
 
-.PHONY: help bundle apkg apkg-all lint test workbench-dockerfile workbench-smoke check clean
+.PHONY: help bundle apkg apkg-all privacy-check lint test workbench-dockerfile workbench-smoke check clean
 
 help:
 	@printf "GeoTrainer make targets:\n"
 	@printf "  make bundle            Build scope bundles (data/bundles/*.json)\n"
 	@printf "  make apkg              Build the per-scope APKGs into dist/\n"
 	@printf "  make apkg-all          Also build the combined geo-trainer-all.apkg (AnkiWeb)\n"
+	@printf "  make privacy-check     Reject tracked live-collection backup artifacts\n"
 	@printf "  make lint              Static analysis of the Python build scripts (ruff)\n"
 	@printf "  make test              Cross-engine Playwright tests (Chromium + WebKit)\n"
 	@printf "  make workbench-smoke   Build APKG and run disposable Anki deck smoke in Docker\n"
@@ -28,6 +29,9 @@ apkg-all: bundle
 lint:
 	uv run ruff check scripts/
 
+privacy-check:
+	python3 scripts/check_private_artifacts.py
+
 # Playwright 1.52 deadlocks silently (no error, no timeout) before loading any
 # test file on Node 22+. The volta pin (package.json) keeps this on Node 20;
 # this guard fails fast with guidance if some other Node is on PATH, so `make
@@ -43,7 +47,7 @@ workbench-smoke: apkg workbench-dockerfile
 	docker build -f $(WORKBENCH_DOCKERFILE) -t $(DOCKER_IMAGE) .
 	docker run --rm --mount type=bind,source="$(CURDIR)",target=/workspace -w /workspace $(DOCKER_IMAGE)
 
-check: lint apkg test
+check: privacy-check lint apkg test
 
 clean:
 	rm -rf dist .tmp test-results test-out.json test-err.log
