@@ -6,7 +6,6 @@ from __future__ import annotations
 import subprocess
 import sys
 
-
 FORBIDDEN_PREFIXES = (
     "backups/live-imports/",
     "backups/live-moves/",

@@ -400,7 +400,7 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   cross-section; removed the pressure-belt count hint; changed prevailing-wind
   grading to broad latitude belts; moved monsoon winds to a world map; replaced
   four confusing AMOC traces with two direction/sequence cards; and added four
-  neutral/El Niño/La Niña comparison cards. Cross-engine validation: **350 passed /
+  neutral/El Niño/La Niña comparison cards. Cross-engine validation: **344 passed /
   12 intentional skips**. Combined build: **85 leaf decks / 2,405 notes / 60.0 MB**.
   The guarded live replacement deleted only the ten exact zero-review legacy notes,
   added nine redesigned notes, preserved scheduling on all 2,396 retained cards,

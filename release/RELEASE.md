@@ -9,7 +9,7 @@ for manual review; restore it to the normal GeoTrainer tree before the Publisher
 export.
 
 Verification status (2026-08-06, combined update): all 31 scopes are covered by
-the cross-engine suite (Chromium + WebKit): **350 passed / 12 intentional skips**.
+the cross-engine suite (Chromium + WebKit): **344 passed / 12 intentional skips**.
 Every one of the 34 current routes is tested in both directions.
 Region scopes carry Which/Place/Sketch/Draw; rivers are Trace-the-course; mountain
 ranges and deserts carry Place + Sketch; lakes carry Which + Place; tectonic plates
