@@ -9,12 +9,23 @@ tree. Created 2026-07-05.
 ## Privacy boundary
 
 Live Anki collection snapshots, rollback exports, and move-state captures are
-private local recovery artifacts. The repository was made private on 2026-08-26
-after such artifacts were found in Git history; the tracked
-`backups/live-imports/` and `backups/live-moves/` trees were removed from the
-active branch. Both paths are now ignored, and `make privacy-check` rejects
-tracked live-collection artifacts. Do not make this repository public again
-unless its reachable history has first been sanitized.
+private local recovery artifacts. The original GitHub repository was made private
+on 2026-08-26 after such artifacts were found in Git history. The
+`backups/live-imports/` and `backups/live-moves/` trees were then removed from every
+reachable commit, and the sanitized signed history initially ended at
+`ea1b973d00fb19c412c54c490f88f890935e4b92`.
+
+On 2026-08-28, the original GitHub repository identity was permanently quarantined
+as the private repository
+`ritornello-labs/anki-geo-trainer-private-archive-2026-08-26`. A fresh private
+repository was created at `elvis-sik/anki-geo-trainer`, received only the sanitized
+`main` branch, passed a scan of every reachable object and the privacy workflow, and
+was transferred without renaming to `ritornello-labs/anki-geo-trainer`. Only that
+fresh repository was then made public; the legacy personal URL redirects to it.
+
+Both live-backup paths remain ignored, and `make privacy-check` rejects tracked
+live-collection artifacts. Never publish or reuse the quarantined repository
+identity.
 
 ## Vision
 
