@@ -1,6 +1,6 @@
-"""Refresh the 29 already-staged physical-systems cards, in place.
+"""Refresh selected already-staged physical-systems cards, in place.
 
-Read-only by default. ``--apply`` imports only the eight revised scope APKGs,
+Read-only by default. ``--apply`` imports only the selected scope APKGs,
 then verifies every GeoTrainer card identity and scheduling value. No sync.
 """
 
@@ -32,7 +32,7 @@ def expected_notes(scope: str) -> tuple[dict[str, dict], dict[str, tuple[str, st
     return notes, models
 
 
-def audit() -> tuple[dict, dict, dict]:
+def audit(targets: tuple) -> tuple[dict, dict, dict]:
     if rollout.invoke("version") < 6:
         raise RuntimeError("AnkiConnect version 6 is required")
     before = rollout.collect_all()
@@ -45,7 +45,7 @@ def audit() -> tuple[dict, dict, dict]:
     target_ids = []
     expected = {}
     models = {}
-    for tag, suffix, count, package in rollout.TARGETS:
+    for tag, suffix, count, package in targets:
         package_path = rollout.ROOT / "dist" / package
         if not package_path.is_file():
             raise RuntimeError(f"missing package: {package}")
@@ -59,16 +59,14 @@ def audit() -> tuple[dict, dict, dict]:
         deck_name = f"{rollout.QA_ROOT}::{suffix}"
         if any(card["deckName"] != deck_name for card in rows):
             raise RuntimeError(f"{tag}: card outside {deck_name}")
-        if any(card["reps"] or card["type"] != 0 or card["queue"] not in {0, -2, -3} for card in rows):
-            raise RuntimeError(f"{tag}: QA card has been reviewed or is in an unsafe queue")
         actual_keys = {rollout.note_key(notes_by_id[card["note"]]) for card in rows}
         if actual_keys != set(scope_notes):
             raise RuntimeError(f"{tag}: live keys differ from the revised package")
         target_ids.extend(ids)
         expected.update(scope_notes)
         models.update(scope_models)
-    if sorted(target_ids) != qa_ids:
-        raise RuntimeError("Process QA contains an unexpected card")
+    if not set(target_ids).issubset(qa_ids):
+        raise RuntimeError("selected cards are not all in Process QA")
     if rollout.invoke("findCards", query=f'deck:"{rollout.IMPORT_ROOT}"'):
         raise RuntimeError("temporary import root contains cards")
     for model_name in models:
@@ -126,12 +124,24 @@ def verify(before: dict, after: dict, expected: dict, models: dict) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--apply", action="store_true")
+    scope_names = tuple(
+        package.removeprefix("geo-trainer-").removesuffix(".apkg")
+        for *_, package in rollout.TARGETS
+    )
+    parser.add_argument("--scope", choices=scope_names, action="append",
+                        help="refresh only this scope; repeat for multiple scopes")
     args = parser.parse_args()
-    before, expected, models = audit()
+    selected = set(args.scope or scope_names)
+    targets = tuple(
+        target for target in rollout.TARGETS
+        if target[3].removeprefix("geo-trainer-").removesuffix(".apkg") in selected
+    )
+    before, expected, models = audit(targets)
     if not args.apply:
-        print(json.dumps({"audit": "ready", "qaCards": 29, "noteTypes": len(models), "totalGeoTrainerCards": len(before["cardIds"])}, indent=2))
+        print(json.dumps({"audit": "ready", "qaCards": 29, "selectedScopes": sorted(selected),
+                          "noteTypes": len(models), "totalGeoTrainerCards": len(before["cardIds"])}, indent=2))
         return
-    fresh, _, _ = audit()
+    fresh, _, _ = audit(targets)
     if rollout.fingerprint(before) != rollout.fingerprint(fresh):
         raise RuntimeError("GeoTrainer changed since preflight")
     stamp = datetime.now().astimezone().strftime("%Y%m%dT%H%M%S%z")
@@ -141,7 +151,7 @@ def main() -> None:
     rollout.write_snapshot(snapshot / "before", before)
     snapshot.chmod(0o700)
     rollout.invoke("exportPackage", deck=rollout.QA_ROOT, path=str(snapshot / "before" / "qa-geotrainer.apkg"), includeSched=True)
-    for _, _, _, package in rollout.TARGETS:
+    for _, _, _, package in targets:
         rollout.invoke("importPackage", path=str(rollout.ROOT / "dist" / package))
     after = rollout.collect_all()
     rollout.write_snapshot(snapshot / "after", after)

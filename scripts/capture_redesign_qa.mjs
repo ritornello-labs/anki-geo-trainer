@@ -52,10 +52,15 @@ const shots = [
     strokes: [[[440, 220], [525, 205], [610, 186], [700, 166]]],
   }],
   ["05-amoc-directions-front.png", "atlantic-overturning", "01-limb-directions", "amoc", "front"],
+  ["05b-amoc-directions-back.png", "atlantic-overturning", "01-limb-directions", "amoc", "back", {
+    upper: "southward", deep: "southward",
+  }],
   ["06-amoc-sequence-back.png", "atlantic-overturning", "02-pathway-order", "amoc", "back", {
     order: [0, 1, 2, 3],
   }],
-  ["07-el-nino-back.png", "equatorial-pacific-enso", "02-el-nino", "enso", "back"],
+  ["07-el-nino-back.png", "equatorial-pacific-enso", "02-el-nino", "enso", "back", {
+    answers: ["West", "Less"],
+  }],
   ["08-enso-comparison-back.png", "equatorial-pacific-enso", "04-comparison", "enso", "back"],
   ["09-somali-summer-front.png", "indian-ocean-seasonal-currents", "somali-current-summer", "seasonalcurrent", "front"],
   ["10-somali-summer-back.png", "indian-ocean-seasonal-currents", "somali-current-summer", "seasonalcurrent", "back", {
@@ -67,6 +72,9 @@ const shots = [
   ["12-polar-wind-front.png", "world-prevailing-winds", "southern-polar-easterlies", "wind", "front"],
   ["13-cells-back.png", "atmospheric-cells", "02-ferrel-pair", "cell", "back", {
     rise: "60°", sink: "30°",
+  }],
+  ["13b-cells-wrong-back.png", "atmospheric-cells", "01-hadley-pair", "cell", "back", {
+    rise: "30°", sink: "30°",
   }],
   ["14-pressure-back.png", "atmospheric-pressure-belts", "subpolar-lows", "belt", "back", {
     taps: [],
@@ -82,8 +90,11 @@ const shots = [
   ["19-amoc-sequence-front.png", "atlantic-overturning", "02-pathway-order", "amoc", "front"],
   ["20-enso-neutral-front.png", "equatorial-pacific-enso", "01-neutral", "enso", "front"],
   ["21-enso-neutral-back.png", "equatorial-pacific-enso", "01-neutral", "enso", "back", {
-    choice: 0,
+    answers: ["West", "East"],
   }],
+  ["22-enso-el-nino-front.png", "equatorial-pacific-enso", "02-el-nino", "enso", "front"],
+  ["23-enso-la-nina-front.png", "equatorial-pacific-enso", "03-la-nina", "enso", "front"],
+  ["24-enso-comparison-front.png", "equatorial-pacific-enso", "04-comparison", "enso", "front"],
 ];
 
 for (const [filename, scope, target, mode, side, state] of shots) {

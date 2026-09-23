@@ -2098,7 +2098,7 @@
   function jetBack(root, bundle, target) { directedTraceBack(root, bundle, target, "jet"); }
   function choiceButtonRow(root, labelText, options, selected, onSelect) {
     var row = document.createElement("div");
-    row.className = "gt-choice-row gt-choice-row-wide";
+    row.className = "gt-choice-row" + (options.length > 2 ? " gt-choice-row-wide" : "");
     var label = document.createElement("div");
     label.className = "gt-choice-label";
     label.textContent = labelText;
@@ -2121,6 +2121,36 @@
       for (var k = 0; k < buttons.length; k++) {
         buttons[k].classList.toggle("gt-selected", options[k] === selected);
       }
+    }
+    root.appendChild(row);
+    return row;
+  }
+
+  function answerChoiceRow(root, labelText, options, selected, correct) {
+    var row = document.createElement("div");
+    row.className = "gt-choice-row gt-answer-row" + (options.length > 2 ? " gt-choice-row-wide" : "");
+    var label = document.createElement("div");
+    label.className = "gt-choice-label";
+    label.textContent = labelText;
+    row.appendChild(label);
+    for (var i = 0; i < options.length; i++) {
+      var value = options[i];
+      var item = button(value);
+      item.disabled = true;
+      if (value === correct || value === selected) {
+        var mark = document.createElement("span");
+        mark.className = "gt-answer-tag";
+        if (value === correct) {
+          item.classList.add("gt-answer-correct");
+          mark.textContent = value === selected ? "You ✓" : "✓ Correct";
+        } else {
+          item.classList.add("gt-answer-wrong");
+          mark.textContent = "You ✕";
+        }
+        item.appendChild(mark);
+        item.setAttribute("aria-label", value + ", " + mark.textContent);
+      }
+      row.appendChild(item);
     }
     root.appendChild(row);
     return row;
@@ -2177,11 +2207,17 @@
     root.appendChild(chip("Idealized circulation cell"));
     root.appendChild(prompt(data.name));
     root.appendChild(cellLatitudeAxis(data, true));
+    root.appendChild(bar("In both hemispheres, where does air tend to rise and sink?", "gt-hint"));
+    var choices = document.createElement("div");
+    choices.className = "gt-choice-grid gt-choice-grid-wide gt-answer-grid";
+    var options = ["0°", "30°", "60°", "90°"];
+    answerChoiceRow(choices, "Rises near", options, state.rise, data.rise);
+    answerChoiceRow(choices, "Sinks near", options, state.sink, data.sink);
+    root.appendChild(choices);
     var correct = (state.rise === data.rise ? 1 : 0) + (state.sink === data.sink ? 1 : 0);
     var quality = correct === 2 ? 2 : correct === 1 ? 1 : 0;
-    root.appendChild(bar("Your choice: rise " + (state.rise || "—") + ", sink " + (state.sink || "—"), "gt-hint"));
-    root.appendChild(bar("Idealized " + data.latitudeRange + " cell: rise near " + data.rise
-      + ", sink near " + data.sink, quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
+    root.appendChild(bar(correct + "/2 matched · Idealized " + data.latitudeRange + " cell",
+      quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
     root.appendChild(bar(data.answerNote, "gt-hint"));
     root.appendChild(bar(suggestFor(quality), "gt-suggest"));
   }
@@ -2338,16 +2374,27 @@
     var sequence = data && data.interaction === "sequence";
     root.appendChild(chip(sequence ? "Order Atlantic overturning" : "Atlantic overturning directions"));
     root.appendChild(prompt(data ? data.name : target));
-    var built = buildSvg(bundle);
-    drawAmocZones(built.svg);
-    drawAmocAnswer(built.svg, data, sequence);
-    root.appendChild(built.svg);
+    root.appendChild(amocOverview());
 
     if (sequence) {
       var order = state.order || [];
-      root.appendChild(bar("Your order: " + (order.length
-        ? order.map(function (index) { return data.waypoints[index].label; }).join(" → ")
-        : "none"), "gt-hint"));
+      root.appendChild(bar("Correct stage numbers and your tap order are shown together.", "gt-hint"));
+      var stages = document.createElement("div");
+      stages.className = "gt-stage-grid gt-stage-answer";
+      var displayOrder = [2, 0, 3, 1];
+      for (var s = 0; s < displayOrder.length; s++) {
+        var index = displayOrder[s];
+        var stage = button(data.waypoints[index].label);
+        stage.disabled = true;
+        var orderMark = document.createElement("span");
+        orderMark.className = "gt-answer-tag";
+        var picked = order.indexOf(index);
+        orderMark.textContent = "Correct " + (index + 1) + (picked < 0 ? " · not picked" : " · You " + (picked + 1));
+        stage.classList.add(picked === index ? "gt-answer-correct" : picked < 0 ? "gt-answer-unpicked" : "gt-answer-wrong");
+        stage.appendChild(orderMark);
+        stages.appendChild(stage);
+      }
+      root.appendChild(stages);
       var expected = [0, 1, 2, 3];
       var exact = order.length === expected.length;
       var prefix = 0;
@@ -2361,87 +2408,43 @@
         : "Follow the numbered upper, sinking, and deep-return pathway";
       root.appendChild(bar(msg, quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
       root.appendChild(bar("Schematic basin-scale transport, not one water parcel's exact circuit.", "gt-hint"));
+      var sequenceSvg = buildSvg(bundle);
+      drawAmocZones(sequenceSvg.svg);
+      drawAmocAnswer(sequenceSvg.svg, data, true);
+      root.appendChild(sequenceSvg.svg);
       root.appendChild(bar(suggestFor(quality), "gt-suggest"));
       return;
     }
 
+    var choices = document.createElement("div");
+    choices.className = "gt-choice-grid gt-answer-grid";
+    answerChoiceRow(choices, "Upper-ocean limb", ["Northward", "Southward"],
+      state.upper === "northward" ? "Northward" : state.upper === "southward" ? "Southward" : null, "Northward");
+    answerChoiceRow(choices, "Deep return limb", ["Northward", "Southward"],
+      state.deep === "northward" ? "Northward" : state.deep === "southward" ? "Southward" : null, "Southward");
+    root.appendChild(choices);
     var upperCorrect = state.upper === "northward";
     var deepCorrect = state.deep === "southward";
     var correctCount = (upperCorrect ? 1 : 0) + (deepCorrect ? 1 : 0);
     var directionQuality = correctCount === 2 ? 2 : correctCount === 1 ? 1 : 0;
-    root.appendChild(bar(
-      "Upper ocean: northward · deep return: southward",
-      directionQuality === 2 ? "gt-ok" : directionQuality === 1 ? "gt-close" : "gt-miss"
-    ));
+    root.appendChild(bar(correctCount + "/2 matched",
+      directionQuality === 2 ? "gt-ok" : directionQuality === 1 ? "gt-close" : "gt-miss"));
     root.appendChild(bar("Dense water forms in the northern Atlantic; deep water returns southward.", "gt-hint"));
+    var directionSvg = buildSvg(bundle);
+    drawAmocZones(directionSvg.svg);
+    drawAmocAnswer(directionSvg.svg, data, false);
+    root.appendChild(directionSvg.svg);
     root.appendChild(bar(suggestFor(directionQuality), "gt-suggest"));
   }
 
-  function ensoFrame(svg, x, y, width, height, title) {
-    svg.appendChild(el("rect", { x: x, y: y, width: width, height: height, rx: 12, class: "gt-enso-panel" }));
-    svg.appendChild(el("rect", { x: x + 18, y: y + 48, width: 42, height: 116, class: "gt-enso-land" }));
-    svg.appendChild(el("rect", { x: x + width - 60, y: y + 48, width: 42, height: 116, class: "gt-enso-land" }));
-    svgText(svg, x + width / 2, y + 28, title || "equatorial Pacific", "gt-enso-title", "middle");
-    svgText(svg, x + 38, y + 180, "Indonesia", "gt-enso-place", "middle");
-    svgText(svg, x + width - 38, y + 180, "Americas", "gt-enso-place", "middle");
-    svg.appendChild(el("line", {
-      x1: x + 60, y1: y + 202, x2: x + width - 60, y2: y + 202, class: "gt-enso-surface",
-    }));
-    return { x: x, y: y, width: width, height: height };
-  }
-
   function ensoOrientation() {
-    var svg = el("svg", { viewBox: "0 0 1000 200", class: "gt-map gt-compact", role: "img" });
-    svg.appendChild(el("rect", { x: 0, y: 0, width: 1000, height: 200, class: "gt-ocean" }));
-    svg.appendChild(el("rect", { x: 45, y: 35, width: 80, height: 120, class: "gt-enso-land" }));
-    svg.appendChild(el("rect", { x: 875, y: 35, width: 80, height: 120, class: "gt-enso-land" }));
-    svg.appendChild(el("line", { x1: 125, y1: 108, x2: 875, y2: 108, class: "gt-enso-surface" }));
-    svgText(svg, 85, 180, "Indonesia · west", "gt-enso-place", "middle");
-    svgText(svg, 915, 180, "South America · east", "gt-enso-place", "middle");
-    svgText(svg, 500, 75, "equatorial Pacific surface", "gt-enso-title", "middle");
+    var svg = el("svg", { viewBox: "0 0 1000 105", class: "gt-map gt-compact", role: "img" });
+    svg.appendChild(el("rect", { x: 0, y: 0, width: 1000, height: 105, class: "gt-ocean" }));
+    svg.appendChild(el("line", { x1: 200, y1: 58, x2: 800, y2: 58, class: "gt-enso-surface" }));
+    svgText(svg, 28, 65, "Indonesia · west", "gt-enso-place", "start");
+    svgText(svg, 972, 65, "South America · east", "gt-enso-place", "end");
+    svgText(svg, 500, 38, "equatorial Pacific", "gt-enso-title", "middle");
     return svg;
-  }
-
-  function drawEnsoState(svg, state, box, compact) {
-    var oceanLeft = box.x + 60, oceanRight = box.x + box.width - 60;
-    var oceanWidth = oceanRight - oceanLeft;
-    var planY = box.y + 105;
-    var warmX = oceanLeft + state.warmCenter * oceanWidth;
-    svg.appendChild(el("ellipse", {
-      cx: warmX, cy: planY, rx: Math.max(28, state.warmWidth * oceanWidth / 2),
-      ry: compact ? 19 : 27, class: "gt-enso-warm-pool",
-    }));
-    var windId = "gt-enso-wind-" + state.state + "-" + Math.round(box.x);
-    addArrowMarker(svg, windId, "gt-enso-wind-arrow");
-    var windPath = [[oceanLeft + oceanWidth * 0.78, box.y + 75], [oceanLeft + oceanWidth * 0.30, box.y + 75]];
-    svg.appendChild(el("path", {
-      d: strokePath(windPath),
-      class: "gt-enso-wind gt-enso-wind-" + state.windStrength,
-      "marker-end": "url(#" + windId + ")",
-    }));
-    svgText(svg, oceanLeft + oceanWidth * state.rainCenter, box.y + 137, "rain",
-      "gt-enso-rain", "middle");
-
-    var crossTop = box.y + 202, crossBottom = box.y + box.height - 28;
-    var westDepth = crossTop + state.thermocline[0] * (crossBottom - crossTop);
-    var eastDepth = crossTop + state.thermocline[1] * (crossBottom - crossTop);
-    svg.appendChild(el("path", {
-      d: "M" + oceanLeft + "," + westDepth + " L" + oceanRight + "," + eastDepth,
-      class: "gt-enso-thermocline",
-    }));
-    var upId = "gt-enso-up-" + state.state + "-" + Math.round(box.x);
-    addArrowMarker(svg, upId, "gt-enso-upwelling-arrow");
-    svg.appendChild(el("path", {
-      d: "M" + (oceanRight - 18) + "," + (crossTop + 65) + " L" + (oceanRight - 18) + "," + (crossTop + 12),
-      class: "gt-enso-upwelling gt-enso-upwelling-" + state.upwelling,
-      "marker-end": "url(#" + upId + ")",
-    }));
-    if (!compact) {
-      svgText(svg, oceanLeft + 10, westDepth + 24, "thermocline", "gt-enso-label", "start");
-      svgText(svg, oceanRight - 25, crossTop + 82, state.upwelling + " upwelling", "gt-enso-label", "end");
-      svgText(svg, oceanLeft + oceanWidth * 0.54, box.y + 67,
-        state.windStrength + " easterly trades", "gt-enso-label", "middle");
-    }
   }
 
   function ensoFront(root, bundle, target) {
@@ -2449,27 +2452,45 @@
     root.appendChild(chip("Equatorial Pacific"));
     root.appendChild(prompt(data.question));
     root.appendChild(ensoOrientation());
-    var state = { choice: null };
+    if (!data.checks.length) {
+      return;
+    }
+    var state = { answers: data.checks.map(function () { return null; }) };
     saveState("enso", bundle.scope, target, state);
     var choices = document.createElement("div");
-    choices.className = "gt-enso-choice-grid";
-    var buttons = [];
-    for (var i = 0; i < data.choices.length; i++) {
+    choices.className = "gt-choice-grid gt-enso-check-grid";
+    for (var i = 0; i < data.checks.length; i++) {
       (function (index) {
-        var option = button(data.choices[index]);
-        buttons.push(option);
-        choices.appendChild(option);
-        wireTap(option, function () {
-          state.choice = index;
+        var check = data.checks[index];
+        choiceButtonRow(choices, check.label, check.options, null, function (value) {
+          state.answers[index] = value;
           saveState("enso", bundle.scope, target, state);
-          for (var j = 0; j < buttons.length; j++) {
-            buttons[j].classList.toggle("gt-selected", j === index);
-          }
         });
       })(i);
     }
     root.appendChild(choices);
-    root.appendChild(bar("Choose one answer, then flip for the coupled ocean-atmosphere picture.", "gt-hint"));
+    root.appendChild(bar("Choose both consequences, then flip.", "gt-hint"));
+  }
+
+  function ensoComparisonTable() {
+    var table = document.createElement("table");
+    table.className = "gt-enso-compare";
+    var rows = [
+      ["Relative to neutral", "El Niño", "La Niña"],
+      ["Westward trades", "Weaker", "Stronger"],
+      ["Central/eastern water", "Warmer", "Cooler"],
+      ["Eastern upwelling", "Weaker", "Stronger"],
+    ];
+    for (var i = 0; i < rows.length; i++) {
+      var tr = document.createElement("tr");
+      for (var j = 0; j < rows[i].length; j++) {
+        var cell = document.createElement(i === 0 || j === 0 ? "th" : "td");
+        cell.textContent = rows[i][j];
+        tr.appendChild(cell);
+      }
+      table.appendChild(tr);
+    }
+    return table;
   }
 
   function ensoBack(root, bundle, target) {
@@ -2477,25 +2498,28 @@
     var state = loadState("enso", bundle.scope, target) || {};
     root.appendChild(chip("Equatorial Pacific"));
     root.appendChild(prompt(data.question));
-    var built = buildSvg(bundle);
-    if (data.state === "comparison") {
-      var titles = ["ENSO-neutral", "El Niño", "La Niña"];
-      for (var i = 0; i < data.states.length; i++) {
-        var box = ensoFrame(built.svg, 20 + i * 325, 70, 305, 425, titles[i]);
-        drawEnsoState(built.svg, data.states[i], box, true);
+    root.appendChild(ensoOrientation());
+    if (data.checks.length) {
+      var choices = document.createElement("div");
+      choices.className = "gt-choice-grid gt-enso-check-grid gt-answer-grid";
+      var answers = state.answers || [];
+      var correct = 0;
+      for (var i = 0; i < data.checks.length; i++) {
+        var check = data.checks[i];
+        answerChoiceRow(choices, check.label, check.options, answers[i], check.correct);
+        if (answers[i] === check.correct) correct += 1;
       }
-    } else {
-      var box = ensoFrame(built.svg, 90, 45, 820, 485, "west ← equatorial Pacific → east");
-      drawEnsoState(built.svg, data, box, false);
+      root.appendChild(choices);
+      root.appendChild(bar(correct + "/" + data.checks.length + " matched · "
+        + (data.state === "neutral" ? "normal pattern" : data.state === "el-nino" ? "El Niño" : "La Niña"),
+        correct === data.checks.length ? "gt-ok" : correct ? "gt-close" : "gt-miss"));
+      root.appendChild(bar(data.answerNote, "gt-hint"));
+      root.appendChild(bar(suggestFor(correct === data.checks.length ? 2 : correct ? 1 : 0), "gt-suggest"));
+      return;
     }
-    root.appendChild(built.svg);
-    var correct = state.choice === data.correct;
-    root.appendChild(bar("Your choice: " + (state.choice == null ? "none" : data.choices[state.choice]), "gt-hint"));
-    root.appendChild(bar("Answer: " + data.choices[data.correct],
-      correct ? "gt-ok" : "gt-miss"));
+    root.appendChild(ensoComparisonTable());
     root.appendChild(bar(data.answerNote, "gt-hint"));
-    root.appendChild(bar("Thermocline: boundary beneath warm surface water; upwelling: deeper water rising near the surface.", "gt-hint"));
-    root.appendChild(bar(suggestFor(correct ? 2 : 0), "gt-suggest"));
+    root.appendChild(bar("Self-grade the three linked contrasts, not just the phase names.", "gt-suggest"));
   }
 
   function beltScore(taps, bands) {

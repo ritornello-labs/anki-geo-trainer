@@ -420,6 +420,15 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   unrelated note content. The 29 QA cards remain in `Process::GeoTrainer QA`;
   no sync or publication was performed. Recovery is under
   `.tmp-anki-geo-extra/private-qa-recovery/20260923T142444-0700-physical-qa-refresh`.
+- **QA feedback follow-up. ✅ Updated in Process 2026-09-23; Elvis's verdict
+  remains open.** The cell, AMOC, and ENSO backs now preserve their fronts'
+  choice layouts and color-code the learner's answer against the correct one.
+  ENSO was rebuilt as a baseline → weaker/stronger trades → unaided comparison
+  ladder, introducing eastern upwelling rather than presupposing it. Only those
+  three scopes were refreshed, preserving all 2,341 GeoTrainer card IDs and
+  scheduling values; no sync or publication occurred. The empty, childless
+  `3 Trace Atlantic Overturning` QA shell was removed with zero cards deleted.
+  Recovery is in `.tmp-anki-geo-extra/private-qa-recovery/20260923T150040-0700-physical-qa-refresh`.
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.

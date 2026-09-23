@@ -1,6 +1,6 @@
 # Physical-systems QA redesign
 
-Status: revised 2026-09-23 and refreshed in Elvis's live
+Status: revised again 2026-09-23 and refreshed in Elvis's live
 `Process::GeoTrainer QA` tree. All 29 cards remain QA-only; none is approved
 for release or moved into the daily GeoTrainer tree. No sync was performed.
 
@@ -80,8 +80,13 @@ behavior. None of the 29 cards is approved for publication.
   frame and a broad seasonal corridor. Seasonal currents accept alternative
   ocean-only arrows but reject reversed, misplaced, and on-land responses.
 - AMOC uses explicit upper/deep direction choices and shuffled, named stage
-  buttons. ENSO asks one comparison per card, with west/east orientation and
-  a coupled-state explanation on the back.
+  buttons. The cell and AMOC backs now repeat the front's choice arrangement,
+  marking both the learner's selection and the correct selection in place.
+- ENSO now begins with a normal west/east baseline, then asks what weaker and
+  stronger westward trades do to warm surface water and cool water rising in
+  the east. The first answer defines eastern upwelling instead of assuming it
+  is known; the final card asks for an unaided El Niño/La Niña comparison.
+  Choice backs retain the same grid and visibly mark wrong/right answers.
 - The eight revised packages were imported over the 29 already-staged cards.
   Live verification preserved all 2,341 GeoTrainer card identities and
   scheduling values, changed no unrelated note content, and matched all eight
@@ -89,14 +94,24 @@ behavior. None of the 29 cards is approved for publication.
   the source repository in
   `.tmp-anki-geo-extra/private-qa-recovery/20260923T142444-0700-physical-qa-refresh`.
   No Anki sync was performed.
+- A second, scoped refresh imported only cells, Atlantic overturning, and ENSO
+  into those same live QA cards. It again preserved all 2,341 GeoTrainer card
+  IDs and scheduling values and changed no unrelated notes. The recovery export
+  and verification are in
+  `.tmp-anki-geo-extra/private-qa-recovery/20260923T150040-0700-physical-qa-refresh`.
+  The obsolete, empty, childless `3 Trace Atlantic Overturning` QA deck shell
+  was removed after confirming zero card deletion; `3 Learn Atlantic
+  Overturning` retains its two cards. No sync was performed.
 
 For Elvis's QA, browse `Process::GeoTrainer QA` in Anki and try each family
 front-to-back, including a deliberately wrong direction or choice. Check the
 cell rise/sink distinction, pressure latitudes, polar winds, jet bands,
 summer/winter monsoon reversals, AMOC order, and whether the ENSO cards teach
 rather than merely cue their answers. Record any confusing prompt or
-misleading diagram before release selection. Chromium and WebKit each passed
-167 local tests; learner judgment and other-client interaction QA remain open.
+misleading diagram before release selection. The current local browser suite
+passed 338 tests across Chromium and WebKit with 26 expected skips; focused
+post-wording tests passed in both engines. Learner judgment and other-client
+interaction QA remain open.
 
 ## Prototype and release gates
 

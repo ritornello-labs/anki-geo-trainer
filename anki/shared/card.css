@@ -316,7 +316,6 @@
 }
 .gt-choice-grid-wide { max-width: 900px; }
 .gt-choice-row-wide { grid-template-columns: minmax(110px, 1fr) repeat(4, minmax(70px, 1fr)); }
-.gt-enso-choice-grid,
 .gt-stage-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -324,12 +323,10 @@
   max-width: 900px;
   margin: 12px auto;
 }
-.gt-enso-choice-grid .gt-btn,
 .gt-stage-grid .gt-btn { white-space: normal; min-height: 48px; }
 @media (max-width: 560px) {
   .gt-choice-row-wide { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .gt-choice-row-wide .gt-choice-label { grid-column: 1 / -1; }
-  .gt-enso-choice-grid,
   .gt-stage-grid { grid-template-columns: 1fr; }
 }
 .gt-choice-label { text-align: left; font-weight: 700; }
@@ -338,37 +335,64 @@
   border-color: var(--gt-accent);
   color: #ffffff;
 }
+.gt-answer-row .gt-btn,
+.gt-stage-answer .gt-btn { cursor: default; opacity: 1; }
+.gt-answer-row .gt-btn.gt-answer-correct,
+.gt-stage-answer .gt-btn.gt-answer-correct {
+  background: #e7f5ec;
+  border-color: #228b60;
+  color: #145939;
+}
+.gt-answer-row .gt-btn.gt-answer-wrong,
+.gt-stage-answer .gt-btn.gt-answer-wrong {
+  background: #fff0eb;
+  border-color: #c84b36;
+  color: #8a2b1b;
+}
+.gt-answer-tag {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.gt-stage-answer .gt-btn { min-height: 66px; }
+.nightMode .gt-answer-row .gt-btn.gt-answer-correct,
+.nightMode .gt-stage-answer .gt-btn.gt-answer-correct {
+  background: #173b2b;
+  border-color: #68d391;
+  color: #b8f1cb;
+}
+.nightMode .gt-answer-row .gt-btn.gt-answer-wrong,
+.nightMode .gt-stage-answer .gt-btn.gt-answer-wrong {
+  background: #4a2926;
+  border-color: #fc8d72;
+  color: #ffd1c6;
+}
 
-/* ENSO cards use one coupled plan-view + depth-section schematic so the
-   atmosphere and ocean are recalled as one mechanism. */
-.gt-enso-panel { fill: #fbfcfd; stroke: #c7d0db; stroke-width: 1.5; }
-.gt-enso-land { fill: #d7d0be; stroke: #b6aa8d; stroke-width: 1; }
-.gt-enso-title { fill: #24303d; font-size: 20px; font-weight: 800; }
-.gt-enso-place { fill: #687482; font-size: 12px; font-weight: 650; }
+/* ENSO uses a small orientation axis and a direct mechanism comparison. */
+.gt-enso-title { fill: #24303d; font-size: 18px; font-weight: 800; }
+.gt-enso-place { fill: #687482; font-size: 16px; font-weight: 700; }
 .gt-enso-surface { stroke: #5a9fc9; stroke-width: 3; }
-.gt-enso-warm-pool { fill: #ed7659; fill-opacity: 0.72; stroke: #d8583c; stroke-width: 1.5; }
-.gt-enso-wind { fill: none; stroke: #2f855a; stroke-linecap: round; }
-.gt-enso-wind-normal { stroke-width: 5; }
-.gt-enso-wind-weak { stroke-width: 3; stroke-dasharray: 7 5; opacity: 0.65; }
-.gt-enso-wind-strong { stroke-width: 8; }
-.gt-enso-wind-arrow { fill: #2f855a; }
-.gt-enso-rain { fill: #276f9d; font-size: 15px; font-weight: 800; }
-.gt-enso-thermocline { fill: none; stroke: #805ad5; stroke-width: 4; }
-.gt-enso-upwelling { fill: none; stroke: #2b6cb0; stroke-linecap: round; }
-.gt-enso-upwelling-weak { stroke-width: 2; stroke-dasharray: 5 5; opacity: 0.55; }
-.gt-enso-upwelling-normal { stroke-width: 4; }
-.gt-enso-upwelling-strong { stroke-width: 7; }
-.gt-enso-upwelling-arrow { fill: #2b6cb0; }
-.gt-enso-label { fill: #4d5967; font-size: 14px; font-weight: 700; }
+.gt-enso-check-grid { max-width: 700px; }
+.gt-enso-compare {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  text-align: left;
+  font-size: 15px;
+}
+.gt-enso-compare th,
+.gt-enso-compare td { padding: 10px; border: 1px solid var(--gt-line); }
+.gt-enso-compare tr:first-child th { background: var(--gt-panel); }
+.gt-enso-compare tr:not(:first-child) th { color: var(--gt-muted); }
 
 .nightMode .gt-amoc-upper-zone { fill: #5c332d; }
 .nightMode .gt-amoc-deep-zone { fill: #243f58; }
 .nightMode .gt-amoc-zone-label,
 .nightMode .gt-amoc-waypoint-label,
 .nightMode .gt-diagram-label { fill: #aab4c0; }
-.nightMode .gt-enso-panel { fill: #23272d; stroke: #4a5260; }
 .nightMode .gt-enso-title { fill: #e9edf2; }
-.nightMode .gt-enso-label { fill: #c3ccd6; }
 
 .gt-belt-target {
   fill: var(--gt-accent);

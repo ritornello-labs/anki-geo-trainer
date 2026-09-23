@@ -1871,54 +1871,41 @@ AMOC_SEGMENTS = [
 
 ENSO_STATES = {
     "01-neutral": {
-        "name": "ENSO-neutral equatorial Pacific",
+        "name": "Normal equatorial Pacific",
         "state": "neutral",
-        "question": "Under normal trade winds, where does warm surface water collect?",
-        "choices": ["West near Indonesia", "East near South America", "Evenly across the Pacific"],
-        "correct": 0,
-        "answerNote": "Normal easterly trades push warm surface water westward; cooler water rises in the east.",
-        "windStrength": "normal",
-        "warmCenter": 0.26,
-        "warmWidth": 0.30,
-        "rainCenter": 0.27,
-        "thermocline": [0.72, 0.34],
-        "upwelling": "normal",
+        "question": "Normal equatorial trade winds blow west. Where does warm surface water pile up, and where does cooler deep water rise?",
+        "checks": [
+            {"label": "Warm surface water", "options": ["West", "East"], "correct": "West"},
+            {"label": "Cool water rises", "options": ["West", "East"], "correct": "East"},
+        ],
+        "answerNote": "Westward winds pile warm water near Indonesia. Cooler deep water rises near South America; that rise is eastern upwelling.",
     },
     "02-el-nino": {
-        "name": "El Niño equatorial Pacific",
+        "name": "Weaker equatorial Pacific trades",
         "state": "el-nino",
-        "question": "Compared with neutral conditions, what happens to the easterly trade winds?",
-        "choices": ["They strengthen", "They weaken", "They reverse everywhere"],
-        "correct": 1,
-        "answerNote": "Weaker trades let warm water spread eastward, reducing eastern upwelling.",
-        "windStrength": "weak",
-        "warmCenter": 0.58,
-        "warmWidth": 0.55,
-        "rainCenter": 0.58,
-        "thermocline": [0.62, 0.57],
-        "upwelling": "weak",
+        "question": "Westward trades weaken: predict warm-water spread and cool-water rise in the east.",
+        "checks": [
+            {"label": "Warm water spreads", "options": ["West", "East"], "correct": "East"},
+            {"label": "Cool water rising east", "options": ["More", "Less"], "correct": "Less"},
+        ],
+        "answerNote": "El Niño: weaker westward winds let warm water spread east. Less cool deep water reaches the eastern surface (weaker upwelling).",
     },
     "03-la-nina": {
-        "name": "La Niña equatorial Pacific",
+        "name": "Stronger equatorial Pacific trades",
         "state": "la-nina",
-        "question": "Compared with neutral conditions, what happens to eastern-Pacific upwelling?",
-        "choices": ["It weakens", "It stops everywhere", "It strengthens"],
-        "correct": 2,
-        "answerNote": "Stronger trades pile warm water farther west and favor stronger eastern upwelling.",
-        "windStrength": "strong",
-        "warmCenter": 0.20,
-        "warmWidth": 0.24,
-        "rainCenter": 0.20,
-        "thermocline": [0.80, 0.23],
-        "upwelling": "strong",
+        "question": "Westward trades strengthen: predict warm-water buildup and cool-water rise in the east.",
+        "checks": [
+            {"label": "Warm water shifts", "options": ["West", "East"], "correct": "West"},
+            {"label": "Cool water rising east", "options": ["Less", "More"], "correct": "More"},
+        ],
+        "answerNote": "La Niña: stronger westward winds push warm water farther west. More cool deep water reaches the eastern surface (stronger upwelling).",
     },
     "04-comparison": {
         "name": "Compare ENSO-neutral, El Niño, and La Niña",
         "state": "comparison",
-        "question": "Which state shifts the warm surface-water pool farthest east?",
-        "choices": ["ENSO-neutral", "El Niño", "La Niña"],
-        "correct": 1,
-        "answerNote": "El Niño shifts the warm pool eastward; La Niña pushes it farther west than neutral.",
+        "question": "El Niño vs La Niña: compare westward trades, central/eastern surface warmth, and cool-water rise in the east.",
+        "checks": [],
+        "answerNote": "El Niño is the warmer phase; La Niña is the cooler phase. The wind and upwelling contrasts are linked, not independent facts.",
     },
 }
 
@@ -2022,10 +2009,6 @@ def _build_enso() -> tuple[dict, dict, dict]:
         "regions": [],
     }
     shapes = {key: dict(value) for key, value in ENSO_STATES.items()}
-    shapes["04-comparison"]["states"] = [
-        dict(ENSO_STATES[key])
-        for key in ("01-neutral", "02-el-nino", "03-la-nina")
-    ]
     return bundle, shapes, {}
 
 

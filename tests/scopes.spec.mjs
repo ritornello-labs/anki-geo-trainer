@@ -629,8 +629,35 @@ test("atmospheric cells ask for rising and sinking latitudes, not closed-loop tr
       document.body.appendChild(app);
       window.GeoTrainer.mountAll();
     }, { scope, target });
-    await expect(page.locator(".gt-bar.gt-ok")).toContainText("rise near " + cell.rise);
+    await expect(page.locator(".gt-choice-row-wide")).toHaveCount(2);
+    await expect(page.locator(".gt-answer-correct")).toHaveCount(2);
+    await expect(page.locator(".gt-answer-correct .gt-answer-tag")).toHaveText(["You ✓", "You ✓"]);
+    await expect(page.locator(".gt-bar.gt-ok")).toContainText("2/2 matched");
   }
+});
+
+test("cell answer keeps the front grid and distinguishes a wrong pick from the right one", async ({ page }) => {
+  const scope = "atmospheric-cells";
+  const target = "01-hadley-pair";
+  const data = load(scope);
+  await mount(page, scope, data, { target, mode: "cell", side: "front" });
+  await page.locator(".gt-choice-row-wide").nth(0).getByRole("button", { name: "30°", exact: true }).click();
+  await page.locator(".gt-choice-row-wide").nth(1).getByRole("button", { name: "30°", exact: true }).click();
+  await page.evaluate(({ scope, target }) => {
+    document.body.innerHTML = "";
+    const app = document.createElement("div");
+    app.className = "gt-app";
+    app.dataset.scope = scope;
+    app.dataset.target = target;
+    app.dataset.mode = "cell";
+    app.dataset.side = "back";
+    document.body.appendChild(app);
+    window.GeoTrainer.mountAll();
+  }, { scope, target });
+  await expect(page.locator(".gt-choice-row-wide")).toHaveCount(2);
+  await expect(page.locator(".gt-answer-wrong .gt-answer-tag")).toHaveText("You ✕");
+  await expect(page.locator(".gt-answer-correct .gt-answer-tag")).toHaveText(["✓ Correct", "You ✓"]);
+  await expect(page.locator(".gt-bar.gt-close")).toContainText("1/2 matched");
 });
 
 test("Atlantic overturning teaches limb directions and pathway order without freehand tracing", async ({ page }) => {
@@ -657,7 +684,9 @@ test("Atlantic overturning teaches limb directions and pathway order without fre
     document.body.appendChild(app);
     window.GeoTrainer.mountAll();
   }, { scope, target });
-  await expect(page.locator(".gt-bar.gt-ok")).toContainText("Upper ocean: northward");
+  await expect(page.locator(".gt-choice-row")).toHaveCount(2);
+  await expect(page.locator(".gt-answer-correct .gt-answer-tag")).toHaveText(["You ✓", "You ✓"]);
+  await expect(page.locator(".gt-bar.gt-ok")).toContainText("2/2 matched");
   await expect(page.locator(".gt-current")).toHaveCount(3);
 
   await page.evaluate(({ scope }) => {
@@ -675,6 +704,8 @@ test("Atlantic overturning teaches limb directions and pathway order without fre
   }, { scope });
   await expect(page.locator(".gt-amoc-waypoint-number")).toHaveCount(4);
   await expect(page.locator(".gt-bar.gt-ok")).toContainText("upper south → upper north");
+  await expect(page.locator(".gt-stage-answer button")).toHaveCount(4);
+  await expect(page.locator(".gt-stage-answer .gt-answer-correct")).toHaveCount(4);
 
   await mount(page, scope, data, { target: "02-pathway-order", mode: "amoc", side: "front" });
   const sequence = data.shapes["02-pathway-order"].waypoints;
@@ -685,14 +716,22 @@ test("Atlantic overturning teaches limb directions and pathway order without fre
   expect(await readState(page, "amoc", scope, "02-pathway-order")).toEqual({ order: [0, 1, 2, 3] });
 });
 
-test("ENSO questions record a choice and reveal the correct causal contrast", async ({ page }) => {
+test("ENSO cards test the linked wind-to-water mechanism and keep choices visible on the back", async ({ page }) => {
   const scope = "equatorial-pacific-enso";
   const data = load(scope);
   for (const [target, item] of Object.entries(data.shapes)) {
     await mount(page, scope, data, { target, mode: "enso", side: "front" });
-    await expect(page.locator(".gt-enso-choice-grid button")).toHaveCount(item.choices.length);
-    await page.locator(".gt-enso-choice-grid").getByRole("button", { name: item.choices[item.correct], exact: true }).click();
-    expect(await readState(page, "enso", scope, target)).toEqual({ choice: item.correct });
+    if (item.checks.length) {
+      await expect(page.locator(".gt-enso-check-grid .gt-choice-row")).toHaveCount(2);
+      for (const [index, check] of item.checks.entries()) {
+        await page.locator(".gt-enso-check-grid .gt-choice-row").nth(index)
+          .getByRole("button", { name: check.correct, exact: true }).click();
+      }
+      expect(await readState(page, "enso", scope, target))
+        .toEqual({ answers: item.checks.map((check) => check.correct) });
+    } else {
+      await expect(page.locator(".gt-enso-check-grid")).toHaveCount(0);
+    }
     await page.evaluate(({ scope, target }) => {
       document.body.innerHTML = "";
       const app = document.createElement("div");
@@ -704,9 +743,41 @@ test("ENSO questions record a choice and reveal the correct causal contrast", as
       document.body.appendChild(app);
       window.GeoTrainer.mountAll();
     }, { scope, target });
-    await expect(page.locator(".gt-bar.gt-ok")).toContainText("Answer: " + item.choices[item.correct]);
+    if (item.checks.length) {
+      await expect(page.locator(".gt-enso-check-grid .gt-choice-row")).toHaveCount(2);
+      await expect(page.locator(".gt-answer-correct .gt-answer-tag")).toHaveText(["You ✓", "You ✓"]);
+      await expect(page.locator(".gt-bar.gt-ok")).toContainText("2/2 matched");
+    } else {
+      await expect(page.locator(".gt-enso-compare tr")).toHaveCount(4);
+      await expect(page.locator(".gt-enso-compare")).toContainText("Central/eastern water");
+    }
     await expect(page.getByText(item.answerNote, { exact: true })).toHaveCount(1);
   }
+});
+
+test("ENSO answer marks a wrong choice against the correct choice in the same row", async ({ page }) => {
+  const scope = "equatorial-pacific-enso";
+  const target = "02-el-nino";
+  const data = load(scope);
+  await mount(page, scope, data, { target, mode: "enso", side: "front" });
+  await page.locator(".gt-enso-check-grid .gt-choice-row").nth(0)
+    .getByRole("button", { name: "West", exact: true }).click();
+  await page.locator(".gt-enso-check-grid .gt-choice-row").nth(1)
+    .getByRole("button", { name: "Less", exact: true }).click();
+  await page.evaluate(({ scope, target }) => {
+    document.body.innerHTML = "";
+    const app = document.createElement("div");
+    app.className = "gt-app";
+    app.dataset.scope = scope;
+    app.dataset.target = target;
+    app.dataset.mode = "enso";
+    app.dataset.side = "back";
+    document.body.appendChild(app);
+    window.GeoTrainer.mountAll();
+  }, { scope, target });
+  await expect(page.locator(".gt-answer-wrong .gt-answer-tag")).toHaveText("You ✕");
+  await expect(page.locator(".gt-answer-correct .gt-answer-tag")).toHaveText(["✓ Correct", "You ✓"]);
+  await expect(page.locator(".gt-bar.gt-close")).toContainText("1/2 matched · El Niño");
 });
 
 test("pressure belts grade all required hemispheric bands", async ({ page }) => {
@@ -801,8 +872,8 @@ test("new physical curricula have deliberate, stable membership", () => {
   const enso = load("equatorial-pacific-enso");
   expect(Object.keys(enso.shapes)).toHaveLength(4);
   expect(enso.bundle.families).toEqual(["enso"]);
-  expect(enso.shapes["02-el-nino"].windStrength).toBe("weak");
-  expect(enso.shapes["04-comparison"].states).toHaveLength(3);
+  expect(enso.shapes["02-el-nino"].checks.map((check) => check.correct)).toEqual(["East", "Less"]);
+  expect(enso.shapes["04-comparison"].checks).toHaveLength(0);
 });
 
 test("all expected scopes are present", () => {
