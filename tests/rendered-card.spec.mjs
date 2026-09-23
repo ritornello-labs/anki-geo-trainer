@@ -16,14 +16,14 @@ const CASES = [
 ];
 
 const PHYSICAL_CASES = [
-  { scope: "atmospheric-cells", mode: "cell", chip: "Trace circulation cell" },
+  { scope: "atmospheric-cells", mode: "cell", chip: "Idealized circulation cell" },
   { scope: "atmospheric-pressure-belts", mode: "belt", chip: "Place pressure belt" },
   { scope: "world-prevailing-winds", mode: "wind", chip: "Trace prevailing wind" },
   { scope: "world-jet-streams", mode: "jet", chip: "Trace jet stream" },
   { scope: "south-asia-monsoon-winds", mode: "seasonalwind", chip: "Trace seasonal wind" },
   { scope: "indian-ocean-seasonal-currents", mode: "seasonalcurrent", chip: "Trace seasonal current" },
   { scope: "atlantic-overturning", mode: "amoc", chip: "Order Atlantic overturning" },
-  { scope: "equatorial-pacific-enso", mode: "enso", chip: "Recall ENSO pattern" },
+  { scope: "equatorial-pacific-enso", mode: "enso", chip: "Equatorial Pacific" },
 ];
 
 test.describe("shipped inlined cards", () => {

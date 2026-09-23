@@ -1,10 +1,9 @@
 # anki-geo-trainer — Plan
 
-Status: active; the next AnkiWeb update is on a curriculum-design hold. The
-29-card atmospheric, seasonal, ENSO, and Atlantic-overturning batch remains
-under `Process::GeoTrainer QA`; its current designs are not approved for
-restoration or publication. A seasonal-current pilot and polar-map bounds fix
-are in a separate clean source checkout, pending review. See
+Status: active; the next AnkiWeb update is on a manual-QA hold. The revised
+29-card atmospheric, seasonal, ENSO, and Atlantic-overturning batch is in
+`Process::GeoTrainer QA` for Elvis's review, not approved for restoration to
+the daily tree or publication. The fixes live in an isolated clean checkout. See
 [the physical-systems QA redesign](curriculum/PHYSICAL_SYSTEMS_QA_REDESIGN.md)
 for family decisions and release gates. Created 2026-07-05.
 
@@ -410,6 +409,15 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   verification were captured locally under the timestamped
   `20260806T181704-0700-physical-redesign` recovery directory; live snapshots are
   no longer stored in Git.
+- **Physical-systems QA repair. ✅ Refreshed in Process 2026-09-23; Elvis's
+  verdict remains open.** Replaced paired cell tracing with rise/sink choices;
+  repaired pressure, wind, jet, monsoon, and seasonal-current framing and
+  feedback; made AMOC stages visible; and made ENSO questions answerable.
+  Chromium and WebKit each passed 167 tests. In-place import preserved all
+  2,341 GeoTrainer card identities and scheduling values and changed no
+  unrelated note content. The 29 QA cards remain in `Process::GeoTrainer QA`;
+  no sync or publication was performed. Recovery is under
+  `.tmp-anki-geo-extra/private-qa-recovery/20260923T142444-0700-physical-qa-refresh`.
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.

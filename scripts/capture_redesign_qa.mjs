@@ -65,6 +65,25 @@ const shots = [
     strokes: [[[765, 325], [680, 325], [595, 325], [510, 325]]],
   }],
   ["12-polar-wind-front.png", "world-prevailing-winds", "southern-polar-easterlies", "wind", "front"],
+  ["13-cells-back.png", "atmospheric-cells", "02-ferrel-pair", "cell", "back", {
+    rise: "60°", sink: "30°",
+  }],
+  ["14-pressure-back.png", "atmospheric-pressure-belts", "subpolar-lows", "belt", "back", {
+    taps: [],
+  }],
+  ["15-jet-front.png", "world-jet-streams", "polar-front-jet-north", "jet", "front"],
+  ["16-jet-back.png", "world-jet-streams", "polar-front-jet-north", "jet", "back", {
+    strokes: [[[500, 90], [600, 88], [700, 86]]],
+  }],
+  ["17-monsoon-front.png", "south-asia-monsoon-winds", "south-asia-summer", "seasonalwind", "front"],
+  ["18-monsoon-back.png", "south-asia-monsoon-winds", "south-asia-summer", "seasonalwind", "back", {
+    strokes: [[[350, 500], [430, 420], [510, 340]]],
+  }],
+  ["19-amoc-sequence-front.png", "atlantic-overturning", "02-pathway-order", "amoc", "front"],
+  ["20-enso-neutral-front.png", "equatorial-pacific-enso", "01-neutral", "enso", "front"],
+  ["21-enso-neutral-back.png", "equatorial-pacific-enso", "01-neutral", "enso", "back", {
+    choice: 0,
+  }],
 ];
 
 for (const [filename, scope, target, mode, side, state] of shots) {

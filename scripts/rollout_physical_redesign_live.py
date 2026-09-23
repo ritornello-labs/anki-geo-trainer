@@ -16,12 +16,12 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parent.parent
-SNAPSHOTS = ROOT / "backups" / "live-imports"
+# Recovery exports may include personal scheduling. Keep them outside this
+# sanitized source checkout and every Git repository.
+SNAPSHOTS = ROOT.parent.parent / ".tmp-anki-geo-extra" / "private-qa-recovery"
 DAILY_ROOT = "Decks::Geography::GeoTrainer"
 QA_ROOT = "Process::GeoTrainer QA"
 IMPORT_ROOT = "GeoTrainer"
-EXPECTED_BEFORE = 2_406
-EXPECTED_AFTER = 2_405
 
 TARGETS = (
     (
@@ -190,7 +190,8 @@ def normalized_note(note: dict) -> dict:
 
 
 def write_snapshot(directory: Path, state: dict) -> None:
-    directory.mkdir(parents=True, exist_ok=True)
+    directory.mkdir(parents=True, mode=0o700, exist_ok=True)
+    directory.chmod(0o700)
     compact = {
         "cardIds": state["cardIds"],
         "noteIds": state["noteIds"],
@@ -269,8 +270,9 @@ def resume_verify(snapshot_root: Path) -> dict:
     ]
     if scheduling_changes:
         raise RuntimeError(f"preserved scheduling changed: {scheduling_changes}")
-    if len(current_ids) != EXPECTED_AFTER:
-        raise RuntimeError(f"expected {EXPECTED_AFTER} final cards, found {len(current_ids)}")
+    expected_after = len(before_by_id) - 1
+    if len(current_ids) != expected_after:
+        raise RuntimeError(f"expected {expected_after} final cards, found {len(current_ids)}")
 
     all_target_ids: list[int] = []
     cards_by_deck: dict[str, int] = {}
@@ -357,11 +359,8 @@ def preflight() -> tuple[dict, list[int], list[int]]:
         raise RuntimeError(f"missing packages: {missing_packages}")
 
     state = collect_all()
-    if len(state["cardIds"]) != EXPECTED_BEFORE or len(state["noteIds"]) != EXPECTED_BEFORE:
-        raise RuntimeError(
-            f"expected {EXPECTED_BEFORE} one-card GeoTrainer notes, found "
-            f"{len(state['noteIds'])} notes/{len(state['cardIds'])} cards"
-        )
+    if len(state["cardIds"]) != len(state["noteIds"]):
+        raise RuntimeError("GeoTrainer is no longer one card per note")
     notes_by_id = {note["noteId"]: note for note in state["notes"]}
     cards_by_id = {card["cardId"]: card for card in state["cards"]}
 
@@ -445,9 +444,10 @@ def verify(before: dict, after: dict, old_note_ids: list[int], old_card_ids: lis
     if content_changes:
         raise RuntimeError(f"unaffected note content changed: {content_changes}")
 
-    if len(after_cards) != EXPECTED_AFTER or len(after_notes) != EXPECTED_AFTER:
+    expected_after = len(before_cards) - 1
+    if len(after_cards) != expected_after or len(after_notes) != expected_after:
         raise RuntimeError(
-            f"expected {EXPECTED_AFTER} final notes/cards, got "
+            f"expected {expected_after} final notes/cards, got "
             f"{len(after_notes)}/{len(after_cards)}"
         )
 
@@ -538,6 +538,8 @@ def main() -> None:
 
     stamp = datetime.now().astimezone().strftime("%Y%m%dT%H%M%S%z")
     snapshot_root = SNAPSHOTS / f"{stamp}-physical-redesign"
+    SNAPSHOTS.mkdir(parents=True, mode=0o700, exist_ok=True)
+    SNAPSHOTS.chmod(0o700)
     write_snapshot(snapshot_root / "before", before)
     invoke(
         "exportPackage",

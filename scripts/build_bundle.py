@@ -1650,6 +1650,8 @@ ATMOSPHERIC_CELLS = {
     "01-hadley-pair": {
         "name": "Hadley cells",
         "style": "cell",
+        "rise": "0°", "sink": "30°", "latitudeRange": "0–30°",
+        "answerNote": "In the idealized average, air rises near the equator and sinks in the subtropics.",
         "paths": [
             [(30, 0), (15, 0), (0, 0), (0, 12), (0, 16), (15, 16), (30, 14), (30, 0)],
             [(-30, 0), (-15, 0), (0, 0), (0, 12), (0, 16), (-15, 16), (-30, 14), (-30, 0)],
@@ -1658,6 +1660,8 @@ ATMOSPHERIC_CELLS = {
     "02-ferrel-pair": {
         "name": "Ferrel cells",
         "style": "cell",
+        "rise": "60°", "sink": "30°", "latitudeRange": "30–60°",
+        "answerNote": "This is an indirect, eddy-driven average, not a closed air-parcel loop.",
         "paths": [
             [(30, 0), (45, 0), (60, 0), (60, 10), (60, 13), (45, 15), (30, 14), (30, 0)],
             [(-30, 0), (-45, 0), (-60, 0), (-60, 10), (-60, 13), (-45, 15), (-30, 14), (-30, 0)],
@@ -1666,6 +1670,8 @@ ATMOSPHERIC_CELLS = {
     "03-polar-pair": {
         "name": "Polar cells",
         "style": "cell",
+        "rise": "60°", "sink": "90°", "latitudeRange": "60–90°",
+        "answerNote": "In the idealized average, air sinks over the poles and rises near the polar front.",
         "paths": [
             [(90, 0), (75, 0), (60, 0), (60, 8), (60, 11), (75, 9), (90, 7), (90, 0)],
             [(-90, 0), (-75, 0), (-60, 0), (-60, 8), (-60, 11), (-75, 9), (-90, 7), (-90, 0)],
@@ -1691,13 +1697,14 @@ def _build_atmospheric_cells() -> tuple[dict, dict, dict]:
     shapes = {}
     for rid, route in ATMOSPHERIC_CELLS.items():
         shapes[rid] = {
-            "name": route["name"],
-            "style": route["style"],
+            key: value for key, value in route.items() if key != "paths"
+        }
+        shapes[rid].update({
             "paths": [
                 [project(lat, altitude) for lat, altitude in path]
                 for path in route["paths"]
             ],
-        }
+        })
 
     surface_path = [project(lat, 0) for lat in range(-90, 91, 5)]
     tropopause_path = [project(lat, 18) for lat in range(-90, 91, 5)]
@@ -1747,9 +1754,9 @@ def _build_pressure_belts() -> tuple[dict, dict, dict]:
         ]
 
     targets = {
-        "equatorial-low": ("ITCZ / equatorial low", [(-5, 5)]),
+        "equatorial-low": ("Equatorial low-pressure zone", [(-5, 5)]),
         "subtropical-highs": ("Subtropical highs", [(25, 35), (-35, -25)]),
-        "subpolar-lows": ("Subpolar lows / polar fronts", [(55, 65), (-65, -55)]),
+        "subpolar-lows": ("Subpolar low-pressure zones", [(55, 65), (-65, -55)]),
         "polar-highs": ("Polar highs", [(80, 90), (-90, -80)]),
     }
     belts = {}
@@ -1759,10 +1766,18 @@ def _build_pressure_belts() -> tuple[dict, dict, dict]:
             y_north = project(0, north)[1]
             y_south = project(0, south)[1]
             rects.append([PAD, y_north, width, y_south - y_north])
-        belts[rid] = {"name": name, "bands": rects}
+        belts[rid] = {
+            "name": name, "bands": rects,
+            "answerNote": (
+                "This equatorial low-pressure zone is associated with the shifting tropical rain belt (ITCZ)."
+                if rid == "equatorial-low" else
+                "These are approximate latitude zones in a long-term global average, not fixed worldwide stripes."
+            ),
+        }
 
-    land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
-    context = rings_of(project_geom(land, lambda lon, lat: project(lon, lat)).simplify(0.8, preserve_topology=True))
+    # An abstract latitude section avoids implying that a belt has the same
+    # pressure at every longitude on an actual weather map.
+    context = []
     guide_lines, guide_labels = [], []
     for lat in (-90, -60, -30, 0, 30, 60, 90):
         p = project(-180, lat)
@@ -1806,8 +1821,8 @@ JET_STREAMS = {
 
 
 MONSOON_WINDS = {
-    "south-asia-summer": {"name": "South Asian monsoon winds — boreal summer", "style": "seasonal", "season": "June–September", "paths": [[(45, -8), (57, -2), (68, 5), (77, 13), (83, 22)]]},
-    "south-asia-winter": {"name": "South Asian monsoon winds — boreal winter", "style": "seasonal", "season": "December–February", "paths": [[(90, 26), (83, 20), (76, 13), (67, 7), (55, 1)]]},
+    "south-asia-summer": {"name": "South Asian monsoon — boreal summer", "style": "seasonal", "season": "June–September", "answerNote": "Low-level winds generally carry moist air from the northern Indian Ocean toward South Asia in summer.", "acceptBox": (50, -8, 100, 32), "direction": [1, -1], "paths": [[(60, 0), (83, 22)]]},
+    "south-asia-winter": {"name": "South Asian monsoon — boreal winter", "style": "seasonal", "season": "December–February", "answerNote": "Low-level winds generally blow from the Asian landmass toward the northern Indian Ocean in winter.", "acceptBox": (50, -8, 100, 32), "direction": [-1, 1], "paths": [[(85, 24), (62, 2)]]},
 }
 
 
@@ -1828,7 +1843,7 @@ def _build_jet_streams() -> tuple[dict, dict, dict]:
 
 
 def _build_monsoon_winds() -> tuple[dict, dict, dict]:
-    return _build_line_scope(scope="south-asia-monsoon-winds", title="Atmospheric Circulation — Seasonal Monsoon Winds", noun="seasonal monsoon wind", kind="atmospheric-flow", family="seasonalwind", routes=MONSOON_WINDS)
+    return _build_line_scope(scope="south-asia-monsoon-winds", title="Atmospheric Circulation — Seasonal Monsoon Winds", noun="seasonal monsoon wind", kind="atmospheric-flow", family="seasonalwind", routes=MONSOON_WINDS, box_t=(40.0, -15.0, 105.0, 35.0), width=1000.0, guide_lats=(0, 20))
 
 
 def _build_seasonal_currents() -> tuple[dict, dict, dict]:
@@ -1858,6 +1873,10 @@ ENSO_STATES = {
     "01-neutral": {
         "name": "ENSO-neutral equatorial Pacific",
         "state": "neutral",
+        "question": "Under normal trade winds, where does warm surface water collect?",
+        "choices": ["West near Indonesia", "East near South America", "Evenly across the Pacific"],
+        "correct": 0,
+        "answerNote": "Normal easterly trades push warm surface water westward; cooler water rises in the east.",
         "windStrength": "normal",
         "warmCenter": 0.26,
         "warmWidth": 0.30,
@@ -1868,6 +1887,10 @@ ENSO_STATES = {
     "02-el-nino": {
         "name": "El Niño equatorial Pacific",
         "state": "el-nino",
+        "question": "Compared with neutral conditions, what happens to the easterly trade winds?",
+        "choices": ["They strengthen", "They weaken", "They reverse everywhere"],
+        "correct": 1,
+        "answerNote": "Weaker trades let warm water spread eastward, reducing eastern upwelling.",
         "windStrength": "weak",
         "warmCenter": 0.58,
         "warmWidth": 0.55,
@@ -1878,6 +1901,10 @@ ENSO_STATES = {
     "03-la-nina": {
         "name": "La Niña equatorial Pacific",
         "state": "la-nina",
+        "question": "Compared with neutral conditions, what happens to eastern-Pacific upwelling?",
+        "choices": ["It weakens", "It stops everywhere", "It strengthens"],
+        "correct": 2,
+        "answerNote": "Stronger trades pile warm water farther west and favor stronger eastern upwelling.",
         "windStrength": "strong",
         "warmCenter": 0.20,
         "warmWidth": 0.24,
@@ -1888,6 +1915,10 @@ ENSO_STATES = {
     "04-comparison": {
         "name": "Compare ENSO-neutral, El Niño, and La Niña",
         "state": "comparison",
+        "question": "Which state shifts the warm surface-water pool farthest east?",
+        "choices": ["ENSO-neutral", "El Niño", "La Niña"],
+        "correct": 1,
+        "answerNote": "El Niño shifts the warm pool eastward; La Niña pushes it farther west than neutral.",
     },
 }
 

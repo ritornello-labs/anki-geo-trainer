@@ -1,9 +1,8 @@
 # Physical-systems QA redesign
 
-Status: design hold, 2026-09-23. The seasonal-current corridor pilot and
-polar-wind map-bounds fix are implemented in an isolated clean checkout but
-are not approved for live restoration or publication. The 29 staged cards
-remain in `Process::GeoTrainer QA`.
+Status: revised 2026-09-23 and refreshed in Elvis's live
+`Process::GeoTrainer QA` tree. All 29 cards remain QA-only; none is approved
+for release or moved into the daily GeoTrainer tree. No sync was performed.
 
 ## Brief and boundary
 
@@ -67,23 +66,37 @@ means reuse a live identity only if the revised retrieval genuinely fits it.
 | Atlantic overturning | `atlantic-overturning` / 2 | Retire design | The front shows a sparse section; the sequence card asks for four invisible waypoints. Make every selectable stage visible and named. Test upper/deep direction and order separately, or defer AMOC if a clear interaction cannot be built. |
 | ENSO | `equatorial-pacific-enso` / 4 | Retire design | The front asks for five coupled variables from a blank panel and records no response. First teach west/east and surface/depth orientation; then ask one state comparison at a time with explicit, specific feedback. |
 
-None of these decisions approves any of the 29 cards for publication. The four
-seasonal-current cards are the best first repair pilot, but they still need a
-rendered-card review and an interaction test.
+This ledger records the defects that drove the redesign, not the current card
+behavior. None of the 29 cards is approved for publication.
 
-## Current pilot implementation
+## Current implementation and manual QA
 
-- Seasonal-current fronts remain regional maps. The back now shows the learner's
-  arrow, a broad ocean-only corridor, and one schematic direction arrow; scoring
-  accepts alternate paths within the corridor and rejects land, wrong-region,
-  and reversed attempts. The answer explicitly says the region is not an exact
-  track. This is a prototype, not a science or usability sign-off.
-- The world wind/jet map bounds now include both poles. This fixes the polar
-  easterlies being partially outside the old map, but does not approve those
-  cards or the current jet task design.
-- Local browser screenshots and scoring tests exist for the pilot. Real Anki
-  rendering, cross-client interaction QA, learner review, and guarded live
-  updates remain open.
+- Cells ask for approximate rising and sinking latitudes in both hemispheres;
+  the answer identifies the zonal-mean/indirect-Ferrel caveat. Pressure belts
+  use an abstract latitude section, and subpolar low is no longer conflated
+  with the polar-front concept.
+- Wind/jet maps include both poles; answers show broad bands and a schematic
+  arrow, not prescribed zigzags. South Asian monsoon winds use a regional
+  frame and a broad seasonal corridor. Seasonal currents accept alternative
+  ocean-only arrows but reject reversed, misplaced, and on-land responses.
+- AMOC uses explicit upper/deep direction choices and shuffled, named stage
+  buttons. ENSO asks one comparison per card, with west/east orientation and
+  a coupled-state explanation on the back.
+- The eight revised packages were imported over the 29 already-staged cards.
+  Live verification preserved all 2,341 GeoTrainer card identities and
+  scheduling values, changed no unrelated note content, and matched all eight
+  generated note templates/CSS. Recovery export and verification are outside
+  the source repository in
+  `.tmp-anki-geo-extra/private-qa-recovery/20260923T142444-0700-physical-qa-refresh`.
+  No Anki sync was performed.
+
+For Elvis's QA, browse `Process::GeoTrainer QA` in Anki and try each family
+front-to-back, including a deliberately wrong direction or choice. Check the
+cell rise/sink distinction, pressure latitudes, polar winds, jet bands,
+summer/winter monsoon reversals, AMOC order, and whether the ENSO cards teach
+rather than merely cue their answers. Record any confusing prompt or
+misleading diagram before release selection. Chromium and WebKit each passed
+167 local tests; learner judgment and other-client interaction QA remain open.
 
 ## Prototype and release gates
 
@@ -93,17 +106,16 @@ rendered-card review and an interaction test.
 2. **Prerequisite closure.** Introduce the latitude/hemisphere and surface/depth
    frames before asking for a flow. Explain ITCZ, jet, monsoon, thermocline,
    upwelling, and AMOC on a prior card or within the first relevant answer.
-3. **One prototype per family.** Render front, attempted response, and back in
-   disposable real Anki. Check that the learner can discover the action and
-   interpret the answer without reading developer documentation. Review the
-   prototypes with Elvis before converting the full family.
+3. **One prototype per family.** Review front, attempted response, and back
+   in Elvis's own QA collection. Check that the learner can discover the
+   action and interpret the answer without developer documentation.
 4. **Acceptance tests.** Check meaningful correct, reversed, incomplete, and
    reasonable-alternative responses. Technical mount/count tests do not count
    as pedagogical approval. Run cross-client checks for interaction changes.
-5. **Guarded live update.** After acceptance, use exact live note/card IDs,
-   snapshots, and a content/scheduling comparison. Preserve useful identities;
-   leave rejected cards in QA until a deliberate retirement decision. Do not
-   restore the 29-card batch wholesale.
+5. **Guarded live update.** The QA-only refresh is complete with exact
+   membership, snapshot, and content/scheduling checks. Preserve those
+   identities; leave rejected cards in QA until a deliberate retirement
+   decision. Do not restore the 29-card batch wholesale.
 6. **Publication choice.** Recompute a clean release artifact from accepted
    families only. A core GeoTrainer update that excludes the QA batch may be
    considered separately, but its exact contents, count, listing, Publisher

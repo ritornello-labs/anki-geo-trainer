@@ -973,7 +973,8 @@
   }
 
   function button(label) {
-    var b = document.createElement("div");
+    var b = document.createElement("button");
+    b.type = "button";
     b.className = "gt-btn";
     b.textContent = label;
     return b;
@@ -1741,7 +1742,8 @@
     var length = Math.hypot(dx, dy);
     if (length < 45) return { quality: 0, empty: true, reversed: false };
     var expected = data.directionVector;
-    var cosine = (dx * expected[0] + dy * expected[1]) / length;
+    var expectedLength = Math.hypot(expected[0], expected[1]) || 1;
+    var cosine = (dx * expected[0] + dy * expected[1]) / (length * expectedLength);
     var rect = data.acceptRect;
     var inside = 0;
     for (var i = 0; i < trace.length; i++) {
@@ -1772,6 +1774,26 @@
     if (land) svg.insertBefore(shaded, land);
     else svg.appendChild(shaded);
     directedPaths(svg, data.paths, "gt-current gt-current-seasonal", markerId);
+  }
+
+  function flowBandAnswer(svg, bundle, data, markerId, variant) {
+    var band = data.acceptBand;
+    var shaded = el("rect", {
+      x: 0, y: band[0], width: bundle.view.w,
+      height: band[1] - band[0], class: "gt-flow-band",
+    });
+    var land = svg.querySelector(".gt-context");
+    if (land) svg.insertBefore(shaded, land);
+    else svg.appendChild(shaded);
+    var centerY = (band[0] + band[1]) / 2;
+    var vector = data.directionVector || [1, 0];
+    var magnitude = Math.hypot(vector[0], vector[1]) || 1;
+    var span = Math.min(250, bundle.view.w * 0.18);
+    var cx = bundle.view.w / 2;
+    directedPaths(svg, [[
+      [cx - span * vector[0] / magnitude / 2, centerY - span * vector[1] / magnitude / 2],
+      [cx + span * vector[0] / magnitude / 2, centerY + span * vector[1] / magnitude / 2],
+    ]], "gt-current gt-current-" + variant, markerId);
   }
 
   function atmosphericRouteScore(strokes, paths, kmPerUnit) {
@@ -1906,14 +1928,14 @@
       },
       seasonalwind: {
         chip: "Trace seasonal wind",
-        hint: "Trace the flow for the named season — your arrow shows direction",
-        good: "Good seasonal wind and direction",
-        rough: "Rough seasonal wind, correct direction",
-        off: "Off seasonal wind route",
+        hint: "Draw one broad low-level wind arrow between the Indian Ocean and South Asia.",
+        good: "Good seasonal wind region and direction",
+        rough: "Approximate seasonal wind region and direction",
+        off: "Outside the broad region or wrong direction",
       },
       jet: {
         chip: "Trace jet stream",
-        hint: "Trace the broad west-to-east corridor — a schematic meander is enough",
+        hint: "Draw a west-to-east arrow in the broad upper-air latitude zone. Do not copy a fixed zigzag.",
         good: "Good jet corridor and direction",
         rough: "Rough jet corridor, correct direction",
         off: "Off jet corridor",
@@ -1950,16 +1972,6 @@
     var svg = built.svg;
     var markerId = "gt-user-" + mode + "-arrow";
     addArrowMarker(svg, markerId, "gt-current-user-arrow");
-    if (mode === "cell" && data && data.paths.length) {
-      for (var pi = 0; pi < data.paths.length; pi++) {
-        if (data.paths[pi].length) {
-          svg.appendChild(el("circle", {
-            cx: data.paths[pi][0][0], cy: data.paths[pi][0][1], r: 8,
-            class: "gt-flow-start",
-          }));
-        }
-      }
-    }
     var panzoom = mode === "cell" ? null : attachPanZoom(svg);
     var surface = attachStrokeCapture(
       svg, mode, bundle.scope, target, "gt-current-user",
@@ -1992,12 +2004,10 @@
     addArrowMarker(svg, userMarker, "gt-current-user-arrow");
     if (data) {
       if ((mode === "wind" || mode === "jet") && data.acceptBand) {
-        svg.appendChild(el("rect", {
-          x: 0, y: data.acceptBand[0], width: bundle.view.w,
-          height: data.acceptBand[1] - data.acceptBand[0], class: "gt-flow-band",
-        }));
-      }
-      if (mode === "seasonalcurrent" && data.acceptRect) {
+        flowBandAnswer(svg, bundle, data, targetMarker, variant);
+      } else if (mode === "seasonalcurrent" && data.acceptRect) {
+        seasonalCorridorAnswer(svg, data, targetMarker);
+      } else if (mode === "seasonalwind" && data.acceptRect) {
         seasonalCorridorAnswer(svg, data, targetMarker);
       } else {
         riverPaths(svg, data.paths, "gt-current-corridor");
@@ -2023,6 +2033,8 @@
           ? atmosphericBandScore(strokes, data)
           : mode === "seasonalcurrent" && data.acceptRect
             ? seasonalCorridorScore(strokes, data, bundle.context)
+          : mode === "seasonalwind" && data.acceptRect
+            ? seasonalCorridorScore(strokes, data, null)
           : mode === "seasonalwind"
             ? atmosphericRouteScore(strokes, data.paths, frame ? frame.kmPerUnit : 1)
             : currentScore(strokes, data.paths, frame ? frame.kmPerUnit : 1))
@@ -2056,9 +2068,14 @@
       msg,
       score.quality === 2 ? "gt-ok" : score.quality === 1 ? "gt-close" : "gt-miss"
     ));
-    if (mode === "seasonalcurrent") {
+    if (mode === "seasonalcurrent" || mode === "seasonalwind") {
       if (data && data.answerNote) root.appendChild(bar(data.answerNote, "gt-hint"));
       root.appendChild(bar("The shaded region and arrow are a schematic seasonal pattern, not an exact track.", "gt-hint"));
+    }
+    if (mode === "wind" || mode === "jet") {
+      root.appendChild(bar(mode === "jet"
+        ? "Jets flow mainly west to east high in the atmosphere; their latitude and meanders vary."
+        : "This is a prevailing surface-wind belt in a long-term average, not one fixed path.", "gt-hint"));
     }
     root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
   }
@@ -2079,8 +2096,95 @@
   function seasonalWindBack(root, bundle, target) { directedTraceBack(root, bundle, target, "seasonalwind"); }
   function jetFront(root, bundle, target) { directedTraceFront(root, bundle, target, "jet"); }
   function jetBack(root, bundle, target) { directedTraceBack(root, bundle, target, "jet"); }
-  function cellFront(root, bundle, target) { directedTraceFront(root, bundle, target, "cell"); }
-  function cellBack(root, bundle, target) { directedTraceBack(root, bundle, target, "cell"); }
+  function choiceButtonRow(root, labelText, options, selected, onSelect) {
+    var row = document.createElement("div");
+    row.className = "gt-choice-row gt-choice-row-wide";
+    var label = document.createElement("div");
+    label.className = "gt-choice-label";
+    label.textContent = labelText;
+    row.appendChild(label);
+    var buttons = [];
+    for (var i = 0; i < options.length; i++) {
+      (function (value) {
+        var item = button(value);
+        row.appendChild(item);
+        buttons.push(item);
+        wireTap(item, function () {
+          for (var j = 0; j < buttons.length; j++) {
+            buttons[j].classList.toggle("gt-selected", options[j] === value);
+          }
+          onSelect(value);
+        });
+      })(options[i]);
+    }
+    if (selected !== null && selected !== undefined) {
+      for (var k = 0; k < buttons.length; k++) {
+        buttons[k].classList.toggle("gt-selected", options[k] === selected);
+      }
+    }
+    root.appendChild(row);
+    return row;
+  }
+
+  function cellLatitudeAxis(data, reveal) {
+    var svg = el("svg", { viewBox: "0 0 1000 160", class: "gt-map gt-compact", role: "img" });
+    svg.appendChild(el("rect", { x: 0, y: 0, width: 1000, height: 160, class: "gt-ocean" }));
+    svg.appendChild(el("line", { x1: 65, y1: 78, x2: 935, y2: 78, class: "gt-guide" }));
+    for (var lat = -90; lat <= 90; lat += 30) {
+      var x = 65 + (lat + 90) / 180 * 870;
+      svg.appendChild(el("line", { x1: x, y1: 63, x2: x, y2: 93, class: "gt-guide" }));
+      svgText(svg, x, 116, lat === 0 ? "0°" : Math.abs(lat) + "°" + (lat < 0 ? "S" : "N"),
+        "gt-guide-label", "middle");
+    }
+    if (reveal) {
+      for (var side = -1; side <= 1; side += 2) {
+        var rise = Number(data.rise.replace("°", "")) * side;
+        var sink = Number(data.sink.replace("°", "")) * side;
+        var rx = 65 + (rise + 90) / 180 * 870;
+        var sx = 65 + (sink + 90) / 180 * 870;
+        svg.appendChild(el("circle", { cx: rx, cy: 78, r: 9, class: "gt-cell-rise" }));
+        svg.appendChild(el("circle", { cx: sx, cy: 78, r: 9, class: "gt-cell-sink" }));
+      }
+      svgText(svg, 90, 42, "green: rising", "gt-diagram-label");
+      svgText(svg, 910, 42, "orange: sinking", "gt-diagram-label", "end");
+    }
+    return svg;
+  }
+
+  function cellFront(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    root.appendChild(chip("Idealized circulation cell"));
+    root.appendChild(prompt(data.name));
+    root.appendChild(cellLatitudeAxis(data, false));
+    root.appendChild(bar("In both hemispheres, where does air tend to rise and sink?", "gt-hint"));
+    var state = { rise: null, sink: null };
+    saveState("cell", bundle.scope, target, state);
+    var choices = document.createElement("div");
+    choices.className = "gt-choice-grid gt-choice-grid-wide";
+    var options = ["0°", "30°", "60°", "90°"];
+    choiceButtonRow(choices, "Rises near", options, null, function (value) {
+      state.rise = value; saveState("cell", bundle.scope, target, state);
+    });
+    choiceButtonRow(choices, "Sinks near", options, null, function (value) {
+      state.sink = value; saveState("cell", bundle.scope, target, state);
+    });
+    root.appendChild(choices);
+  }
+
+  function cellBack(root, bundle, target) {
+    var data = riverData(bundle.scope, target);
+    var state = loadState("cell", bundle.scope, target) || {};
+    root.appendChild(chip("Idealized circulation cell"));
+    root.appendChild(prompt(data.name));
+    root.appendChild(cellLatitudeAxis(data, true));
+    var correct = (state.rise === data.rise ? 1 : 0) + (state.sink === data.sink ? 1 : 0);
+    var quality = correct === 2 ? 2 : correct === 1 ? 1 : 0;
+    root.appendChild(bar("Your choice: rise " + (state.rise || "—") + ", sink " + (state.sink || "—"), "gt-hint"));
+    root.appendChild(bar("Idealized " + data.latitudeRange + " cell: rise near " + data.rise
+      + ", sink near " + data.sink, quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
+    root.appendChild(bar(data.answerNote, "gt-hint"));
+    root.appendChild(bar(suggestFor(quality), "gt-suggest"));
+  }
 
   function svgText(svg, x, y, textValue, cls, anchor) {
     var textNode = el("text", {
@@ -2121,12 +2225,22 @@
     }
   }
 
+  function amocOverview() {
+    var svg = el("svg", { viewBox: "0 0 1000 260", class: "gt-map gt-compact", role: "img" });
+    svg.appendChild(el("rect", { x: 0, y: 0, width: 1000, height: 260, class: "gt-ocean" }));
+    svg.appendChild(el("rect", { x: 120, y: 45, width: 790, height: 75, class: "gt-amoc-upper-zone" }));
+    svg.appendChild(el("rect", { x: 120, y: 145, width: 790, height: 75, class: "gt-amoc-deep-zone" }));
+    svgText(svg, 120, 32, "South Atlantic", "gt-diagram-label");
+    svgText(svg, 910, 32, "North Atlantic", "gt-diagram-label", "end");
+    svgText(svg, 135, 88, "upper ocean", "gt-amoc-zone-label");
+    svgText(svg, 135, 188, "deep ocean", "gt-amoc-zone-label");
+    return svg;
+  }
+
   function amocDirectionFront(root, bundle, target, data) {
     root.appendChild(chip("Atlantic overturning directions"));
     root.appendChild(prompt(data.name));
-    var built = buildSvg(bundle);
-    drawAmocZones(built.svg);
-    root.appendChild(built.svg);
+    root.appendChild(amocOverview());
 
     var state = { upper: null, deep: null };
     saveState("amoc", bundle.scope, target, state);
@@ -2166,45 +2280,30 @@
   function amocSequenceFront(root, bundle, target, data) {
     root.appendChild(chip("Order Atlantic overturning"));
     root.appendChild(prompt(data.name));
-    var built = buildSvg(bundle);
-    var svg = built.svg;
-    drawAmocZones(svg);
-    root.appendChild(svg);
-    var order = [];
-    var markers = [];
-    saveState("amoc", bundle.scope, target, { order: order });
+    root.appendChild(amocOverview());
+    root.appendChild(bar("Tap the named stages in flow order, beginning in the upper South Atlantic.", "gt-hint"));
 
-    function refresh() {
-      saveState("amoc", bundle.scope, target, { order: order });
+    var order = [];
+    saveState("amoc", bundle.scope, target, { order: order });
+    var stages = document.createElement("div");
+    stages.className = "gt-stage-grid";
+    var controls = [];
+    var selection = bar("Selected: none", "gt-hint");
+    var displayOrder = [2, 0, 3, 1];
+    for (var i = 0; i < displayOrder.length; i++) {
+      (function (index) {
+        var stage = button(data.waypoints[index].label);
+        stages.appendChild(stage);
+        controls[index] = stage;
+        wireTap(stage, function () {
+          if (order.indexOf(index) !== -1) return;
+          order.push(index);
+          refresh();
+        });
+      })(displayOrder[i]);
     }
-    function place(clientX, clientY) {
-      var loc = svgPoint(svg, clientX, clientY);
-      if (!loc) return;
-      var best = 0, bestDistance = Infinity;
-      for (var i = 0; i < data.waypoints.length; i++) {
-        var p = data.waypoints[i].point;
-        var distance = endpointDistance([loc.x, loc.y], p);
-        if (distance < bestDistance) { bestDistance = distance; best = i; }
-      }
-      order.push(best);
-      var marker = el("g", { class: "gt-amoc-attempt-marker" });
-      marker.appendChild(el("circle", { cx: loc.x, cy: loc.y, r: 14, class: "gt-attempt" }));
-      var number = el("text", {
-        x: loc.x, y: loc.y + 5, class: "gt-amoc-attempt-number", "text-anchor": "middle",
-      });
-      number.textContent = String(order.length);
-      marker.appendChild(number);
-      svg.appendChild(marker);
-      markers.push(marker);
-      refresh();
-    }
-    svg.addEventListener("click", function (ev) { place(ev.clientX, ev.clientY); });
-    svg.addEventListener("touchend", function (ev) {
-      if (ev.changedTouches && ev.changedTouches.length) {
-        place(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY);
-        ev.preventDefault();
-      }
-    }, { passive: false });
+    root.appendChild(stages);
+    root.appendChild(selection);
     var row = document.createElement("div");
     row.className = "gt-btnrow";
     var undo = button("Undo");
@@ -2212,24 +2311,18 @@
     row.appendChild(undo);
     row.appendChild(clear);
     root.appendChild(row);
-    wireTap(undo, function () {
-      if (!order.length) return;
-      order.pop();
-      var marker = markers.pop();
-      if (marker && marker.parentNode) marker.parentNode.removeChild(marker);
-      refresh();
-    });
-    wireTap(clear, function () {
-      order = [];
-      for (var i = 0; i < markers.length; i++) {
-        if (markers[i].parentNode) markers[i].parentNode.removeChild(markers[i]);
+    function refresh() {
+      saveState("amoc", bundle.scope, target, { order: order.slice() });
+      for (var k = 0; k < controls.length; k++) {
+        controls[k].classList.toggle("gt-selected", order.indexOf(k) !== -1);
       }
-      markers = [];
-      refresh();
-    });
-    root.appendChild(bar("Tap each stage in pathway order; flip when complete", "gt-hint"));
+      selection.textContent = order.length
+        ? "Selected: " + order.map(function (index) { return data.waypoints[index].label; }).join(" → ")
+        : "Selected: none";
+    }
+    wireTap(undo, function () { if (order.length) { order.pop(); refresh(); } });
+    wireTap(clear, function () { order = []; refresh(); });
   }
-
   function amocFront(root, bundle, target) {
     var data = riverData(bundle.scope, target);
     if (data && data.interaction === "sequence") {
@@ -2252,6 +2345,9 @@
 
     if (sequence) {
       var order = state.order || [];
+      root.appendChild(bar("Your order: " + (order.length
+        ? order.map(function (index) { return data.waypoints[index].label; }).join(" → ")
+        : "none"), "gt-hint"));
       var expected = [0, 1, 2, 3];
       var exact = order.length === expected.length;
       var prefix = 0;
@@ -2264,6 +2360,7 @@
         ? "Correct: upper south → upper north → deep north → deep south"
         : "Follow the numbered upper, sinking, and deep-return pathway";
       root.appendChild(bar(msg, quality === 2 ? "gt-ok" : quality === 1 ? "gt-close" : "gt-miss"));
+      root.appendChild(bar("Schematic basin-scale transport, not one water parcel's exact circuit.", "gt-hint"));
       root.appendChild(bar(suggestFor(quality), "gt-suggest"));
       return;
     }
@@ -2276,6 +2373,7 @@
       "Upper ocean: northward · deep return: southward",
       directionQuality === 2 ? "gt-ok" : directionQuality === 1 ? "gt-close" : "gt-miss"
     ));
+    root.appendChild(bar("Dense water forms in the northern Atlantic; deep water returns southward.", "gt-hint"));
     root.appendChild(bar(suggestFor(directionQuality), "gt-suggest"));
   }
 
@@ -2290,6 +2388,18 @@
       x1: x + 60, y1: y + 202, x2: x + width - 60, y2: y + 202, class: "gt-enso-surface",
     }));
     return { x: x, y: y, width: width, height: height };
+  }
+
+  function ensoOrientation() {
+    var svg = el("svg", { viewBox: "0 0 1000 200", class: "gt-map gt-compact", role: "img" });
+    svg.appendChild(el("rect", { x: 0, y: 0, width: 1000, height: 200, class: "gt-ocean" }));
+    svg.appendChild(el("rect", { x: 45, y: 35, width: 80, height: 120, class: "gt-enso-land" }));
+    svg.appendChild(el("rect", { x: 875, y: 35, width: 80, height: 120, class: "gt-enso-land" }));
+    svg.appendChild(el("line", { x1: 125, y1: 108, x2: 875, y2: 108, class: "gt-enso-surface" }));
+    svgText(svg, 85, 180, "Indonesia · west", "gt-enso-place", "middle");
+    svgText(svg, 915, 180, "South America · east", "gt-enso-place", "middle");
+    svgText(svg, 500, 75, "equatorial Pacific surface", "gt-enso-title", "middle");
+    return svg;
   }
 
   function drawEnsoState(svg, state, box, compact) {
@@ -2336,41 +2446,56 @@
 
   function ensoFront(root, bundle, target) {
     var data = riverData(bundle.scope, target);
-    root.appendChild(chip("Recall ENSO pattern"));
-    root.appendChild(prompt(data ? data.name : target));
-    var built = buildSvg(bundle);
-    if (data && data.state === "comparison") {
-      var titles = ["ENSO-neutral", "El Niño", "La Niña"];
-      for (var i = 0; i < 3; i++) ensoFrame(built.svg, 20 + i * 325, 70, 305, 425, titles[i]);
-    } else {
-      ensoFrame(built.svg, 90, 45, 820, 485, "equatorial Pacific");
+    root.appendChild(chip("Equatorial Pacific"));
+    root.appendChild(prompt(data.question));
+    root.appendChild(ensoOrientation());
+    var state = { choice: null };
+    saveState("enso", bundle.scope, target, state);
+    var choices = document.createElement("div");
+    choices.className = "gt-enso-choice-grid";
+    var buttons = [];
+    for (var i = 0; i < data.choices.length; i++) {
+      (function (index) {
+        var option = button(data.choices[index]);
+        buttons.push(option);
+        choices.appendChild(option);
+        wireTap(option, function () {
+          state.choice = index;
+          saveState("enso", bundle.scope, target, state);
+          for (var j = 0; j < buttons.length; j++) {
+            buttons[j].classList.toggle("gt-selected", j === index);
+          }
+        });
+      })(i);
     }
-    root.appendChild(built.svg);
-    root.appendChild(bar(
-      data && data.state === "comparison"
-        ? "Compare the trades, warm water, upwelling, rainfall, and thermocline"
-        : "Recall the trades, warm water, upwelling, rainfall, and thermocline",
-      "gt-hint"
-    ));
+    root.appendChild(choices);
+    root.appendChild(bar("Choose one answer, then flip for the coupled ocean-atmosphere picture.", "gt-hint"));
   }
 
   function ensoBack(root, bundle, target) {
     var data = riverData(bundle.scope, target);
-    root.appendChild(chip("Recall ENSO pattern"));
-    root.appendChild(prompt(data ? data.name : target));
+    var state = loadState("enso", bundle.scope, target) || {};
+    root.appendChild(chip("Equatorial Pacific"));
+    root.appendChild(prompt(data.question));
     var built = buildSvg(bundle);
-    if (data && data.state === "comparison") {
+    if (data.state === "comparison") {
       var titles = ["ENSO-neutral", "El Niño", "La Niña"];
       for (var i = 0; i < data.states.length; i++) {
         var box = ensoFrame(built.svg, 20 + i * 325, 70, 305, 425, titles[i]);
         drawEnsoState(built.svg, data.states[i], box, true);
       }
-    } else if (data) {
-      var stateBox = ensoFrame(built.svg, 90, 45, 820, 485, "equatorial Pacific");
-      drawEnsoState(built.svg, data, stateBox, false);
+    } else {
+      var box = ensoFrame(built.svg, 90, 45, 820, 485, "west ← equatorial Pacific → east");
+      drawEnsoState(built.svg, data, box, false);
     }
     root.appendChild(built.svg);
-    root.appendChild(bar("Grade yourself: did you recall the coupled pattern?", "gt-suggest"));
+    var correct = state.choice === data.correct;
+    root.appendChild(bar("Your choice: " + (state.choice == null ? "none" : data.choices[state.choice]), "gt-hint"));
+    root.appendChild(bar("Answer: " + data.choices[data.correct],
+      correct ? "gt-ok" : "gt-miss"));
+    root.appendChild(bar(data.answerNote, "gt-hint"));
+    root.appendChild(bar("Thermocline: boundary beneath warm surface water; upwelling: deeper water rising near the surface.", "gt-hint"));
+    root.appendChild(bar(suggestFor(correct ? 2 : 0), "gt-suggest"));
   }
 
   function beltScore(taps, bands) {
@@ -2403,12 +2528,16 @@
     var bands = (data && data.bands) || [];
     root.appendChild(chip("Place pressure belt"));
     root.appendChild(prompt(data ? data.name : target));
+    root.appendChild(bar("Idealized latitude section, not a weather map", "gt-hint"));
     var built = buildSvg(bundle);
     var svg = built.svg;
     var taps = [];
     var markers = [];
     root.appendChild(svg);
-    var hint = bar("Tap each latitude band where it belongs", "gt-hint");
+    var instruction = bands.length === 1
+      ? "Tap the approximate equatorial latitude zone"
+      : "Tap the approximate latitude zones in both hemispheres";
+    var hint = bar(instruction, "gt-hint");
     root.appendChild(hint);
     var row = document.createElement("div");
     row.className = "gt-btnrow";
@@ -2422,7 +2551,7 @@
     function refresh() {
       hint.textContent = taps.length
         ? "Markers placed · flip when you think every band is marked"
-        : "Tap every latitude band where it belongs";
+        : instruction;
       hint.className = "gt-bar gt-hint" + (taps.length ? " gt-placed" : "");
       saveState("belt", bundle.scope, target, { taps: taps });
     }
@@ -2466,6 +2595,7 @@
     var taps = (state && state.taps) || [];
     root.appendChild(chip("Place pressure belt"));
     root.appendChild(prompt(data ? data.name : target));
+    root.appendChild(bar("Idealized latitude section, not a weather map", "gt-hint"));
     var built = buildSvg(bundle);
     var svg = built.svg;
     for (var i = 0; i < bands.length; i++) {
@@ -2489,6 +2619,7 @@
           ? "Close to the correct latitude bands"
           : "One or more belts are at the wrong latitude";
     root.appendChild(bar(msg, score.quality === 2 ? "gt-ok" : score.quality === 1 ? "gt-close" : "gt-miss"));
+    if (data && data.answerNote) root.appendChild(bar(data.answerNote, "gt-hint"));
     root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
   }
 

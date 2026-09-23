@@ -260,6 +260,8 @@
   stroke-dasharray: 7 5;
   pointer-events: none;
 }
+.gt-cell-rise { fill: #228b60; stroke: #ffffff; stroke-width: 2; }
+.gt-cell-sink { fill: #d36a36; stroke: #ffffff; stroke-width: 2; }
 
 .gt-earth-surface {
   fill: none;
@@ -311,6 +313,24 @@
   grid-template-columns: minmax(130px, 1fr) 1fr 1fr;
   gap: 8px;
   align-items: center;
+}
+.gt-choice-grid-wide { max-width: 900px; }
+.gt-choice-row-wide { grid-template-columns: minmax(110px, 1fr) repeat(4, minmax(70px, 1fr)); }
+.gt-enso-choice-grid,
+.gt-stage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  max-width: 900px;
+  margin: 12px auto;
+}
+.gt-enso-choice-grid .gt-btn,
+.gt-stage-grid .gt-btn { white-space: normal; min-height: 48px; }
+@media (max-width: 560px) {
+  .gt-choice-row-wide { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .gt-choice-row-wide .gt-choice-label { grid-column: 1 / -1; }
+  .gt-enso-choice-grid,
+  .gt-stage-grid { grid-template-columns: 1fr; }
 }
 .gt-choice-label { text-align: left; font-weight: 700; }
 .gt-btn.gt-selected {
@@ -403,6 +423,7 @@
   margin: 10px 0 2px;
 }
 .gt-btn {
+  font-family: inherit;
   padding: 8px 22px;
   border-radius: 10px;
   border: 1.5px solid #c3ccd6;

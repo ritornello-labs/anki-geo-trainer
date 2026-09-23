@@ -536,7 +536,10 @@ for (const spec of DIRECTED_FLOW_SCOPES) {
           const strokes = flow.paths.map(densify);
           const score = (flowInput) => {
             if (flow.acceptBand) return window.GeoTrainer._atmosphericBandScore(flowInput, flow);
-            if (flow.acceptRect) return window.GeoTrainer._seasonalCorridorScore(flowInput, flow, window.GT_BUNDLES[scope].context);
+            if (flow.acceptRect) return window.GeoTrainer._seasonalCorridorScore(
+              flowInput, flow, scope === "indian-ocean-seasonal-currents"
+                ? window.GT_BUNDLES[scope].context : null
+            );
             if (scope === "south-asia-monsoon-winds") {
               return window.GeoTrainer._atmosphericRouteScore(flowInput, flow.paths, frame.kmPerUnit);
             }
@@ -603,47 +606,30 @@ test("seasonal-current corridor accepts alternatives and rejects misplaced arrow
   await expect(page.locator(".gt-hint")).toContainText(["Northward along the Somali coast", "not an exact track"]);
 });
 
-test("atmospheric cells grade closed-loop direction without relying on endpoints", async ({ page }) => {
+test("atmospheric cells ask for rising and sinking latitudes, not closed-loop traces", async ({ page }) => {
   const scope = "atmospheric-cells";
   const data = load(scope);
-  const target = "01-hadley-pair";
-  await mount(page, scope, data, { target, mode: "cell", side: "front" });
-  await page.waitForSelector("svg.gt-map");
-  await expect(page.locator(".gt-chip")).toHaveText("Trace circulation cell");
-  await expect(page.locator(".gt-flow-start")).toHaveCount(2);
-  await expect(page.locator(".gt-earth-surface")).toHaveCount(1);
-  const scores = await page.evaluate(({ scope }) => {
-    const densify = (path) => {
-      const out = [];
-      for (let i = 1; i < path.length; i++) {
-        const a = path[i - 1], b = path[i];
-        for (let step = 0; step < 7; step++) {
-          const t = step / 7;
-          out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
-        }
-      }
-      out.push(path[path.length - 1]);
-      return out;
-    };
-    return Object.entries(window.GT_SHAPES)
-      .filter(([key]) => key.startsWith(scope + ":"))
-      .map(([key, cell]) => {
-          const strokes = cell.paths.map(densify);
-          return {
-            id: key.slice(scope.length + 1),
-            forward: window.GeoTrainer._cellScore(strokes, cell.paths),
-            reverse: window.GeoTrainer._cellScore(
-              strokes.map((stroke) => stroke.slice().reverse()), cell.paths
-            ),
-          };
-      });
-  }, { scope });
-  expect(scores).toHaveLength(3);
-  for (const score of scores) {
-    expect(score.forward.quality, score.id).toBe(2);
-    expect(score.forward.reversed, score.id).toBe(false);
-    expect(score.reverse.quality, score.id).toBe(0);
-    expect(score.reverse.reversed, score.id).toBe(true);
+  for (const target of Object.keys(data.shapes)) {
+    const cell = data.shapes[target];
+    await mount(page, scope, data, { target, mode: "cell", side: "front" });
+    await expect(page.locator(".gt-chip")).toHaveText("Idealized circulation cell");
+    await expect(page.locator(".gt-flow-start")).toHaveCount(0);
+    await expect(page.locator(".gt-choice-row-wide")).toHaveCount(2);
+    await page.locator(".gt-choice-row-wide").nth(0).getByRole("button", { name: cell.rise, exact: true }).click();
+    await page.locator(".gt-choice-row-wide").nth(1).getByRole("button", { name: cell.sink, exact: true }).click();
+    expect(await readState(page, "cell", scope, target)).toEqual({ rise: cell.rise, sink: cell.sink });
+    await page.evaluate(({ scope, target }) => {
+      document.body.innerHTML = "";
+      const app = document.createElement("div");
+      app.className = "gt-app";
+      app.dataset.scope = scope;
+      app.dataset.target = target;
+      app.dataset.mode = "cell";
+      app.dataset.side = "back";
+      document.body.appendChild(app);
+      window.GeoTrainer.mountAll();
+    }, { scope, target });
+    await expect(page.locator(".gt-bar.gt-ok")).toContainText("rise near " + cell.rise);
   }
 });
 
@@ -656,8 +642,8 @@ test("Atlantic overturning teaches limb directions and pathway order without fre
   await expect(page.locator(".gt-chip")).toHaveText("Atlantic overturning directions");
   await expect(page.locator(".gt-choice-row")).toHaveCount(2);
   await expect(page.locator(".gt-current-user")).toHaveCount(0);
-  await expect(page.locator(".gt-guide-label")).toContainText([
-    "Atlantic latitude–depth cross-section",
+  await expect(page.locator("svg.gt-map text")).toContainText([
+    "South Atlantic", "North Atlantic", "upper ocean", "deep ocean",
   ]);
   await page.evaluate(({ scope, target }) => {
     window[`__gt_amoc_${scope}_${target}`] = { upper: "northward", deep: "southward" };
@@ -689,6 +675,38 @@ test("Atlantic overturning teaches limb directions and pathway order without fre
   }, { scope });
   await expect(page.locator(".gt-amoc-waypoint-number")).toHaveCount(4);
   await expect(page.locator(".gt-bar.gt-ok")).toContainText("upper south → upper north");
+
+  await mount(page, scope, data, { target: "02-pathway-order", mode: "amoc", side: "front" });
+  const sequence = data.shapes["02-pathway-order"].waypoints;
+  await expect(page.locator(".gt-stage-grid button").first()).not.toHaveText(sequence[0].label);
+  for (const waypoint of sequence) {
+    await page.locator(".gt-stage-grid").getByRole("button", { name: waypoint.label, exact: true }).click();
+  }
+  expect(await readState(page, "amoc", scope, "02-pathway-order")).toEqual({ order: [0, 1, 2, 3] });
+});
+
+test("ENSO questions record a choice and reveal the correct causal contrast", async ({ page }) => {
+  const scope = "equatorial-pacific-enso";
+  const data = load(scope);
+  for (const [target, item] of Object.entries(data.shapes)) {
+    await mount(page, scope, data, { target, mode: "enso", side: "front" });
+    await expect(page.locator(".gt-enso-choice-grid button")).toHaveCount(item.choices.length);
+    await page.locator(".gt-enso-choice-grid").getByRole("button", { name: item.choices[item.correct], exact: true }).click();
+    expect(await readState(page, "enso", scope, target)).toEqual({ choice: item.correct });
+    await page.evaluate(({ scope, target }) => {
+      document.body.innerHTML = "";
+      const app = document.createElement("div");
+      app.className = "gt-app";
+      app.dataset.scope = scope;
+      app.dataset.target = target;
+      app.dataset.mode = "enso";
+      app.dataset.side = "back";
+      document.body.appendChild(app);
+      window.GeoTrainer.mountAll();
+    }, { scope, target });
+    await expect(page.locator(".gt-bar.gt-ok")).toContainText("Answer: " + item.choices[item.correct]);
+    await expect(page.getByText(item.answerNote, { exact: true })).toHaveCount(1);
+  }
 });
 
 test("pressure belts grade all required hemispheric bands", async ({ page }) => {
@@ -698,7 +716,7 @@ test("pressure belts grade all required hemispheric bands", async ({ page }) => 
   await mount(page, scope, data, { target, mode: "belt", side: "front" });
   await page.waitForSelector("svg.gt-map");
   await expect(page.locator(".gt-chip")).toHaveText("Place pressure belt");
-  await expect(page.locator(".gt-hint")).not.toContainText("/");
+  await expect(page.locator(".gt-hint").last()).not.toContainText("/");
   await expect(page.locator(".gt-btn", { hasText: "Undo" })).toHaveCount(1);
   const scores = await page.evaluate(({ scope, target }) => {
     const belts = window.GT_SHAPES[scope + ":" + target].bands;
