@@ -63,10 +63,12 @@
   }
 
   function pointInRegion(x, y, region) {
+    // Match the SVG even-odd fill: an enclave hole is not part of its host.
+    var inside = false;
     for (var i = 0; i < region.rings.length; i++) {
-      if (pointInRing(x, y, region.rings[i])) return true;
+      if (pointInRing(x, y, region.rings[i])) inside = !inside;
     }
-    return false;
+    return inside;
   }
 
   function regionAt(x, y, bundle) {
@@ -113,6 +115,7 @@
 
   function el(name, attrs) {
     var node = document.createElementNS(SVGNS, name);
+    if (name === "path") node.setAttribute("fill-rule", "evenodd");
     if (attrs) {
       for (var k in attrs) if (attrs.hasOwnProperty(k)) node.setAttribute(k, attrs[k]);
     }
@@ -212,8 +215,23 @@
         byId[reg.id] = p;
       }
     }
+    if (!borderless) {
+      for (var si = 0; si < bundle.regions.length; si++) {
+        var small = bundle.regions[si];
+        if (small.small && byId[small.id]) land.appendChild(byId[small.id]);
+      }
+    }
     svg.appendChild(land);
     return { svg: svg, byId: byId };
+  }
+
+  function highlightAnswer(built, target) {
+    var answer = built.byId[target];
+    if (!answer) return;
+    answer.classList.add("gt-answer");
+    // A magnified small-region marker can extend beyond the true enclave hole.
+    // Keep the answer above every neutral region regardless of bundle order.
+    answer.parentNode.appendChild(answer);
   }
 
   function nounOf(bundle) {
@@ -337,7 +355,7 @@
 
     var built = buildSvg(bundle);
     var svg = built.svg;
-    if (built.byId[target]) built.byId[target].classList.add("gt-answer");
+    highlightAnswer(built, target);
 
     var correct = false;
     if (attempt && region) {
@@ -423,7 +441,7 @@
     root.appendChild(prompt(region.name));
 
     var built = buildSvg(bundle);
-    if (built.byId[target]) built.byId[target].classList.add("gt-answer");
+    highlightAnswer(built, target);
     pointDot(built.svg, region, pointIndex(bundle, target), "gt-on-answer");
     root.appendChild(built.svg);
     root.appendChild(bar("The dot was inside " + region.name, "gt-ok"));
@@ -547,7 +565,7 @@
 
     var built = buildSvg(bundle);
     var svg = built.svg;
-    if (built.byId[target]) built.byId[target].classList.add("gt-answer");
+    highlightAnswer(built, target);
     if (attempt) {
       svg.appendChild(el("path", {
         d: ringPath(region.rings),
@@ -1305,7 +1323,7 @@
     var built = buildSvg(bundle);
     var svg = built.svg;
     svg.classList.add("gt-sketch-map");
-    if (built.byId[target]) built.byId[target].classList.add("gt-answer");
+    highlightAnswer(built, target);
 
     var state = loadState("sketch", bundle.scope, target);
     var strokes = (state && state.strokes) || [];
@@ -1470,7 +1488,7 @@
 
     var built = buildSvg(bundle);
     var svg = built.svg;
-    if (built.byId[target]) built.byId[target].classList.add("gt-answer");
+    highlightAnswer(built, target);
 
     var km = null;
     if (attempt && truth) {

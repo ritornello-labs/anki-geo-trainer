@@ -58,6 +58,16 @@ review in the installed client remains pending.
    interactions. The final collection has 2,405 GeoTrainer cards, 29 of them in the
    QA tree. Scheduling on all 2,396 retained cards was unchanged; no sync ran.
 
+## Queued enclave visibility fix (2026-09-22)
+
+Include the enclave fix in the next update to shared deck `908455862`; **do not
+upload yet**. The shared package has been rebuilt with all 2,405 notes and 85 leaf
+decks. It preserves interior polygon holes through projection/export, uses matching
+even-odd fill and hit testing, and keeps small-region markers and answer highlights
+above surrounding regions. This fixes the invisible Adygey answer and the same
+occlusion class elsewhere. The existing 29-card manual-QA/Publisher prerequisites
+above remain in force. See `release/ENCLAVE_FIX_2026-09-22.md` for verification.
+
 ## Ready artifacts
 
 - `release/ankiweb.md` — listing copy (title, tags, support URL front-matter; body has

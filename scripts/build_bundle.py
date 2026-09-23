@@ -173,7 +173,8 @@ def project_geom(geom, project) -> BaseGeometry:
     out = []
     for poly in polys:
         ext = [project(lon, lat) for lon, lat in poly.exterior.coords]
-        p = Polygon(ext)
+        p = Polygon(ext, [[project(lon, lat) for lon, lat in hole.coords]
+                          for hole in poly.interiors])
         if not p.is_valid:
             # Repair self-intersecting rings (NE state polygons that wrap around
             # an enclave — e.g. Goiás around Brazil's Federal District — are
@@ -187,8 +188,10 @@ def project_geom(geom, project) -> BaseGeometry:
 
 
 def rings_of(geom, min_area: float = 3.0) -> list[list[list[float]]]:
-    """Exterior rings, dropping micro-islands below min_area px² (invisible at
-    card size but heavy — the Aleutians/Norwegian skerries are hundreds)."""
+    """Exterior and interior rings for even-odd fill/hit testing.
+
+    Drop micro-islands below min_area px², but retain holes in kept polygons.
+    """
     if geom.is_empty:
         return []
     polys = geom.geoms if isinstance(geom, MultiPolygon) else [geom]
@@ -196,9 +199,10 @@ def rings_of(geom, min_area: float = 3.0) -> list[list[list[float]]]:
     for poly in sorted(polys, key=lambda p: p.area, reverse=True):
         if poly.area < min_area and rings:
             continue
-        coords = [[round(x, 1), round(y, 1)] for x, y in poly.exterior.coords]
-        if len(coords) >= 4:
-            rings.append(coords)
+        for boundary in [poly.exterior, *poly.interiors]:
+            coords = [[round(x, 1), round(y, 1)] for x, y in boundary.coords]
+            if len(coords) >= 4:
+                rings.append(coords)
     return rings
 
 
@@ -831,7 +835,9 @@ def _unwrap_antimeridian(geom: BaseGeometry) -> BaseGeometry:
     out = []
     for poly in polys:
         coords = [((lon + 360.0 if lon < 0 else lon), lat) for lon, lat in poly.exterior.coords]
-        out.append(Polygon(coords))
+        holes = [[((lon + 360.0 if lon < 0 else lon), lat) for lon, lat in hole.coords]
+                 for hole in poly.interiors]
+        out.append(Polygon(coords, holes))
     return unary_union(out) if len(out) > 1 else out[0]
 
 

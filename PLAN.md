@@ -4,7 +4,8 @@ Status: active; the 2,405-card physical- and atmospheric-geography release is in
 personal collection and queued for the existing AnkiWeb listing. Its 29-card
 atmospheric, seasonal, ENSO, and Atlantic-overturning batch is temporarily staged under
 `Process::GeoTrainer QA` for manual review before restoration to the normal GeoTrainer
-tree. Created 2026-07-05.
+tree. The 2026-09-22 enclave visibility repair is rebuilt and included in this
+queued update; publication remains on hold. Created 2026-07-05.
 
 ## Privacy boundary
 
