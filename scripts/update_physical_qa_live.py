@@ -139,6 +139,7 @@ def main() -> None:
     rollout.SNAPSHOTS.mkdir(parents=True, mode=0o700, exist_ok=True)
     rollout.SNAPSHOTS.chmod(0o700)
     rollout.write_snapshot(snapshot / "before", before)
+    snapshot.chmod(0o700)
     rollout.invoke("exportPackage", deck=rollout.QA_ROOT, path=str(snapshot / "before" / "qa-geotrainer.apkg"), includeSched=True)
     for _, _, _, package in rollout.TARGETS:
         rollout.invoke("importPackage", path=str(rollout.ROOT / "dist" / package))
