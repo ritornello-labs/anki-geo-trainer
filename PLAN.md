@@ -3,7 +3,9 @@
 Status: active; the next AnkiWeb update is on a manual-QA hold. The revised
 29-card atmospheric, seasonal, ENSO, and Atlantic-overturning batch is in
 `Process::GeoTrainer QA` for Elvis's review, not approved for restoration to
-the daily tree or publication. The fixes live in an isolated clean checkout. See
+  the daily tree or publication. The fixes live on a signed, unmerged
+  `qa/physical-systems-redesign-pilot` branch pushed from an isolated sanitized
+  checkout; its GitHub privacy workflow passed. See
 [the physical-systems QA redesign](curriculum/PHYSICAL_SYSTEMS_QA_REDESIGN.md)
 for family decisions and release gates. Created 2026-07-05.
 
