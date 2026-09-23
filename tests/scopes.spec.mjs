@@ -536,6 +536,7 @@ for (const spec of DIRECTED_FLOW_SCOPES) {
           const strokes = flow.paths.map(densify);
           const score = (flowInput) => {
             if (flow.acceptBand) return window.GeoTrainer._atmosphericBandScore(flowInput, flow);
+            if (flow.acceptRect) return window.GeoTrainer._seasonalCorridorScore(flowInput, flow, window.GT_BUNDLES[scope].context);
             if (scope === "south-asia-monsoon-winds") {
               return window.GeoTrainer._atmosphericRouteScore(flowInput, flow.paths, frame.kmPerUnit);
             }
@@ -557,6 +558,50 @@ for (const spec of DIRECTED_FLOW_SCOPES) {
     }
   });
 }
+
+test("seasonal-current corridor accepts alternatives and rejects misplaced arrows", async ({ page }) => {
+  const scope = "indian-ocean-seasonal-currents";
+  const data = load(scope);
+  await mount(page, scope, data, { target: "somali-current-summer", mode: "seasonalcurrent", side: "front" });
+  const result = await page.evaluate(({ scope }) => {
+    const score = window.GeoTrainer._seasonalCorridorScore;
+    const somali = window.GT_SHAPES[scope + ":somali-current-summer"];
+    const cross = window.GT_SHAPES[scope + ":southwest-monsoon-current"];
+    const s = somali.acceptRect, c = cross.acceptRect;
+    const land = window.GT_BUNDLES[scope].context;
+    return {
+      coastalNorth: score([[[s[0] + s[2] * 0.8, s[1] + s[3] * 0.8], [s[0] + s[2] * 0.8, s[1] + s[3] * 0.2]]], somali, land),
+      coastalReverse: score([[[s[0] + s[2] * 0.8, s[1] + s[3] * 0.2], [s[0] + s[2] * 0.8, s[1] + s[3] * 0.8]]], somali, land),
+      wrongOcean: score([[[s[0] + s[2] * 2, s[1] + s[3] * 0.8], [s[0] + s[2] * 2, s[1] + s[3] * 0.2]]], somali, land),
+      inlandSomalia: score([[[s[0] + s[2] * 0.2, s[1] + s[3] * 0.8], [s[0] + s[2] * 0.2, s[1] + s[3] * 0.2]]], somali, land),
+      crossBasin: score([[[c[0] + c[2] * 0.2, c[1] + c[3] * 0.77], [c[0] + c[2] * 0.8, c[1] + c[3] * 0.77]]], cross, land),
+    };
+  }, { scope });
+  expect(result.coastalNorth.quality).toBe(2);
+  expect(result.coastalReverse.reversed).toBe(true);
+  expect(result.coastalReverse.quality).toBe(0);
+  expect(result.wrongOcean.quality).toBe(0);
+  expect(result.inlandSomalia.quality).toBe(0);
+  expect(result.crossBasin.quality).toBe(2);
+  await page.evaluate(({ scope }) => {
+    const target = "somali-current-summer";
+    const flow = window.GT_SHAPES[scope + ":" + target];
+    window[`__gt_seasonalcurrent_${scope}_${target}`] = { strokes: [flow.paths[0]] };
+    document.body.innerHTML = "";
+    const app = document.createElement("div");
+    app.className = "gt-app";
+    app.dataset.scope = scope;
+    app.dataset.target = target;
+    app.dataset.mode = "seasonalcurrent";
+    app.dataset.side = "back";
+    document.body.appendChild(app);
+    window.GeoTrainer.mountAll();
+  }, { scope });
+  await expect(page.locator(".gt-flow-band")).toHaveCount(1);
+  await expect(page.locator(".gt-current-user")).toHaveCount(1);
+  await expect(page.locator(".gt-bar.gt-ok")).toContainText("Good region and direction");
+  await expect(page.locator(".gt-hint")).toContainText(["Northward along the Somali coast", "not an exact track"]);
+});
 
 test("atmospheric cells grade closed-loop direction without relying on endpoints", async ({ page }) => {
   const scope = "atmospheric-cells";
@@ -715,6 +760,14 @@ test("new physical curricula have deliberate, stable membership", () => {
   expect(belts.bundle.families).toEqual(["belt"]);
   expect(Object.keys(winds.shapes)).toHaveLength(6);
   expect(winds.bundle.families).toEqual(["wind"]);
+  for (const wind of Object.values(winds.shapes)) {
+    expect(wind.acceptBand[0]).toBeGreaterThanOrEqual(0);
+    expect(wind.acceptBand[1]).toBeLessThanOrEqual(winds.bundle.view.h);
+    for (const path of wind.paths) for (const point of path) {
+      expect(point[1]).toBeGreaterThanOrEqual(0);
+      expect(point[1]).toBeLessThanOrEqual(winds.bundle.view.h);
+    }
+  }
   expect(Object.keys(jets.shapes)).toHaveLength(4);
   expect(jets.bundle.families).toEqual(["jet"]);
   expect(Object.keys(monsoonWinds.shapes)).toHaveLength(2);

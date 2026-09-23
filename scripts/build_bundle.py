@@ -1592,6 +1592,11 @@ def _build_line_scope(
             [project(lon, lat) for lon, lat in coordinates]
             for coordinates in route["paths"]
         ]
+        if route.get("acceptBox"):
+            west, south, east, north = route["acceptBox"]
+            nw, se = project(west, north), project(east, south)
+            shapes[rid]["acceptRect"] = [nw[0], nw[1], se[0] - nw[0], se[1] - nw[1]]
+            shapes[rid]["directionVector"] = route["direction"]
         if route.get("latitudeBand"):
             south, north = route["latitudeBand"]
             shapes[rid]["acceptBand"] = [
@@ -1807,15 +1812,15 @@ MONSOON_WINDS = {
 
 
 SEASONAL_CURRENTS = {
-    "somali-current-summer": {"name": "Somali Current — boreal summer", "style": "seasonal", "season": "June–September", "paths": [[(43, -3), (46, 2), (49, 7), (51, 12), (52, 16)]]},
-    "somali-current-winter": {"name": "Somali Current — boreal winter", "style": "seasonal", "season": "January–March", "paths": [[(52, 16), (51, 12), (49, 7), (46, 2), (43, -3)]]},
-    "southwest-monsoon-current": {"name": "Southwest Monsoon Current — boreal summer", "style": "seasonal", "season": "May–September", "paths": [[(54, 8), (64, 7), (74, 6), (82, 6), (91, 9)]]},
-    "northeast-monsoon-current": {"name": "Northeast Monsoon Current — boreal winter", "style": "seasonal", "season": "November–February", "paths": [[(91, 9), (82, 6), (74, 5), (64, 6), (54, 8)]]},
+    "somali-current-summer": {"name": "Somali Current — boreal summer", "style": "seasonal", "season": "June–September", "answerNote": "Northward along the Somali coast in boreal summer.", "acceptBox": (42, -5, 58, 18), "direction": [0, -1], "paths": [[(54, 0), (54, 16)]]},
+    "somali-current-winter": {"name": "Somali Current — boreal winter", "style": "seasonal", "season": "January–March", "answerNote": "Southward along the Somali coast in boreal winter.", "acceptBox": (42, -5, 58, 18), "direction": [0, 1], "paths": [[(54, 16), (54, 0)]]},
+    "southwest-monsoon-current": {"name": "Southwest Monsoon Current — boreal summer", "style": "seasonal", "season": "May–September", "answerNote": "Eastward across the northern Indian Ocean; Southwest names the monsoon season, not the bearing.", "acceptBox": (53, 2, 95, 13), "direction": [1, 0], "paths": [[(55, 4.5), (92, 4.5)]]},
+    "northeast-monsoon-current": {"name": "Northeast Monsoon Current — boreal winter", "style": "seasonal", "season": "November–February", "answerNote": "Westward across the northern Indian Ocean; Northeast names the monsoon season, not the bearing.", "acceptBox": (53, 2, 95, 13), "direction": [-1, 0], "paths": [[(92, 4.5), (55, 4.5)]]},
 }
 
 
 def _build_prevailing_winds() -> tuple[dict, dict, dict]:
-    return _build_line_scope(scope="world-prevailing-winds", title="Atmospheric Circulation — Prevailing Winds", noun="prevailing wind belt", kind="atmospheric-flow", family="wind", routes=PREVAILING_WINDS)
+    return _build_line_scope(scope="world-prevailing-winds", title="Atmospheric Circulation — Prevailing Winds", noun="prevailing wind belt", kind="atmospheric-flow", family="wind", routes=PREVAILING_WINDS, box_t=(-180.0, -90.0, 180.0, 90.0))
 
 
 def _build_jet_streams() -> tuple[dict, dict, dict]:

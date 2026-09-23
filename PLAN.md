@@ -1,10 +1,12 @@
 # anki-geo-trainer — Plan
 
-Status: active; the 2,405-card physical- and atmospheric-geography release is in the
-personal collection and queued for the existing AnkiWeb listing. Its 29-card
-atmospheric, seasonal, ENSO, and Atlantic-overturning batch is temporarily staged under
-`Process::GeoTrainer QA` for manual review before restoration to the normal GeoTrainer
-tree. Created 2026-07-05.
+Status: active; the next AnkiWeb update is on a curriculum-design hold. The
+29-card atmospheric, seasonal, ENSO, and Atlantic-overturning batch remains
+under `Process::GeoTrainer QA`; its current designs are not approved for
+restoration or publication. A seasonal-current pilot and polar-map bounds fix
+are in a separate clean source checkout, pending review. See
+[the physical-systems QA redesign](curriculum/PHYSICAL_SYSTEMS_QA_REDESIGN.md)
+for family decisions and release gates. Created 2026-07-05.
 
 ## Privacy boundary
 

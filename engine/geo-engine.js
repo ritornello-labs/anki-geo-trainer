@@ -1731,6 +1731,49 @@
     };
   }
 
+  // Seasonal Indian Ocean flow is a regional direction, not a line to copy.
+  // Accept a substantial arrow anywhere in the broad teaching corridor.
+  function seasonalCorridorScore(strokes, data, landRings) {
+    var trace = longestPath(strokes);
+    if (!trace || trace.length < 2) return { quality: 0, empty: true, reversed: false };
+    var first = trace[0], last = trace[trace.length - 1];
+    var dx = last[0] - first[0], dy = last[1] - first[1];
+    var length = Math.hypot(dx, dy);
+    if (length < 45) return { quality: 0, empty: true, reversed: false };
+    var expected = data.directionVector;
+    var cosine = (dx * expected[0] + dy * expected[1]) / length;
+    var rect = data.acceptRect;
+    var inside = 0;
+    for (var i = 0; i < trace.length; i++) {
+      var point = trace[i];
+      var onLand = false;
+      for (var j = 0; j < (landRings || []).length; j++) {
+        if (pointInRing(point[0], point[1], landRings[j])) { onLand = true; break; }
+      }
+      if (!onLand && point[0] >= rect[0] && point[0] <= rect[0] + rect[2]
+          && point[1] >= rect[1] && point[1] <= rect[1] + rect[3]) inside++;
+    }
+    var share = inside / trace.length;
+    var reversed = cosine <= -0.35;
+    var quality = reversed ? 0
+      : cosine >= 0.75 && share >= 0.75 ? 2
+      : cosine >= 0.35 && share >= 0.75 ? 1
+      : 0;
+    return { quality: quality, empty: false, reversed: reversed, insideShare: share };
+  }
+
+  function seasonalCorridorAnswer(svg, data, markerId) {
+    var rect = data.acceptRect;
+    var shaded = el("rect", {
+      x: rect[0], y: rect[1], width: rect[2], height: rect[3],
+      class: "gt-flow-band",
+    });
+    var land = svg.querySelector(".gt-context");
+    if (land) svg.insertBefore(shaded, land);
+    else svg.appendChild(shaded);
+    directedPaths(svg, data.paths, "gt-current gt-current-seasonal", markerId);
+  }
+
   function atmosphericRouteScore(strokes, paths, kmPerUnit) {
     var result = currentScore(strokes, paths, kmPerUnit);
     if (!result.empty && !result.reversed) {
@@ -1849,10 +1892,10 @@
       },
       seasonalcurrent: {
         chip: "Trace seasonal current",
-        hint: "Trace the route for the named season — your arrow shows direction",
-        good: "Good seasonal route and direction",
-        rough: "Rough seasonal route, correct direction",
-        off: "Off seasonal route",
+        hint: "Draw one substantial arrow in the current's region. The arrowhead shows flow direction.",
+        good: "Good region and direction",
+        rough: "Approximate region and direction",
+        off: "Outside the broad region or wrong direction",
       },
       wind: {
         chip: "Trace prevailing wind",
@@ -1954,8 +1997,12 @@
           height: data.acceptBand[1] - data.acceptBand[0], class: "gt-flow-band",
         }));
       }
-      riverPaths(svg, data.paths, "gt-current-corridor");
-      directedPaths(svg, data.paths, "gt-current gt-current-" + variant, targetMarker);
+      if (mode === "seasonalcurrent" && data.acceptRect) {
+        seasonalCorridorAnswer(svg, data, targetMarker);
+      } else {
+        riverPaths(svg, data.paths, "gt-current-corridor");
+        directedPaths(svg, data.paths, "gt-current gt-current-" + variant, targetMarker);
+      }
     }
     for (var k = 0; k < strokes.length; k++) {
       if (strokes[k].length >= 2) {
@@ -1974,6 +2021,8 @@
         ? cellScore(strokes, data.paths)
         : mode === "wind" || mode === "jet"
           ? atmosphericBandScore(strokes, data)
+          : mode === "seasonalcurrent" && data.acceptRect
+            ? seasonalCorridorScore(strokes, data, bundle.context)
           : mode === "seasonalwind"
             ? atmosphericRouteScore(strokes, data.paths, frame ? frame.kmPerUnit : 1)
             : currentScore(strokes, data.paths, frame ? frame.kmPerUnit : 1))
@@ -1996,7 +2045,7 @@
       root.appendChild(bar(suggestFor(0), "gt-suggest"));
       return;
     }
-    var distance = mode === "current" || mode === "seasonalcurrent"
+    var distance = mode === "current"
       ? " (~" + score.km + " km off)"
       : "";
     var msg =
@@ -2007,6 +2056,10 @@
       msg,
       score.quality === 2 ? "gt-ok" : score.quality === 1 ? "gt-close" : "gt-miss"
     ));
+    if (mode === "seasonalcurrent") {
+      if (data && data.answerNote) root.appendChild(bar(data.answerNote, "gt-hint"));
+      root.appendChild(bar("The shaded region and arrow are a schematic seasonal pattern, not an exact track.", "gt-hint"));
+    }
     root.appendChild(bar(suggestFor(score.quality), "gt-suggest"));
   }
 
@@ -2515,6 +2568,7 @@
     _riverScore: riverScore,
     _currentScore: currentScore,
     _atmosphericBandScore: atmosphericBandScore,
+    _seasonalCorridorScore: seasonalCorridorScore,
     _atmosphericRouteScore: atmosphericRouteScore,
     _cellScore: cellScore,
     _sectionScore: sectionScore,

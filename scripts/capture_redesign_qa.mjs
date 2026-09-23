@@ -57,6 +57,14 @@ const shots = [
   }],
   ["07-el-nino-back.png", "equatorial-pacific-enso", "02-el-nino", "enso", "back"],
   ["08-enso-comparison-back.png", "equatorial-pacific-enso", "04-comparison", "enso", "back"],
+  ["09-somali-summer-front.png", "indian-ocean-seasonal-currents", "somali-current-summer", "seasonalcurrent", "front"],
+  ["10-somali-summer-back.png", "indian-ocean-seasonal-currents", "somali-current-summer", "seasonalcurrent", "back", {
+    strokes: [[[310, 405], [310, 340], [310, 275], [310, 210]]],
+  }],
+  ["11-cross-basin-winter-back.png", "indian-ocean-seasonal-currents", "northeast-monsoon-current", "seasonalcurrent", "back", {
+    strokes: [[[765, 325], [680, 325], [595, 325], [510, 325]]],
+  }],
+  ["12-polar-wind-front.png", "world-prevailing-winds", "southern-polar-easterlies", "wind", "front"],
 ];
 
 for (const [filename, scope, target, mode, side, state] of shots) {
