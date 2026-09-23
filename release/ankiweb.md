@@ -18,15 +18,36 @@ Light and dark mode included.
 
 ## See it in Anki
 
-![GeoTrainer place-the-shape review](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/preview.gif)
+Each animation is a short capture from Anki. Select it for the full-resolution MP4;
+the still-image link works when animation is unavailable.
 
-![Place the Libyan Desert on a borderless map](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/gallery-01.png)
+**Place a silhouette.** Drag the Libyan Desert onto a borderless map and see the
+placement score. [![GeoTrainer Place card animation](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/place.gif)](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/place.mp4)
+[Still: graded placement](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/place-back.png)
 
-![Trace the Amazon from memory](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/gallery-02.png)
+**Sketch in context.** Draw Italy on the blank Europe map, then compare shape and
+position. [![GeoTrainer Sketch card animation](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/sketch.gif)](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/sketch.mp4)
+[Still: sketch feedback](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/sketch-back.png)
 
-[3.75-second Place MP4](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/place.mp4)
+**Draw from memory.** Use a blank canvas, then see your Italy outline overlaid on
+the true one. [![GeoTrainer Draw card animation](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/draw.gif)](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/draw.mp4)
+[Still: outline overlay](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/draw-back.png)
 
-[3-second Amazon Trace MP4](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/river.mp4)
+**Trace a river.** Draw the Amazon's course and reveal the distance-based result.
+[![GeoTrainer Amazon trace animation](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/river.gif)](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/river.mp4)
+[Still: river feedback](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/river-back.png)
+
+**Trace a current and its direction.** The Gulf Stream attempt earns Good for
+route and direction. [![GeoTrainer Gulf Stream trace animation](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/current.gif)](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/current.mp4)
+[Still: current feedback](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/current-back.png)
+
+**Place an island on a globe.** Draw an ellipse around Iceland; the card grades
+coverage, center, and footprint. [![GeoTrainer globe placement animation](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/globe.gif)](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/globe.mp4)
+[Still: island placement feedback](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/globe-back.png)
+
+**Identify a map dot.** Recall the country before revealing Albania on the
+borderless Europe map. [![GeoTrainer Which-country animation](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/point.gif)](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/point.mp4)
+[Still: revealed country](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/point-back.png)
 
 ## Task families
 
