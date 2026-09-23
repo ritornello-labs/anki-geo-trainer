@@ -17,6 +17,7 @@ help:
 
 bundle:
 	uv run python scripts/build_bundle.py
+	uv run python scripts/build_globe_bundle.py
 
 apkg: bundle
 	uv run python scripts/build_apkg.py

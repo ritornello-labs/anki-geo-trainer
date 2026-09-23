@@ -24,6 +24,7 @@ this order. Each rung assumes comfort with the one before it.
 | 5 | Latitude placement | `2 Place Pressure Belts` | Tap every idealized latitude band occupied by the named pressure feature |
 | 5.5 | Directed atmospheric trace | `3–5 Trace` | Trace prevailing winds, broad jet corridors, or a named season's monsoon flow |
 | 6 | Coupled-state comparison | `1 Compare ENSO States` | Compare neutral, El Niño, and La Niña in paired Pacific plan/depth schematics |
+| 5 | Globe placement | `World::Islands::1 Globe Placement` | Rotate a random globe and draw an editable extent ellipse for a named island or archipelago |
 
 **Redesign (2026-07), after studying the deck for real.** Cut families that were
 trivial or redundant: **Locate** (tapping a labelled shape isn't recall), **Capital**
@@ -55,7 +56,7 @@ GeoTrainer does not duplicate them. Good on-ramps:
 
 Every note carries three orthogonal tags:
 
-- `geotrainer::skill::point | place | sketch | draw | river | current | seasonal-current | amoc | enso | cell | belt | wind | seasonal-wind | jet`
+- `geotrainer::skill::point | place | globe-placement | sketch | draw | river | current | seasonal-current | amoc | enso | cell | belt | wind | seasonal-wind | jet`
 - `geotrainer::scope::<where>` — e.g. `geotrainer::scope::country::usa::states`,
   `geotrainer::scope::continent::europe`
 - `geotrainer::level::3..6` (including `5.5`) — the rung on the ladder above
@@ -140,6 +141,10 @@ deck-order study already follows the ladder.
   test limb directions and pathway order on an Atlantic latitude–depth section.
   See `ATMOSPHERIC_CIRCULATION.md` and `ATLANTIC_OVERTURNING.md`. Combined target:
   **85 leaf decks / 2,405 notes**.
+- **Shipped (2026-09-22)**: **67 island and archipelago globe-placement cards**. Each
+  starts from a random orthographic viewpoint and asks for an editable ellipse that captures
+  both location and extent. Antipodes and the earlier Pacific midpoint/route experiments
+  were retired after learner evaluation. Combined target: **86 leaf decks / 2,472 notes**.
 
 ### Adding a scope (for future me)
 

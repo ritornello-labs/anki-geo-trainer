@@ -28,6 +28,7 @@ import json
 from pathlib import Path
 
 import genanki
+from globe_placement import build_globe_scope, globe_deck
 
 ROOT = Path(__file__).resolve().parent.parent
 ENGINE = ROOT / "engine" / "geo-engine.js"
@@ -588,6 +589,9 @@ def build_combined() -> Path:
         decks, n = scope_decks(scope)
         all_decks.extend(decks)
         total += n
+    globe, n = globe_deck()
+    all_decks.append(globe)
+    total += n
     DIST.mkdir(parents=True, exist_ok=True)
     out = DIST / "geo-trainer-all.apkg"
     genanki.Package(all_decks).write_to_file(str(out))
@@ -598,15 +602,19 @@ def build_combined() -> Path:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--scope", default="all", choices=["all", *SCOPE_PACKS.keys()])
+    ap.add_argument(
+        "--scope", default="all", choices=["all", "world-islands-globe", *SCOPE_PACKS.keys()]
+    )
     ap.add_argument("--combined", action="store_true",
                     help="also write one geo-trainer-all.apkg with the whole tree")
     ap.add_argument("--test-ids", action="store_true",
                     help="offset ids and rename (emulator re-import testing only)")
     args = ap.parse_args()
-    scopes = list(SCOPE_PACKS) if args.scope == "all" else [args.scope]
+    scopes = list(SCOPE_PACKS) if args.scope == "all" else [] if args.scope == "world-islands-globe" else [args.scope]
     for scope in scopes:
         build_scope(scope, test_ids=args.test_ids)
+    if args.scope in {"all", "world-islands-globe"}:
+        build_globe_scope(test_ids=args.test_ids)
     if args.combined:
         build_combined()
 

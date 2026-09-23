@@ -11,7 +11,9 @@ Country, subdivision, land, river, mountain-range, desert, and lake geometry:
 - License: public domain
 
 GeoTrainer uses the 1:10m, 1:50m, and 1:110m GeoJSON layers named in
-`scripts/build_bundle.py`.
+`scripts/build_bundle.py` and `scripts/build_globe_bundle.py`. Globe placement uses 1:110m
+land for sparse front-side anchors, 1:50m land for the reference globe, and 1:10m
+administrative geometry to retain the components of dispersed archipelagos.
 
 ## Tectonic plates
 

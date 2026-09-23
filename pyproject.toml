@@ -63,6 +63,7 @@ seed_apkgs = [
     "dist/geo-trainer-south-asia-monsoon-winds.apkg",
     "dist/geo-trainer-indian-ocean-seasonal-currents.apkg",
     "dist/geo-trainer-atlantic-overturning.apkg",
+    "dist/geo-trainer-world-islands-globe.apkg",
 ]
 anki_version = "25.09"
 docker_image = "anki-geo-trainer-workbench"

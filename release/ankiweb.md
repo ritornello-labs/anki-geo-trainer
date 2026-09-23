@@ -7,8 +7,8 @@ support_url: https://github.com/ritornello-labs/anki-geo-trainer
 Sheppard-Software-style **interactive** geography practice, right inside Anki — but
 with the internal borders hidden, so it's genuine spatial recall, not matching a
 labelled shape. Name the region under a dot, drag a silhouette to where it belongs,
-sketch it in place on a blank parent map, draw it without any map, or trace a
-river/current route. The card grades
+sketch it in place on a blank parent map, draw it without any map, trace a
+river/current route, or place an island archipelago on a rotating globe. The card grades
 your answer and suggests a button — you still press Anki's own answer keys, so
 scheduling stays 100% Anki.
 
@@ -57,6 +57,8 @@ Light and dark mode included.
   pathway on a labelled Atlantic latitude–depth section.
 - **ENSO** — compare neutral, El Niño, and La Niña through Pacific plan/depth
   schematics showing winds, warm pool, rainfall, thermocline, and upwelling.
+- **Globe placement** — rotate a randomly oriented globe and draw a movable, resizable
+  ellipse around a named island or archipelago; coverage, center, and footprint all count.
 
 All drawing surfaces support **zoom & pan**: +/− buttons and mouse-wheel to zoom, and a
 **✋ Move** toggle that turns a drag into a pan so you can reposition a zoomed-in view
@@ -74,7 +76,8 @@ course), **ocean currents** (trace route + direction), and **atmospheric circula
 (paired cells, pressure belts, winds, jets, and season-aware monsoon flows). A
 depth-aware Atlantic cross-section teaches the **Atlantic Meridional Overturning
 Circulation**, and an equatorial-Pacific scope compares neutral, **El Niño**, and
-**La Niña** states. And a **Continents**
+**La Niña** states. A 67-card **Islands** scope adds globe placement for island countries
+and dispersed archipelagos. And a **Continents**
 deck: first sketch each one on a blank world map, then
 draw its silhouette from memory without context.
 

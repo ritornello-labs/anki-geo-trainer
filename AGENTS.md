@@ -30,6 +30,10 @@ when scope, task families, or milestones change.
   with Anki-style script injection, `anki-addon-workbench` Docker/Xvfb deck smoke, and
   the AnkiDroid emulator/CDP lane. Do not open a visible Anki GUI on the host.
 - Night mode CSS from day one; lean fronts with a card-family chip.
+- Globe placement is the only spherical task family: a randomly oriented orthographic
+  globe asks for a movable, resizable extent ellipse for an island or archipelago.
+  Antipodes, Pacific midpoint/relative-placement, and great-circle route tracing were
+  learner-tested and rejected; do not restore them without explicit fresh interest.
 
 ## Workspace conventions that apply here
 

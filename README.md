@@ -3,10 +3,11 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
 [![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 ![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
-![Deck size](https://img.shields.io/badge/deck-2%2C405%20notes-7C3AED)
+![Deck size](https://img.shields.io/badge/deck-2%2C472%20notes-7C3AED)
 
 Interactive geography practice for Anki: a curriculum-ordered set of map tasks that
-asks you to locate, place, sketch, draw, and trace from memory on borderless maps. It runs
+asks you to locate, place, sketch, draw, trace, and place archipelagos on a globe from
+memory. It runs
 offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 
 [![GeoTrainer place-the-shape review in Anki](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/preview.gif)](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/place.mp4)
@@ -22,7 +23,7 @@ yet been uploaded. The 29 atmospheric, seasonal, ENSO, and Atlantic-overturning 
 temporarily staged under `Process::GeoTrainer QA` for manual review before returning to
 this tree. GeoTrainer is a
 lean, **borderless-recall** set redesigned after real-world study.
-**Thirty-one scopes**, 2,405 cards. Region scopes carry four families — **Which**,
+**Thirty-two scopes**, 2,472 cards. Region scopes carry four families — **Which**,
 **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):
 **Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),
@@ -39,7 +40,9 @@ circulation** (17) as paired cells, pressure belts, prevailing winds, and jets;
 **ENSO** state/comparison cards for neutral, El Niño, and La Niña. Plus a
 **Continents** scope — **Sketch** each one on the blank world, then **Draw** its
 silhouette from memory (Europe is clipped at the Urals, and Asia excludes Siberia, since Natural
-Earth files Russia under Europe). All rendered by one shared engine and verified on
+Earth files Russia under Europe). The **Islands** scope adds 67 spherical-placement cards:
+rotate a randomly oriented globe and draw a movable, resizable ellipse around the named
+island or archipelago. All rendered offline and verified on
 Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md), the skill ladder in
 [`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md), and the publishing plan in
 [`release/RELEASE.md`](./release/RELEASE.md).
@@ -68,6 +71,7 @@ folded into ordinary ocean-current cards: see
 | `…::2 Trace Seasonal Monsoon Currents` | season-specific current + direction | Trace the summer or winter Somali/monsoon current; season and month range are explicit, and the reversed seasonal route fails |
 | `…::3 Learn Atlantic Overturning` | latitude–depth direction + sequence | Choose the upper/deep limb directions, then order four waypoints through the Atlantic overturning pathway |
 | `…::1 Compare ENSO States` | coupled-system state comparison | Read neutral, El Niño, and La Niña from paired Pacific plan/depth schematics; compare winds, warm pool, rainfall, thermocline, and upwelling |
+| `World::Islands::1 Globe Placement` | spherical location + extent | Rotate a random globe and draw an editable ellipse covering the named island or archipelago; the back grades coverage, center, and footprint |
 
 Drawing surfaces (Sketch, Draw, Trace) have **zoom + pan** via floating map-style controls
 in the canvas corner (Google-Maps-like): a stacked **＋/−** zoom pill and a **✋**

@@ -409,6 +409,14 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   verification were captured locally under the timestamped
   `20260806T181704-0700-physical-redesign` recovery directory; live snapshots are
   no longer stored in Git.
+- **Globe placement merge. ✅ Built and accepted 2026-09-22.** Graduated the one
+  successful family from `anki-island-globe`: 67 island and archipelago cards on a
+  randomly oriented orthographic globe, using editable extent ellipses and area-aware
+  feedback. Stable note/card identities are preserved in
+  `GeoTrainer::World::Islands::1 Globe Placement`. The eight untouched Antipodes cards
+  and all other rejected globe experiments were retired. Combined build target:
+  **86 leaf decks / 2,472 notes / 63.6 MB**. Full cross-engine validation:
+  **362 passed / 26 intentional skips**.
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.

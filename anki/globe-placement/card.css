@@ -1,0 +1,248 @@
+:root {
+  color-scheme: light dark;
+}
+
+.card {
+  margin: 0;
+  padding: 18px 12px 28px;
+  background: #e8e0d0;
+  color: #172a32;
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-align: center;
+}
+
+.ig-card {
+  --paper: #f7f1e5;
+  --ink: #172a32;
+  --muted: #617078;
+  --ocean: #9bc5cf;
+  --land: #e8dcc3;
+  --land-back: #d6c7a7;
+  --line: rgba(23, 42, 50, 0.22);
+  --accent: #c34c35;
+  --guess: #ecb84d;
+  width: min(100%, 520px);
+  margin: 0 auto;
+  color: var(--ink);
+}
+
+.ig-mast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.ig-chip {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.ig-prompt {
+  margin: 0 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(27px, 7vw, 38px);
+  line-height: 1.05;
+}
+
+.ig-stage {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--paper);
+  box-shadow: 0 14px 30px rgba(20, 31, 36, 0.14);
+  touch-action: none;
+  user-select: none;
+}
+
+.ig-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ig-toolbar {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  display: flex;
+  gap: 7px;
+  padding: 6px;
+  border: 1px solid rgba(23, 42, 50, 0.15);
+  border-radius: 999px;
+  background: rgba(247, 241, 229, 0.92);
+  box-shadow: 0 6px 20px rgba(20, 31, 36, 0.16);
+  transform: translateX(-50%);
+  backdrop-filter: blur(8px);
+}
+
+.ig-button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 13px;
+  background: transparent;
+  color: #243941;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 720;
+}
+
+.ig-button[aria-pressed="true"] {
+  background: #243941;
+  color: #fff8e9;
+}
+
+.ig-help,
+.ig-result {
+  margin: 12px auto 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.ig-result {
+  padding: 13px 14px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--paper) 85%, transparent);
+  color: var(--ink);
+  text-align: left;
+}
+
+.ig-result-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 11px;
+}
+
+.ig-result-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ig-grade {
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: color-mix(in srgb, var(--muted) 14%, transparent);
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.ig-result[data-grade="good"] .ig-grade {
+  background: rgba(55, 126, 88, 0.17);
+  color: #245f40;
+}
+
+.ig-result[data-grade="hard"] .ig-grade {
+  background: rgba(196, 137, 25, 0.18);
+  color: #76510c;
+}
+
+.ig-result[data-grade="again"] .ig-grade {
+  background: rgba(195, 76, 53, 0.17);
+  color: #983824;
+}
+
+.ig-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+  gap: 8px;
+}
+
+.ig-metric {
+  min-width: 0;
+  padding: 8px 9px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+.ig-metric strong,
+.ig-metric span {
+  display: block;
+}
+
+.ig-metric strong {
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.ig-metric span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+
+.ig-diagnosis {
+  margin: 10px 1px 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.nightMode .ig-result[data-grade="good"] .ig-grade,
+.night_mode .ig-result[data-grade="good"] .ig-grade {
+  color: #9fe0b8;
+}
+
+.nightMode .ig-result[data-grade="hard"] .ig-grade,
+.night_mode .ig-result[data-grade="hard"] .ig-grade {
+  color: #ffd582;
+}
+
+.nightMode .ig-result[data-grade="again"] .ig-grade,
+.night_mode .ig-result[data-grade="again"] .ig-grade {
+  color: #ffad9b;
+}
+
+.nightMode .card,
+.night_mode .card,
+body.nightMode,
+body.night_mode {
+  background: #111b20;
+  color: #e9e1d2;
+}
+
+.nightMode .ig-card,
+.night_mode .ig-card {
+  --paper: #18262c;
+  --ink: #f0e7d7;
+  --muted: #aebbc0;
+  --ocean: #224955;
+  --land: #6e766f;
+  --land-back: #9a917f;
+  --line: rgba(240, 231, 215, 0.22);
+  --accent: #ff7b5f;
+  --guess: #ffd06c;
+}
+
+.nightMode .ig-toolbar,
+.night_mode .ig-toolbar {
+  background: rgba(24, 38, 44, 0.94);
+}
+
+.nightMode .ig-button,
+.night_mode .ig-button {
+  color: #efe6d6;
+}
+
+.nightMode .ig-button[aria-pressed="true"],
+.night_mode .ig-button[aria-pressed="true"] {
+  background: #efe6d6;
+  color: #172a32;
+}

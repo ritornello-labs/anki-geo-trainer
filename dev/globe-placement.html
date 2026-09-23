@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GeoTrainer globe-placement harness</title>
+    <link rel="stylesheet" href="../anki/globe-placement/card.css">
+    <style>
+      body { margin: 0; }
+      .harness-bar { display: flex; gap: 8px; justify-content: center; padding: 10px; background: #172a32; }
+      .harness-bar button, .harness-bar select { min-height: 36px; border: 0; border-radius: 8px; padding: 0 10px; }
+    </style>
+  </head>
+  <body>
+    <div class="harness-bar">
+      <select id="target" aria-label="Island or archipelago"></select>
+      <button id="new-front" type="button">New front</button>
+      <button id="reveal" type="button">Reveal answer</button>
+    </div>
+    <main class="card" id="card"></main>
+    <script src="../node_modules/d3-array/dist/d3-array.min.js"></script>
+    <script src="../node_modules/d3-geo/dist/d3-geo.min.js"></script>
+    <script src="../engine/globe-placement.js"></script>
+    <script>
+      (async function () {
+        var bundle = await fetch("../data/bundles/world-islands.json").then(function (response) { return response.json(); });
+        window.__ISLAND_GLOBE_BUNDLE__ = bundle;
+        var select = document.getElementById("target");
+
+        bundle.targets.features.forEach(function (item, index) {
+          var option = document.createElement("option");
+          option.value = item.properties.key;
+          option.textContent = item.properties.name;
+          if (option.value === "cok" || index === 0) option.selected = true;
+          select.appendChild(option);
+        });
+
+        function selected() {
+          return bundle.targets.features.find(function (item) {
+            return item.properties.key === select.value;
+          });
+        }
+
+        function render(side) {
+          var item = selected();
+          var controls = side === "front"
+            ? '<div class="ig-toolbar" role="group"><button class="ig-button" type="button" data-mode="rotate" aria-pressed="true">Rotate</button><button class="ig-button" type="button" data-mode="mark" aria-pressed="false">Draw ellipse</button><button class="ig-button" type="button" data-action="clear">Clear</button></div>'
+            : '<div class="ig-toolbar" role="group"><button class="ig-button" type="button" data-mode="rotate" aria-pressed="true">Rotate</button><button class="ig-button" type="button" data-action="focus">Focus answer</button></div>';
+          var result = side === "back" ? '<div class="ig-result" data-result></div>' : "";
+          document.getElementById("card").innerHTML =
+            '<div class="ig-card" data-island-globe data-side="' + side + '" data-family="place" data-key="' + item.properties.key + '">' +
+              '<div class="ig-mast"><span>GeoTrainer</span><span class="ig-chip">' + (side === "front" ? "Globe placement" : "Globe reference") + '</span></div>' +
+              '<h1 class="ig-prompt">' + item.properties.name + '</h1>' +
+              '<div class="ig-stage"><canvas class="ig-canvas"></canvas>' + controls + '</div>' +
+              result +
+              '<div class="ig-help">' + (side === "front" ? "Drag across the target's full extent. Drag inside to move it; use the handles to resize." : "All deck islands are visible and the target is highlighted.") + '</div>' +
+            '</div>';
+          window.IslandGlobe.mount(document.querySelector("[data-island-globe]"), bundle);
+        }
+
+        document.getElementById("new-front").addEventListener("click", function () { render("front"); });
+        document.getElementById("reveal").addEventListener("click", function () { render("back"); });
+        select.addEventListener("change", function () { render("front"); });
+        render("front");
+      })();
+    </script>
+  </body>
+</html>

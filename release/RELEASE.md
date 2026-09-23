@@ -8,8 +8,8 @@ and Atlantic-overturning batch is temporarily staged under `Process::GeoTrainer 
 for manual review; restore it to the normal GeoTrainer tree before the Publisher
 export.
 
-Verification status (2026-08-06, combined update): all 31 scopes are covered by
-the cross-engine suite (Chromium + WebKit): **344 passed / 12 intentional skips**.
+Verification status (2026-09-22, combined update): all 32 scopes are covered by
+the cross-engine suite (Chromium + WebKit): **362 passed / 26 intentional skips**.
 Every one of the 34 current routes is tested in both directions.
 Region scopes carry Which/Place/Sketch/Draw; rivers are Trace-the-course; mountain
 ranges and deserts carry Place + Sketch; lakes carry Which + Place; tectonic plates
@@ -18,7 +18,7 @@ circulation has dedicated paired-cell, pressure-belt, prevailing-wind, jet, and 
 monsoon interactions; Atlantic overturning uses latitude–depth direction and sequence
 drills; ENSO uses coupled plan/depth state comparisons. The Continents
 scope carries Sketch + Draw for all six inhabited continent silhouettes. Combined
-`geo-trainer-all.apkg` = 85 leaf decks, 2,405 notes, 60.0 MB. The guarded live
+`geo-trainer-all.apkg` = 86 leaf decks, 2,472 notes, 63.6 MB. The guarded live
 AnkiConnect rollout installed the redesign successfully; manual visual
 review in the installed client remains pending.
 
@@ -27,8 +27,8 @@ review in the installed client remains pending.
 1. **Packaging: one shared deck.** Decided (Elvis, 2026-07-06) — ship a single
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
-   (**85 leaf decks, 2,405 notes, 60.0 MB** — well under AnkiWeb's per-deck limit).
-2. **Ship everything.** All 31 scopes are import-verified; the single deck includes them
+   (**86 leaf decks, 2,472 notes, 63.6 MB** — well under AnkiWeb's per-deck limit).
+2. **Ship everything.** All 32 scopes are import-verified; the single deck includes them
    all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
    problem for a combined deck.)
 
@@ -57,6 +57,9 @@ review in the installed client remains pending.
    sequence cards, added four ENSO state cards, and updated pressure/wind/monsoon
    interactions. The final collection has 2,405 GeoTrainer cards, 29 of them in the
    QA tree. Scheduling on all 2,396 retained cards was unchanged; no sync ran.
+8. On 2026-09-22, the learner-approved 67-card globe-placement family graduated from
+   `anki-island-globe` into `GeoTrainer::World::Islands`. Its stable note/card identity
+   and scheduling were preserved; the eight untouched Antipodes cards were retired.
 
 ## Queued enclave visibility fix (2026-09-22)
 
@@ -75,7 +78,7 @@ above remain in force. See `release/ENCLAVE_FIX_2026-09-22.md` for verification.
 - `dist/geo-trainer-all.apkg` — the single shareable deck (`make apkg-all`).
 - `release/screenshots/` — three public listing images captured from real Anki reviewer
   cards in a disposable `anki-addon-workbench` profile.
-- Per-scope APKGs in `dist/` (31 packs) remain for anyone who wants just one scope.
+- Per-scope APKGs in `dist/` (32 packs) remain for anyone who wants just one scope.
 
 ## Before publishing (checklist)
 

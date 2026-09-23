@@ -15,6 +15,7 @@ const BUNDLE_DIR = join(ROOT, "data", "bundles");
 
 const SCOPES = readdirSync(BUNDLE_DIR)
   .filter((f) => f.endsWith(".json") && !f.endsWith("-shapes.json") && !f.endsWith("-capitals.json"))
+  .filter((f) => f !== "world-islands.json") // separately covered by globe-placement.spec.mjs
   .map((f) => f.replace(".json", ""));
 
 function load(scope) {
