@@ -417,17 +417,22 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   and all other rejected globe experiments were retired. Combined build target:
   **86 leaf decks / 2,472 notes / 63.6 MB**. Full cross-engine validation:
   **362 passed / 26 intentional skips**.
+- **Five scopes from world-geography-concepts. ✅ Built and browser-verified
+  2026-09-23/24.** Peninsulas (15, Place + Sketch; Delmarva and Guajira are
+  tap-circles, Place only), minor tectonic plates (35 PB2002 plates, Place +
+  Sketch, three microplates Place only; nested under Tectonic Plates) and named
+  plate boundaries (17, Trace via the river mode: a boundary is a line, so
+  there is nothing to drag) followed the first two below. IDs
+  `1607426xxx`–`1607428xxx`. **37 scopes, 2,624 cards.**
 - **Plateaus and grasslands from world-geography-concepts. ✅ Built and
   browser-verified 2026-09-23.** Two Place + Sketch scopes, **11 plateaus,
   highlands & basins** and **9 plains, grasslands & steppes**, whose polygons are
-  the concept deck's own outlines (`data/sources/geo-concepts-areal.geojson`,
+  the concept deck's own outlines (`data/sources/geo-concepts.geojson`,
   exported there and committed here) so both decks draw the same shape for the
   same name. Five members are hand outlines with no Natural Earth polygon; the
   Eurasian Steppe is excluded (no polygon, and its Pontic-Caspian and Kazakh parts
   are members). IDs `1607424xxx`–`1607425xxx`. The tap-the-members bloc drill in
-  that project also gained the map's pan/zoom (`members-zoom`). **34 scopes,
-  2,512 cards.** In the live collection the concept deck's Name/Locate cards for
-  the 62 ranges, deserts and plates GeoTrainer already drills were suspended.
+  that project also gained the map's pan/zoom (`members-zoom`).
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.

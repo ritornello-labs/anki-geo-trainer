@@ -15,13 +15,19 @@ GeoTrainer uses the 1:10m, 1:50m, and 1:110m GeoJSON layers named in
 land for sparse front-side anchors, 1:50m land for the reference globe, and 1:10m
 administrative geometry to retain the components of dispersed archipelagos.
 
-## Plateaus, basins, plains and grasslands
+## Plateaus, grasslands, peninsulas, minor plates and named boundaries
 
-`data/sources/geo-concepts-areal.geojson` is committed, not downloaded. It is
-exported by `scripts/export_areal_geojson.py` in the `world-geography-concepts`
-repository from the outlines its concept cards use, so the `world-plateaus`
-and `world-grasslands` scopes draw the same shape for the same name as that
-deck. Each feature records its `source`: most are Natural Earth 1:10m
+`data/sources/geo-concepts.geojson` is committed, not downloaded. It is
+exported by `scripts/export_geotrainer_geojson.py` in the
+`world-geography-concepts` repository from the geometry its concept cards use,
+so the `world-plateaus`, `world-grasslands`, `world-peninsulas`,
+`world-minor-plates` and `world-plate-boundaries` scopes draw the same shape or
+line for the same name as that deck. Minor plates and boundary lines are PB2002
+(see Tectonic plates below; ODbL); boundary lines are the segments selected by
+plate pair and bounding box in that repo's `named-boundaries.json`. The Italian
+Peninsula is Natural Earth mainland Italy south of the La Spezia–Rimini line,
+and the Sinai, Delmarva and Peloponnese peninsulas are hand outlines. For the
+plateau and grassland areas: Each feature records its `source`: most are Natural Earth 1:10m
 `geography_regions_polys` polygons (public domain); the Iranian and Anatolian
 plateaus, the Indo-Gangetic Plain, the Campos and the Veld are approximate hand
 outlines traced from the bounds their Wikipedia articles give. The Eurasian

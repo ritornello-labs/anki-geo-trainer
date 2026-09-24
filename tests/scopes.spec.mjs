@@ -700,6 +700,23 @@ test("new physical curricula have deliberate, stable membership", () => {
   expect(grasslands.bundle.regions.map((r) => r.name)).toContain("Veld");
   expect(grasslands.bundle.regions.map((r) => r.name)).not.toContain("Eurasian Steppe");
   expect(grasslands.bundle.regions.some((r) => r.small)).toBe(false);
+  const peninsulas = load("world-peninsulas");
+  expect(peninsulas.bundle.regions).toHaveLength(15);
+  expect(peninsulas.bundle.families).toEqual(["place", "sketch"]);
+  expect(peninsulas.bundle.regions.map((r) => r.name)).toContain("Italian Peninsula");
+  // Delmarva and Guajira are magnified tap-circles at world scale (Place only).
+  expect(peninsulas.bundle.regions.filter((r) => r.small).map((r) => r.name).sort())
+    .toEqual(["Delmarva Peninsula", "Guajira Peninsula"]);
+  const minorPlates = load("world-minor-plates");
+  expect(minorPlates.bundle.regions).toHaveLength(35);
+  expect(minorPlates.bundle.families).toEqual(["place", "sketch"]);
+  expect(minorPlates.bundle.regions.map((r) => r.name)).toContain("Anatolia Plate");
+  expect(minorPlates.bundle.regions.find((r) => r.name === "Galapagos Plate").small).toBe(true);
+  const boundaries = load("world-plate-boundaries");
+  expect(Object.keys(boundaries.shapes)).toHaveLength(17);
+  expect(boundaries.bundle.families).toEqual(["river"]);
+  expect(boundaries.shapes["mid-atlantic-ridge"].name).toBe("Mid-Atlantic Ridge");
+  for (const line of Object.values(boundaries.shapes)) expect(line.paths.length).toBeGreaterThan(0);
   expect(Object.keys(currents.shapes)).toHaveLength(34);
   expect(currents.bundle.families).toEqual(["current"]);
   expect(currents.shapes["north-equatorial-current"].name)
@@ -757,7 +774,8 @@ test("all expected scopes are present", () => {
       "europe-countries", "india-states", "indonesia-provinces", "mexico-states",
       "north-america-countries", "oceania-countries", "russia-subjects",
       "south-america-countries", "us-states", "world-deserts",
-      "world-plateaus", "world-grasslands",
+      "world-plateaus", "world-grasslands", "world-peninsulas",
+      "world-minor-plates", "world-plate-boundaries",
       "world-lakes", "world-ocean-currents", "world-ranges", "world-rivers",
       "world-tectonic-plates", "atmospheric-cells", "atmospheric-pressure-belts",
       "world-prevailing-winds", "world-jet-streams", "south-asia-monsoon-winds",

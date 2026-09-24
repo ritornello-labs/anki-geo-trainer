@@ -77,9 +77,9 @@ EXTERNAL_SOURCES = {
 }
 # Committed, hand-curated GeoJSON (not downloaded). See data/SOURCES.md.
 CURATED_SOURCES = {
-    # Plateau/basin and plain/grassland outlines exported from
-    # world-geography-concepts (scripts/export_areal_geojson.py there).
-    "geoconcepts": ROOT / "data" / "sources" / "geo-concepts-areal.geojson",
+    # Plateau, grassland, peninsula, minor-plate and boundary geometry from
+    # world-geography-concepts (scripts/export_geotrainer_geojson.py there).
+    "geoconcepts": ROOT / "data" / "sources" / "geo-concepts.geojson",
 }
 
 EARTH_KM_PER_DEG = 111.32
@@ -954,7 +954,7 @@ PHYSICAL_SCOPES = {
         "deck_root": "GeoTrainer::Physical::Deserts",
     },
     # Plateaus/basins and plains/grasslands come from world-geography-concepts'
-    # curated outlines (data/sources/geo-concepts-areal.geojson) rather than a
+    # curated outlines (data/sources/geo-concepts.geojson) rather than a
     # Natural Earth class filter: NE has no polygon for several of them (the
     # Veld, the Campos, the Iranian and Anatolian plateaus, the Indo-Gangetic
     # Plain), and the two decks should draw the same shape for the same name.
@@ -977,6 +977,18 @@ PHYSICAL_SCOPES = {
         "box": (-120.0, -45.0, 130.0, 60.0),
         "width": 1500.0,
         "deck_root": "GeoTrainer::Physical::Plains & Grasslands",
+    },
+    # Small peninsulas (Delmarva, Peloponnese) become magnified tap-circles on
+    # the world map: Place only, like microstates; build_apkg drops their Sketch.
+    "world-peninsulas": {
+        "title": "World — Peninsulas",
+        "layer": "geoconcepts",
+        "concept_families": {"peninsulas"},
+        "noun": "peninsula",
+        "families": ["place", "sketch"],
+        "box": (-125.0, -20.0, 170.0, 72.0),
+        "width": 1500.0,
+        "deck_root": "GeoTrainer::Physical::Peninsulas",
     },
 }
 
@@ -1038,6 +1050,7 @@ def _world_polygon_bundle(
     noun: str,
     families: list[str],
     geoms_by_name: dict[str, BaseGeometry],
+    magnify_small: bool = False,
 ) -> tuple[dict, dict, dict]:
     """Build a physical polygon scope on one consistent whole-world frame."""
     box_t = (-180.0, -90.0, 180.0, 90.0)
@@ -1054,7 +1067,7 @@ def _world_polygon_bundle(
     for name, geom in geoms_by_name.items():
         rid = _slug(name)
         region = make_region(
-            rid, name, "", "main", project_geom(geom, project), magnify_small=False
+            rid, name, "", "main", project_geom(geom, project), magnify_small=magnify_small
         )
         if region:
             regions.append(region)
@@ -1213,6 +1226,80 @@ def _build_world_polys(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
         "context": context,
         "regions": regions,
     }, shapes, {}  # no capitals
+
+
+def _geoconcept_features(family: str) -> list[dict]:
+    feats = [f for f in load_features("geoconcepts") if f["properties"]["family"] == family]
+    if not feats:
+        raise SystemExit(f"geoconcepts: no {family} features in {CURATED_SOURCES['geoconcepts']}")
+    return feats
+
+
+def _build_minor_plates() -> tuple[dict, dict, dict]:
+    """The 35 PB2002 minor plates world-geography-concepts teaches.
+
+    Unlike the 16 majors, many are microplates (Galapagos, Easter, Niuafo'ou)
+    far below a tappable size at world scale, so they get the magnified
+    tap-circle and Place only; build_apkg drops Sketch for those.
+    """
+    geoms = {f["properties"]["name"]: shape(f["geometry"])
+             for f in _geoconcept_features("minor-plates")}
+    bundle, shapes, capitals = _world_polygon_bundle(
+        "world-minor-plates",
+        "World — Minor Tectonic Plates",
+        "tectonic plate",
+        ["place", "sketch"],
+        geoms,
+        magnify_small=True,
+    )
+    bundle["family_noun"] = "Tectonic Plate"
+    return bundle, shapes, capitals
+
+
+def _build_named_boundaries() -> tuple[dict, dict, dict]:
+    """Named plate boundaries as Trace-the-course lines (the river mode).
+
+    A boundary is a line, so drag-and-drop has nothing to drag; tracing it is
+    the spatial task. Lines are the PB2002 segments world-geography-concepts
+    highlights on its locator maps, grouped per boundary.
+    """
+    box_t = (-180.0, -62.0, 180.0, 80.0)
+    width = 1500.0
+    lat0 = math.radians((box_t[1] + box_t[3]) / 2.0)
+    cos0 = math.cos(lat0)
+    scale = width / ((box_t[2] - box_t[0]) * cos0)
+    view_w = width + 2 * PAD
+    view_h = (box_t[3] - box_t[1]) * scale + 2 * PAD
+    km_per_unit = (1.0 / scale) * EARTH_KM_PER_DEG
+
+    def project(lon, lat):
+        return round((lon - box_t[0]) * cos0 * scale + PAD, 1), round((box_t[3] - lat) * scale + PAD, 1)
+
+    lines = {}
+    for f in _geoconcept_features("named-boundaries"):
+        name = f["properties"]["name"]
+        paths = [[project(lon, lat) for lon, lat in seq] for seq in _line_coords(f["geometry"])]
+        lines[f["properties"]["slug"]] = {"name": name, "paths": [p for p in paths if len(p) >= 2]}
+
+    land = unary_union([shape(f["geometry"]) for f in load_features("land110")])
+    context = rings_of(
+        project_geom(land.intersection(box(*box_t)), project).simplify(0.8, preserve_topology=True)
+    )
+    bundle = {
+        "scope": "world-plate-boundaries",
+        "title": "World — Named Plate Boundaries",
+        "noun": "boundary",
+        "kind": "rivers",
+        "families": ["river"],
+        "view": {"w": round(view_w, 1), "h": round(view_h, 1)},
+        "frames": [
+            {"id": "main", "rect": [0.0, 0.0, round(view_w, 1), round(view_h, 1)],
+             "kmPerUnit": round(km_per_unit, 3), "label": ""}
+        ],
+        "context": context,
+        "regions": [],
+    }
+    return bundle, lines, {}
 
 
 # ==================== rivers: named polylines on a world map ======================
@@ -2044,6 +2131,8 @@ for _name, _cfg in RIVER_SCOPES.items():
     SCOPES[_name] = (lambda n, c: (lambda: _build_rivers(n, c)))(_name, _cfg)
 SCOPES["world-lakes"] = _build_lakes
 SCOPES["world-tectonic-plates"] = _build_plates
+SCOPES["world-minor-plates"] = _build_minor_plates
+SCOPES["world-plate-boundaries"] = _build_named_boundaries
 SCOPES["world-ocean-currents"] = _build_currents
 SCOPES["atmospheric-cells"] = _build_atmospheric_cells
 SCOPES["atmospheric-pressure-belts"] = _build_pressure_belts
