@@ -259,6 +259,22 @@ SCOPE_PACKS = {
         "deck_base": 1_607_410_050,
         "apkg": "geo-trainer-world-deserts.apkg",
     },
+    "world-plateaus": {
+        "deck_root": "GeoTrainer::Physical::Plateaus & Basins",
+        "model_root": "GeoTrainer {family} — Plateaus & Basins",
+        "scope_tag": "geotrainer::scope::physical::plateaus",
+        "model_base": 1_607_424_001,
+        "deck_base": 1_607_424_050,
+        "apkg": "geo-trainer-world-plateaus.apkg",
+    },
+    "world-grasslands": {
+        "deck_root": "GeoTrainer::Physical::Plains & Grasslands",
+        "model_root": "GeoTrainer {family} — Plains & Grasslands",
+        "scope_tag": "geotrainer::scope::physical::grasslands",
+        "model_base": 1_607_425_001,
+        "deck_base": 1_607_425_050,
+        "apkg": "geo-trainer-world-grasslands.apkg",
+    },
     "world-lakes": {
         "deck_root": "GeoTrainer::Physical::Lakes",
         "model_root": "GeoTrainer {family} — Major Lakes",

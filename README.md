@@ -23,14 +23,15 @@ yet been uploaded. The 29 atmospheric, seasonal, ENSO, and Atlantic-overturning 
 temporarily staged under `Process::GeoTrainer QA` for manual review before returning to
 this tree. GeoTrainer is a
 lean, **borderless-recall** set redesigned after real-world study.
-**Thirty-two scopes**, 2,472 cards. Region scopes carry four families — **Which**,
+**Thirty-four scopes**, 2,512 cards. Region scopes carry four families — **Which**,
 **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):
 **Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),
 **North America** (23), **Oceania** (14). Country subdivisions: **United States**
 (50), **Brazil** (27), **India** (36), **Russia** (85), **China** (31), **Canada**
 (13), **Australia** (9), **Argentina** (24), **Mexico** (32), **Indonesia** (33).
-Physical: **mountain ranges** (29) and **deserts** (17) — **Place + Sketch**;
+Physical: **mountain ranges** (29), **deserts** (17), **plateaus, highlands &
+basins** (11) and **plains, grasslands & steppes** (9) — **Place + Sketch**;
 **major lakes** (24) — **Which + Place**; **major tectonic plates** (16) —
 **Which + Place + Sketch**; **major rivers** (42) as trace-the-course; **major surface
 ocean currents** (34 stable + 4 season-specific) as direction-aware traces; a two-card

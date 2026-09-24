@@ -15,6 +15,19 @@ GeoTrainer uses the 1:10m, 1:50m, and 1:110m GeoJSON layers named in
 land for sparse front-side anchors, 1:50m land for the reference globe, and 1:10m
 administrative geometry to retain the components of dispersed archipelagos.
 
+## Plateaus, basins, plains and grasslands
+
+`data/sources/geo-concepts-areal.geojson` is committed, not downloaded. It is
+exported by `scripts/export_areal_geojson.py` in the `world-geography-concepts`
+repository from the outlines its concept cards use, so the `world-plateaus`
+and `world-grasslands` scopes draw the same shape for the same name as that
+deck. Each feature records its `source`: most are Natural Earth 1:10m
+`geography_regions_polys` polygons (public domain); the Iranian and Anatolian
+plateaus, the Indo-Gangetic Plain, the Campos and the Veld are approximate hand
+outlines traced from the bounds their Wikipedia articles give. The Eurasian
+Steppe has no polygon and is deliberately absent (its Pontic-Caspian and
+Kazakh parts are members). Regenerate there, then copy the file here.
+
 ## Tectonic plates
 
 Major plate polygons:

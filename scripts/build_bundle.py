@@ -75,6 +75,12 @@ EXTERNAL_SOURCES = {
         "PB2002_plates.json",
     ),
 }
+# Committed, hand-curated GeoJSON (not downloaded). See data/SOURCES.md.
+CURATED_SOURCES = {
+    # Plateau/basin and plain/grassland outlines exported from
+    # world-geography-concepts (scripts/export_areal_geojson.py there).
+    "geoconcepts": ROOT / "data" / "sources" / "geo-concepts-areal.geojson",
+}
 
 EARTH_KM_PER_DEG = 111.32
 U32 = 0xFFFFFFFF
@@ -85,6 +91,8 @@ SMALL_CIRCLE_R = 7.0
 
 
 def ensure_source(key: str) -> Path:
+    if key in CURATED_SOURCES:
+        return CURATED_SOURCES[key]
     if key in EXTERNAL_SOURCES:
         filename, url = EXTERNAL_SOURCES[key]
     else:
@@ -945,6 +953,31 @@ PHYSICAL_SCOPES = {
         "width": 1500.0,
         "deck_root": "GeoTrainer::Physical::Deserts",
     },
+    # Plateaus/basins and plains/grasslands come from world-geography-concepts'
+    # curated outlines (data/sources/geo-concepts-areal.geojson) rather than a
+    # Natural Earth class filter: NE has no polygon for several of them (the
+    # Veld, the Campos, the Iranian and Anatolian plateaus, the Indo-Gangetic
+    # Plain), and the two decks should draw the same shape for the same name.
+    "world-plateaus": {
+        "title": "World — Plateaus, Highlands & Basins",
+        "layer": "geoconcepts",
+        "concept_families": {"plateaus-basins"},
+        "noun": "plateau",
+        "families": ["place", "sketch"],
+        "box": (-125.0, -40.0, 125.0, 60.0),
+        "width": 1500.0,
+        "deck_root": "GeoTrainer::Physical::Plateaus & Basins",
+    },
+    "world-grasslands": {
+        "title": "World — Plains, Grasslands & Steppes",
+        "layer": "geoconcepts",
+        "concept_families": {"plains-grasslands"},
+        "noun": "grassland",
+        "families": ["place", "sketch"],
+        "box": (-120.0, -45.0, 130.0, 60.0),
+        "width": 1500.0,
+        "deck_root": "GeoTrainer::Physical::Plains & Grasslands",
+    },
 }
 
 
@@ -1112,6 +1145,7 @@ def _build_world_polys(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
     fclasses = cfg.get("featureclasses")
     max_sr = cfg.get("max_scalerank")
     exclude = cfg.get("exclude", set())
+    concept_families = cfg.get("concept_families")
 
     feats = []
     for f in load_features(cfg["layer"]):
@@ -1120,6 +1154,8 @@ def _build_world_polys(scope_name: str, cfg: dict) -> tuple[dict, dict, dict]:
         if not name or name in exclude:
             continue
         if fclasses is not None and prop(props, "FEATURECLA") not in fclasses:
+            continue
+        if concept_families is not None and prop(props, "family") not in concept_families:
             continue
         if max_sr is not None and (prop(props, "SCALERANK") or 99) > max_sr:
             continue

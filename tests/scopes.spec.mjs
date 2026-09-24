@@ -686,6 +686,20 @@ test("new physical curricula have deliberate, stable membership", () => {
   expect(plates.bundle.regions).toHaveLength(16);
   expect(plates.bundle.families).toEqual(["point", "place", "sketch"]);
   expect(plates.bundle.regions.map((r) => r.name)).toContain("Pacific Plate");
+  // Curated outlines shared with world-geography-concepts: every member is a
+  // real polygon (no magnified tap-circles), and the two decks agree on names.
+  const plateaus = load("world-plateaus");
+  const grasslands = load("world-grasslands");
+  expect(plateaus.bundle.regions).toHaveLength(11);
+  expect(plateaus.bundle.families).toEqual(["place", "sketch"]);
+  expect(plateaus.bundle.regions.map((r) => r.name)).toContain("Tibetan Plateau");
+  expect(plateaus.bundle.regions.map((r) => r.name)).toContain("Amazon Basin");
+  expect(plateaus.bundle.regions.some((r) => r.small)).toBe(false);
+  expect(grasslands.bundle.regions).toHaveLength(9);
+  expect(grasslands.bundle.families).toEqual(["place", "sketch"]);
+  expect(grasslands.bundle.regions.map((r) => r.name)).toContain("Veld");
+  expect(grasslands.bundle.regions.map((r) => r.name)).not.toContain("Eurasian Steppe");
+  expect(grasslands.bundle.regions.some((r) => r.small)).toBe(false);
   expect(Object.keys(currents.shapes)).toHaveLength(34);
   expect(currents.bundle.families).toEqual(["current"]);
   expect(currents.shapes["north-equatorial-current"].name)
@@ -743,6 +757,7 @@ test("all expected scopes are present", () => {
       "europe-countries", "india-states", "indonesia-provinces", "mexico-states",
       "north-america-countries", "oceania-countries", "russia-subjects",
       "south-america-countries", "us-states", "world-deserts",
+      "world-plateaus", "world-grasslands",
       "world-lakes", "world-ocean-currents", "world-ranges", "world-rivers",
       "world-tectonic-plates", "atmospheric-cells", "atmospheric-pressure-belts",
       "world-prevailing-winds", "world-jet-streams", "south-asia-monsoon-winds",
