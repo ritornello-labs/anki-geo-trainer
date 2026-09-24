@@ -40,6 +40,7 @@ FIXTURE_TARGETS = {
     "indian-ocean-seasonal-currents": "somali-current-summer",
     "atlantic-overturning": "02-pathway-order",
     "equatorial-pacific-enso": "02-el-nino",
+    "physical-foundations": "01-equatorial-ascent",
 }
 
 
@@ -52,7 +53,7 @@ def render(side_html: str, css: str, scope: str, target: str, mode: str) -> str:
     if mode in {
         "river", "current", "cell", "belt", "wind", "jet", "seasonalwind",
         "seasonalcurrent", "amoc",
-        "enso",
+        "enso", "reason",
     }:
         name = load_shapes(scope)[target]["name"]
     else:
@@ -74,6 +75,8 @@ def render(side_html: str, css: str, scope: str, target: str, mode: str) -> str:
         body = body.replace("{{JetData}}", _b64(load_shapes(scope)[target]))
     if "{{EnsoData}}" in body:
         body = body.replace("{{EnsoData}}", _b64(load_shapes(scope)[target]))
+    if "{{ReasonData}}" in body:
+        body = body.replace("{{ReasonData}}", _b64(load_shapes(scope)[target]))
     if "{{CapitalName}}" in body:
         cap = load_capitals(scope)[target]
         body = body.replace("{{CapitalName}}", cap["name"]).replace(
@@ -101,6 +104,15 @@ def main() -> None:
                 render(back, css, scope, target, mode), encoding="utf-8"
             )
         print(f"wrote fixtures for {scope}")
+    # The foundations pilot is deliberately small: render every proposed card,
+    # not only the representative fixture used by the generic smoke test.
+    scope = "physical-foundations"
+    front, back, css = build_templates(scope, "reason")
+    for target in load_shapes(scope):
+        for side, html in (("front", front), ("back", back)):
+            (OUT / f"card-{scope}-reason-{target}-{side}.html").write_text(
+                render(html, css, scope, target, "reason"), encoding="utf-8"
+            )
 
 
 if __name__ == "__main__":

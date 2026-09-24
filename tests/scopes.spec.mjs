@@ -888,7 +888,7 @@ test("all expected scopes are present", () => {
       "world-tectonic-plates", "atmospheric-cells", "atmospheric-pressure-belts",
       "world-prevailing-winds", "world-jet-streams", "south-asia-monsoon-winds",
       "indian-ocean-seasonal-currents", "atlantic-overturning",
-      "equatorial-pacific-enso",
+      "equatorial-pacific-enso", "physical-foundations",
     ].sort()
   );
 });

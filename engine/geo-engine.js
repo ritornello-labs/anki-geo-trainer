@@ -2522,6 +2522,135 @@
     root.appendChild(bar("Self-grade the three linked contrasts, not just the phase names.", "gt-suggest"));
   }
 
+  // A small, prerequisite-first physical-geography pilot. Each diagram is a
+  // schematic of a relationship, never a claim about an exact daily location.
+  function reasonArrow(svg, x1, y1, x2, y2, cls) {
+    svg.appendChild(el("line", { x1: x1, y1: y1, x2: x2, y2: y2, class: cls }));
+    var a = Math.atan2(y2 - y1, x2 - x1);
+    var back = 13, half = 7;
+    var lx = x2 - back * Math.cos(a) + half * Math.sin(a);
+    var ly = y2 - back * Math.sin(a) - half * Math.cos(a);
+    var rx = x2 - back * Math.cos(a) - half * Math.sin(a);
+    var ry = y2 - back * Math.sin(a) + half * Math.cos(a);
+    svg.appendChild(el("path", {
+      d: "M" + x2 + "," + y2 + "L" + lx + "," + ly + "L" + rx + "," + ry + "Z",
+      class: cls + " gt-reason-arrowhead",
+    }));
+  }
+
+  function reasonScene(data, reveal) {
+    var svg = el("svg", {
+      viewBox: "0 0 700 220", class: "gt-map gt-compact gt-reason-scene",
+      role: "img", "aria-label": data.name + " schematic",
+    });
+    svg.appendChild(el("rect", { x: 0, y: 0, width: 700, height: 220, class: "gt-reason-bg" }));
+    var scene = data.scene;
+    if (scene === "latitude") {
+      svg.appendChild(el("line", { x1: 80, y1: 148, x2: 620, y2: 148, class: "gt-reason-axis" }));
+      for (var i = 0; i < 2; i++) {
+        var x = i ? 490 : 220;
+        svg.appendChild(el("line", { x1: x, y1: 135, x2: x, y2: 162, class: "gt-reason-axis" }));
+        svgText(svg, x, 190, i ? "30° N" : "0° · equator", "gt-reason-label", "middle");
+      }
+      svgText(svg, 350, 35, "long-term atmospheric pattern", "gt-reason-caption", "middle");
+      if (reveal) {
+        reasonArrow(svg, 220, 125, 220, 65, "gt-reason-correct-flow");
+        reasonArrow(svg, 490, 65, 490, 125, "gt-reason-secondary-flow");
+        svgText(svg, 220, 56, "rises", "gt-reason-result", "middle");
+        svgText(svg, 490, 56, "sinks", "gt-reason-result", "middle");
+      }
+    } else if (scene === "wind") {
+      svg.appendChild(el("line", { x1: 100, y1: 165, x2: 600, y2: 165, class: "gt-reason-axis" }));
+      svgText(svg, 595, 191, "equator", "gt-reason-label", "end");
+      svgText(svg, 352, 43, "30° N", "gt-reason-label", "middle");
+      svgText(svg, 80, 82, "west", "gt-reason-label");
+      svgText(svg, 620, 82, "east", "gt-reason-label", "end");
+      reasonArrow(svg, 352, 58, 352, 125, "gt-reason-given-flow");
+      if (reveal) {
+        reasonArrow(svg, 350, 130, 230, 145, "gt-reason-correct-flow");
+        svgText(svg, 205, 115, "westward bend", "gt-reason-result");
+      }
+    } else if (scene === "upwelling") {
+      svg.appendChild(el("rect", { x: 455, y: 42, width: 245, height: 178, class: "gt-reason-land" }));
+      svg.appendChild(el("line", { x1: 0, y1: 108, x2: 455, y2: 108, class: "gt-reason-axis" }));
+      svgText(svg, 600, 78, "coast / land", "gt-reason-label", "middle");
+      svgText(svg, 65, 78, "ocean", "gt-reason-label");
+      reasonArrow(svg, 420, 91, 250, 91, "gt-reason-given-flow");
+      svgText(svg, 310, 62, "surface water moves offshore", "gt-reason-caption", "middle");
+      if (reveal) {
+        reasonArrow(svg, 410, 193, 410, 119, "gt-reason-correct-flow");
+        svgText(svg, 290, 184, "cool water rises", "gt-reason-result");
+      }
+    } else if (scene === "monsoon") {
+      svg.appendChild(el("rect", { x: 350, y: 35, width: 350, height: 185, class: "gt-reason-land" }));
+      svgText(svg, 165, 78, "Indian Ocean", "gt-reason-label", "middle");
+      svgText(svg, 530, 78, "South Asian land", "gt-reason-label", "middle");
+      svgText(svg, 350, 30, "boreal summer · low-level air", "gt-reason-caption", "middle");
+      if (reveal) {
+        reasonArrow(svg, 195, 128, 500, 128, "gt-reason-correct-flow");
+        svgText(svg, 350, 177, "moist air moves inland", "gt-reason-result", "middle");
+      }
+    } else if (scene === "pacific-neutral" || scene === "pacific-weak") {
+      svg.appendChild(el("line", { x1: 85, y1: 138, x2: 615, y2: 138, class: "gt-reason-axis" }));
+      svgText(svg, 78, 179, "Indonesia · west", "gt-reason-label");
+      svgText(svg, 622, 179, "South America · east", "gt-reason-label", "end");
+      svgText(svg, 350, 35, "equatorial Pacific", "gt-reason-caption", "middle");
+      if (scene === "pacific-weak") {
+        svg.appendChild(el("rect", { x: 102, y: 119, width: 174, height: 18, class: "gt-reason-neutral-warm" }));
+        svg.appendChild(el("rect", { x: 470, y: 119, width: 120, height: 18, class: "gt-reason-neutral-cool" }));
+        svgText(svg, 190, 106, "usual warm west", "gt-reason-label", "middle");
+        svgText(svg, 530, 106, "usual cool east", "gt-reason-label", "middle");
+        if (reveal) {
+          svg.appendChild(el("rect", { x: 280, y: 118, width: 310, height: 19, class: "gt-reason-new-warm" }));
+          svgText(svg, 515, 68, "warmer than usual", "gt-reason-result", "middle");
+        }
+      } else if (reveal) {
+        reasonArrow(svg, 540, 87, 178, 87, "gt-reason-correct-flow");
+        svg.appendChild(el("rect", { x: 105, y: 119, width: 180, height: 18, class: "gt-reason-new-warm" }));
+        svgText(svg, 185, 67, "warm water piles up", "gt-reason-result", "middle");
+      }
+    }
+    return svg;
+  }
+
+  function reasonFront(root, bundle, target) {
+    var data = shapeOf(bundle.scope, target);
+    root.appendChild(chip(data.chip));
+    root.appendChild(prompt(data.question));
+    root.appendChild(reasonScene(data, false));
+    saveState("reason", bundle.scope, target, { selected: null });
+    var choices = document.createElement("div");
+    choices.className = "gt-choice-grid gt-reason-choices";
+    choiceButtonRow(choices, data.label, data.options, null, function (value) {
+      saveState("reason", bundle.scope, target, { selected: value });
+    });
+    root.appendChild(choices);
+  }
+
+  function reasonBack(root, bundle, target) {
+    var data = shapeOf(bundle.scope, target);
+    var state = loadState("reason", bundle.scope, target) || {};
+    root.appendChild(chip(data.chip));
+    root.appendChild(prompt(data.question));
+    root.appendChild(reasonScene(data, true));
+    var choices = document.createElement("div");
+    choices.className = "gt-choice-grid gt-reason-choices gt-answer-grid";
+    answerChoiceRow(choices, data.label, data.options, state.selected || null, data.correct);
+    root.appendChild(choices);
+    root.appendChild(bar(state.selected === data.correct ? "Your choice matches" :
+      state.selected ? "Your choice differs" : "No choice recorded; inspect the answer",
+      state.selected === data.correct ? "gt-ok" : state.selected ? "gt-miss" : "gt-hint"));
+    root.appendChild(bar(data.answerNote, "gt-hint"));
+    var source = document.createElement("a");
+    source.className = "gt-reason-source";
+    source.href = data.source;
+    source.textContent = "Source";
+    root.appendChild(source);
+    if (state.selected) {
+      root.appendChild(bar(suggestFor(state.selected === data.correct ? 2 : 0), "gt-suggest"));
+    }
+  }
+
   function beltScore(taps, bands) {
     if (!taps || !bands || taps.length !== bands.length) {
       return { quality: 0, empty: !taps || !taps.length, maxOffset: null };
@@ -2673,6 +2802,7 @@
     cell: { front: cellFront, back: cellBack, needsShape: true },
     amoc: { front: amocFront, back: amocBack, needsShape: true },
     enso: { front: ensoFront, back: ensoBack, needsShape: true },
+    reason: { front: reasonFront, back: reasonBack, needsShape: true },
     belt: { front: beltFront, back: beltBack, needsShape: true },
   };
 

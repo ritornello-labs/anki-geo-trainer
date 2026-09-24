@@ -1,13 +1,15 @@
 # anki-geo-trainer — Plan
 
 Status: active; the next AnkiWeb update is on a manual-QA hold. The revised
-29-card atmospheric, seasonal, ENSO, and Atlantic-overturning batch is in
-`Process::GeoTrainer QA` for Elvis's review, not approved for restoration to
-  the daily tree or publication. The fixes live on a signed, unmerged
-  `qa/physical-systems-redesign-pilot` branch pushed from an isolated sanitized
-  checkout; its GitHub privacy workflow passed. See
-[the physical-systems QA redesign](curriculum/PHYSICAL_SYSTEMS_QA_REDESIGN.md)
-for family decisions and release gates. Created 2026-07-05.
+29-card atmospheric, seasonal, ENSO, and Atlantic-overturning batch remains in
+`Process::GeoTrainer QA` as a rejected-as-a-release-set design reference. A
+separate six-card physical-foundations prototype is built locally for QA but
+has not been imported into the live collection or included in the combined
+release package. Elvis will inspect cards, not study them; actual learning
+comes only after an accepted module is merged into GeoTrainer. See
+[the foundations design](curriculum/PHYSICAL_FOUNDATIONS.md) and
+[the earlier QA redesign](curriculum/PHYSICAL_SYSTEMS_QA_REDESIGN.md).
+Created 2026-07-05.
 
 ## Privacy boundary
 
@@ -429,6 +431,16 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   scheduling values; no sync or publication occurred. The empty, childless
   `3 Trace Atlantic Overturning` QA shell was removed with zero cards deleted.
   Recovery is in `.tmp-anki-geo-extra/private-qa-recovery/20260923T150040-0700-physical-qa-refresh`.
+- **Physical foundations pilot. 🟡 Built locally 2026-09-23; not staged live.**
+  Six new prerequisite-first inference cards sample air/rain, northern trades,
+  coastal upwelling, South Asian summer flow, the neutral Pacific warm pool,
+  and weaker-trade eastern warming. Their fronts and backs retain the same
+  purpose-built diagram and choice layout; explicit answer labels accompany
+  color. The pilot uses a distinct note type/scope and is excluded from the
+  combined release APKG. Chromium and WebKit interaction tests pass. The
+  workspace full-sync ledger already contains two open schema items; reconcile
+  those before importing another note type into the live collection. See
+  `curriculum/PHYSICAL_FOUNDATIONS.md`. The old 29 QA cards are untouched.
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.

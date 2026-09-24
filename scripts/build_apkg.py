@@ -88,6 +88,10 @@ FAMILY_DEFS = [
         "enso", 13, "Compare ENSO States", "1 Compare ENSO States",
         "geotrainer::skill::enso", "geotrainer::level::6",
     ),
+    (
+        "reason", 14, "Predict Physical Pattern", "1 Predict",
+        "geotrainer::skill::physical-reasoning", "geotrainer::level::4",
+    ),
 ]
 
 # Families a scope gets when it doesn't declare its own. River is opt-in (river
@@ -354,6 +358,17 @@ SCOPE_PACKS = {
         "apkg": "geo-trainer-equatorial-pacific-enso.apkg",
         "extra_tags": ["ai-created"],
     },
+    "physical-foundations": {
+        "deck_root": "GeoTrainer::Physical::Foundations",
+        "model_root": "GeoTrainer {family} — Physical Foundations",
+        "scope_tag": "geotrainer::scope::physical::foundations",
+        "model_base": 1_607_424_001,
+        "deck_base": 1_607_424_050,
+        "apkg": "geo-trainer-physical-foundations.apkg",
+        "extra_tags": ["ai-created", "geotrainer::qa::pilot"],
+        # Never include unaccepted QA cards in the shareable combined APKG.
+        "release_ready": False,
+    },
 }
 
 
@@ -369,12 +384,13 @@ SHAPE_FIELDS = {
     "seasonalcurrent": "CurrentData",
     "amoc": "CurrentData",
     "enso": "EnsoData",
+    "reason": "ReasonData",
 }
 
 LINE_MODES = {
     "river", "current", "cell", "belt", "wind", "jet", "seasonalwind",
     "seasonalcurrent", "amoc",
-    "enso",
+    "enso", "reason",
 }
 
 
@@ -584,7 +600,9 @@ def build_combined() -> Path:
     """One shareable APKG holding the whole GeoTrainer tree — the single deck we
     publish on AnkiWeb so the listing and screenshots cover everything at once."""
     all_decks, total = [], 0
-    for scope in SCOPE_PACKS:
+    for scope, pack in SCOPE_PACKS.items():
+        if pack.get("release_ready") is False:
+            continue
         decks, n = scope_decks(scope)
         all_decks.extend(decks)
         total += n

@@ -1,0 +1,68 @@
+{
+  "01-equatorial-ascent": {
+    "name": "Equatorial ascent",
+    "chip": "Air and rain",
+    "question": "In a long-term average, where is rising air and frequent rain more likely?",
+    "scene": "latitude",
+    "label": "Choose the latitude",
+    "options": ["Near 0°", "Near 30° N"],
+    "correct": "Near 0°",
+    "answerNote": "Strong heating and converging surface winds help air rise near the equator. Sinking air is more typical near 30° N.",
+    "source": "https://weather.metoffice.gov.uk/learn-about/weather/atmosphere/global-circulation-patterns"
+  },
+  "02-northern-trades": {
+    "name": "Northern trade-wind direction",
+    "chip": "Surface wind",
+    "question": "Air flowing from 30° N toward the equator bends which way as Earth rotates?",
+    "scene": "wind",
+    "label": "Choose the bend",
+    "options": ["Westward", "Eastward"],
+    "correct": "Westward",
+    "answerNote": "In the Northern Hemisphere, moving air bends to its right. Equatorward air therefore gains a westward component: the northeast trades.",
+    "source": "https://weather.metoffice.gov.uk/learn-about/weather/atmosphere/global-circulation-patterns"
+  },
+  "03-coastal-upwelling": {
+    "name": "Coastal upwelling",
+    "chip": "Ocean surface and depth",
+    "question": "Surface water moves away from this coast. What tends to replace it?",
+    "scene": "upwelling",
+    "label": "Choose the response",
+    "options": ["Cool water rises from below", "Surface water sinks near shore"],
+    "correct": "Cool water rises from below",
+    "answerNote": "Water rising from below replaces the displaced surface water. This is upwelling, and it often brings cold, nutrient-rich water to the surface.",
+    "source": "https://oceanservice.noaa.gov/facts/upwelling.html"
+  },
+  "04-south-asian-summer": {
+    "name": "South Asian summer monsoon",
+    "chip": "Seasonal wind",
+    "question": "In South Asian summer, which broad low-level flow helps bring rain onto land?",
+    "scene": "monsoon",
+    "label": "Choose the flow",
+    "options": ["Ocean toward land", "Land toward ocean"],
+    "correct": "Ocean toward land",
+    "answerNote": "Summer heating favors rising air over South Asia. Moist air flows in from the Indian Ocean and can produce sustained seasonal rain.",
+    "source": "https://www.nesdis.noaa.gov/about/k-12-education/severe-weather/what-monsoon"
+  },
+  "05-neutral-pacific": {
+    "name": "Neutral Pacific warm pool",
+    "chip": "Pacific baseline",
+    "question": "In the usual equatorial Pacific pattern, where do trade winds pile up warm surface water?",
+    "scene": "pacific-neutral",
+    "label": "Choose the side",
+    "options": ["Near Indonesia, west", "Near South America, east"],
+    "correct": "Near Indonesia, west",
+    "answerNote": "The usual westward trades push warm surface water toward Indonesia. Cooler water is nearer the surface in the eastern Pacific.",
+    "source": "https://www.pmel.noaa.gov/elnino/what-is-el-nino"
+  },
+  "06-weak-trades": {
+    "name": "Weaker Pacific trades",
+    "chip": "ENSO prediction",
+    "question": "If equatorial Pacific trade winds weaken, what happens near South America compared with the usual pattern?",
+    "scene": "pacific-weak",
+    "label": "Choose the change",
+    "options": ["Surface water tends to warm", "Surface water tends to cool", "No broad change is expected"],
+    "correct": "Surface water tends to warm",
+    "answerNote": "With weaker trades, warm water spreads farther east and cold-water upwelling becomes less effective. This is a key El Niño pattern, not a daily forecast.",
+    "source": "https://www.pmel.noaa.gov/elnino/what-is-el-nino"
+  }
+}

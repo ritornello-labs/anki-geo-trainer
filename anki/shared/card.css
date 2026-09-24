@@ -394,6 +394,33 @@
 .nightMode .gt-diagram-label { fill: #aab4c0; }
 .nightMode .gt-enso-title { fill: #e9edf2; }
 
+/* Physical-foundations pilot: the front and answer use the same schematic and
+   choice grid. The answer adds arrows and textual choice marks, never color only. */
+.gt-reason-scene { max-height: 240px; cursor: default; }
+.gt-reason-bg { fill: #f3f7fa; }
+.gt-reason-land { fill: #e4d8c5; }
+.gt-reason-axis { stroke: #8293a3; stroke-width: 3; }
+.gt-reason-label { fill: #304252; font-size: 18px; font-weight: 700; }
+.gt-reason-caption { fill: #657585; font-size: 17px; font-weight: 700; }
+.gt-reason-result { fill: #175b3b; font-size: 18px; font-weight: 800; }
+.gt-reason-given-flow { stroke: #326d9c; stroke-width: 5; fill: #326d9c; }
+.gt-reason-correct-flow { stroke: #21875a; stroke-width: 6; fill: #21875a; }
+.gt-reason-secondary-flow { stroke: #c47b24; stroke-width: 5; fill: #c47b24; }
+.gt-reason-neutral-warm { fill: #f2b46b; }
+.gt-reason-neutral-cool { fill: #90c8e0; }
+.gt-reason-new-warm { fill: #e68439; }
+.gt-reason-choices { max-width: 760px; }
+.gt-reason-choices .gt-choice-row { grid-template-columns: minmax(125px, 0.75fr) repeat(2, minmax(0, 1fr)); }
+.gt-reason-choices .gt-choice-row-wide { grid-template-columns: minmax(125px, 0.75fr) repeat(3, minmax(0, 1fr)); }
+.gt-reason-choices .gt-btn { min-height: 52px; white-space: normal; line-height: 1.2; }
+.gt-reason-source { display: inline-block; margin: 10px 0 2px; font-size: 13px; }
+@media (max-width: 560px) {
+  .gt-reason-choices .gt-choice-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gt-reason-choices .gt-choice-row-wide { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .gt-reason-choices .gt-choice-label { grid-column: 1 / -1; }
+  .gt-reason-choices .gt-btn { font-size: 14px; }
+}
+
 .gt-belt-target {
   fill: var(--gt-accent);
   fill-opacity: 0.24;
