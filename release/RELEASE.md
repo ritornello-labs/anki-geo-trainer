@@ -1,36 +1,29 @@
 # Release plan (M5)
 
-Status: the initial version was submitted to AnkiWeb on 2026-07-15. The contextual
-**Sketch** family and the physical-geography expansion are installed in the live
-personal collection. The combined update is queued for existing shared deck
-`908455862` but has not yet been uploaded. The 29-card atmospheric, seasonal, ENSO,
-and Atlantic-overturning batch is temporarily staged under `Process::GeoTrainer QA`
-for manual review; restore it to the normal GeoTrainer tree before the Publisher
-export.
+Status (2026-09-24): the initial version is on AnkiWeb at listing `908455862`.
+No follow-up has been uploaded. The 29 older physical-system cards and seven
+foundations-pilot cards are QA-only in `Process`; do not restore them to the
+daily GeoTrainer tree or include them in a Publisher export without acceptance.
+AMOC is out of the general-geography core, and the old four-card ENSO deck is
+superseded by a smaller candidate still awaiting Elvis's QA.
 
-Verification status (2026-08-06, combined update): all 31 scopes are covered by
-the cross-engine suite (Chromium + WebKit): **344 passed / 12 intentional skips**.
-Every one of the 34 current routes is tested in both directions.
-Region scopes carry Which/Place/Sketch/Draw; rivers are Trace-the-course; mountain
-ranges and deserts carry Place + Sketch; lakes carry Which + Place; tectonic plates
-carry Which + Place + Sketch; ocean currents use direction-aware Trace; atmospheric
-circulation has dedicated paired-cell, pressure-belt, prevailing-wind, jet, and seasonal
-monsoon interactions; Atlantic overturning uses latitude–depth direction and sequence
-drills; ENSO uses coupled plan/depth state comparisons. The Continents
-scope carries Sketch + Draw for all six inhabited continent silhouettes. Combined
-`geo-trainer-all.apkg` = 85 leaf decks, 2,405 notes, 60.0 MB. The guarded live
-AnkiConnect rollout installed the redesign successfully; manual visual
-review in the installed client remains pending.
+The current `qa/physical-systems-redesign-pilot` branch builds an accepted-scope
+combined candidate with **77 leaf decks / 2,376 notes**. All nine unaccepted
+physical QA scopes are excluded. The full Chromium/WebKit suite passes
+**374 tests / 12 intentional skips**, and package inspection confirms no QA
+note type or `Process` deck in the combined APKG. This is a branch-local
+candidate, not a publication approval; reconcile other pending source branches,
+the live collection, Publisher rendering, and the listing before any upload.
 
 ## Decisions
 
 1. **Packaging: one shared deck.** Decided (Elvis, 2026-07-06) — ship a single
-   `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
-   of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
-   (**85 leaf decks, 2,405 notes, 60.0 MB** — well under AnkiWeb's per-deck limit).
-2. **Ship everything.** All 31 scopes are import-verified; the single deck includes them
-   all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
-   problem for a combined deck.)
+   `GeoTrainer` deck with accepted scopes as subdecks, so there's one listing and one
+   set of screenshots to maintain. Current branch candidate: `make apkg-all` →
+   `dist/geo-trainer-all.apkg` (**77 leaf decks, 2,376 notes**).
+2. **Release gate.** Source generation is not acceptance. Keep every QA-only scope
+   out of the combined deck until its content and interaction have been approved;
+   the former “ship everything” decision is superseded.
 
 ## Release record
 
@@ -62,10 +55,12 @@ review in the installed client remains pending.
 
 - `release/ankiweb.md` — listing copy (title, tags, support URL front-matter; body has
   the clickable full-URL GitHub link per workspace convention).
-- `dist/geo-trainer-all.apkg` — the single shareable deck (`make apkg-all`).
+- `dist/geo-trainer-all.apkg` — branch-local accepted-scope candidate
+  (`make apkg-all`); rebuild after branch reconciliation, not a ready upload.
 - `release/screenshots/` — three public listing images captured from real Anki reviewer
   cards in a disposable `anki-addon-workbench` profile.
-- Per-scope APKGs in `dist/` (31 packs) remain for anyone who wants just one scope.
+- Per-scope APKGs in `dist/` include QA-only packs for testing; do not publish
+  those packs as accepted geography content.
 
 ## Before publishing (checklist)
 
@@ -77,13 +72,16 @@ review in the installed client remains pending.
       process-boundary 1Password credentials.
 - [x] Preview the rendered listing and pass the visible-clickable-GitHub-URL check.
 - [x] Submit the first version; record shared id `908455862` and link it from the README.
-- [x] Install and verify the 2,405-card combined update in the local collection.
-- [x] Add the update to the workspace's active AnkiWeb publication queue.
+- [x] Install and verify the historical 2,405-card source expansion in the local
+      collection; later QA decisions supersede that package for publication.
+- [x] Add the historical update to the workspace's AnkiWeb publication queue;
+      its old 2,405-note artifact is superseded and must be replaced before upload.
 - [x] Delete the two orphan `GeoTrainer Neighbors` note types left by the F7
       retirement. Verified absent from the live collection on 2026-08-05; a
       fresh backup preceded the successful full sync, and the pending-change
       counts were zero afterward.
-- [ ] Import the update into the isolated Publisher collection, render the proposed
+- [ ] Reconcile source branches and build the exact accepted-scope release artifact.
+- [ ] Import that artifact into the isolated Publisher collection, render the proposed
       updated listing for review, and upload only after explicit approval.
 
 ## Not blocking release

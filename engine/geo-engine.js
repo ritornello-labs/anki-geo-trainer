@@ -2590,12 +2590,19 @@
         reasonArrow(svg, 195, 128, 500, 128, "gt-reason-correct-flow");
         svgText(svg, 350, 177, "moist air moves inland", "gt-reason-result", "middle");
       }
-    } else if (scene === "pacific-neutral" || scene === "pacific-weak") {
+    } else if (scene === "pacific-neutral" || scene === "pacific-weak" || scene === "pacific-rain") {
       svg.appendChild(el("line", { x1: 85, y1: 138, x2: 615, y2: 138, class: "gt-reason-axis" }));
       svgText(svg, 78, 179, "Indonesia · west", "gt-reason-label");
       svgText(svg, 622, 179, "South America · east", "gt-reason-label", "end");
       svgText(svg, 350, 35, "equatorial Pacific", "gt-reason-caption", "middle");
-      if (scene === "pacific-weak") {
+      if (scene === "pacific-rain") {
+        svg.appendChild(el("rect", { x: 102, y: 119, width: 488, height: 18, class: "gt-reason-new-warm" }));
+        svgText(svg, 350, 106, "warm water extends east", "gt-reason-label", "middle");
+        if (reveal) {
+          reasonArrow(svg, 485, 112, 485, 68, "gt-reason-correct-flow");
+          svgText(svg, 485, 57, "more rising air and rain", "gt-reason-result", "middle");
+        }
+      } else if (scene === "pacific-weak") {
         svg.appendChild(el("rect", { x: 102, y: 119, width: 174, height: 18, class: "gt-reason-neutral-warm" }));
         svg.appendChild(el("rect", { x: 470, y: 119, width: 120, height: 18, class: "gt-reason-neutral-cool" }));
         svgText(svg, 190, 106, "usual warm west", "gt-reason-label", "middle");

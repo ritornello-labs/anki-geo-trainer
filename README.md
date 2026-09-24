@@ -3,7 +3,6 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
 [![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 ![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
-![Deck size](https://img.shields.io/badge/deck-2%2C405%20notes-7C3AED)
 
 Interactive geography practice for Anki: a curriculum-ordered set of map tasks that
 asks you to locate, place, sketch, draw, and trace from memory on borderless maps. It runs
@@ -17,13 +16,13 @@ The animation is hosted with the public listing media at ritornello.dev; click i
 
 **Release status:** the initial version was submitted to AnkiWeb on 2026-07-15. The
 contextual-Sketch and physical-geography updates are installed in the live personal
-collection. The combined update is queued for the existing AnkiWeb listing but has not
-yet been uploaded. The 29 atmospheric, seasonal, ENSO, and Atlantic-overturning cards are
-temporarily staged under `Process::GeoTrainer QA` for manual review before returning to
-this tree. GeoTrainer is a
-lean, **borderless-recall** set redesigned after real-world study.
-**Thirty-one scopes**, 2,405 cards. Region scopes carry four families — **Which**,
-**Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
+collection. The next combined update has not been uploaded. The 29 older
+atmospheric/seasonal/ENSO/AMOC cards and a seven-card foundations pilot remain
+under `Process::GeoTrainer QA` for design review, not scheduled study or release.
+The current release-ready combined build has **23 scopes, 77 leaf decks, and
+2,376 notes**; nine QA-only scopes are excluded. GeoTrainer is a lean,
+**borderless-recall** set redesigned after real-world study. Region scopes carry
+four families — **Which**, **Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
 where things are instead of matching a labelled shape). Continents (countries):
 **Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),
 **North America** (23), **Oceania** (14). Country subdivisions: **United States**
@@ -32,15 +31,15 @@ where things are instead of matching a labelled shape). Continents (countries):
 Physical: **mountain ranges** (29) and **deserts** (17) — **Place + Sketch**;
 **major lakes** (24) — **Which + Place**; **major tectonic plates** (16) —
 **Which + Place + Sketch**; **major rivers** (42) as trace-the-course; **major surface
-ocean currents** (34 stable + 4 season-specific) as direction-aware traces; a two-card
-latitude–depth **Atlantic overturning** direction/sequence drill; **atmospheric
-circulation** (17) as paired cells, pressure belts, prevailing winds, and jets;
-**seasonal South Asian monsoon winds** (2) as paired summer/winter traces; and four
-**ENSO** state/comparison cards for neutral, El Niño, and La Niña. Plus a
-**Continents** scope — **Sketch** each one on the blank world, then **Draw** its
+ocean currents** (34 stable) as direction-aware traces. Additional atmosphere,
+seasonal-current, and Pacific-pattern cards are being tested in `Process` and
+are not part of that combined build. AMOC and the old four-card ENSO comparison
+design were dropped from the general-geography release plan. The
+**Continents** scope asks you to **Sketch** each one on the blank world, then **Draw** its
 silhouette from memory (Europe is clipped at the Urals, and Asia excludes Siberia, since Natural
-Earth files Russia under Europe). All rendered by one shared engine and verified on
-Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md), the skill ladder in
+Earth files Russia under Europe). All are rendered by one shared engine; the
+current QA pilot has Chromium/WebKit coverage but has not graduated to release.
+See [`PLAN.md`](./PLAN.md), the skill ladder in
 [`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md), and the publishing plan in
 [`release/RELEASE.md`](./release/RELEASE.md).
 
@@ -62,12 +61,7 @@ folded into ordinary ocean-current cards: see
 | `…::4 Draw` | unscaffolded shape recall | Sketch the outline from memory on a blank **fixed-square** canvas (uniform for every card, so the frame never hints the answer's aspect ratio; multi-stroke, undo/clear); the back overlays the true shape and grades the match. Scoring gates on **both** boundary faithfulness and area overlap (IoU), so a right-size wrong-shape blob — a lazy circle over Algeria — fails to *Again*, while an honest freehand attempt (even wobbly) passes. Position and size don't matter, form does |
 | `…::1 Trace` (rivers) | river course | Trace a major river's course over a world map; the back overlays the true line and grades by distance (km) to it. Start on the *full* world map (no positional hint), then zoom in to trace precisely |
 | `…::1 Trace` (currents) | current route + direction | Trace a major ocean current from origin to destination. Your stroke ends in an arrow; the back reveals a forgiving route corridor and the true direction. An accurate line drawn backwards is graded *Again* |
-| `…::1 Trace Cells` | vertical circulation + direction | Trace the paired hemispheric loops for a named cell on a curved pole-to-pole latitude–altitude cross-section |
-| `…::2 Place Pressure Belts` | latitude placement | Tap every idealized latitude band occupied by the named pressure feature; the front does not reveal how many bands are required |
-| `…::3–5 Trace` (winds/jets/monsoon) | atmospheric belt/route + direction | Trace prevailing winds in a broad accepted latitude belt, variable jet corridors, or a season-labelled South Asian monsoon flow on a world map |
-| `…::2 Trace Seasonal Monsoon Currents` | season-specific current + direction | Trace the summer or winter Somali/monsoon current; season and month range are explicit, and the reversed seasonal route fails |
-| `…::3 Learn Atlantic Overturning` | latitude–depth direction + sequence | Choose the upper/deep limb directions, then order four waypoints through the Atlantic overturning pathway |
-| `…::1 Compare ENSO States` | coupled-system state comparison | Read neutral, El Niño, and La Niña from paired Pacific plan/depth schematics; compare winds, warm pool, rainfall, thermocline, and upwelling |
+| `Process::…::1 Predict` (QA only) | physical-pattern inference | Predict air, wind, ocean, and Pacific rainfall tendencies from small schematics; not yet accepted for release |
 
 Drawing surfaces (Sketch, Draw, Trace) have **zoom + pan** via floating map-style controls
 in the canvas corner (Google-Maps-like): a stacked **＋/−** zoom pill and a **✋**

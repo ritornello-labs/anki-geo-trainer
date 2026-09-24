@@ -51,7 +51,7 @@
     "label": "Choose the side",
     "options": ["Near Indonesia, west", "Near South America, east"],
     "correct": "Near Indonesia, west",
-    "answerNote": "The usual westward trades push warm surface water toward Indonesia. Cooler water is nearer the surface in the eastern Pacific.",
+    "answerNote": "Westward trades pile warm water near Indonesia, where it favors rising moist air and rain. Cooler water is nearer the surface in the eastern Pacific.",
     "source": "https://www.pmel.noaa.gov/elnino/what-is-el-nino"
   },
   "06-weak-trades": {
@@ -64,5 +64,16 @@
     "correct": "Surface water tends to warm",
     "answerNote": "With weaker trades, warm water spreads farther east and cold-water upwelling becomes less effective. This is a key El Niño pattern, not a daily forecast.",
     "source": "https://www.pmel.noaa.gov/elnino/what-is-el-nino"
+  },
+  "07-el-nino-rainfall-shift": {
+    "name": "El Niño rainfall shift",
+    "chip": "Pacific rainfall",
+    "question": "As warm equatorial-Pacific water spreads east during El Niño, where does rainfall tend to increase relative to usual?",
+    "scene": "pacific-rain",
+    "label": "Choose the region",
+    "options": ["Central/eastern Pacific", "Western Pacific near Indonesia"],
+    "correct": "Central/eastern Pacific",
+    "answerNote": "Warm water favors rising moist air, so El Niño tends to increase rain over the central/eastern equatorial Pacific and reduce it around Indonesia. Individual events vary.",
+    "source": "https://www.climate.gov/news-features/understanding-climate/el-nino-and-la-nina-frequently-asked-questions"
   }
 }

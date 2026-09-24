@@ -1,9 +1,9 @@
 # Physical geography foundations
 
-Status: six-card QA prototype built on 2026-09-23. It is not an accepted
-curriculum, not in the live collection, and not included in the combined
-release APKG. The previous 29-card physical-systems batch remains untouched in
-`Process::GeoTrainer QA`.
+Status: seven-card QA prototype in the live `Process` tree as of 2026-09-24.
+It is not an accepted curriculum and is excluded from the combined release
+APKG. The previous 29-card physical-systems batch remains in QA as a design
+reference, not as release content.
 
 ## Learning contract
 
@@ -28,6 +28,7 @@ latitude and ocean/land orientation
   -> seasonal land/ocean heating -> South Asian monsoon flow
   -> usual Pacific trades -> western warm pool / cooler eastern surface
   -> weaker trades -> eastern warming and reduced cold-water upwelling
+  -> eastward warm-water spread -> eastward shift in tropical rainfall tendency
 ```
 
 This is a teaching route, not a claim that every mechanism can be reduced to
@@ -49,8 +50,9 @@ pressure line, or current path. Each back carries a source link.
 | `04-south-asian-summer` | Predict broad summer ocean-to-land moist flow | Land/ocean orientation shown on diagram | [NOAA NESDIS](https://www.nesdis.noaa.gov/about/k-12-education/severe-weather/what-monsoon) |
 | `05-neutral-pacific` | Predict where usual trades accumulate warm surface water | `02` plus west/east orientation shown on diagram | [NOAA PMEL](https://www.pmel.noaa.gov/elnino/what-is-el-nino) |
 | `06-weak-trades` | Predict eastern-Pacific surface warming relative to the neutral baseline | `05` | [NOAA PMEL](https://www.pmel.noaa.gov/elnino/what-is-el-nino) |
+| `07-el-nino-rainfall-shift` | Predict where rain tends to increase as El Niño warmth extends east | `01`, `05`, `06`; the `05` back introduces warm-water/rising-air linkage | [NOAA Climate.gov](https://www.climate.gov/news-features/understanding-climate/el-nino-and-la-nina-frequently-asked-questions) |
 
-The pilot intentionally samples six *inference types* but currently uses one
+The pilot intentionally samples seven *inference types* but currently uses one
 choice-grid input family. Elvis's QA should test whether the diagrams make the
 inferences quick and fair, and whether the answer layout supports a fast audit.
 It should not be treated as a successful study trial merely because a prompt is
@@ -63,30 +65,33 @@ answerable when inspected once.
 - Add a small number of distinct wind, rainfall, gyre, boundary-current, and
   seasonal-transfer problems. Use the existing named-current trace deck for
   route practice instead of duplicating it.
-- Teach the neutral Pacific before El Niño and La Niña. Test each change with a
-  small prediction and finish with one integrated state diagnosis. Do not make
-  mirrored five-variable worksheets.
+- Keep the old four-card ENSO state/comparison design out of release. The
+  candidate core is neutral warm-pool placement, weaker-trade eastern warming,
+  and the resulting rainfall tendency. Add a La Niña comparison only if it
+  earns a distinct geographic retrieval; do not make a five-variable worksheet.
 - Represent jet streams as variable high-altitude corridors rather than fixed
-  up/down arrows. Keep AMOC as upper/deep direction interpretation; retire
-  memorized waypoint order. Consider the Somali Current seasonal pair as an
-  optional application only after the monsoon mechanism is established.
+  up/down arrows. Drop AMOC from the general-geography core. Consider the
+  Somali Current seasonal pair as an optional application only after the
+  monsoon mechanism is established.
 - Use geographic transfer cases and explicit limits: climate averages are not
   daily forecasts, and an idealized diagram is not an exact route or boundary.
 
-No target card count is fixed. A rough design envelope is 30–40 core
-retrievals, with optional applications only when each earns its review cost.
+No target card count is fixed. Each additional retrieval must earn its review
+cost and close a real geographic understanding gap.
 
 ## Rollout gate
 
-1. Review the six local front/back renders and their factual claims. Fix any
+1. Review the seven local front/back renders and their factual claims. Fix any
    unfair cue, visual ambiguity, or incorrect causal wording.
-2. Completed 2026-09-23: imported the prototype into
+2. Completed 2026-09-23 and refreshed 2026-09-24: imported the prototype into
    `Process::GeoTrainer QA::Physical::Foundations Pilot::1 Predict` after
    confirming its new note-type name and ID were collision-free. Readback
-   found exactly six new, unreviewed notes/cards; the existing 29 QA cards
-   retained the same membership fingerprint. This added a new type and notes,
-   without editing an existing note-type format. No sync or grading was
-   initiated for Elvis.
+   found the six original notes/cards with their IDs and unreviewed state
+   preserved, plus one new rain-shift note/card. The 51 non-pilot QA cards
+   retained the same membership fingerprint during this refresh. A private
+   before/after recovery export is in
+   `.tmp-anki-geo-extra/private-qa-recovery/20260924-enso-rainfall-qa-refresh`.
+   No sync or grading was initiated for Elvis.
 3. Elvis may inspect a sample or all cards as **QA**, not as scheduled study.
    Record his verdicts as design evidence. Expand only after the prototype
    interaction and content earn approval.

@@ -3,9 +3,10 @@
 Status: active; the next AnkiWeb update is on a manual-QA hold. The revised
 29-card atmospheric, seasonal, ENSO, and Atlantic-overturning batch remains in
 `Process::GeoTrainer QA` as a rejected-as-a-release-set design reference. A
-separate six-card physical-foundations prototype is built locally for QA but
-has not been imported into the live collection or included in the combined
-release package. Elvis will inspect cards, not study them; actual learning
+separate seven-card physical-foundations prototype is live in `Process` for QA
+but excluded from the combined release package. AMOC is out of the core, and
+the old ENSO deck is superseded by the smaller Pacific candidate. Elvis will
+inspect cards, not study them; actual learning
 comes only after an accepted module is merged into GeoTrainer. See
 [the foundations design](curriculum/PHYSICAL_FOUNDATIONS.md) and
 [the earlier QA redesign](curriculum/PHYSICAL_SYSTEMS_QA_REDESIGN.md).
@@ -431,28 +432,41 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   scheduling values; no sync or publication occurred. The empty, childless
   `3 Trace Atlantic Overturning` QA shell was removed with zero cards deleted.
   Recovery is in `.tmp-anki-geo-extra/private-qa-recovery/20260923T150040-0700-physical-qa-refresh`.
-- **Physical foundations pilot. 🟡 Staged for QA in `Process` 2026-09-23.**
-  Six new prerequisite-first inference cards sample air/rain, northern trades,
+- **Physical foundations pilot. 🟡 Refreshed for QA in `Process` 2026-09-24.**
+  Seven prerequisite-first inference cards sample air/rain, northern trades,
   coastal upwelling, South Asian summer flow, the neutral Pacific warm pool,
-  and weaker-trade eastern warming. Their fronts and backs retain the same
+  weaker-trade eastern warming, and the resulting eastward rainfall tendency.
+  Their fronts and backs retain the same
   purpose-built diagram and choice layout; explicit answer labels accompany
   color. The pilot uses a distinct note type/scope and is excluded from the
   combined release APKG. Chromium and WebKit interaction tests pass. The
-  The six unreviewed cards were imported into
+  original six unreviewed cards were imported into
   `Process::GeoTrainer QA::Physical::Foundations Pilot::1 Predict` with a new,
   collision-free note type. A fresh QA note-type import does not edit an
   existing note-type format and was not blocked by the unrelated full-sync
   ledger items. Exact membership checks confirmed the old 29 QA cards were
   untouched. No sync or grading was initiated. See
   `curriculum/PHYSICAL_FOUNDATIONS.md`.
+- **AMOC/ENSO scope cut. 🟡 QA candidate 2026-09-24.** AMOC is dropped from
+  the general-geography core; its two old, unreviewed QA cards remain only as
+  design reference. The four old ENSO state-comparison cards are also held out
+  of release. The new candidate uses the pilot's neutral warm pool and
+  weaker-trade warming cards, plus one rain-shift prediction card. A guarded
+  re-import preserved all six pilot IDs and their unreviewed state, added one
+  card, and left the other 51 `Process::GeoTrainer QA` cards' membership
+  unchanged. No sync, grading, or publication occurred. All nine unaccepted
+  physical QA scopes are now excluded from the combined APKG; the current
+  release-ready build has **77 leaf decks / 2,376 notes**. The previous
+  2,405-note build is historical and must not be uploaded as the next release.
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.
 - **M5 — Release.** AnkiWeb-shaped packaging per workspace conventions (`release/ankiweb.md`,
   `anki-addon-release`), public repo decision, single-deck `geo-trainer-all.apkg`
-  (`make apkg-all`) + `release/screenshots/`. The 2,405-card update is in the
-  workspace's active AnkiWeb queue for existing shared deck `908455862`; uploading
-  it remains a separate Publisher action subject to the AnkiWeb quota.
+  (`make apkg-all`) + `release/screenshots/`. Recompute the Publisher input
+  from accepted scopes only; the old 2,405-note queue artifact is superseded.
+  Uploading to existing shared deck `908455862` remains a separate Publisher
+  action after QA, exact package/render verification, and approval.
 
 ## Relationship to existing projects
 

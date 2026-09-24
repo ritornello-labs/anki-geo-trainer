@@ -3,6 +3,10 @@
 Status: revised again 2026-09-23 and refreshed in Elvis's live
 `Process::GeoTrainer QA` tree. All 29 cards remain QA-only; none is approved
 for release or moved into the daily GeoTrainer tree. No sync was performed.
+On 2026-09-24, AMOC was dropped from the core and the old four-card ENSO
+design was superseded by a smaller foundations-pilot candidate. All nine
+physical QA scopes are now excluded from the combined release APKG; the
+selection ledger below records earlier design decisions, not release approval.
 
 ## Brief and boundary
 

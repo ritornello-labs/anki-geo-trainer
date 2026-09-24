@@ -1,6 +1,9 @@
 # Atlantic overturning curriculum design
 
-Status: redesigned, cross-engine verified, and staged for manual QA 2026-08-06.
+Status: historical QA design. On 2026-09-24, AMOC was dropped from the
+general-geography core because these direction/waypoint drills did not earn
+their review cost. The two unreviewed live notes remain in `Process` as
+design reference and are excluded from the combined release APKG.
 
 ## Curriculum brief
 

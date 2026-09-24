@@ -1,7 +1,10 @@
 # Atmospheric circulation curriculum design
 
-Status: redesigned batch built, cross-engine verified, and staged for manual QA
-on 2026-08-06.
+Status: historical batch built, cross-engine verified, and staged for manual QA
+on 2026-08-06. As of 2026-09-24, none of these scopes is accepted for the
+combined release. AMOC is out of the general-geography core; the old ENSO
+state-comparison deck is superseded by a smaller `physical-foundations` QA
+candidate. The design record below describes what was built, not what ships.
 
 ## Curriculum brief
 

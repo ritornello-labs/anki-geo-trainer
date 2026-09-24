@@ -294,6 +294,7 @@ SCOPE_PACKS = {
         "deck_base": 1_607_416_050,
         "apkg": "geo-trainer-atmospheric-cells.apkg",
         "extra_tags": ["ai-created"],
+        "release_ready": False,
     },
     "atmospheric-pressure-belts": {
         "deck_root": "GeoTrainer::Physical::Atmospheric Circulation",
@@ -303,6 +304,7 @@ SCOPE_PACKS = {
         "deck_base": 1_607_417_050,
         "apkg": "geo-trainer-atmospheric-pressure-belts.apkg",
         "extra_tags": ["ai-created"],
+        "release_ready": False,
     },
     "world-prevailing-winds": {
         "deck_root": "GeoTrainer::Physical::Atmospheric Circulation",
@@ -312,6 +314,7 @@ SCOPE_PACKS = {
         "deck_base": 1_607_418_050,
         "apkg": "geo-trainer-world-prevailing-winds.apkg",
         "extra_tags": ["ai-created"],
+        "release_ready": False,
     },
     "world-jet-streams": {
         "deck_root": "GeoTrainer::Physical::Atmospheric Circulation",
@@ -321,6 +324,7 @@ SCOPE_PACKS = {
         "deck_base": 1_607_419_050,
         "apkg": "geo-trainer-world-jet-streams.apkg",
         "extra_tags": ["ai-created"],
+        "release_ready": False,
     },
     "south-asia-monsoon-winds": {
         "deck_root": "GeoTrainer::Physical::Atmospheric Circulation",
@@ -330,6 +334,7 @@ SCOPE_PACKS = {
         "deck_base": 1_607_420_050,
         "apkg": "geo-trainer-south-asia-monsoon-winds.apkg",
         "extra_tags": ["ai-created"],
+        "release_ready": False,
     },
     "indian-ocean-seasonal-currents": {
         "deck_root": "GeoTrainer::Physical::Ocean Currents",
@@ -339,6 +344,7 @@ SCOPE_PACKS = {
         "deck_base": 1_607_421_050,
         "apkg": "geo-trainer-indian-ocean-seasonal-currents.apkg",
         "extra_tags": ["ai-created"],
+        "release_ready": False,
     },
     "atlantic-overturning": {
         "deck_root": "GeoTrainer::Physical::Ocean Currents",
@@ -348,6 +354,7 @@ SCOPE_PACKS = {
         "deck_base": 1_607_422_050,
         "apkg": "geo-trainer-atlantic-overturning.apkg",
         "extra_tags": ["ai-created"],
+        "release_ready": False,
     },
     "equatorial-pacific-enso": {
         "deck_root": "GeoTrainer::Physical::Ocean–Atmosphere Coupling",
@@ -357,6 +364,7 @@ SCOPE_PACKS = {
         "deck_base": 1_607_423_050,
         "apkg": "geo-trainer-equatorial-pacific-enso.apkg",
         "extra_tags": ["ai-created"],
+        "release_ready": False,
     },
     "physical-foundations": {
         "deck_root": "Process::GeoTrainer QA::Physical::Foundations Pilot",
@@ -597,8 +605,7 @@ def build_scope(scope: str, test_ids: bool = False) -> Path:
 
 
 def build_combined() -> Path:
-    """One shareable APKG holding the whole GeoTrainer tree — the single deck we
-    publish on AnkiWeb so the listing and screenshots cover everything at once."""
+    """One shareable APKG holding accepted GeoTrainer scopes only."""
     all_decks, total = [], 0
     for scope, pack in SCOPE_PACKS.items():
         if pack.get("release_ready") is False:

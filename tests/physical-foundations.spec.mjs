@@ -14,6 +14,7 @@ const CARDS = [
   ["04-south-asian-summer", "Ocean toward land"],
   ["05-neutral-pacific", "Near Indonesia, west"],
   ["06-weak-trades", "Surface water tends to warm"],
+  ["07-el-nino-rainfall-shift", "Central/eastern Pacific"],
 ];
 
 test.describe("physical-foundations pilot", () => {
@@ -58,6 +59,18 @@ test.describe("physical-foundations pilot", () => {
     await expect(page.locator(".gt-bar.gt-hint").first())
       .toHaveText("No choice recorded; inspect the answer");
     await expect(page.locator(".gt-suggest")).toHaveCount(0);
+  });
+
+  test("El Niño rainfall task reveals the rain response only on the back", async ({ page }) => {
+    const prefix = `card-${SCOPE}-reason-07-el-nino-rainfall-shift`;
+    await page.setContent(readFileSync(FIX(`${prefix}-front.html`), "utf-8"));
+    await expect(page.locator(".gt-reason-scene")).toContainText("warm water extends east");
+    await expect(page.locator(".gt-reason-scene")).not.toContainText("more rising air and rain");
+    await page.locator(".gt-reason-choices button", { hasText: "Western Pacific near Indonesia" }).click();
+    await page.setContent(readFileSync(FIX(`${prefix}-back.html`), "utf-8"));
+    await expect(page.locator(".gt-reason-scene")).toContainText("more rising air and rain");
+    await expect(page.locator(".gt-answer-wrong")).toContainText("You ✕");
+    await expect(page.locator(".gt-answer-correct")).toContainText("✓ Correct");
   });
 
   test("choice grid fits a narrow phone viewport", async ({ page }) => {

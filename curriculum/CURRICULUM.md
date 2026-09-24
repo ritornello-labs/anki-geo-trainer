@@ -19,11 +19,14 @@ this order. Each rung assumes comfort with the one before it.
 | 6 | Draw | `4 Draw` | Sketch the outline on a completely blank square; scored on capturing the real shape (a rough enclosing blob fails) |
 | 5 | Trace | `1 Trace` (rivers) | Trace a river's course over a world map; graded by km distance to the true line |
 | 5.5 | Directed trace | `1 Trace` (ocean currents) | Trace a current from origin to destination; route and arrow direction are both graded |
-| 6 | Depth relationship | `3 Learn Atlantic Overturning` | Choose AMOC limb directions and order the pathway on an Atlantic latitude–depth cross-section |
-| 5.5 | Paired directed loops | `1 Trace Cells` | Trace both hemispheric loops of a named atmospheric cell on a curved pole-to-pole cross-section |
-| 5 | Latitude placement | `2 Place Pressure Belts` | Tap every idealized latitude band occupied by the named pressure feature |
-| 5.5 | Directed atmospheric trace | `3–5 Trace` | Trace prevailing winds, broad jet corridors, or a named season's monsoon flow |
-| 6 | Coupled-state comparison | `1 Compare ENSO States` | Compare neutral, El Niño, and La Niña in paired Pacific plan/depth schematics |
+| QA only | Physical-pattern prediction | `Process::…::Foundations Pilot::1 Predict` | Infer broad air, wind, ocean, and Pacific rainfall patterns; not in the release deck |
+
+AMOC and the old four-card ENSO state-comparison deck were dropped from the
+general-geography release plan on 2026-09-24. Their unreviewed notes remain in
+`Process` only as QA reference. The seven-card foundations pilot is also QA-only;
+its neutral-Pacific → weaker-trades → rainfall-shift sequence is a candidate,
+not an accepted study route. The older cell, pressure, wind, jet, monsoon, and
+seasonal-current interactions are likewise still QA-only.
 
 **Redesign (2026-07), after studying the deck for real.** Cut families that were
 trivial or redundant: **Locate** (tapping a labelled shape isn't recall), **Capital**
@@ -36,7 +39,7 @@ place on the blank parent map before graduating to the context-free Draw card. R
 became **Trace-the-course** (drawing a river is interesting; tapping where it is was
 not). Physical scopes now include ranges/deserts (Place + Sketch), lakes (Which +
 Place), tectonic plates (Which + Place + Sketch), direction-aware ocean currents,
-and representation-specific atmospheric circulation. A
+while atmospheric circulation remains a QA research direction. A
 tap-all-neighbors family (F7) was
 retired even earlier (duplicated border decks). The engine keeps the dropped modes
 dormant, so any could return.
@@ -131,15 +134,17 @@ deck-order study already follows the ladder.
   draws an arrow from origin to destination, and a reversed route fails even when
   its position is accurate. Chokepoints and island/archipelago lists remain excluded
   because they do not create good GeoTrainer interactions.
-- **Staged live, AnkiWeb update queued (2026-08-06)**: **29 atmospheric,
+- **Historical QA build (2026-08-06), superseded for release**: **29 atmospheric,
   seasonal, ENSO, and AMOC cards**. The global core has three paired cell cards,
   four pressure-belt placements, six broad-belt prevailing-wind traces, and four
   jet corridors. Six seasonal cards cover South Asian summer/winter monsoon winds
   on a world map and four northern Indian Ocean currents. Four coupled-state cards
   cover neutral, El Niño, La Niña, and a three-state comparison. Two AMOC cards
   test limb directions and pathway order on an Atlantic latitude–depth section.
-  See `ATMOSPHERIC_CIRCULATION.md` and `ATLANTIC_OVERTURNING.md`. Combined target:
-  **85 leaf decks / 2,405 notes**.
+  See `ATMOSPHERIC_CIRCULATION.md` and `ATLANTIC_OVERTURNING.md`. That historical
+  candidate had **85 leaf decks / 2,405 notes**. As of 2026-09-24, the combined
+  release-ready artifact excludes all 29 old physical QA cards and the seven-card
+  foundations pilot: **77 leaf decks / 2,376 notes**. No AnkiWeb upload followed.
 
 ### Adding a scope (for future me)
 
