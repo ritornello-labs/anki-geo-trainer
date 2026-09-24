@@ -359,7 +359,7 @@ SCOPE_PACKS = {
         "extra_tags": ["ai-created"],
     },
     "physical-foundations": {
-        "deck_root": "GeoTrainer::Physical::Foundations",
+        "deck_root": "Process::GeoTrainer QA::Physical::Foundations Pilot",
         "model_root": "GeoTrainer {family} — Physical Foundations",
         "scope_tag": "geotrainer::scope::physical::foundations",
         "model_base": 1_607_424_001,

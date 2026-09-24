@@ -431,16 +431,20 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   scheduling values; no sync or publication occurred. The empty, childless
   `3 Trace Atlantic Overturning` QA shell was removed with zero cards deleted.
   Recovery is in `.tmp-anki-geo-extra/private-qa-recovery/20260923T150040-0700-physical-qa-refresh`.
-- **Physical foundations pilot. 🟡 Built locally 2026-09-23; not staged live.**
+- **Physical foundations pilot. 🟡 Staged for QA in `Process` 2026-09-23.**
   Six new prerequisite-first inference cards sample air/rain, northern trades,
   coastal upwelling, South Asian summer flow, the neutral Pacific warm pool,
   and weaker-trade eastern warming. Their fronts and backs retain the same
   purpose-built diagram and choice layout; explicit answer labels accompany
   color. The pilot uses a distinct note type/scope and is excluded from the
   combined release APKG. Chromium and WebKit interaction tests pass. The
-  workspace full-sync ledger already contains two open schema items; reconcile
-  those before importing another note type into the live collection. See
-  `curriculum/PHYSICAL_FOUNDATIONS.md`. The old 29 QA cards are untouched.
+  The six unreviewed cards were imported into
+  `Process::GeoTrainer QA::Physical::Foundations Pilot::1 Predict` with a new,
+  collision-free note type. A fresh QA note-type import does not edit an
+  existing note-type format and was not blocked by the unrelated full-sync
+  ledger items. Exact membership checks confirmed the old 29 QA cards were
+  untouched. No sync or grading was initiated. See
+  `curriculum/PHYSICAL_FOUNDATIONS.md`.
 - **Demand-driven expansion policy.** Additional country subdivision scopes are not
   part of the core backlog: package them as optional expansion packs only if learner
   demand appears. Elvis would not use them now, so no speculative build is planned.

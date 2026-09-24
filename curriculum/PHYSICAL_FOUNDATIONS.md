@@ -80,10 +80,13 @@ retrievals, with optional applications only when each earns its review cost.
 
 1. Review the six local front/back renders and their factual claims. Fix any
    unfair cue, visual ambiguity, or incorrect causal wording.
-2. Stage the prototype in a distinct `Process` QA subdeck only after the
-   workspace's open full-sync/schema items are reconciled. Import must be
-   snapshot-backed, exact-ID verified, and must not touch the existing 29 QA
-   cards. Do not sync or grade for Elvis.
+2. Completed 2026-09-23: imported the prototype into
+   `Process::GeoTrainer QA::Physical::Foundations Pilot::1 Predict` after
+   confirming its new note-type name and ID were collision-free. Readback
+   found exactly six new, unreviewed notes/cards; the existing 29 QA cards
+   retained the same membership fingerprint. This added a new type and notes,
+   without editing an existing note-type format. No sync or grading was
+   initiated for Elvis.
 3. Elvis may inspect a sample or all cards as **QA**, not as scheduled study.
    Record his verdicts as design evidence. Expand only after the prototype
    interaction and content earn approval.
