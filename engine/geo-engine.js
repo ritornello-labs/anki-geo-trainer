@@ -616,7 +616,11 @@
     if (spec.highlight && built.byId[spec.highlight]) {
       built.byId[spec.highlight].classList.add("gt-target");
     }
-    root.appendChild(svg);
+    // Pinch, wheel and the +/- pill zoom the map; the hand toggle turns a
+    // one-finger drag into a pan. A world-scale tap-the-members drill is
+    // unplayable on a phone without it: Luxembourg is a few pixels wide.
+    var panzoom = attachPanZoom(svg);
+    drawSurface(root, svg, panzoom);
 
     var state = { found: [], wrong: [] };
     saveState(spec.key, bundle.scope, target, state);
