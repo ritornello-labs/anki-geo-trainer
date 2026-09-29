@@ -16,7 +16,7 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parent.parent
 BACKUPS = ROOT / "backups" / "live-imports"
 PACKAGE = ROOT / "dist" / "geo-trainer-all.apkg"
-LIVE_ROOT = "Decks::Geography::GeoTrainer"
+LIVE_ROOT = "Decks::Geography Drills::GeoTrainer"
 IMPORT_ROOT = "GeoTrainer"
 EXPECTED_BEFORE = 2_376
 EXPECTED_ADDED = 26
@@ -275,7 +275,7 @@ def main() -> None:
             raise RuntimeError(f"unexpected imported deck: {source}")
         by_source_deck[source].append(card["cardId"])
     for source, card_ids in sorted(by_source_deck.items()):
-        destination = "Decks::Geography::" + source
+        destination = "Decks::Geography Drills::" + source
         invoke("changeDeck", cards=card_ids, deck=destination)
 
     strays = invoke("findCards", query=f'deck:"{IMPORT_ROOT}"')

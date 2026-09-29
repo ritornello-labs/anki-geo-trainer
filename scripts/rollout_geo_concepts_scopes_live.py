@@ -4,12 +4,12 @@ Imports the per-scope packages in ``dist/`` (new note types and decks only,
 nothing existing is touched), moves the imported cards from the package root
 ``GeoTrainer::Physical::…`` to the staging tree ``Process::Geo Concepts
 Review::GeoTrainer::…`` (Elvis QAs new cards in ``Process``; they graduate to
-``Decks::Geography::GeoTrainer`` only after he approves them), and deletes the
+``Decks::Geography Drills::GeoTrainer`` only after he approves them), and deletes the
 emptied import decks (never ``GeoTrainer::Physical`` or ``GeoTrainer``
 themselves, which hold live QA decks). New note types sync normally.
 
 Read-only by default; ``--apply`` imports and relocates. A snapshot of the
-whole ``Process::Geo Concepts Review`` tree and of ``Decks::Geography::
+whole ``Process::Geo Concepts Review`` tree and of ``Decks::Geography Drills::
 GeoTrainer`` (card -> deck, scheduling) is written before and after, and
 every pre-existing card must come out unchanged.
 """
@@ -26,7 +26,7 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parent.parent
 BACKUPS = ROOT / "backups" / "live-imports"
 LIVE_ROOT = "Process::Geo Concepts Review::GeoTrainer"
-WATCHED = ("Process::Geo Concepts Review", "Decks::Geography::GeoTrainer")
+WATCHED = ("Process::Geo Concepts Review", "Decks::Geography Drills::GeoTrainer")
 IMPORT_ROOT = "GeoTrainer"
 # scope -> (deck leaf under the roots, expected cards, family decks, model label)
 SCOPES = {

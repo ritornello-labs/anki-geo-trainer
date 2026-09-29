@@ -18,7 +18,7 @@ from globe_placement import live_template_payload
 ROOT = Path(__file__).resolve().parent.parent
 ANKI_CONNECT = "http://127.0.0.1:8765"
 MODEL_NAME = "Island Globe — Place"
-DESTINATION = "Decks::Geography::GeoTrainer::World::Islands::1 Globe Placement"
+DESTINATION = "Decks::Geography Drills::GeoTrainer::World::Islands::1 Globe Placement"
 OLD_DECKS = [
     "Process::Island Globe Experiments::1 Placement",
     "Process::Island Globe Experiments::2 Antipodes",

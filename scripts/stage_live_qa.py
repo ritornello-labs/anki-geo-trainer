@@ -17,7 +17,7 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parent.parent
 SNAPSHOTS = ROOT / "backups" / "live-moves"
-DAILY_ROOT = "Decks::Geography::GeoTrainer"
+DAILY_ROOT = "Decks::Geography Drills::GeoTrainer"
 QA_ROOT = "Process::GeoTrainer QA"
 
 TARGETS = (
