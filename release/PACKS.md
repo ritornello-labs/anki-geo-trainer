@@ -24,4 +24,4 @@ World countries includes the accepted Continents silhouette drills alongside the
 | geo-trainer-united-states-subdivisions.apkg | 200 | 200 |
 | geo-trainer-world-countries.apkg | 765 | 765 |
 
-Build: `python scripts/build_apkg.py --public-packs`. Reference/time maps require the Timezone Boundary Builder 2026d input described in `data/SOURCES.md`. Keep the existing share name exactly when updating 908455862; its full-edition assignment is awaiting Elvis’s decision.
+Build: `python scripts/build_apkg.py --public-packs`. Reference/time maps require the Timezone Boundary Builder 2026d input described in `data/SOURCES.md`. Keep the existing share name exactly when updating 908455862; Elvis approved its full-edition assignment on 2026-09-30; its exact original share name still needs verification.
