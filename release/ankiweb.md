@@ -13,7 +13,7 @@ your answer and suggests a button — you still press Anki's own answer keys, so
 scheduling stays 100% Anki.
 
 Works on **Desktop, AnkiMobile (iOS) and AnkiDroid** — all the map code is inlined
-into the note templates, so there are no media downloads and nothing to configure.
+into the note templates, with required map media bundled in the package.
 Light and dark mode included.
 
 ## See it in Anki
@@ -46,17 +46,6 @@ Light and dark mode included.
 - **Trace** (ocean currents) — trace from origin to destination. Your stroke ends
   in an arrow; the back reveals a forgiving route corridor and direction. Drawing
   the right route backwards is still wrong.
-- **Atmospheric circulation** — trace paired hemispheric Hadley, Ferrel, and Polar
-  loops on a curved latitude–altitude cross-section, place global pressure belts
-  without a count hint, and trace prevailing winds in forgiving broad belts plus
-  broad jet-stream corridors.
-- **Seasonal circulation** — paired summer/winter monsoon-wind and northern Indian
-  Ocean current cards name the boreal season and month range explicitly; tracing the
-  other season's direction is wrong.
-- **Atlantic overturning** — choose upper/deep limb directions and order the AMOC
-  pathway on a labelled Atlantic latitude–depth section.
-- **ENSO** — compare neutral, El Niño, and La Niña through Pacific plan/depth
-  schematics showing winds, warm pool, rainfall, thermocline, and upwelling.
 - **Globe placement** — rotate a randomly oriented globe and draw a movable, resizable
   ellipse around a named island or archipelago; coverage, center, and footprint all count.
 
@@ -67,19 +56,9 @@ pan — fine work is easy even on a small screen.
 
 ## What's covered
 
-Continents (countries): **Europe, Africa, Asia, South America, North America,
-Oceania**. Country subdivisions: **US states, Brazil, India, Russia, China, Canada,
-Australia, Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and
-**deserts** (place or sketch them over the continents), **major lakes** (identify
-and place), **tectonic plates** (identify, place, and sketch), **major rivers** (trace the
-course), **ocean currents** (trace route + direction), and **atmospheric circulation**
-(paired cells, pressure belts, winds, jets, and season-aware monsoon flows). A
-depth-aware Atlantic cross-section teaches the **Atlantic Meridional Overturning
-Circulation**, and an equatorial-Pacific scope compares neutral, **El Niño**, and
-**La Niña** states. A 67-card **Islands** scope adds globe placement for island countries
-and dispersed archipelagos. And a **Continents**
-deck: first sketch each one on a blank world map, then
-draw its silhouette from memory without context.
+The full edition contains **2,651 notes / 2,673 cards** across the accepted families. World countries covers the six continental country scopes and continent silhouettes. Subdivision packs cover the United States, Brazil, India, Russia, China, Canada, Australia, Argentina, Mexico, and Indonesia. Physical geography includes rivers, mountain ranges, deserts, lakes, surface ocean currents, plateaus, grasslands, and peninsulas. Plate tectonics covers major and minor plates and named boundaries. Islands & archipelagos contains 67 globe-placement cards. Reference lines & time covers parallels, meridians, the date line, and time-zone geography.
+
+Choose a focused pack or the full edition. Shared scopes retain the same note GUIDs, note-type IDs, and leaf deck IDs, so importing an overlapping pack updates the same notes.
 
 Cards are **tagged by skill and scope** (`geotrainer::skill::…`,
 `geotrainer::scope::…`) so you can build your own study path with saved searches and
