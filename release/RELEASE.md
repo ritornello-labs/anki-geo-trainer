@@ -27,7 +27,7 @@ review in the installed client remains pending.
 1. **Packaging: one shared deck — superseded 2026-09-30.** Elvis: GeoTrainer
    "grew way too big"; split it into modular decks, and consider also shipping a
    full edition with everything. Not designed yet: the pack map, whether listing
-    becomes the full edition, and per-pack listings, screenshots and
+   `908455862` becomes the full edition, and per-pack listings, screenshots and
    GitHub releases are open. Every scope already has its own deterministic model,
    deck and GUID space and builds its own APKG, so packs and the full edition can
    share note types and notes (installing both updates in place, no duplicates).
