@@ -31,6 +31,10 @@ review in the installed client remains pending.
    GitHub releases are open. Every scope already has its own deterministic model,
    deck and GUID space and builds its own APKG, so packs and the full edition can
    share note types and notes (installing both updates in place, no duplicates).
+   Decided 2026-09-30 (Elvis): packs are World countries; one pack per country
+   for Country subdivisions; Physical geography; Plate tectonics; Reference lines
+   & time; **Islands & archipelagos** (not "Globe placement"); plus the full
+   edition. Elvis ships it and updates ritornello.dev and AnkiWeb himself.
    The original decision, for the record: (Elvis, 2026-07-06) — ship a single
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
