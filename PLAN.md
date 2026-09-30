@@ -423,7 +423,7 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
   Sketch, three microplates Place only; nested under Tectonic Plates) and named
   plate boundaries (17, Trace via the river mode: a boundary is a line, so
   there is nothing to drag) followed the first two below. IDs
-  `1607426xxx`–`1607428xxx`. **37 scopes, 2,624 cards.**
+  `1607426xxx`–`1607428xxx`. **37 scopes, 2,624 cards.** QA'd by Elvis in `Process` and graduated 2026-09-29 into `Decks::Geography Drills::GeoTrainer::Physical` (leaf new limit 0).
 - **Plateaus and grasslands from world-geography-concepts. ✅ Built and
   browser-verified 2026-09-23.** Two Place + Sketch scopes, **11 plateaus,
   highlands & basins** and **9 plains, grasslands & steppes**, whose polygons are

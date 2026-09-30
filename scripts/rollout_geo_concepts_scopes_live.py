@@ -4,7 +4,9 @@ Imports the per-scope packages in ``dist/`` (new note types and decks only,
 nothing existing is touched), moves the imported cards from the package root
 ``GeoTrainer::Physical::…`` to the staging tree ``Process::Geo Concepts
 Review::GeoTrainer::…`` (Elvis QAs new cards in ``Process``; they graduate to
-``Decks::Geography::GeoTrainer`` only after he approves them), and deletes the
+``Decks::Geography Drills::GeoTrainer`` only after he approves them, done for
+these five scopes on 2026-09-29 by world-geography-concepts'
+``scripts/graduate_to_geography_drills.py``), and deletes the
 emptied import decks (never ``GeoTrainer::Physical`` or ``GeoTrainer``
 themselves, which hold live QA decks). New note types sync normally.
 
