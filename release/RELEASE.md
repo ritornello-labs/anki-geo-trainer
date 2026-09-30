@@ -24,7 +24,14 @@ review in the installed client remains pending.
 
 ## Decisions
 
-1. **Packaging: one shared deck.** Decided (Elvis, 2026-07-06) — ship a single
+1. **Packaging: one shared deck — superseded 2026-09-30.** Elvis: GeoTrainer
+   "grew way too big"; split it into modular decks, and consider also shipping a
+   full edition with everything. Not designed yet: the pack map, whether listing
+    becomes the full edition, and per-pack listings, screenshots and
+   GitHub releases are open. Every scope already has its own deterministic model,
+   deck and GUID space and builds its own APKG, so packs and the full edition can
+   share note types and notes (installing both updates in place, no duplicates).
+   The original decision, for the record: (Elvis, 2026-07-06) — ship a single
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
    (**86 leaf decks, 2,472 notes, 63.6 MB** — well under AnkiWeb's per-deck limit).
