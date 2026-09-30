@@ -1,0 +1,131 @@
+{
+  "status": "passed",
+  "full_notes": 2651,
+  "full_cards": 2673,
+  "checks": [
+    "disjoint packs equal full edition",
+    "GUID, model ID, leaf deck ID, fields and templates identical across editions",
+    "all held scopes absent",
+    "every packaged media file nonempty"
+  ],
+  "packs": [
+    {
+      "artifact": "geo-trainer-argentina-subdivisions.apkg",
+      "notes": 96,
+      "cards": 96,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-australia-subdivisions.apkg",
+      "notes": 35,
+      "cards": 35,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-brazil-subdivisions.apkg",
+      "notes": 108,
+      "cards": 108,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-canada-subdivisions.apkg",
+      "notes": 52,
+      "cards": 52,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-china-subdivisions.apkg",
+      "notes": 124,
+      "cards": 124,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-india-subdivisions.apkg",
+      "notes": 140,
+      "cards": 140,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-indonesia-subdivisions.apkg",
+      "notes": 131,
+      "cards": 131,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-islands-archipelagos.apkg",
+      "notes": 67,
+      "cards": 67,
+      "models": 1,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-mexico-subdivisions.apkg",
+      "notes": 128,
+      "cards": 128,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-physical-geography.apkg",
+      "notes": 284,
+      "cards": 284,
+      "models": 14,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-plate-tectonics.apkg",
+      "notes": 132,
+      "cards": 132,
+      "models": 6,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-reference-lines-time.apkg",
+      "notes": 56,
+      "cards": 78,
+      "models": 2,
+      "media": 32
+    },
+    {
+      "artifact": "geo-trainer-russia-subdivisions.apkg",
+      "notes": 333,
+      "cards": 333,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-united-states-subdivisions.apkg",
+      "notes": 200,
+      "cards": 200,
+      "models": 4,
+      "media": 0
+    },
+    {
+      "artifact": "geo-trainer-world-countries.apkg",
+      "notes": 765,
+      "cards": 765,
+      "models": 26,
+      "media": 0
+    }
+  ],
+  "real_anki": {
+    "status": "passed",
+    "backend": "Anki 25.09 in existing disposable Docker workbench",
+    "imports": [
+      "full edition",
+      "World countries",
+      "Reference lines & time"
+    ],
+    "notes_after_overlapping_imports": 2651,
+    "cards_after_overlapping_imports": 2673,
+    "rendered_sample_cards": 6,
+    "limitation": "built-in smoke renders template HTML; final interactive listing captures remain pending"
+  }
+}

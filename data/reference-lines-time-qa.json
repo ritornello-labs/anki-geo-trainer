@@ -1,0 +1,222 @@
+[
+  {
+    "key": "01-equator-name",
+    "stage": 1,
+    "mode": "recall",
+    "prompt": "What is the 0° latitude line that divides Earth into Northern and Southern Hemispheres called?",
+    "answer": "Equator",
+    "grading": "short",
+    "source": "https://oceanservice.noaa.gov/facts/latitude.html"
+  },
+  {
+    "key": "02-latitude",
+    "stage": 1,
+    "mode": "recall",
+    "prompt": "Which coordinate measures how far north or south a place is from the Equator?",
+    "answer": "Latitude",
+    "grading": "short",
+    "source": "https://oceanservice.noaa.gov/facts/latitude.html"
+  },
+  {
+    "key": "03-longitude",
+    "stage": 1,
+    "mode": "recall",
+    "prompt": "Which coordinate measures how far east or west a place is from a pole-to-pole reference line?",
+    "answer": "Longitude",
+    "grading": "short",
+    "source": "https://pubs.usgs.gov/bul/1532/report.pdf"
+  },
+  {
+    "key": "04-equator-place",
+    "stage": 1,
+    "mode": "line",
+    "prompt": "Place the Equator on the globe.",
+    "axis": "lat",
+    "target": 0,
+    "source": "https://oceanservice.noaa.gov/facts/latitude.html"
+  },
+  {
+    "key": "05-greenwich-name",
+    "stage": 1,
+    "mode": "recall",
+    "prompt": "What is the 0° longitude reference line called?",
+    "answer": "Prime meridian, also called the Greenwich meridian",
+    "grading": "short",
+    "source": "https://pubs.usgs.gov/bul/1532/report.pdf"
+  },
+  {
+    "key": "06-greenwich-place",
+    "stage": 1,
+    "mode": "line",
+    "prompt": "Place the Greenwich meridian on the globe.",
+    "axis": "lon",
+    "target": 0,
+    "source": "https://pubs.usgs.gov/bul/1532/report.pdf"
+  },
+  {
+    "key": "07-tropics-role",
+    "stage": 2,
+    "mode": "recall",
+    "prompt": "What is special about the belt between the Tropics of Cancer and Capricorn?",
+    "answer": "The Sun can be directly overhead at local solar noon at some time of year.",
+    "grading": "self",
+    "source": "https://science.nasa.gov/solar-system/skywatching/night-sky-network/tropical-solstice-shadows/",
+    "figure": "tropical-belt"
+  },
+  {
+    "key": "08-tilt",
+    "stage": 2,
+    "mode": "recall",
+    "prompt": "Why are the tropics near 23.5° north and south?",
+    "answer": "Earth’s axis is tilted about 23.5°, setting the Sun’s farthest overhead latitudes.",
+    "grading": "self",
+    "source": "https://www.nesdis.noaa.gov/node/18156"
+  },
+  {
+    "key": "09-cancer-place",
+    "stage": 2,
+    "mode": "line",
+    "prompt": "Place the Tropic of Cancer on the globe.",
+    "axis": "lat",
+    "target": 23.5,
+    "source": "https://www.nesdis.noaa.gov/node/18156"
+  },
+  {
+    "key": "10-capricorn-place",
+    "stage": 2,
+    "mode": "line",
+    "prompt": "Place the Tropic of Capricorn on the globe.",
+    "axis": "lat",
+    "target": -23.5,
+    "source": "https://science.nasa.gov/solar-system/skywatching/night-sky-network/tropical-solstice-shadows/"
+  },
+  {
+    "key": "11-polar-geometry",
+    "stage": 2,
+    "mode": "recall",
+    "prompt": "Why are the polar circles near 66.5° north and south?",
+    "answer": "They lie at about 90° minus Earth’s 23.5° axial tilt.",
+    "grading": "self",
+    "source": "https://www.nesdis.noaa.gov/node/18156",
+    "figure": "polar-circles"
+  },
+  {
+    "key": "12-polar-day-night",
+    "stage": 2,
+    "mode": "recall",
+    "prompt": "What unusual day or night can occur at and beyond a polar circle?",
+    "answer": "At least one roughly 24-hour period of daylight or darkness each year.",
+    "grading": "self",
+    "source": "https://www.nesdis.noaa.gov/about/k-12-education/optical-phenomena/what-solstice",
+    "figure": "polar-circles"
+  },
+  {
+    "key": "13-arctic-place",
+    "stage": 2,
+    "mode": "line",
+    "prompt": "Place the Arctic Circle on the globe.",
+    "axis": "lat",
+    "target": 66.5,
+    "source": "https://www.nesdis.noaa.gov/about/k-12-education/optical-phenomena/what-solstice"
+  },
+  {
+    "key": "14-antarctic-place",
+    "stage": 2,
+    "mode": "line",
+    "prompt": "Place the Antarctic Circle on the globe.",
+    "axis": "lat",
+    "target": -66.5,
+    "source": "https://www.nesdis.noaa.gov/about/k-12-education/optical-phenomena/what-solstice"
+  },
+  {
+    "key": "15-antimeridian-place",
+    "stage": 3,
+    "mode": "line",
+    "prompt": "Place the 180° meridian on the globe.",
+    "axis": "lon",
+    "target": 180,
+    "source": "https://aa.usno.navy.mil/faq/international_date"
+  },
+  {
+    "key": "16-date-line-role",
+    "stage": 3,
+    "mode": "recall",
+    "prompt": "How does the International Date Line differ from the 180° meridian?",
+    "answer": "It separates consecutive calendar dates and runs near 180°, but bends around territories.",
+    "grading": "self",
+    "source": "https://aa.usno.navy.mil/faq/international_date",
+    "figure": "date-line-role"
+  },
+  {
+    "key": "17-date-line-crossing",
+    "stage": 3,
+    "mode": "recall",
+    "prompt": "What calendar adjustment is made when crossing the International Date Line eastward versus westward?",
+    "answer": "Eastward: subtract one day. Westward: add one day.",
+    "grading": "self",
+    "source": "https://aa.usno.navy.mil/faq/international_date",
+    "figure": "date-line-crossing"
+  },
+  {
+    "key": "17a-utc-expansion",
+    "stage": 4,
+    "mode": "recall",
+    "prompt": "What does UTC stand for?",
+    "answer": "Coordinated Universal Time",
+    "grading": "short",
+    "source": "https://www.bipm.org/en/time-metrology"
+  },
+  {
+    "key": "17b-utc-letters",
+    "stage": 4,
+    "mode": "recall",
+    "prompt": "Why is Coordinated Universal Time abbreviated UTC rather than CUT?",
+    "answer": "The ITU chose one abbreviation for all languages, avoiding English CUT and French TUC.",
+    "grading": "self",
+    "source": "https://www.nist.gov/pml/time-and-frequency-division/how-utcnist-related-coordinated-universal-time-utc-international"
+  },
+  {
+    "key": "17c-utc-1972",
+    "stage": 4,
+    "mode": "recall",
+    "prompt": "What changed when modern UTC took effect in 1972?",
+    "answer": "It began using atomic seconds with leap-second adjustments to stay close to time based on Earth’s rotation.",
+    "grading": "self",
+    "source": "https://www.itu.int/net/ITU-R/index.asp?category=conferences&lang=en&rlink=itu-bipm-workshop-13-background"
+  },
+  {
+    "key": "17d-utc-standard",
+    "stage": 4,
+    "mode": "recall",
+    "prompt": "How is UTC formally defined and maintained internationally?",
+    "answer": "The General Conference on Weights and Measures adopts its formal definition; the BIPM computes and disseminates the reference time scale.",
+    "grading": "self",
+    "source": "https://www.bipm.org/en/time-metrology"
+  },
+  {
+    "key": "18-utc-minus-three",
+    "stage": 4,
+    "mode": "recall",
+    "prompt": "What does a fixed UTC−3 offset mean for the local clock?",
+    "answer": "The local clock is three hours behind UTC.",
+    "grading": "short",
+    "source": "https://www.nist.gov/pml/time-and-frequency-division/how-utcnist-related-coordinated-universal-time-utc-international"
+  },
+  {
+    "key": "19-utc-conversion",
+    "stage": 4,
+    "mode": "clock",
+    "prompt": "Convert between UTC and UTC−3. Include any change of day.",
+    "randomized": true,
+    "source": "https://www.nist.gov/pml/time-and-frequency-division/how-utcnist-related-coordinated-universal-time-utc-international"
+  },
+  {
+    "key": "20-civil-time",
+    "stage": 4,
+    "mode": "recall",
+    "prompt": "What sets a place’s legal UTC offset, and what role does longitude play?",
+    "answer": "Governments set civil time-zone rules, sometimes including daylight saving. Longitude only suggests approximate solar time.",
+    "grading": "self",
+    "source": "https://www.nist.gov/pml/time-and-frequency-division/local-time-faqs"
+  }
+]

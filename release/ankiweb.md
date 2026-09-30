@@ -93,3 +93,5 @@ Maps are rendered primarily from [Natural Earth](https://www.naturalearthdata.co
 public-domain data. Tectonic plates use the PB2002-derived GeoJSON credited in the
 repository's data-source notes; current routes are schematic adaptations of NOAA
 education maps. Built with the open-source generator in the repository above.
+
+Support continued development: [ritornello.dev/support](https://ritornello.dev/support).

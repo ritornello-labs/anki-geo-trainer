@@ -108,3 +108,7 @@ map and always names the boreal season and month range.
 - [NOAA JetStream: Global atmospheric circulations](https://prod-01-alb-www-noaa.woc.noaa.gov/jetstream/global/global-atmospheric-circulations)
 - [NOAA NESDIS: What is the jet stream?](https://www.nesdis.noaa.gov/about/k-12-education/atmosphere/what-the-jet-stream)
 - [NOAA NESDIS: What is a monsoon?](https://www.nesdis.noaa.gov/about/k-12-education/severe-weather/what-monsoon)
+
+## Reference lines and civil time
+
+Reference Lines & Time retains the accepted deterministic model, deck, and note identities. Its manifest records each factual source. Civil-time map geometry comes from [Timezone Boundary Builder 2026d](https://github.com/evansiroky/timezone-boundary-builder/releases/tag/2026d), licensed ODbL. IANA tzdb supplies time-zone rules. The atlas is a curated September 2026 snapshot, with explicit standard/daylight conditions and approximate local-time practice marked. Generated maps must accompany the atlas APKG.

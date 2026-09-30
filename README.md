@@ -131,3 +131,5 @@ by `scripts/droid_ui.py` / `scripts/droid_cdp.py`.
   day-seeded fallback for the random-dot family.
 - Drags use pointer events *plus* a non-passive touch fallback because AnkiDroid's
   WebView fires `pointercancel` mid-gesture.
+
+Support continued development: [ritornello.dev/support](https://ritornello.dev/support).

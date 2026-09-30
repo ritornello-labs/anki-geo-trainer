@@ -5,8 +5,7 @@ Status: the initial version was submitted to AnkiWeb on 2026-07-15. The contextu
 personal collection. The combined update is queued for existing shared deck
 `908455862` but has not yet been uploaded. The 29-card atmospheric, seasonal, ENSO,
 and Atlantic-overturning batch is temporarily staged under `Process::GeoTrainer QA`
-for manual review; restore it to the normal GeoTrainer tree before the Publisher
-export.
+for manual review; exclude it from every public pack and the full edition.
 
 Verification status (2026-09-22, combined update): all 32 scopes are covered by
 the cross-engine suite (Chromium + WebKit): **362 passed / 26 intentional skips**.
@@ -39,9 +38,8 @@ review in the installed client remains pending.
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
    (**86 leaf decks, 2,472 notes, 63.6 MB** — well under AnkiWeb's per-deck limit).
-2. **Ship everything.** All 32 scopes are import-verified; the single deck includes them
-   all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
-   problem for a combined deck.)
+2. **Accepted families only (2026-09-30).** Public packs and the full edition exclude all physical-systems QA scopes and the foundations prototype. The accepted Reference Lines & Time curriculum and the five accepted physical/tectonic geometry scopes are included. No personal collection changes are part of publication. See [PACKS.md](PACKS.md) and [PACK_VERIFICATION.json](PACK_VERIFICATION.json).
+
 
 ## Release record
 
