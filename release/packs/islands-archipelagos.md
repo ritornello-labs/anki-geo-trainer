@@ -4,6 +4,10 @@ tags: geography maps interactive
 support_url: https://github.com/ritornello-labs/anki-geo-trainer
 ---
 
+<img src="https://ritornello.dev/media/brand/listing-banner-v1.png" alt="Ritornello" width="700">
+
+[Explore all Ritornello decks and add-ons](https://ritornello.dev/).
+
 Rotate a globe and place an adjustable ellipse around an island or archipelago. Location and extent both matter.
 
 **67 notes / 67 cards.** This focused pack is also included in GeoTrainer’s full edition. Shared scopes use the same model IDs, leaf deck IDs, and note GUIDs: overlapping imports update the same notes.

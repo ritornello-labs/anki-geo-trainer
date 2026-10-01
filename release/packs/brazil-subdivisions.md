@@ -4,6 +4,10 @@ tags: geography maps interactive
 support_url: https://github.com/ritornello-labs/anki-geo-trainer
 ---
 
+<img src="https://ritornello.dev/media/brand/listing-banner-v1.png" alt="Ritornello" width="700">
+
+[Explore all Ritornello decks and add-ons](https://ritornello.dev/).
+
 Recall Brazil subdivisions through borderless identification, silhouette placement, contextual sketching, and outline drawing.
 
 **108 notes / 108 cards.** This focused pack is also included in GeoTrainer’s full edition. Shared scopes use the same model IDs, leaf deck IDs, and note GUIDs: overlapping imports update the same notes.
