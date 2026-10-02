@@ -28,10 +28,6 @@ Light and dark mode included.
 
 ![Trace the Amazon from memory](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/gallery-02.png)
 
-[3.75-second Place MP4](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/place.mp4)
-
-[3-second Amazon Trace MP4](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/river.mp4)
-
 ## Task families
 
 - **Which one?** — a dot lands inside a region (a different spot each review) on a
