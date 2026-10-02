@@ -1,6 +1,6 @@
 # GeoTrainer public packs
 
-Built 2026-09-30 from the sanitized public source. Publication is pending real-Anki QA, listing-image approval, and the existing-listing decision.
+Built 2026-09-30 from the sanitized public source. Pack identity/union checks and real-Anki overlapping import smoke passed. Full-edition GIF listing batch is prepared for image approval. Elvis approved the existing listing’s full-edition assignment on September 30; original owner share-name verification and Publisher staging remain.
 
 The full edition contains 2,651 notes / 2,673 cards. Every pack uses the same scope model IDs, leaf deck IDs, GUIDs, fields, and templates as the full edition. The eight physical-systems QA scopes and the foundations prototype are excluded.
 

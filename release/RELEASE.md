@@ -1,5 +1,11 @@
 # Release plan (M5)
 
+## Current publication pass — October 2, 2026
+
+The accepted full edition and 15 focused packs are built: 2,651 notes / 2,673 cards, with stable shared model/deck/GUID identities. QA physical-systems scopes and foundations are excluded. Elvis approved 908455862 as the full edition. Its original owner share-name still must be verified before Publisher staging and submission. Seven authentic real-Anki game GIFs are proposed as the next image batch, with no video links; see CAPTURE_PROVENANCE_2026-10-02.json. The only capture-template difference is a pan/zoom fix in the Reference Lines & Time tap-members handler; none of the seven demonstrated games invokes it. That drill needs its own current recording.
+
+The dated records below describe earlier releases; current pack details are in PACKS.md and PACK_VERIFICATION.json.
+
 Status: the initial version was submitted to AnkiWeb on 2026-07-15. The contextual
 **Sketch** family and the physical-geography expansion are installed in the live
 personal collection. The combined update is queued for existing shared deck

@@ -22,11 +22,19 @@ Light and dark mode included.
 
 ## See it in Anki
 
-![GeoTrainer place-the-shape review](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/preview.gif)
+![Identify the country under a dot on a borderless map](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/point.gif)
 
-![Place the Libyan Desert on a borderless map](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/gallery-01.png)
+![Place the Libyan Desert by dragging its silhouette](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/place.gif)
 
-![Trace the Amazon from memory](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/gallery-02.png)
+![Sketch a region in its geographic context](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/sketch.gif)
+
+![Draw an outline from memory and compare it with the answer](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/draw.gif)
+
+![Trace the Amazon from memory](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/river.gif)
+
+![Trace an ocean current with its direction](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/current.gif)
+
+![Place an island group on a rotating globe](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/globe.gif)
 
 ## Task families
 
