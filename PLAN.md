@@ -514,3 +514,7 @@ Fresh China pack: 31 province-level divisions / 124 notes and cards across ident
 ### China approved and Publisher ready — 2026-10-04
 
 Elvis approved the complete China listing and four actual-Anki GIFs. Immutable media URLs serve the exact approved bytes. Only the obsolete isolated Publisher China scope was replaced; 124 notes/cards match source GUIDs/fields/models/templates/CSS and leaf deck IDs. All other Publisher content is hash-identical. Previously approved full Upload completed, normal/final sync clear, native integrity/readback passed. No personal Anki changes. Submission and canonical archive verification follow.
+
+### China component submitted — 2026-10-04
+
+Approved 31-division / 124-card China listing submitted through anki-addon-release at `315064803`, exact source share name `GeoTrainer::World::Asia::China`, owner verified with public review pending. Six of 20 deck shares used. Actual AnkiWeb-delivered APKG SHA-256 `f95e481da79786e168a24e322e64c80f8dc9f28d6bfa4ee329486a9a427b1a01`; content/identities exactly match the Publisher export and native component/full-candidate/component imports preserve identities with zero duplicates. The full candidate remains compatibility evidence only. Canonical archive/tag: `v2026.10.04`, `geo-trainer-china-subdivisions.apkg`. Personal Anki unchanged.

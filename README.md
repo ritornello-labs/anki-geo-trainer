@@ -1,3 +1,5 @@
+[China Provinces & Regions on AnkiWeb](https://ankiweb.net/shared/info/315064803) — **31 mainland province-level divisions, 124 cards**: 22 provinces, five autonomous regions and four municipalities. Hong Kong, Macao and Taiwan are excluded. Submitted October 4; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-china-subdivisions.apkg) or [see all four Sichuan demos](https://ritornello.dev/#geo-trainer-china-subdivisions).
+
 [Brazilian States on AnkiWeb](https://ankiweb.net/shared/info/834723592) — **26 states plus the Federal District, 108 cards**, with the same four spatial recall games. Submitted October 3; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-brazil-subdivisions.apkg) or [see all four Bahia demos](https://ritornello.dev/#geo-trainer-brazil-states).
 
 # GeoTrainer

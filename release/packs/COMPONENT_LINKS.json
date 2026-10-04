@@ -18,5 +18,13 @@
     "release": "v2026.10.03",
     "artifact": "geo-trainer-brazil-subdivisions.apkg",
     "public_review_pending": true
+  },
+  "china-subdivisions": {
+    "title": "GeoTrainer: China Provinces & Regions",
+    "ankiweb_id": "315064803",
+    "ankiweb_url": "https://ankiweb.net/shared/info/315064803",
+    "release": "v2026.10.04",
+    "artifact": "geo-trainer-china-subdivisions.apkg",
+    "public_review_pending": true
   }
 }
