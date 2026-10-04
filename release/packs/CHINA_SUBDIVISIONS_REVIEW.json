@@ -1,0 +1,191 @@
+{
+  "notes": 124,
+  "cards": 124,
+  "sha256": "cef155d182367feceaa95453790ec4aa5289e6ebbc144d2f445e744ef9bc8c6a",
+  "regions": [
+    [
+      "CN-AH",
+      "Anhui"
+    ],
+    [
+      "CN-BJ",
+      "Beijing"
+    ],
+    [
+      "CN-CQ",
+      "Chongqing"
+    ],
+    [
+      "CN-FJ",
+      "Fujian"
+    ],
+    [
+      "CN-GD",
+      "Guangdong"
+    ],
+    [
+      "CN-GS",
+      "Gansu"
+    ],
+    [
+      "CN-GX",
+      "Guangxi"
+    ],
+    [
+      "CN-GZ",
+      "Guizhou"
+    ],
+    [
+      "CN-HA",
+      "Henan"
+    ],
+    [
+      "CN-HB",
+      "Hubei"
+    ],
+    [
+      "CN-HE",
+      "Hebei"
+    ],
+    [
+      "CN-HI",
+      "Hainan"
+    ],
+    [
+      "CN-HL",
+      "Heilongjiang"
+    ],
+    [
+      "CN-HN",
+      "Hunan"
+    ],
+    [
+      "CN-JL",
+      "Jilin"
+    ],
+    [
+      "CN-JS",
+      "Jiangsu"
+    ],
+    [
+      "CN-JX",
+      "Jiangxi"
+    ],
+    [
+      "CN-LN",
+      "Liaoning"
+    ],
+    [
+      "CN-NM",
+      "Inner Mongol"
+    ],
+    [
+      "CN-NX",
+      "Ningxia"
+    ],
+    [
+      "CN-QH",
+      "Qinghai"
+    ],
+    [
+      "CN-SC",
+      "Sichuan"
+    ],
+    [
+      "CN-SD",
+      "Shandong"
+    ],
+    [
+      "CN-SH",
+      "Shanghai"
+    ],
+    [
+      "CN-SN",
+      "Shaanxi"
+    ],
+    [
+      "CN-SX",
+      "Shanxi"
+    ],
+    [
+      "CN-TJ",
+      "Tianjin"
+    ],
+    [
+      "CN-XJ",
+      "Xinjiang"
+    ],
+    [
+      "CN-XZ",
+      "Xizang"
+    ],
+    [
+      "CN-YN",
+      "Yunnan"
+    ],
+    [
+      "CN-ZJ",
+      "Zhejiang"
+    ]
+  ],
+  "models": {
+    "1607400001": "GeoTrainer Which Province \u2014 China Provinces",
+    "1607400002": "GeoTrainer Place \u2014 China Provinces",
+    "1607400005": "GeoTrainer Sketch \u2014 China Provinces",
+    "1607400003": "GeoTrainer Draw \u2014 China Provinces"
+  },
+  "used_decks": {
+    "1607400050": "GeoTrainer::World::Asia::China::1 Which Province",
+    "1607400051": "GeoTrainer::World::Asia::China::2 Place",
+    "1607400052": "GeoTrainer::World::Asia::China::4 Draw",
+    "1607400054": "GeoTrainer::World::Asia::China::3 Sketch"
+  },
+  "title": "GeoTrainer: China Provinces & Regions",
+  "units": 31,
+  "tasks": 4,
+  "coverage": "22 provinces, five autonomous regions, four municipalities; Hong Kong, Macao and Taiwan excluded",
+  "demo": "Sichuan identification, native placement, map sketch and outline drawing",
+  "approval": "Elvis: Please proceed (2026-10-04)",
+  "images": [
+    {
+      "file": "point.gif",
+      "bytes": 69812,
+      "sha256": "51c74c470973018488009a3fdba9030d414b15f652ef15d95ceb0ba104ffcf3c",
+      "frames": 54,
+      "origin": "anki-addon-workbench actual Anki 25.09 disposable Docker/Xvfb recording",
+      "distinct_frames": 4
+    },
+    {
+      "file": "place.gif",
+      "bytes": 123169,
+      "sha256": "fa5286417fdef7f58010711e85ffc284c670b4a3d4f74b49fef81ea3d045ddcf",
+      "frames": 66,
+      "origin": "anki-addon-workbench actual Anki 25.09 disposable Docker/Xvfb recording",
+      "distinct_frames": 29
+    },
+    {
+      "file": "sketch.gif",
+      "bytes": 88379,
+      "sha256": "d4fd08258aaaf8dbf29fd9118fd0e3f5dd42219a8ff45f7c50a0e4de95843de9",
+      "frames": 114,
+      "origin": "anki-addon-workbench actual Anki 25.09 disposable Docker/Xvfb recording",
+      "distinct_frames": 95
+    },
+    {
+      "file": "draw.gif",
+      "bytes": 106255,
+      "sha256": "30b51833f58637ed3d4eba66f56ff796c5940cafcf189598e0e5ac9611560610",
+      "frames": 204,
+      "origin": "anki-addon-workbench actual Anki 25.09 disposable Docker/Xvfb recording",
+      "distinct_frames": 137
+    },
+    {
+      "file": "place-back.png",
+      "bytes": 87738,
+      "sha256": "9a81121b0ad1529dcd17da75ff5de4af02acea88b7fbc72a718c497e5da52156",
+      "origin": "actual-Anki placement answer frame, reduced-motion poster"
+    }
+  ],
+  "personal_collection_accessed": false,
+  "render_verification": "Four distinct real-Anki game demos reviewed; placement ~1 km off, map sketch 1.6% offset, outline 1.2% offset; all reveal answer feedback."
+}

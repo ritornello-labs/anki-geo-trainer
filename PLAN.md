@@ -490,3 +490,7 @@ component/full/component import verification preserved all scoped identities
 and created zero duplicate cards. AnkiWeb public review remains pending.
 Fresh Bahia game gallery and canonical download links are deployed with the
 standard support page. No personal Anki collection changes.
+
+### China component submitted — 2026-10-04
+
+Approved 31-division / 124-card China listing submitted through anki-addon-release at `315064803`, exact source share name `GeoTrainer::World::Asia::China`, owner verified with public review pending. Six of 20 deck shares used. Actual AnkiWeb-delivered APKG SHA-256 `f95e481da79786e168a24e322e64c80f8dc9f28d6bfa4ee329486a9a427b1a01`; content/identities exactly match the Publisher export and native component/full-candidate/component imports preserve identities with zero duplicates. The full candidate remains compatibility evidence only. Canonical archive/tag: `v2026.10.04`, `geo-trainer-china-subdivisions.apkg`. Personal Anki unchanged.
