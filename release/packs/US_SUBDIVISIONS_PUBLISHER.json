@@ -4,7 +4,7 @@
   "cards": 200,
   "outside_us_unchanged_sha256": "9ebbcdc8d83184e8258b05052bc620cd1a458a3640dec9ce152eb7fae6ee762e",
   "source_guid_fields_model_and_leaf_deck_ids": "exact-match",
-  "full_sync_required": true,
+  "full_sync_required": false,
   "export_sha256": "cbf822f0a493c11dfc3db68260198c4f4f1181c79bd2769e327dff83e1115d8f",
   "export_bytes": 1243542,
   "status": "submitted-pending-public-review",
@@ -30,5 +30,6 @@
   },
   "delivered_sha256": "a4e942b5686a56b3ab501397e99d484e3ff224ede308e9bcb9f513a5f6441f8a",
   "delivered_bytes": 1242024,
-  "canonical_archive": "Actual AnkiWeb-delivered APKG, byte-identical at GitHub; server repackaging changes ZIP/collection metadata from the local Publisher export. GUIDs, model/deck IDs, fields, card associations, templates and CSS match."
+  "canonical_archive": "Actual AnkiWeb-delivered APKG, byte-identical at GitHub; server repackaging changes ZIP/collection metadata from the local Publisher export. GUIDs, model/deck IDs, fields, card associations, templates and CSS match.",
+  "full_sync_was_required": true
 }
