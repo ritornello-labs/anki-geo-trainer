@@ -17,5 +17,18 @@
     "export_bytes": 28288933,
     "export_sha256": "4650ef82286c7c1e44312418328216a09335a49a69ac43d2fe8cb6e81d132d58",
     "source_artifact_sha256": "e569e7b9ba411077c71f918bc87236c70bcd9a7928b29d0e60ec3e88fe864258"
+  },
+  "sync": {
+    "profile": "isolated Publisher",
+    "direction": "full-upload",
+    "approval": "Prior explicit isolated-Publisher full Upload approval; approved Physical Geography publication (2026-10-04)",
+    "full_upload_completed": true,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 404,
+    "cards": 963,
+    "source_content_unchanged": true,
+    "all_publisher_note_content_and_card_identity_unchanged": true,
+    "integrity": "ok"
   }
 }
