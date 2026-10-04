@@ -1,0 +1,142 @@
+{
+  "title": "GeoTrainer: Reference Lines & Time",
+  "status": "prepared-awaiting-image-approval",
+  "notes": 56,
+  "cards": 78,
+  "reference_drill_notes_cards": 24,
+  "atlas_notes": 32,
+  "atlas_cards": 54,
+  "atlas_abbreviation_cards": 12,
+  "leaf_decks": 10,
+  "models": {
+    "1607431001": "Reference Lines & Time \u2014 QA v2",
+    "1607432001": "Time Zone Atlas \u2014 QA v1"
+  },
+  "notes_by_model": {
+    "1607431001": 24,
+    "1607432001": 32
+  },
+  "cards_by_model": {
+    "1607431001": 24,
+    "1607432001": 54
+  },
+  "used_decks": {
+    "1607431111": "GeoTrainer::Reference Lines & Time::01 Coordinates",
+    "1607431112": "GeoTrainer::Reference Lines & Time::02 Tropics and Polar Circles",
+    "1607431113": "GeoTrainer::Reference Lines & Time::03 International Date Line",
+    "1607431114": "GeoTrainer::Reference Lines & Time::04 UTC Foundations",
+    "1607431201": "GeoTrainer::Reference Lines & Time::05 Time Zone Atlas::Africa",
+    "1607431202": "GeoTrainer::Reference Lines & Time::05 Time Zone Atlas::Asia",
+    "1607431203": "GeoTrainer::Reference Lines & Time::05 Time Zone Atlas::Europe",
+    "1607431204": "GeoTrainer::Reference Lines & Time::05 Time Zone Atlas::North America",
+    "1607431205": "GeoTrainer::Reference Lines & Time::05 Time Zone Atlas::Oceania",
+    "1607431206": "GeoTrainer::Reference Lines & Time::05 Time Zone Atlas::South America"
+  },
+  "artifact": {
+    "file": "geo-trainer-reference-lines-time.apkg",
+    "bytes": 3158426,
+    "sha256": "c74fdeb86d7fcc35a5699c502e59218ee1175046f795643830f0be95c58298ad"
+  },
+  "media": {
+    "bundled_svg_maps": 32,
+    "all_present_and_svg": true,
+    "sha256_by_filename": {
+      "_time_zone_atlas_noronha.svg": "e6d0ddd04d645da9423821e22aee959992b1ee22232594a5377604c417894ff4",
+      "_time_zone_atlas_brasilia.svg": "ff687942e05da48621b4ab9ff14b667c4f005cd96a70f2ee79bebff6e3184f4f",
+      "_time_zone_atlas_manaus.svg": "bf20df25529465ebe9b83785ddcfdb33ef4a1b23d30236ae5d77713487679b6a",
+      "_time_zone_atlas_rio-branco.svg": "c3449bc17faeda6d84e854c796cac0531673e52dbb2d853e891116cab8c433b3",
+      "_time_zone_atlas_new-york.svg": "da39b65f329c792e5837e3f14b8825d565d9a0881f231af13ffd5a43dbdf02f5",
+      "_time_zone_atlas_los-angeles.svg": "c2c7864f00718f79ae034055f6d6327598fa2972e931f067c24c4d5180dea6d4",
+      "_time_zone_atlas_mexico-city.svg": "53a411e4aa15771ca504a351770b835616694bec571deb7f217b3b633dd547c4",
+      "_time_zone_atlas_buenos-aires.svg": "e03dc1260767bf3bd9e58f2ca850563cc56bb0665c53adb5bee330c29e7dffb2",
+      "_time_zone_atlas_santiago.svg": "e3918542cf5f19fcdf5bd9cc2d61e06ab48ac4f1e5388ac7ca7ef30264967eb1",
+      "_time_zone_atlas_london.svg": "6abde57fa179c7ba463eeac6270035691c0e0db32d63cb6511d7d0dbb631e82d",
+      "_time_zone_atlas_lisbon.svg": "2cd55d0c25a48f85a0b4d4c2e56122de205e745f525a79295253e056b3bd79dd",
+      "_time_zone_atlas_paris.svg": "3654d03ac6b5237a10606052500e028daa0ae0d956fdd3341c7026aad97a6df5",
+      "_time_zone_atlas_moscow.svg": "e3cb08572162050c2408e89464cee38e0d9549d95d33060d3a4c17b746f98b78",
+      "_time_zone_atlas_vladivostok.svg": "fa1086cecf9246c5d644171865a17cc2047ec1745ef2b2f3799e9bad0a70b2fc",
+      "_time_zone_atlas_dubai.svg": "087e33cade84e7f1f47d8283df73764d5d029d3a5fb66132d53320eb890e937f",
+      "_time_zone_atlas_karachi.svg": "1802a3f20500b66b04879e94e89200a95c866e80a8b7b6edce795a9ff2c20166",
+      "_time_zone_atlas_delhi.svg": "49c01c37579cd42a341eeeea43662466cd2c732712e56af8bb64643b04deae7e",
+      "_time_zone_atlas_kathmandu.svg": "01c54e40009ddc144c3f70e938a2b87ffe255eec9918e0df7a726179471b77ab",
+      "_time_zone_atlas_dhaka.svg": "5bfc95f1ae51a9d19f9ceab93eb5b9671ec0cefe265678de8abe1d0291efc437",
+      "_time_zone_atlas_beijing.svg": "fe88959ad6241eaa255bc6ae459f3075307c800d03fdc6a57eef3b97d921e827",
+      "_time_zone_atlas_urumqi-official.svg": "e7ffceb732bfa76f9749bf8ef9740e90edd3402baa724c298e8a05c649c8c7fe",
+      "_time_zone_atlas_urumqi-local.svg": "cc823f4129cc314737784c33c28400f224dd1de0cc93851270a56db14868e1dc",
+      "_time_zone_atlas_taipei.svg": "44b746731994a5232a403f25457f0fd02e9d69e25acd902318ee4dd81ac646bc",
+      "_time_zone_atlas_tokyo.svg": "35670aa20c30b58ce00128dc27dfd025431b3e9eb30ab2063e5c0e4f53a83942",
+      "_time_zone_atlas_singapore.svg": "3a5d38d6a13b7f39c0bab1bdf62d42432c992face2607af69987015455b75ebe",
+      "_time_zone_atlas_sydney.svg": "dac22d3f4dd52158fe3727baa13d8f648e86137efe024874a775f18f3084b925",
+      "_time_zone_atlas_adelaide.svg": "af688991f524faea41536742380c36154ec28a618ff67fd2eb7d52830628a8db",
+      "_time_zone_atlas_lord-howe.svg": "89434e342e20945646fecd12104ac1e82d4b0dcdac03b704d2bef7062356465d",
+      "_time_zone_atlas_auckland.svg": "1dda66a3b93ce8ab2e5c07856e0b28988a5dc613c04d4e816d83ebaf644e220b",
+      "_time_zone_atlas_johannesburg.svg": "566ac80c6144e8c6b92871ba16f78f62b572755c1b7303fd0af660f14b940ee4",
+      "_time_zone_atlas_lagos.svg": "916fc7ca1c03af80f4fb6b88aca9b1952595f37533933bcaaa160efb38ad4bd2",
+      "_time_zone_atlas_nairobi.svg": "07726cf48d3b6038835e344522e13bdc7794c779e1151fac76356feaaf1e74f9"
+    }
+  },
+  "attribution": {
+    "boundary_data": "Timezone Boundary Builder 2026d; OpenStreetMap contributors; ODbL 1.0",
+    "boundary_source": "https://github.com/evansiroky/timezone-boundary-builder/releases/tag/2026d",
+    "boundary_license": "https://github.com/evansiroky/timezone-boundary-builder/blob/master/DATA_LICENSE",
+    "globe_geometry": "Natural Earth public domain",
+    "atlas_map_clock_snapshot": "Brazilian offset grouping only: 2026-09-25 12:00 UTC",
+    "note": "Other atlas maps select the named civil-time area. Local Xinjiang practice is approximate and dashed."
+  },
+  "approval": "pending",
+  "demos": [
+    "Native globe rotation and Tropic of Cancer placement",
+    "22:00 UTC-3 to 01:00 UTC next day",
+    "International Date Line calendar adjustment illustrated answer",
+    "Kathmandu offset and Nepal atlas map"
+  ],
+  "isolation": "Actual Anki 25.09 disposable workbench; no personal collection operation; Publisher not yet staged for this pack.",
+  "images": [
+    {
+      "file": "globe.gif",
+      "bytes": 249409,
+      "sha256": "0dfe47ab2d4a0acbaa63e06f48cbfdc0b95935fb10d2abff8f859636d802e9fc",
+      "frames": 84,
+      "distinct_frames": 30,
+      "width": 960,
+      "height": 600,
+      "origin": "anki-addon-workbench actual Anki 25.09 disposable Docker/Xvfb recording with native pointer/keyboard input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "utc.gif",
+      "bytes": 62442,
+      "sha256": "7cb1d21023af5df886ff9ae995381ce79d393a59269bb4f63f158e138588079e",
+      "frames": 96,
+      "distinct_frames": 13,
+      "width": 960,
+      "height": 600,
+      "origin": "anki-addon-workbench actual Anki 25.09 disposable Docker/Xvfb recording with native pointer/keyboard input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "date-line.gif",
+      "bytes": 70910,
+      "sha256": "d72635623b1bba26d3f938c1f99d9c9a0f79ebd0a6ab1a0a72427ab90de7cc6a",
+      "frames": 60,
+      "distinct_frames": 5,
+      "width": 960,
+      "height": 600,
+      "origin": "anki-addon-workbench actual Anki 25.09 disposable Docker/Xvfb recording with native pointer/keyboard input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "atlas.gif",
+      "bytes": 50772,
+      "sha256": "968dcd6fe3f42f4d83899ce912596f4e5ac41630cf93f849ca7160968492946c",
+      "frames": 60,
+      "distinct_frames": 4,
+      "width": 960,
+      "height": 600,
+      "origin": "anki-addon-workbench actual Anki 25.09 disposable Docker/Xvfb recording with native pointer/keyboard input",
+      "capture_backend": "ffmpeg-x11grab"
+    }
+  ],
+  "visual_check": "All four native answer renders visually checked: 23.5 N parallel; 01:00 next day; eastward subtract/westward add; Kathmandu UTC+5:45 with Nepal highlighted.",
+  "preview": "www/.tmp/publish-batch-reference-lines-time/reference-lines-time-listing.png"
+}

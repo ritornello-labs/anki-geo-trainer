@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "backend": "Anki 25.09 disposable collection",
+  "sequence": [
+    "fresh Reference Lines & Time pack",
+    "September 30 full candidate",
+    "same Reference Lines & Time pack again"
+  ],
+  "reference_notes": 56,
+  "reference_cards": 78,
+  "note_model_card_leaf_ids_unchanged": true,
+  "duplicates_created": 0,
+  "full_candidate_notes": 2651,
+  "full_candidate_cards": 2673,
+  "limitation": "Reference scope compatibility check only; the superseded full candidate is not a shipping artifact."
+}
