@@ -1,8 +1,18 @@
 # Plate Tectonics publication preparation — October 4
 
-Status: complete listing and five real-Anki GIFs approved by Elvis on October 4; publication in progress.
-No images uploaded, no Publisher staging, and no AnkiWeb submission. Personal
-Anki has not been accessed or changed.
+Status: shipped at **22154578**, public review pending. Exact delivered APKG
+44,224,181 bytes, SHA-256 `6d4040dfdc9aa5598e342a5f0a3242b4fdf907501a9f254ad66f011d5ae8449b`,
+GitHub `v2026.10.04` digest verified, previous tag/assets retained. Owner listing,
+all approved paragraphs, banner/five image URLs and live site/gallery verified.
+Only normal sync required; outside Publisher content/decks/media unchanged.
+Publisher window closed. Personal Anki was never accessed or changed.
+Observed quota 9/20. Next: Islands & Archipelagos listing/image approval.
+
+The share worker completed once; a parenthesized Wikimedia URL caused a false
+paragraph mismatch in the release verifier. Parser fixed and all 20 browser
+regressions pass. Existing listing independently verified; no resubmission.
+
+The workflow below is retained as the publication record; do not resubmit this pack.
 
 Accepted scope: 204 notes / 492 cards, ten models and ten canonical leaf decks.
 Geometry has 132 game notes/cards: 16 mapped plates × identify/place/sketch;
