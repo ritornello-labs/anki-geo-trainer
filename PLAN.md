@@ -526,3 +526,11 @@ Accepted component rebuilt: 56 notes / 78 cards in ten leaves, comprising 24 ref
 ### Reference/time approved, native export and Publisher verified — 2026-10-04
 
 Elvis approved the complete listing and four GIFs. Native export exposed that scalar atlas filenames were not recognized as media references. The atlas builder now stores native HTML image references and renders the Map field directly, preserving the same output and identities. Corrected fresh Anki render and export verify all 32 maps, 56 notes / 78 cards. Outside-scope Publisher unchanged; approved Upload and normal/final sync clear. Submission follows.
+
+### Reference Lines & Time submitted — 2026-10-04
+
+Approved component submitted through anki-addon-release at `1962312135`, exact source name `GeoTrainer::Reference Lines & Time`; owner title/counts/five image URLs verified, public review pending. Seven of 20 deck shares used. Actual delivered APKG: 2,218,240 bytes, SHA-256 `ec4d7a40b7beb144f8b70786485d557bf64cbd1f6b30dc99a35da648453c7a70`. All 56 note and 78 card IDs/GUIDs/fields/model/template/CSS/leaf identities and all 32 media bytes match native export. Canonical archive and website verification follow. Personal Anki untouched.
+
+### Reference/time archive and storefront verified — 2026-10-04
+
+Exact delivered `geo-trainer-reference-lines-time.apkg` attached to `v2026.10.04`; GitHub digest/size verified. Combined release notes retain China and link Reference source commit `84f549d`. Website homepage, four approved GIFs and canonical download/release links deployed and Chrome-verified. No resubmission needed. Next broad packs require the recorded Geo Concepts reconciliation and fresh image review.

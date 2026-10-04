@@ -26,5 +26,13 @@
     "release": "v2026.10.04",
     "artifact": "geo-trainer-china-subdivisions.apkg",
     "public_review_pending": true
+  },
+  "reference-lines-time": {
+    "title": "GeoTrainer: Reference Lines & Time",
+    "ankiweb_id": "1962312135",
+    "ankiweb_url": "https://ankiweb.net/shared/info/1962312135",
+    "release": "v2026.10.04",
+    "artifact": "geo-trainer-reference-lines-time.apkg",
+    "public_review_pending": true
   }
 }
