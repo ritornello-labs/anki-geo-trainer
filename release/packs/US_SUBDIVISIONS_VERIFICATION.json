@@ -1,0 +1,19 @@
+{
+  "status": "passed-source-membership-and-identity",
+  "notes": 200,
+  "cards": 200,
+  "states": 50,
+  "families": {
+    "GeoTrainer Which State \u2014 US States": 50,
+    "GeoTrainer Place \u2014 US States": 50,
+    "GeoTrainer Sketch \u2014 US States": 50,
+    "GeoTrainer Draw \u2014 US States": 50
+  },
+  "sha256": "a8c60baf97589e8c93ad19dc5b63d91d33b6805f1aaffb3a297c44c80fa7f6d9",
+  "checks": [
+    "Every state has one card in each of four accepted families",
+    "Alaska and Hawaii included",
+    "GUIDs, models, leaf deck IDs, fields, tags and templates match overlapping September 30 full candidate"
+  ],
+  "limitation": "Final corrected full edition union and Publisher source naming still require verification before submission."
+}

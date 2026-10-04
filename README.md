@@ -3,60 +3,27 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
 [![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 ![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
-![Deck size](https://img.shields.io/badge/deck-2%2C472%20notes-7C3AED)
 
 Interactive geography practice for Anki: a curriculum-ordered set of map tasks that
 asks you to locate, place, sketch, draw, trace, and place archipelagos on a globe from
 memory. It runs
 offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 
-[![GeoTrainer place-the-shape review in Anki](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/preview.gif)](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/place.mp4)
+![GeoTrainer U.S. States placement in Anki](https://ritornello.dev/media/ankiweb/2026-10-03-v1/geo-trainer-us-states/place.gif)
 
-The animation is hosted with the public listing media at ritornello.dev; click it for the full-resolution Place MP4. The gallery also includes a separate Amazon-tracing video. [Browse all GeoTrainer samples](https://ritornello.dev/#geo-trainer).
+The GIF comes from a real Anki render. [See all four U.S. State games](https://ritornello.dev/#geo-trainer-us-states).
 
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
-**Release status:** the initial version was submitted to AnkiWeb on 2026-07-15. The
-contextual-Sketch and physical-geography updates are installed in the live personal
-collection. The combined update is queued for the existing AnkiWeb listing but has not
-yet been uploaded. The 29 atmospheric, seasonal, ENSO, and Atlantic-overturning cards are
-temporarily staged under `Process::GeoTrainer QA` for manual review before returning to
-this tree. GeoTrainer is a
-lean, **borderless-recall** set redesigned after real-world study.
-**Thirty-seven scopes**, 2,624 cards. Region scopes carry four families — **Which**,
-**Place**, **Sketch**, **Draw** — on a *borderless* map (no internal borders, so you recall
-where things are instead of matching a labelled shape). Continents (countries):
-**Europe** (46), **South America** (12), **Africa** (53), **Asia** (47),
-**North America** (23), **Oceania** (14). Country subdivisions: **United States**
-(50), **Brazil** (27), **India** (36), **Russia** (85), **China** (31), **Canada**
-(13), **Australia** (9), **Argentina** (24), **Mexico** (32), **Indonesia** (33).
-Physical: **mountain ranges** (29), **deserts** (17), **plateaus, highlands &
-basins** (11), **plains, grasslands & steppes** (9), **peninsulas** (15) and
-**minor tectonic plates** (35) — **Place + Sketch**; **named plate boundaries** (17)
-as trace-the-course;
-**major lakes** (24) — **Which + Place**; **major tectonic plates** (16) —
-**Which + Place + Sketch**; **major rivers** (42) as trace-the-course; **major surface
-ocean currents** (34 stable + 4 season-specific) as direction-aware traces; a two-card
-latitude–depth **Atlantic overturning** direction/sequence drill; **atmospheric
-circulation** (17) as paired cells, pressure belts, prevailing winds, and jets;
-**seasonal South Asian monsoon winds** (2) as paired summer/winter traces; and four
-**ENSO** state/comparison cards for neutral, El Niño, and La Niña. Plus a
-**Continents** scope — **Sketch** each one on the blank world, then **Draw** its
-silhouette from memory (Europe is clipped at the Urals, and Asia excludes Siberia, since Natural
-Earth files Russia under Europe). The **Islands** scope adds 67 spherical-placement cards:
-rotate a randomly oriented globe and draw a movable, resizable ellipse around the named
-island or archipelago. All rendered offline and verified on
-Desktop/WebKit/AnkiDroid. See [`PLAN.md`](./PLAN.md), the skill ladder in
-[`curriculum/CURRICULUM.md`](./curriculum/CURRICULUM.md), and the publishing plan in
-[`release/RELEASE.md`](./release/RELEASE.md).
+## Public editions
 
-New scopes are pure config: a continent is a viewport box + a Natural Earth
-`CONTINENT` filter; a country subdivision is an ISO country code. Both feed the
-same builder, so adding a scope is a few lines in `scripts/build_bundle.py`.
+[U.S. States on AnkiWeb](https://ankiweb.net/shared/info/909756180) — **50 states, 200 cards**, with identification, placement, contextual sketching and outline drawing. Submitted October 3; AnkiWeb public review is pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-united-states-subdivisions.apkg) or [view the release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.03).
 
-Atmospheric circulation uses purpose-built representations rather than being
-folded into ordinary ocean-current cards: see
-[`curriculum/ATMOSPHERIC_CIRCULATION.md`](./curriculum/ATMOSPHERIC_CIRCULATION.md).
+Components are publishing first. The existing [full-edition listing](https://ankiweb.net/shared/info/908455862) will be updated after the components; its current package is the earlier edition. The forthcoming full edition and components preserve overlapping note GUIDs, model IDs and leaf deck IDs. Physical-systems QA and foundations prototypes are excluded, and the retired flow families stay out. Detailed current scope decisions: [reconciliation](https://github.com/ritornello-labs/anki-geo-trainer/blob/publish-packs-20260930/release/SCOPE_RECONCILIATION_2026-10-03.md).
+
+GitHub: [https://github.com/ritornello-labs/anki-geo-trainer](https://github.com/ritornello-labs/anki-geo-trainer)
+
+Support continued development: [ritornello.dev/support](https://ritornello.dev/support).
 
 ## Task families
 

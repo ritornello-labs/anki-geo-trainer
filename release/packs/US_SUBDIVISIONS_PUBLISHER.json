@@ -1,0 +1,31 @@
+{
+  "profile": "isolated Publisher",
+  "notes": 200,
+  "cards": 200,
+  "outside_us_unchanged_sha256": "9ebbcdc8d83184e8258b05052bc620cd1a458a3640dec9ce152eb7fae6ee762e",
+  "source_guid_fields_model_and_leaf_deck_ids": "exact-match",
+  "full_sync_required": true,
+  "export_sha256": "cbf822f0a493c11dfc3db68260198c4f4f1181c79bd2769e327dff83e1115d8f",
+  "export_bytes": 1243542,
+  "status": "submitted-pending-public-review",
+  "source_artifact_sha256": "a8c60baf97589e8c93ad19dc5b63d91d33b6805f1aaffb3a297c44c80fa7f6d9",
+  "image_approval": "Elvis approved the complete four-game listing on 2026-10-03",
+  "staging": "Supported native Anki operations replaced only the obsolete Publisher U.S. copy. Current source GUIDs, fields, model IDs, templates/CSS and leaf deck IDs match exactly. All other Publisher notes/cards/models are unchanged. Complete pre-change Publisher backup passed integrity.",
+  "recovery": "The AnkiConnect close action left Publisher running; concurrent staging processes caused a database read error. All Publisher processes were stopped, the pre-change backup was restored, the verified scope replacement was repeated while closed, and native integrity/all 200 note readbacks passed. Publisher launch now prevents concurrent processes. Personal Anki was untouched.",
+  "ankiweb_id": "909756180",
+  "ankiweb_url": "https://ankiweb.net/shared/info/909756180",
+  "owner_metadata": "verified title, description and all five image URLs",
+  "public_visibility": "AnkiWeb review hold",
+  "full_sync": {
+    "profile": "isolated Publisher",
+    "direction": "full-upload",
+    "approval": "Elvis: Sure go ahead (2026-10-03)",
+    "full_upload_completed": true,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 200,
+    "cards": 200,
+    "source_content_unchanged": true,
+    "integrity": "ok"
+  }
+}

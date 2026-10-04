@@ -472,3 +472,7 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
 
 - Geometry-embedding strategy (per-note vs. per-template scope bundle) — resolve empirically
   in the M0 spike by measuring APKG size and render speed both ways.
+
+## Public component publication — 2026-10-03
+
+U.S. States is the first approved component: 50 states, 200 cards and four real-Anki game GIFs. AnkiWeb `909756180` was owner-verified and awaits public review; the exact scoped Publisher artifact is archived at GitHub `v2026.10.03`. Components retain source GUID/model/leaf-deck IDs and precede the refreshed full edition at `908455862`. The subdivision listing pattern is in `release/packs/SUBDIVISION_LISTING_PATTERN.md`. Personal Anki was untouched.
