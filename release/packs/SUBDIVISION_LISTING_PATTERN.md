@@ -1,6 +1,6 @@
 # Subdivision listing pattern
 
-U.S. States is the first reference implementation, at Elvis's October 3 request. Its image batch still needs approval before this pattern is propagated.
+U.S. States is the first reference implementation, at Elvis's October 3 request. Elvis approved its complete four-game listing batch on October 3; use this pattern for subsequent country batches, which each still need their own preview approval.
 
 - Use a readable country/unit title, the standard Ritornello banner, and gallery navigation.
 - Lead with the spatial learning task and exact accepted units, notes and cards. Name relevant exclusions; never assume every country has 50 units or four cards for every unit.
