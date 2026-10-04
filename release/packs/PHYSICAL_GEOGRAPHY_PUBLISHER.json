@@ -1,0 +1,21 @@
+{
+  "staging": {
+    "profile": "isolated Publisher",
+    "old_notes_cards": 180,
+    "old_exclusive_models": 7,
+    "notes": 404,
+    "cards": 963,
+    "models": 23,
+    "leaf_decks": 23,
+    "media_files": 223,
+    "source_guid_fields_models_templates_css_card_ord_and_leaf_ids": "exact-match",
+    "outside_scope_unchanged_sha256": "bddcc3027bbdc25d440d12f3d75f90dcb48bdbb35ee4f95ec6b2459bf518eae7",
+    "outside_deck_names_and_ids": "unchanged",
+    "all_existing_media": "unchanged",
+    "integrity": "ok",
+    "full_sync_required": true,
+    "export_bytes": 28288933,
+    "export_sha256": "4650ef82286c7c1e44312418328216a09335a49a69ac43d2fe8cb6e81d132d58",
+    "source_artifact_sha256": "e569e7b9ba411077c71f918bc87236c70bcd9a7928b29d0e60ec3e88fe864258"
+  }
+}
