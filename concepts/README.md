@@ -33,7 +33,7 @@ collection export or private scheduling data.
   applicable: <https://creativecommons.org/licenses/by-sa/4.0/>.
 - Tectonic concepts and maps use Peter Bird’s PB2002 plate/boundary model via
   Hugo Ahlenius / Nordpil’s conversion, under the Open Data Commons Attribution
-  License 1.0: <https://github.com/fraxen/tectonicplates>. Any Tentotwo base map
+  License 1.0: <https://github.com/fraxen/tectonicplates>. Any TUBS base map
   identified in `source-media.csv` retains CC BY-SA 3.0. Retain those sources and
   licenses when distributing the tectonic pack.
 

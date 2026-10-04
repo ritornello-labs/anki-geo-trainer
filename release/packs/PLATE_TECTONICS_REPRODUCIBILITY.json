@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "notes": 204,
+  "cards": 492,
+  "media_files": 70,
+  "comparison": "Reviewed source package vs standalone public-source rebuild",
+  "guids_fields_models_templates_css_deck_ids_names_media_bytes": "exact-match"
+}
