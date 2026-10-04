@@ -1,0 +1,9 @@
+{
+  "release": "v2026.10.04",
+  "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04",
+  "artifact": "geo-trainer-physical-geography.apkg",
+  "size": 28296089,
+  "digest": "sha256:d957dc921bb167c4b40edceb474887923117b6bd3ddea0e50d11953029882639",
+  "canonical_ankiweb_bytes_verified": true,
+  "existing_assets_and_tag_preserved": true
+}

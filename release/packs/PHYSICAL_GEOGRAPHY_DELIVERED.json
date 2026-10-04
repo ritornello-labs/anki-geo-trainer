@@ -1,0 +1,22 @@
+{
+  "listing": {
+    "ankiweb_id": "1832856685",
+    "title": "GeoTrainer: Physical Geography",
+    "source_share_name": "GeoTrainer::Physical Geography",
+    "owner_title_counts_and_6_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 8,
+    "delivered_bytes": 28296089,
+    "delivered_sha256": "d957dc921bb167c4b40edceb474887923117b6bd3ddea0e50d11953029882639"
+  },
+  "content_verification": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 404,
+    "cards": 963,
+    "bundled_media_files": 223,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 28296089,
+    "delivered_sha256": "d957dc921bb167c4b40edceb474887923117b6bd3ddea0e50d11953029882639"
+  }
+}
