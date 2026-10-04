@@ -549,3 +549,5 @@ Plate Tectonics image batch approved October 4. Exact approved GIFs deployed; na
 Plate Tectonics shipped at 22154578, exact share name GeoTrainer::Plate Tectonics. Delivered APKG (204 notes / 492 cards, 70 media) identity/media exact and GitHub digest verified on existing v2026.10.04; prior assets/tag preserved. Owner listing and approved images verified; public review pending. Observed quota 9/20. Next: Islands & Archipelagos review.
 
 Islands & Archipelagos preparation October 4: 76 notes / 112 cards (67 globe games + 45 concept cards), two models/leaves, ten SVG maps; native export/media, public rebuild and component/full overlap pass. Full ISC notices retained in bundled D3 code. Complete listing and two real-Anki GIFs awaiting image approval; no images uploaded or Publisher staging. See release/packs/ISLANDS_ARCHIPELAGOS_PREPARATION.md.
+
+Islands image batch approved October 4. Two reviewed GIFs deployed with exact hashes. Native Publisher import/sync verifies 76 notes / 112 cards, two models/leaves, ten media; all outside content/deck names/IDs/media unchanged, normal/final required 0. No full Upload needed. Listing submission next.

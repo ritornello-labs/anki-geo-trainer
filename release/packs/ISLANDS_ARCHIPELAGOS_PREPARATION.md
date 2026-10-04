@@ -1,6 +1,6 @@
 # Islands & Archipelagos preparation — October 4
 
-Status: complete listing and two real-Anki GIFs awaiting Elvis's image approval.
+Status: complete listing and two real-Anki GIFs approved by Elvis; publication in progress.
 No public image upload, Publisher staging or AnkiWeb submission for this pack.
 Personal Anki never accessed or changed. Plate Tectonics already shipped at
 22154578; do not resubmit it. Current observed quota 9/20, no rejection, reset
