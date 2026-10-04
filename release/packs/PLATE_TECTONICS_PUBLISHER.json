@@ -1,0 +1,34 @@
+{
+  "staging": {
+    "profile": "isolated Publisher",
+    "old_notes_cards": 0,
+    "old_exclusive_models": 0,
+    "notes": 204,
+    "cards": 492,
+    "models": 10,
+    "leaf_decks": 10,
+    "media_files": 70,
+    "source_guid_fields_models_templates_css_card_ord_and_leaf_ids": "exact-match",
+    "outside_scope_unchanged_sha256": "489cb65c178b4a28e6b9e0a30226a40e2caaed18ebfb2f571c9ab978a85b8199",
+    "outside_deck_names_and_ids": "unchanged",
+    "all_existing_media": "unchanged",
+    "integrity": "ok",
+    "full_sync_required": false,
+    "export_bytes": 44223976,
+    "export_sha256": "75fa87a1129145ba4ee99efa8f33afea3941131c2f874492e9a782e73daea7df",
+    "source_artifact_sha256": "ecad17be256ab358838bedd1fc832ad94b6c101f05d7b93eabe3c1e04132f187"
+  },
+  "sync": {
+    "profile": "isolated Publisher",
+    "direction": "normal-sync",
+    "approval": "Prior explicit isolated-Publisher full Upload approval; approved Plate Tectonics publication (2026-10-04)",
+    "full_upload_completed": false,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 204,
+    "cards": 492,
+    "source_content_unchanged": true,
+    "all_publisher_note_content_and_card_identity_unchanged": true,
+    "integrity": "ok"
+  }
+}

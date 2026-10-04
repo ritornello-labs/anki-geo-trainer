@@ -543,3 +543,5 @@ The accepted component is rebuilt: 404 notes / 963 cards (250 map games and 713 
 Physical Geography shipped October 4 at `1832856685` (404 notes / 963 cards / 223 media). Five approved native GIFs deployed; exact delivered APKG verified against native export and archived on `v2026.10.04`. Publisher outside scope/media unchanged; approved Upload and normal/final sync clear. Next: Plate Tectonics preview.
 
 Plate Tectonics preview prepared October 4: 204 notes / 492 cards, all four accepted concept families, ten model/leaf IDs and 70 media. Native export, public-source rebuild and component/full overlap pass. Five real-Anki GIFs and complete listing await image approval; no Publisher staging or image upload. Next resume: `release/packs/PLATE_TECTONICS_PREPARATION.md`.
+
+Plate Tectonics image batch approved October 4. Exact approved GIFs deployed; native Publisher import and normal sync pass for 204 notes / 492 cards / 70 media, outside content/deck names/IDs/media unchanged. No full Upload required; normal/final required 0. Listing submission next.
