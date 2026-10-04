@@ -1,0 +1,27 @@
+{
+  "profile": "isolated Publisher",
+  "notes": 124,
+  "cards": 124,
+  "outside_china_unchanged_sha256": "94a0a75406bbb4cf888d7c0cc067c1ae990921a7d05b4e843d9691aedcd215c7",
+  "source_guid_fields_model_and_leaf_deck_ids": "exact-match",
+  "full_sync_required": false,
+  "export_sha256": "880ee68b1e2180979883557000b34aad1bc9c5ac97b7d976d5435c458c6d198c",
+  "export_bytes": 1384697,
+  "status": "approved, staged and synced; ready to submit",
+  "source_artifact_sha256": "cef155d182367feceaa95453790ec4aa5289e6ebbc144d2f445e744ef9bc8c6a",
+  "image_approval": "Elvis: Please proceed (2026-10-04)",
+  "staging": "Supported native operations replaced only the 93-note/card obsolete Publisher China scope and its six exclusive models. Unrelated original Geography - China Provinces model and every outside-scope note/card/model remained hash-identical. Exact source GUIDs/fields/models/templates/CSS/leaf IDs and integrity passed.",
+  "full_sync_was_required": true,
+  "full_sync": {
+    "profile": "isolated Publisher",
+    "direction": "full-upload",
+    "approval": "Prior explicit isolated-Publisher full Upload approval; approved China publication (2026-10-04)",
+    "full_upload_completed": true,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 124,
+    "cards": 124,
+    "source_content_unchanged": true,
+    "integrity": "ok"
+  }
+}

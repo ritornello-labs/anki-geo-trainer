@@ -510,3 +510,7 @@ standard support page. No personal Anki collection changes.
 ### China subdivision review checkpoint
 
 Fresh China pack: 31 province-level divisions / 124 notes and cards across identification, placement, map sketch and outline drawing. Coverage includes 22 provinces, five autonomous regions and four municipalities; Hong Kong, Macao and Taiwan are excluded. All model/leaf IDs and note GUIDs survive native component → superseded full candidate → component imports with zero duplicates. Four Sichuan demonstrations were captured with native workbench input in disposable Anki 25.09 and visually verified, including positive placement/sketch/outline feedback. Complete listing preview and exact image manifest are prepared; Elvis’s image approval is pending. China has not been staged in Publisher or submitted. U.S. and Brazil remain shipped; broad concept reconciliation and final full union remain open. Root PUBLISH_QUEUE.md records the exact resume sequence.
+
+### China approved and Publisher ready — 2026-10-04
+
+Elvis approved the complete China listing and four actual-Anki GIFs. Immutable media URLs serve the exact approved bytes. Only the obsolete isolated Publisher China scope was replaced; 124 notes/cards match source GUIDs/fields/models/templates/CSS and leaf deck IDs. All other Publisher content is hash-identical. Previously approved full Upload completed, normal/final sync clear, native integrity/readback passed. No personal Anki changes. Submission and canonical archive verification follow.

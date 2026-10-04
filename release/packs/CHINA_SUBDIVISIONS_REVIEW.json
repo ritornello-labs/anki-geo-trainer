@@ -145,7 +145,7 @@
   "tasks": 4,
   "coverage": "22 provinces, five autonomous regions, four municipalities; Hong Kong, Macao and Taiwan excluded",
   "demo": "Sichuan identification, native placement, map sketch and outline drawing",
-  "approval": "pending Elvis review",
+  "approval": "Elvis: Please proceed (2026-10-04)",
   "images": [
     {
       "file": "point.gif",
@@ -178,6 +178,12 @@
       "frames": 204,
       "origin": "anki-addon-workbench actual Anki 25.09 disposable Docker/Xvfb recording",
       "distinct_frames": 137
+    },
+    {
+      "file": "place-back.png",
+      "bytes": 87738,
+      "sha256": "9a81121b0ad1529dcd17da75ff5de4af02acea88b7fbc72a718c497e5da52156",
+      "origin": "actual-Anki placement answer frame, reduced-motion poster"
     }
   ],
   "personal_collection_accessed": false,
