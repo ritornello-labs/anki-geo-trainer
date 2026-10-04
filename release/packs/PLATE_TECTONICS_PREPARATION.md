@@ -1,6 +1,6 @@
 # Plate Tectonics publication preparation — October 4
 
-Status: complete listing and five real-Anki GIFs await Elvis's image approval.
+Status: complete listing and five real-Anki GIFs approved by Elvis on October 4; publication in progress.
 No images uploaded, no Publisher staging, and no AnkiWeb submission. Personal
 Anki has not been accessed or changed.
 

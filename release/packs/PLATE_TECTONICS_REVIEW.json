@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-image-approval",
+  "status": "image-approved",
   "notes": 204,
   "cards": 492,
   "native_media_files": 70,
@@ -60,8 +60,8 @@
       "capture_backend": "ffmpeg-x11grab"
     }
   ],
-  "public_images_uploaded": false,
-  "publisher_staged": false,
+  "public_images_uploaded": true,
+  "publisher_staged": true,
   "personal_collection_accessed": false,
   "preview": "www/.tmp/publish-batch-plate-tectonics/plate-tectonics-listing.png",
   "visual_check": "All five final native front/answer captures checked: African Plate point identification; Arabian Plate great placement (~331 km); Arabian Plate solid sketch (1.6% average offset); San Andreas native zoom/pan/trace shows roughly-right attempt (~274 km) with Hard suggestion; named-boundary recall shows transform and the complete credited map. No Anki grade recorded.",
@@ -70,5 +70,6 @@
     "author": "TUBS",
     "license": "CC BY-SA 3.0",
     "note": "Corrected inherited Tentotwo attribution in public source catalog/README/listing; deck data/templates and private collection untouched."
-  }
+  },
+  "approval": "Elvis: Great! (2026-10-04), in response to the complete listing and five GIFs."
 }
