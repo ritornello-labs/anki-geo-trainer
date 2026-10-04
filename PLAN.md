@@ -473,9 +473,25 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
 - Geometry-embedding strategy (per-note vs. per-template scope bundle) — resolve empirically
   in the M0 spike by measuring APKG size and render speed both ways.
 
-## Public component publication — 2026-10-03
+## Publication milestone — 2026-10-03
 
-U.S. States is the first approved component: 50 states, 200 cards and four real-Anki game GIFs. AnkiWeb `909756180` was owner-verified and awaits public review; the exact scoped Publisher artifact is archived at GitHub `v2026.10.03`. Components retain source GUID/model/leaf-deck IDs and precede the refreshed full edition at `908455862`. The subdivision listing pattern is in `release/packs/SUBDIVISION_LISTING_PATTERN.md`. Personal Anki was untouched.
+The first component, U.S. States, was submitted at AnkiWeb `909756180`: all
+50 states × four games, 200 cards, with four approved actual-Anki GIFs.
+The explicitly approved isolated-Publisher full Upload completed; personal Anki
+was untouched. AnkiWeb's delivered package is the canonical GitHub
+`v2026.10.03` artifact, SHA-256
+`a4e942b5686a56b3ab501397e99d484e3ff224ede308e9bcb9f513a5f6441f8a`.
+Native disposable import tests confirm the delivered component retains its
+GUIDs/model/card/leaf-deck IDs across component → full candidate → component,
+with zero duplicates. The candidate is only compatibility evidence; accepted
+full-edition scope still needs reconciliation. Website component gallery and
+download links are deployed and browser-verified.
+
+Brazil is the next ready component using the U.S. four-game pattern: 26 states
+plus the Federal District, 108 cards, with fresh actual-Anki Bahia recordings.
+Native component/full/component imports preserve note/model/card/leaf-deck IDs
+and create zero duplicates. Complete listing preview and GIF manifest are ready
+for Elvis's approval. Publisher staging and submission remain pending.
 
 ### Brazil component shipped — 2026-10-03
 
@@ -491,6 +507,26 @@ and created zero duplicate cards. AnkiWeb public review remains pending.
 Fresh Bahia game gallery and canonical download links are deployed with the
 standard support page. No personal Anki collection changes.
 
+### China subdivision review checkpoint
+
+Fresh China pack: 31 province-level divisions / 124 notes and cards across identification, placement, map sketch and outline drawing. Coverage includes 22 provinces, five autonomous regions and four municipalities; Hong Kong, Macao and Taiwan are excluded. All model/leaf IDs and note GUIDs survive native component → superseded full candidate → component imports with zero duplicates. Four Sichuan demonstrations were captured with native workbench input in disposable Anki 25.09 and visually verified, including positive placement/sketch/outline feedback. Complete listing preview and exact image manifest are prepared; Elvis’s image approval is pending. China has not been staged in Publisher or submitted. U.S. and Brazil remain shipped; broad concept reconciliation and final full union remain open. Root PUBLISH_QUEUE.md records the exact resume sequence.
+
+### China approved and Publisher ready — 2026-10-04
+
+Elvis approved the complete China listing and four actual-Anki GIFs. Immutable media URLs serve the exact approved bytes. Only the obsolete isolated Publisher China scope was replaced; 124 notes/cards match source GUIDs/fields/models/templates/CSS and leaf deck IDs. All other Publisher content is hash-identical. Previously approved full Upload completed, normal/final sync clear, native integrity/readback passed. No personal Anki changes. Submission and canonical archive verification follow.
+
 ### China component submitted — 2026-10-04
 
 Approved 31-division / 124-card China listing submitted through anki-addon-release at `315064803`, exact source share name `GeoTrainer::World::Asia::China`, owner verified with public review pending. Six of 20 deck shares used. Actual AnkiWeb-delivered APKG SHA-256 `f95e481da79786e168a24e322e64c80f8dc9f28d6bfa4ee329486a9a427b1a01`; content/identities exactly match the Publisher export and native component/full-candidate/component imports preserve identities with zero duplicates. The full candidate remains compatibility evidence only. Canonical archive/tag: `v2026.10.04`, `geo-trainer-china-subdivisions.apkg`. Personal Anki unchanged.
+
+### Reference Lines & Time review checkpoint — 2026-10-04
+
+Accepted component rebuilt: 56 notes / 78 cards in ten leaves, comprising 24 reference-line/time drills and 54 atlas cards from 32 place notes (including 12 selected abbreviation cards). All 32 SVG maps are bundled and verified. Native disposable Anki 25.09 component → superseded full candidate → component imports preserve all note/model/card/leaf identities with zero duplicates; the full candidate is compatibility evidence only. Four distinct real-Anki workbench GIFs show globe placement, a UTC conversion crossing midnight, illustrated date-line recall and Kathmandu atlas recall. All answer renders visually checked. Complete listing copy/preview, source/license notes and image hashes are recorded in `release/packs/REFERENCE_LINES_TIME_*`. Image approval is pending; this scope has not been staged or submitted. Reference/time moves ahead of physical/tectonic packs because those still need accepted Geo Concepts source/media reconciliation. Personal collection untouched; China archive/storefront verification is complete.
+
+### Reference/time approved, native export and Publisher verified — 2026-10-04
+
+Elvis approved the complete listing and four GIFs. Native export exposed that scalar atlas filenames were not recognized as media references. The atlas builder now stores native HTML image references and renders the Map field directly, preserving the same output and identities. Corrected fresh Anki render and export verify all 32 maps, 56 notes / 78 cards. Outside-scope Publisher unchanged; approved Upload and normal/final sync clear. Submission follows.
+
+### Reference Lines & Time submitted — 2026-10-04
+
+Approved component submitted through anki-addon-release at `1962312135`, exact source name `GeoTrainer::Reference Lines & Time`; owner title/counts/five image URLs verified, public review pending. Seven of 20 deck shares used. Actual delivered APKG: 2,218,240 bytes, SHA-256 `ec4d7a40b7beb144f8b70786485d557bf64cbd1f6b30dc99a35da648453c7a70`. All 56 note and 78 card IDs/GUIDs/fields/model/template/CSS/leaf identities and all 32 media bytes match native export. Canonical archive and website verification follow. Personal Anki untouched.

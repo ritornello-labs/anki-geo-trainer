@@ -29,6 +29,8 @@ GitHub: [https://github.com/ritornello-labs/anki-geo-trainer](https://github.com
 
 Support continued development: [ritornello.dev/support](https://ritornello.dev/support).
 
+[Reference Lines & Time on AnkiWeb](https://ankiweb.net/shared/info/1962312135) — **56 notes, 78 cards**: globe reference-line placement, illustrated explanations, randomized UTC conversion and a 32-place time-zone atlas. All 32 maps are bundled for offline study. Submitted October 4; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-reference-lines-time.apkg) or [see the four demonstrations](https://ritornello.dev/#geo-trainer-reference-lines-time).
+
 ## Task families
 
 | Deck | Skill | Interaction |

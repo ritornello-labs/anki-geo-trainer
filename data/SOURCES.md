@@ -108,3 +108,9 @@ map and always names the boreal season and month range.
 - [NOAA JetStream: Global atmospheric circulations](https://prod-01-alb-www-noaa.woc.noaa.gov/jetstream/global/global-atmospheric-circulations)
 - [NOAA NESDIS: What is the jet stream?](https://www.nesdis.noaa.gov/about/k-12-education/atmosphere/what-the-jet-stream)
 - [NOAA NESDIS: What is a monsoon?](https://www.nesdis.noaa.gov/about/k-12-education/severe-weather/what-monsoon)
+
+## Reference Lines & Time
+
+Accepted 56-note / 78-card component: `python scripts/build_reference_time_pack.py`. Requires D3 dependencies from package.json and Timezone Boundary Builder 2026d GeoJSON input at `.tmp/reference-lines-qa/timezones-2026d.geojson.zip`. Generate maps with the atlas builder; the complete pack embeds all 32 SVGs.
+
+Civil-time boundary data: [Timezone Boundary Builder 2026d](https://github.com/evansiroky/timezone-boundary-builder/releases/tag/2026d), © OpenStreetMap contributors, [ODbL 1.0](https://github.com/evansiroky/timezone-boundary-builder/blob/master/DATA_LICENSE). IANA tzdb supplies time-zone identifiers/rules. Natural Earth supplies public-domain globe geometry. Seasonal questions state standard/daylight conditions; Brazil map groups use the 2026-09-25 12:00 UTC offset snapshot. Local Xinjiang practice is approximate and dashed. Factual sources are retained per card.
