@@ -1,7 +1,7 @@
 [project]
 name = "anki-geo-trainer"
 version = "0.0.1"
-description = "Sheppard-Software-style interactive geography task decks for Anki"
+description = "Interactive geography task decks for Anki"
 requires-python = ">=3.11"
 dependencies = [
     "shapely>=2.0",

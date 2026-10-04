@@ -30,15 +30,15 @@ identity.
 
 ## Vision
 
-Bring Sheppard-Software-class interactive geography practice into Anki: a comprehensive,
+Bring interactive geography practice into Anki: a comprehensive,
 curriculum-ordered catalog of map-interaction task types, rendered by one shared JS engine,
 working on all three platforms (Anki Desktop / QtWebEngine, AnkiMobile / WebKit,
 AnkiDroid / Android WebView), and looking genuinely good.
 
 The user's collection already covers the *passive* recall levels well (Ultimate Geography,
 Country Shapes, borders, capitals, first-level subdivisions for ~15 countries, cities,
-physical geography). What is missing is the *active* interaction ladder that makes Sheppard
-Software effective: click the map, judge a random point, place the piece, draw the shape.
+physical geography). This project adds an *active* interaction ladder: click the map,
+judge a random point, place the piece, draw the shape.
 This project builds that ladder.
 
 ## Task catalog
@@ -47,17 +47,17 @@ Each task family is defined once (schema + engine mode + grading rule), then ins
 scope by scope (world, continent, country, subdivision set). Families are ordered roughly
 by difficulty; together they form the level ladder for any given scope.
 
-| # | Family | Interaction | Sheppard analogue | Notes |
-|---|--------|-------------|-------------------|-------|
-| F1 | Recognize | highlighted region on locator map → recall name | tutorial levels | **Not built here.** Passive recall; the README links a few good example AnkiWeb decks (Ultimate Geography, the workspace's shared subdivision decks) instead |
-| F2 | Shape ID | isolated silhouette → recall name | shape quizzes | **Not built here.** The user already has shape→name recognition (Country Shapes); the README links examples. The *inverse* (draw the shape) is F6, not this |
-| F3 | Locate | name shown → tap/click the region on a blank map | click-on-map games | Engine highlights what you hit, then reveals the answer region; self-grade with distance feedback. Scope = continental blank maps **and** country-internal blank maps for the user's target countries (USA, Russia, India, Brazil, Argentina, …) |
-| F4 | Point-in-region | random dot on a blank map → name the region containing it | "which state is this point in" | Dynamic: point re-randomized per review, stable within one review (front and back must agree). One note per region; the dot varies across reviews but stays inside an **eroded (inset) polygon** so it never hugs a border. Same scope catalog as F3 (US states, Brazilian states, countries of South America, Indian states, …) |
-| F5 | Place-the-piece | drag a floating **silhouette (shape supplied)** to its correct position on a faded/blank map | place-the-state (hard levels) | Tests *location* with the shape given. Score by centroid offset + rotation-free overlap. Distinct from F6 |
-| F5.5 | Contextual Sketch | **name + borderless parent map** → sketch the region in geographic position | scaffolded draw-the-state | Bridges Place and Draw: the parent outline helps orientation, but there are no internal borders to trace. Direct map-coordinate scoring tests shape, position, and scale |
-| F6 | Draw-the-shape | **name only** → sketch the outline of the region on a canvas; engine scores vs. truth | draw-the-state | Tests *shape recall*. This is the "draw the shape of country/state/continent X" task. Hardest to build well: normalization + IoU-style scoring + visual overlay feedback |
-| F7 | Neighbors | given a region (highlighted or named) → tap **all** its bordering regions on the map | border quizzes | Interactive tap-all version of the user's passive Country Borders deck. Engine tracks correct/missed/wrong neighbors and shows the full adjacency on the back |
-| F8 | Feature overlay | tap the named **non-region feature** (river, mountain range, sea, capital) on the map | rivers/landscapes games | Later phase; reuses F3/F4 machinery but the targets are lines (rivers/ranges) and points (capitals) laid over the basemap, not the fill regions |
+| # | Family | Interaction | Notes |
+|---|--------|-------------|-------|
+| F1 | Recognize | highlighted region on locator map → recall name | **Not built here.** Passive recall; the README links a few good example AnkiWeb decks (Ultimate Geography, the workspace's shared subdivision decks) instead |
+| F2 | Shape ID | isolated silhouette → recall name | **Not built here.** The user already has shape→name recognition (Country Shapes); the README links examples. The *inverse* (draw the shape) is F6, not this |
+| F3 | Locate | name shown → tap/click the region on a blank map | Engine highlights what you hit, then reveals the answer region; self-grade with distance feedback. Scope = continental blank maps **and** country-internal blank maps for the user's target countries (USA, Russia, India, Brazil, Argentina, …) |
+| F4 | Point-in-region | random dot on a blank map → name the region containing it | Dynamic: point re-randomized per review, stable within one review (front and back must agree). One note per region; the dot varies across reviews but stays inside an **eroded (inset) polygon** so it never hugs a border. Same scope catalog as F3 (US states, Brazilian states, countries of South America, Indian states, …) |
+| F5 | Place-the-piece | drag a floating **silhouette (shape supplied)** to its correct position on a faded/blank map | Tests *location* with the shape given. Score by centroid offset + rotation-free overlap. Distinct from F6 |
+| F5.5 | Contextual Sketch | **name + borderless parent map** → sketch the region in geographic position | Bridges Place and Draw: the parent outline helps orientation, but there are no internal borders to trace. Direct map-coordinate scoring tests shape, position, and scale |
+| F6 | Draw-the-shape | **name only** → sketch the outline of the region on a canvas; engine scores vs. truth | Tests *shape recall*. This is the "draw the shape of country/state/continent X" task. Hardest to build well: normalization + IoU-style scoring + visual overlay feedback |
+| F7 | Neighbors | given a region (highlighted or named) → tap **all** its bordering regions on the map | Interactive tap-all version of the user's passive Country Borders deck. Engine tracks correct/missed/wrong neighbors and shows the full adjacency on the back |
+| F8 | Feature overlay | tap the named **non-region feature** (river, mountain range, sea, capital) on the map | Later phase; reuses F3/F4 machinery but the targets are lines (rivers/ranges) and points (capitals) laid over the basemap, not the fill regions |
 
 Cross-cutting variants (per family, where meaningful): political vs. physical basemap,
 labeled vs. unlabeled neighbors. (Timed modes are dropped — they fight Anki's review model.)
