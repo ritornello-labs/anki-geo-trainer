@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "backend": "Anki 25.09 disposable collection",
+  "sequence": [
+    "actual AnkiWeb-delivered Brazil pack",
+    "September 30 full candidate",
+    "actual delivered Brazil pack again"
+  ],
+  "br_notes_cards": 108,
+  "br_note_model_card_leaf_ids_unchanged": true,
+  "duplicates_created": 0,
+  "full_candidate_notes": 2651,
+  "full_candidate_cards": 2673,
+  "limitation": "Brazil compatibility check only; full candidate scope is superseded and is not a shipping artifact."
+}

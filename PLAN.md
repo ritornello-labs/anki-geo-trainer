@@ -492,3 +492,17 @@ plus the Federal District, 108 cards, with fresh actual-Anki Bahia recordings.
 Native component/full/component imports preserve note/model/card/leaf-deck IDs
 and create zero duplicates. Complete listing preview and GIF manifest are ready
 for Elvis's approval. Publisher staging and submission remain pending.
+
+### Brazil component shipped — 2026-10-03
+
+Approved four-GIF listing submitted through `anki-addon-release` at `834723592`:
+26 states plus the Federal District, 108 cards. Only the obsolete Publisher
+Brazil copy was replaced; all other notes/cards/models are hash-identical.
+Approved isolated-Publisher Upload and normal/final sync completed with clean
+integrity. Canonical GitHub `v2026.10.03` now includes the exact AnkiWeb-delivered
+Brazil APKG, SHA-256
+`381da9926e435e0ce8a15804ecaaddd1b1fe497e9df064bc5a5149962d4beb48`; native
+component/full/component import verification preserved all scoped identities
+and created zero duplicate cards. AnkiWeb public review remains pending.
+Fresh Bahia game gallery and canonical download links are deployed with the
+standard support page. No personal Anki collection changes.

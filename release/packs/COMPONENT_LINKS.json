@@ -10,5 +10,13 @@
   "full-edition": {
     "ankiweb_id": "908455862",
     "status": "components first, update pending"
+  },
+  "brazil-subdivisions": {
+    "title": "GeoTrainer: Brazilian States",
+    "ankiweb_id": "834723592",
+    "ankiweb_url": "https://ankiweb.net/shared/info/834723592",
+    "release": "v2026.10.03",
+    "artifact": "geo-trainer-brazil-subdivisions.apkg",
+    "public_review_pending": true
   }
 }

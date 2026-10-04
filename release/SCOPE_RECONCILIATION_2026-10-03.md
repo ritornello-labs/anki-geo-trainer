@@ -1,6 +1,6 @@
 # GeoTrainer publication scope reconciliation
 
-Status: publication hold; previous full-edition image batch withdrawn. No personal collection operations are part of this audit.
+Status: full-edition scope reconciliation pending; U.S. and Brazil components shipped with approved real-Anki GIFs. Previous full-edition image batch withdrawn. No personal collection operations are part of this audit.
 
 ## Decision records recovered
 
@@ -13,7 +13,7 @@ Status: publication hold; previous full-edition image batch withdrawn. No person
 
 ## Discarded flow content
 
-The September 29 retirement receipt (`anki-collection-audit-study/audits/2026-09-29-geotrainer-qa-retirement/`) records 36 discarded interactive QA notes/cards and nine emptied note types. These cover circulation cells, pressure belts, winds, jets, seasonal monsoons/currents, Atlantic overturning, ENSO states and pattern prediction. Empty models and older source builders are historical implementation, not accepted release content. Surface-current content remains withheld while survivors are matched to the accepted inventory. No deletion or schema cleanup is authorized as part of publishing.
+The September 29 retirement receipt (`anki-collection-audit-study/audits/2026-09-29-geotrainer-qa-retirement/`) records 36 discarded interactive QA notes/cards and nine emptied note types. These cover circulation cells, pressure belts, winds, jets, seasonal monsoons/currents, Atlantic overturning, ENSO states and pattern prediction. Empty models and older source builders are historical implementation, not accepted release content. Surface-current content remains withheld while survivors are matched to the accepted inventory. No personal-collection deletion or schema cleanup is authorized as part of publishing.
 
 ## What the previous candidate missed
 
