@@ -1,0 +1,74 @@
+{
+  "status": "awaiting-image-approval",
+  "notes": 204,
+  "cards": 492,
+  "native_media_files": 70,
+  "images": [
+    {
+      "file": "point.gif",
+      "sha256": "3408aaf064b42b9f07c5c48cd3d010072cb29c3b7f1221ba9d1e0d57fd421f81",
+      "bytes": 73833,
+      "frames": 48,
+      "distinct_frames": 2,
+      "width": 760,
+      "height": 500,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "place.gif",
+      "sha256": "618ad4ff4e1bcfadf765d92ebe0d519e3f38a5516959229837ae81efe74f1e10",
+      "bytes": 106414,
+      "frames": 70,
+      "distinct_frames": 29,
+      "width": 760,
+      "height": 500,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "sketch.gif",
+      "sha256": "5342b6937d532fa26a5ca51c4e3239d335123586ea4bf626e59c16673345290d",
+      "bytes": 93799,
+      "frames": 80,
+      "distinct_frames": 58,
+      "width": 760,
+      "height": 546,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "trace.gif",
+      "sha256": "bba9b208b6173c5ec8acc7e52eda7863d31d80a4027aa5c9f2368c8154f8a04d",
+      "bytes": 183102,
+      "frames": 100,
+      "distinct_frames": 74,
+      "width": 760,
+      "height": 546,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "concept.gif",
+      "sha256": "78228e98536a7969c401c24f16c1070b0fff404d8dac7b3d0ac07e114c15dd84",
+      "bytes": 100567,
+      "frames": 56,
+      "distinct_frames": 2,
+      "width": 760,
+      "height": 516,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    }
+  ],
+  "public_images_uploaded": false,
+  "publisher_staged": false,
+  "personal_collection_accessed": false,
+  "preview": "www/.tmp/publish-batch-plate-tectonics/plate-tectonics-listing.png",
+  "visual_check": "All five final native front/answer captures checked: African Plate point identification; Arabian Plate great placement (~331 km); Arabian Plate solid sketch (1.6% average offset); San Andreas native zoom/pan/trace shows roughly-right attempt (~274 km) with Hard suggestion; named-boundary recall shows transform and the complete credited map. No Anki grade recorded.",
+  "map_credit_check": {
+    "primary_source": "https://commons.wikimedia.org/wiki/File:World_location_map_(equirectangular_180).svg",
+    "author": "TUBS",
+    "license": "CC BY-SA 3.0",
+    "note": "Corrected inherited Tentotwo attribution in public source catalog/README/listing; deck data/templates and private collection untouched."
+  }
+}

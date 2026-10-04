@@ -1,0 +1,38 @@
+{
+  "notes": 204,
+  "cards": 492,
+  "map_game_notes_cards": 132,
+  "concept_notes": 72,
+  "concept_cards": 360,
+  "models": {
+    "1607414001": "GeoTrainer Which Tectonic Plate \u2014 Tectonic Plates",
+    "1607414002": "GeoTrainer Place \u2014 Tectonic Plates",
+    "1607414005": "GeoTrainer Sketch \u2014 Tectonic Plates",
+    "1607427002": "GeoTrainer Place \u2014 Minor Tectonic Plates",
+    "1607427005": "GeoTrainer Sketch \u2014 Minor Tectonic Plates",
+    "1607428004": "GeoTrainer Trace \u2014 Plate Boundaries",
+    "2071862299": "Geo Tectonic Plate",
+    "1821474193": "Geo Plate Boundary",
+    "1205041487": "Geo Minor Plate",
+    "1129430484": "Geo Named Boundary"
+  },
+  "leaf_decks": {
+    "1607414050": "GeoTrainer::Plate Tectonics::1 Which Tectonic Plate",
+    "1607414051": "GeoTrainer::Plate Tectonics::2 Place",
+    "1607414054": "GeoTrainer::Plate Tectonics::3 Sketch",
+    "1607427051": "GeoTrainer::Plate Tectonics::Minor Plates::2 Place",
+    "1607427054": "GeoTrainer::Plate Tectonics::Minor Plates::3 Sketch",
+    "1607428053": "GeoTrainer::Plate Tectonics::Plate Boundaries::1 Trace",
+    "1215360311": "GeoTrainer::Plate Tectonics::Concepts::Tectonic Plates::Major Plates",
+    "1231569810": "GeoTrainer::Plate Tectonics::Concepts::Plate Boundary Types",
+    "1647983472": "GeoTrainer::Plate Tectonics::Concepts::Tectonic Plates::Minor Plates",
+    "239888903": "GeoTrainer::Plate Tectonics::Concepts::Named Plate Boundaries"
+  },
+  "native_media_files": 70,
+  "source_artifact": {
+    "file": "geo-trainer-plate-tectonics.apkg",
+    "bytes": 47205564,
+    "sha256": "ecad17be256ab358838bedd1fc832ad94b6c101f05d7b93eabe3c1e04132f187"
+  },
+  "held_QA_foundations_and_currents_included": false
+}
