@@ -12,7 +12,7 @@ support_url: https://github.com/ritornello-labs/anki-geo-trainer
 with the internal borders hidden, so it's genuine spatial recall, not matching a
 labelled shape. Name the region under a dot, drag a silhouette to where it belongs,
 sketch it in place on a blank parent map, draw it without any map, trace a
-river/current route, or place an island archipelago on a rotating globe. The card grades
+river route, or place an island archipelago on a rotating globe. The card grades
 your answer and suggests a button — you still press Anki's own answer keys, so
 scheduling stays 100% Anki.
 
@@ -21,6 +21,8 @@ into the note templates, with required map media bundled in the package.
 Light and dark mode included.
 
 ## See it in Anki
+
+Publication draft: the previous full-edition preview is withdrawn. New component previews come first; reference-line globe placement and accepted membership drills need current real-Anki demos.
 
 ![Identify the country under a dot on a borderless map](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/point.gif)
 
@@ -31,8 +33,6 @@ Light and dark mode included.
 ![Draw an outline from memory and compare it with the answer](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/draw.gif)
 
 ![Trace the Amazon from memory](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/river.gif)
-
-![Trace an ocean current with its direction](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/current.gif)
 
 ![Place an island group on a rotating globe](https://ritornello.dev/media/ankiweb/2026-09-23-v5/geo-trainer/globe.gif)
 
@@ -51,9 +51,6 @@ Light and dark mode included.
 - **Trace** (rivers) — trace a major river's course over a world map; graded by how
   closely your line follows the real one. Starts on the *full* world map (no hint
   where it is) — tap **＋** to zoom in and trace precisely.
-- **Trace** (ocean currents) — trace from origin to destination. Your stroke ends
-  in an arrow; the back reveals a forgiving route corridor and direction. Drawing
-  the right route backwards is still wrong.
 - **Globe placement** — rotate a randomly oriented globe and draw a movable, resizable
   ellipse around a named island or archipelago; coverage, center, and footprint all count.
 
@@ -64,7 +61,7 @@ pan — fine work is easy even on a small screen.
 
 ## What's covered
 
-The full edition contains **2,651 notes / 2,673 cards** across the accepted families. World countries covers the six continental country scopes and continent silhouettes. Subdivision packs cover the United States, Brazil, India, Russia, China, Canada, Australia, Argentina, Mexico, and Indonesia. Physical geography includes rivers, mountain ranges, deserts, lakes, surface ocean currents, plateaus, grasslands, and peninsulas. Plate tectonics covers major and minor plates and named boundaries. Islands & archipelagos contains 67 globe-placement cards. Reference lines & time covers parallels, meridians, the date line, and time-zone geography.
+The full edition is being reconciled against the accepted family records before publication. World countries covers the six continental country scopes and continent silhouettes. Subdivision packs cover the United States, Brazil, India, Russia, China, Canada, Australia, Argentina, Mexico, and Indonesia. Physical geography includes rivers, mountain ranges, deserts, lakes, plateaus, grasslands, and peninsulas. Plate tectonics covers major and minor plates and named boundaries. Islands & archipelagos contains 67 globe-placement cards. Reference lines & time covers parallels, meridians, the date line, and time-zone geography.
 
 Choose a focused pack or the full edition. Shared scopes retain the same note GUIDs, note-type IDs, and leaf deck IDs, so importing an overlapping pack updates the same notes.
 

@@ -10,7 +10,7 @@ support_url: https://github.com/ritornello-labs/anki-geo-trainer
 
 Learn geographic parallels, meridians, the date line, and time zones with bundled SVG maps.
 
-**56 notes / 78 cards.** This focused pack is also included in GeoTrainer’s full edition. Shared scopes use the same model IDs, leaf deck IDs, and note GUIDs: overlapping imports update the same notes.
+This focused pack will also be included in [GeoTrainer’s full edition](https://ankiweb.net/shared/info/908455862), whose update will ship after the components. Shared scopes use the same model IDs, leaf deck IDs, and note GUIDs: overlapping imports update the same notes.
 
 The map interaction gives feedback; you still choose Anki’s answer grade. Required maps and code are bundled for offline study.
 

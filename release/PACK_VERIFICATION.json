@@ -1,5 +1,5 @@
 {
-  "status": "passed",
+  "status": "superseded-scope-reconciliation-required",
   "full_notes": 2651,
   "full_cards": 2673,
   "checks": [
@@ -127,5 +127,12 @@
     "cards_after_overlapping_imports": 2673,
     "rendered_sample_cards": 6,
     "limitation": "built-in smoke renders template HTML; final interactive listing captures remain pending"
-  }
+  },
+  "historical_candidate_checks": "passed on September 30; do not use as approval for the October 3 scope",
+  "publication_hold": [
+    "Full-edition preview withdrawn",
+    "Surface ocean currents withheld",
+    "Accepted Geo Concepts and membership scope under reconciliation",
+    "Rebuild counts and repeat overlap verification after scope is settled"
+  ]
 }

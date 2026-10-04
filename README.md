@@ -3,22 +3,21 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
 [![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 ![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
-![Deck size](https://img.shields.io/badge/deck-2%2C651%20notes-7C3AED)
 
 Interactive geography practice for Anki: a curriculum-ordered set of map tasks that
 asks you to locate, place, sketch, draw, trace, and place archipelagos on a globe from
 memory. It runs
 offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 
-[![GeoTrainer place-the-shape review in Anki](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/preview.gif)](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/place.mp4)
+![GeoTrainer place-the-shape review in Anki](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/preview.gif)
 
-The animation is hosted with the public listing media at ritornello.dev; click it for the full-resolution Place MP4. The gallery also includes a separate Amazon-tracing video. [Browse all GeoTrainer samples](https://ritornello.dev/#geo-trainer).
+The animation is captured from real Anki. [Browse all GeoTrainer samples](https://ritornello.dev/#geo-trainer).
 
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
-**Release status:** 15 focused packs and a full edition are prepared for publication. The full edition contains 2,651 notes / 2,673 cards. See [pack sizes and compatibility](release/PACKS.md). AnkiWeb uploads and screenshot approval remain pending.
+**Release status:** components will ship first, followed by the full edition. The previous full-edition preview and package counts are superseded pending [scope reconciliation](release/SCOPE_RECONCILIATION_2026-10-03.md). No GeoTrainer update has been submitted in this publication pass. See [pack records](release/PACKS.md).
 
-Accepted content includes countries and continent silhouettes; subdivisions of ten countries; rivers, surface ocean currents, lakes, ranges, deserts, plateaus, grasslands and peninsulas; major/minor tectonic plates and boundaries; islands and archipelagos; and reference lines and time zones. The physical-systems QA scopes and foundations prototype remain outside the public packages.
+Accepted content includes countries and continent silhouettes; subdivisions of ten countries; rivers, lakes, ranges, deserts, plateaus, grasslands and peninsulas; major/minor tectonic plates and boundaries; islands and archipelagos; and reference lines and time zones. The physical-systems QA scopes and foundations prototype remain outside the public packages.
 
 Each scope retains its existing model IDs, leaf deck IDs, and note GUIDs in every pack and the full edition. An overlapping import updates the same notes.
 
@@ -31,7 +30,6 @@ Each scope retains its existing model IDs, leaf deck IDs, and note GUIDs in ever
 | `…::3 Sketch` | scaffolded shape + position recall | Draw the named country on its blank continent, a state/province on its blank country, or a continent on the blank world. The map has no internal borders; the back reveals the target and grades shape, position, and scale. Map-magnified microstates are omitted because their circles are interaction aids, not drawable geography |
 | `…::4 Draw` | unscaffolded shape recall | Sketch the outline from memory on a blank **fixed-square** canvas (uniform for every card, so the frame never hints the answer's aspect ratio; multi-stroke, undo/clear); the back overlays the true shape and grades the match. Scoring gates on **both** boundary faithfulness and area overlap (IoU), so a right-size wrong-shape blob — a lazy circle over Algeria — fails to *Again*, while an honest freehand attempt (even wobbly) passes. Position and size don't matter, form does |
 | `…::1 Trace` (rivers) | river course | Trace a major river's course over a world map; the back overlays the true line and grades by distance (km) to it. Start on the *full* world map (no positional hint), then zoom in to trace precisely |
-| `…::1 Trace` (currents) | current route + direction | Trace a major ocean current from origin to destination. Your stroke ends in an arrow; the back reveals a forgiving route corridor and the true direction. An accurate line drawn backwards is graded *Again* |
 | `World::Islands::1 Globe Placement` | spherical location + extent | Rotate a random globe and draw an editable ellipse covering the named island or archipelago; the back grades coverage, center, and footprint |
 
 Drawing surfaces (Sketch, Draw, Trace) have **zoom + pan** via floating map-style controls
@@ -46,8 +44,7 @@ press Anki's answer buttons. Region maps hide internal borders on the front so t
 task is genuine spatial recall, not shape-matching. Alaska and Hawaii render in
 classic inset panels at their own scale; microstates are magnified tap-circles on
 the *back*; Physical polygon scopes hide the feature on the front and show only the
-continents. Ocean-current routes are deliberately schematic learning
-corridors, not real-time forecasts or navigational data.
+continents.
 
 **Design note (2026-07):** Locate (redundant), Capital (duplicated a Cities deck),
 and Seas (trivial at world scale) were cut after studying the deck for real; the

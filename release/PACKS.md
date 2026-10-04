@@ -1,12 +1,14 @@
 # GeoTrainer public packs
 
-Built 2026-09-30 from the sanitized public source. Pack identity/union checks and real-Anki overlapping import smoke passed. Full-edition GIF listing batch is prepared for image approval. Elvis approved the existing listing’s full-edition assignment on September 30; original owner share-name verification and Publisher staging remain.
+Historical candidate built 2026-09-30 from the sanitized public source. Its identity/union checks and real-Anki overlapping import smoke passed for that candidate only. **Superseded October 3: publication scope is under reconciliation and the full-edition preview is withdrawn.** Components will ship first and the full edition last. See [scope reconciliation](SCOPE_RECONCILIATION_2026-10-03.md). Elvis approved the existing listing’s full-edition assignment on September 30; original owner share-name verification and Publisher staging remain.
 
-The full edition contains 2,651 notes / 2,673 cards. Every pack uses the same scope model IDs, leaf deck IDs, GUIDs, fields, and templates as the full edition. The eight physical-systems QA scopes and the foundations prototype are excluded.
+The September 30 candidate contained 2,651 notes / 2,673 cards; these are not final release counts. Every pack uses the same scope model IDs, leaf deck IDs, GUIDs, fields, and templates as the full edition. The eight physical-systems QA scopes and the foundations prototype are excluded.
 
 World countries includes the accepted Continents silhouette drills alongside the six continent country scopes. Country subdivision packs cover the ten countries already supported; no new country content is invented.
 
-| Pack | Notes | Cards |
+The following counts describe the superseded candidate, not approved shipping artifacts. Surface ocean currents have since been withheld; accepted membership/concept inclusion is being reconciled.
+
+| Historical candidate | Notes | Cards |
 |---|---:|---:|
 | geo-trainer-argentina-subdivisions.apkg | 96 | 96 |
 | geo-trainer-australia-subdivisions.apkg | 35 | 35 |

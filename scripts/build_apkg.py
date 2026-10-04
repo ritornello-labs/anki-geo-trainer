@@ -630,7 +630,7 @@ PUBLIC_PACKS = {
                         "south-america-countries", "africa-countries", "asia-countries",
                         "oceania-countries"],
     "physical-geography": ["world-rivers", "world-ranges", "world-deserts", "world-lakes",
-                           "world-ocean-currents", "world-plateaus", "world-grasslands",
+                           "world-plateaus", "world-grasslands",
                            "world-peninsulas"],
     "plate-tectonics": ["world-tectonic-plates", "world-minor-plates", "world-plate-boundaries"],
     "islands-archipelagos": ["world-islands-globe"],
@@ -648,6 +648,8 @@ HELD_SCOPES = {
     "atmospheric-cells", "atmospheric-pressure-belts", "world-prevailing-winds",
     "world-jet-streams", "south-asia-monsoon-winds", "indian-ocean-seasonal-currents",
     "atlantic-overturning", "equatorial-pacific-enso",
+    # Withdrawn from publication pending the October 3 retirement reconciliation.
+    "world-ocean-currents",
 }
 
 
