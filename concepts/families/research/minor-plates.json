@@ -1,0 +1,282 @@
+{
+ "aegean-sea-plate": {
+  "plate_kind": "minor, continental (thinned)",
+  "region": "Aegean Sea, Greece and Turkey",
+  "boundary_fact": "overrides the African Plate as it is subducted beneath it at the Hellenic subduction zone south of Crete",
+  "carries": "Greece, western Turkey, and the Aegean Islands",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Aegean_Sea_Plate",
+  "definition": "The Aegean Sea Plate is a small plate of thinned continental crust beneath Greece, the Aegean Sea, and western Turkey that is being stretched westward as the African Plate subducts beneath it at the Hellenic Trench."
+ },
+ "altiplano-plate": {
+  "plate_kind": "minor, continental (low-confidence deformation zone)",
+  "region": "Central Andes (southern Peru, Bolivia, northern Chile)",
+  "boundary_fact": "sits within the Andean orogen, squeezed between the subducting Nazca Plate and the South American Plate",
+  "carries": "the Altiplano plateau and central Andes mountains",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/List_of_tectonic_plates",
+  "definition": "The Altiplano Plate is one of the 38 small plates in Peter Bird's PB2002 model, covering the high Andean plateau of southern Peru, Bolivia, and northern Chile; it has no dedicated Wikipedia article, appearing only as a redlink in the List of tectonic plates, since the region is really an orogen where plate boundaries are loosely defined."
+ },
+ "amur-plate": {
+  "plate_kind": "minor, continental",
+  "region": "Northeast Asia (Manchuria, Korea, Sea of Japan)",
+  "boundary_fact": "is bounded by the Eurasian Plate to the north and west and by the Okhotsk Plate to the east",
+  "carries": "northeastern China, the Korean Peninsula, southwestern Japan, and eastern Mongolia",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Amurian_Plate",
+  "definition": "The Amur Plate is a minor continental plate spanning northeastern China, the Korean Peninsula, and southwestern Japan that rotates slowly counterclockwise and is linked to significant regional seismicity."
+ },
+ "anatolia-plate": {
+  "plate_kind": "minor, continental",
+  "region": "Turkey (Anatolia) and the Aegean",
+  "boundary_fact": "is squeezed westward past the Eurasian Plate along the North Anatolian Fault and past the Arabian Plate along the East Anatolian Fault",
+  "carries": "most of Turkey (the Anatolian Peninsula)",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Anatolian_Plate",
+  "definition": "The Anatolian Plate is a small continental plate carrying most of Turkey that is being extruded westward at about 21 mm/year between the North and East Anatolian Fault zones, among the most active transform faults on Earth."
+ },
+ "balmoral-reef-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "South Pacific, north of Fiji",
+  "boundary_fact": "spreads apart from the New Hebrides Plate along a divergent boundary feeding the New Hebrides-Tonga subduction system",
+  "carries": "seafloor of the west-central North Fiji Basin, no land",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Balmoral_Reef_plate",
+  "definition": "The Balmoral Reef Plate is a small oceanic microplate under the North Fiji Basin, north of Fiji, whose young seafloor (under 12 million years old) is spreading between the New Hebrides and Tonga subduction zones."
+ },
+ "banda-sea-plate": {
+  "plate_kind": "minor, mixed continental-oceanic",
+  "region": "Banda Sea, eastern Indonesia",
+  "boundary_fact": "converges against the Australian Plate along its southern and eastern margins, uplifting the mountains of western Sulawesi and the Banda Arc",
+  "carries": "part of Sulawesi, Seram Island, and the Banda Islands",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Banda_Sea_Plate",
+  "definition": "The Banda Sea Plate is a small, seismically active plate in eastern Indonesia carrying parts of Sulawesi, Seram, and the Banda Islands, formed where the Australian Plate collides with and subducts beneath the Banda Arc."
+ },
+ "birds-head-plate": {
+  "plate_kind": "minor, mixed continental-oceanic",
+  "region": "Western New Guinea (Bird's Head Peninsula)",
+  "boundary_fact": "meets the Caroline Plate along a convergent boundary to its north while separating from the Australian Plate to its south",
+  "carries": "the Bird's Head Peninsula of western New Guinea",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Bird%27s_Head_Plate",
+  "definition": "The Bird's Head Plate is a small plate at the western tip of New Guinea, carrying the Bird's Head Peninsula, that has broken away from the Australian Plate and collides with the Caroline Plate to its north."
+ },
+ "burma-plate": {
+  "plate_kind": "minor, mixed continental-oceanic (island arc)",
+  "region": "Andaman Sea, northwest Sumatra",
+  "boundary_fact": "overrides the India Plate as it subducts beneath its western edge at the Sunda Trench",
+  "carries": "the Andaman and Nicobar Islands and part of northwestern Sumatra",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Burma_Plate",
+  "definition": "The Burma Plate is a small plate carrying the Andaman and Nicobar Islands and northwest Sumatra, formed as an island arc above the India Plate's subduction at the Sunda Trench, with the Andaman Sea spreading behind it."
+ },
+ "caroline-plate": {
+  "plate_kind": "minor, oceanic",
+  "region": "Western Pacific, north of New Guinea",
+  "boundary_fact": "subducts southward beneath the Bird's Head Plate and adjacent Australian Plate blocks",
+  "carries": "the West and East Caroline ocean basins, no significant land",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Caroline_Plate",
+  "definition": "The Caroline Plate is a small oceanic plate straddling the equator north of New Guinea, containing the West and East Caroline Basins, that is being consumed by subduction beneath the Bird's Head Plate to its south."
+ },
+ "conway-reef-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "South Pacific, west of Fiji",
+  "boundary_fact": "rotates counterclockwise against the New Hebrides Plate to its west and the Australian Plate to its east",
+  "carries": "seafloor of the south-central North Fiji Basin, no land",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Conway_Reef_plate",
+  "definition": "The Conway Reef Plate is a small oceanic microplate in the North Fiji Basin west of Fiji, wedged between the Central Spreading Ridge and West Fiji Ridge, rotating counterclockwise relative to all its neighbors."
+ },
+ "easter-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "South Pacific, west of Easter Island",
+  "boundary_fact": "spreads apart from both the Nazca Plate to its east and the Pacific Plate to its west at some of the fastest rates on Earth",
+  "carries": "ocean floor only, no land",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Easter_Plate",
+  "definition": "The Easter Microplate is a small, fast-spreading oceanic plate west of Easter Island, wedged between the Nazca and Pacific Plates, with seafloor spreading rates up to 140 mm/year, among the highest recorded globally."
+ },
+ "futuna-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "South Pacific, near Futuna Island",
+  "boundary_fact": "is sandwiched between the Pacific Plate to the north and the Australian Plate to the south, bordering the Niuafo'ou Plate to the east",
+  "carries": "ocean floor near the island of Futuna, no significant land",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Futuna_plate",
+  "definition": "The Futuna Plate is a very small oceanic microplate near Futuna Island in the southwest Pacific, squeezed between the Pacific and Australian Plates and adjoining the Niuafo'ou Plate."
+ },
+ "galapagos-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "Eastern Pacific, off Colombia and the Galapagos",
+  "boundary_fact": "meets the Pacific, Cocos, and Nazca Plates at the unusual ridge-ridge-ridge Galapagos triple junction",
+  "carries": "ocean floor near the Galapagos Islands, no land itself",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Galapagos_Microplate",
+  "definition": "The Galapagos Microplate is a tiny (about 13,000 km squared) oceanic plate in the eastern Pacific that accommodates the meeting of the Pacific, Cocos, and Nazca Plates at the Galapagos triple junction."
+ },
+ "juan-fernandez-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "South Pacific, west of Chile",
+  "boundary_fact": "rotates clockwise at a triple junction where it couples with the Nazca Plate to the north and the Antarctic Plate to the south",
+  "carries": "ocean floor only, about 2,000 km west of South America",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Juan_Fernandez_Plate",
+  "definition": "The Juan Fernandez Plate is a small, clockwise-rotating oceanic microplate in the South Pacific that formed 3-4 million years ago at a triple junction with the Nazca, Antarctic, and Pacific Plates."
+ },
+ "kermadec-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "South Pacific, north of New Zealand",
+  "boundary_fact": "overrides the Pacific Plate as it converges and subducts westward at rates up to 8 cm/year",
+  "carries": "part of New Zealand's North Island and the Kermadec Islands",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Kermadec_Plate",
+  "definition": "The Kermadec Plate is a long, narrow oceanic microplate north of New Zealand that overrides the subducting Pacific Plate at the Kermadec Trench, one of the most seismically active zones in the southwest Pacific."
+ },
+ "manus-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "Bismarck Sea, northeast of New Guinea",
+  "boundary_fact": "converges against both the North Bismarck Plate and the Pacific Plate along its northern and northeastern margins",
+  "carries": "young mid-ocean-ridge seafloor, no land",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Manus_Plate",
+  "definition": "The Manus Plate is a tiny, roughly 100-km-wide oceanic microplate northeast of New Guinea that rotates counterclockwise at one of the fastest rates of any plate on Earth, wedged between the North Bismarck and Pacific Plates."
+ },
+ "maoke-plate": {
+  "plate_kind": "minor, continental",
+  "region": "Western New Guinea (Sudirman Range)",
+  "boundary_fact": "has a proposed convergent boundary to its east with the Woodlark Plate, or an enlarged Solomon Sea Plate in newer models",
+  "carries": "the Sudirman Range, including Puncak Jaya, New Guinea's highest peak",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Maoke_Plate",
+  "definition": "The Maoke Plate is a small plate underlying western New Guinea's Sudirman Range, home to Puncak Jaya, that moves north at roughly 70 mm/year relative to Africa amid complex, still-debated boundaries with surrounding plates."
+ },
+ "mariana-plate": {
+  "plate_kind": "minor, oceanic (island arc)",
+  "region": "Western Pacific, Mariana Islands",
+  "boundary_fact": "overrides the Pacific Plate as it subducts beneath its eastern margin at the Mariana Trench",
+  "carries": "the Mariana Islands volcanic arc",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Mariana_Plate",
+  "definition": "The Mariana Plate is a small oceanic plate west of the Mariana Trench that carries the Mariana Islands volcanic arc, formed above the subducting Pacific Plate with active back-arc spreading along its western edge."
+ },
+ "molucca-sea-plate": {
+  "plate_kind": "minor, oceanic (fully subducted)",
+  "region": "Molucca Sea, Indonesia, between Sulawesi and Halmahera",
+  "boundary_fact": "is consumed on both sides at once, subducting beneath both the Sangihe Plate to the west and the Halmahera Plate to the east",
+  "carries": "no land; entirely subducted oceanic crust beneath the Molucca Sea",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Molucca_Sea_Plate",
+  "definition": "The Molucca Sea Plate is a small, now fully subducted oceanic plate between Sulawesi and Halmahera in Indonesia, famous as the only known example of divergent double subduction, being consumed from both sides simultaneously."
+ },
+ "new-hebrides-plate": {
+  "plate_kind": "minor, mixed continental-oceanic",
+  "region": "Southwest Pacific, Vanuatu",
+  "boundary_fact": "overrides the Australian Plate as it subducts beneath it at the New Hebrides Trench",
+  "carries": "Vanuatu and the seafloor of the North Fiji Basin",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/New_Hebrides_Plate",
+  "definition": "The New Hebrides Plate is a small plate carrying the island nation of Vanuatu, sitting above the Australian Plate's subduction at the New Hebrides Trench, one of the most seismically active margins in the Pacific."
+ },
+ "north-andes-plate": {
+  "plate_kind": "minor, continental",
+  "region": "Northern Andes (Colombia, Ecuador, Venezuela)",
+  "boundary_fact": "is squeezed between the faster-moving South American Plate to the east and the subducting Nazca Plate to the west",
+  "carries": "the mountainous northern Andes of Colombia, Ecuador, and Venezuela",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/North_Andes_Plate",
+  "definition": "The North Andes Plate is a small continental plate covering the northern Andes of Colombia, Ecuador, and Venezuela, compressed between the South American and Nazca Plates and marked by intense volcanic and seismic activity."
+ },
+ "north-bismarck-plate": {
+  "plate_kind": "minor, oceanic (largely inactive)",
+  "region": "Bismarck Sea, northeast of New Guinea",
+  "boundary_fact": "is separated from the South Bismarck Plate by the seismically active Bismarck Sea Seismic Lineation",
+  "carries": "Melanesian arc volcanoes and Bismarck Sea seafloor",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/North_Bismarck_Plate",
+  "definition": "The North Bismarck Plate is a small, now largely inactive or relic plate in the Bismarck Sea northeast of New Guinea, once host to the volcanoes of the Melanesian arc and separated from the South Bismarck Plate by a highly seismic fault zone."
+ },
+ "okhotsk-plate": {
+  "plate_kind": "minor, continental",
+  "region": "Northeast Asia (Russian Far East, Japan)",
+  "boundary_fact": "overrides the Pacific Plate as it subducts beneath it, producing major megathrust earthquakes",
+  "carries": "Kamchatka, Sakhalin, the Kuril Islands, Hokkaido, and northeastern Honshu",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Okhotsk_Plate",
+  "definition": "The Okhotsk Plate is a minor continental plate covering the Sea of Okhotsk region, Kamchatka, Sakhalin, the Kurils, and northern Japan, moving southwest as the Pacific Plate subducts beneath it and generates some of the world's largest earthquakes."
+ },
+ "okinawa-plate": {
+  "plate_kind": "minor, continental",
+  "region": "East China Sea, Ryukyu Islands",
+  "boundary_fact": "collides with the Philippine Sea Plate along its eastern margin, forming the Ryukyu Trench and island arc",
+  "carries": "the Ryukyu Islands, parts of Kyushu, northern Taiwan, and the Okinawa Trough",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Okinawa_Plate",
+  "definition": "The Okinawa Plate is a small continental plate stretching from Taiwan to Kyushu that carries the Ryukyu Islands and is being deformed as the Philippine Sea Plate converges on its eastern edge, producing both earthquakes and slow-slip events."
+ },
+ "panama-plate": {
+  "plate_kind": "microplate, mixed continental-oceanic",
+  "region": "Central America (Panama, Costa Rica)",
+  "boundary_fact": "overrides the Cocos and Nazca Plates as they subduct beneath its southern margin",
+  "carries": "Costa Rica and Panama",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Panama_Plate",
+  "definition": "The Panama Plate is a small plate carrying Costa Rica and Panama, sandwiched between actively spreading ridges and overriding the subducting Cocos and Nazca Plates to its south."
+ },
+ "rivera-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "Eastern Pacific, off western Mexico",
+  "boundary_fact": "subducts beneath the North American Plate at the Middle America Trench, producing Mexico's strongest earthquakes",
+  "carries": "ocean floor only, off Mexico's Pacific coast",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Rivera_Plate",
+  "definition": "The Rivera Plate is a small oceanic microplate off the west coast of Mexico, just south of Baja California, that subducts beneath the North American Plate and has caused some of the strongest earthquakes in Mexican history."
+ },
+ "sandwich-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "Southern Ocean, South Sandwich Islands",
+  "boundary_fact": "overrides the South American Plate as it subducts beneath its eastern margin, driving back-arc spreading",
+  "carries": "the South Sandwich Islands",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/South_Sandwich_Plate",
+  "definition": "The South Sandwich Plate is a small oceanic microplate in the Southern Ocean carrying the South Sandwich Islands, formed above the subducting South American Plate and bounded by the Antarctic and Scotia Plates."
+ },
+ "shetland-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "Southern Ocean, South Shetland Islands (Antarctic Peninsula)",
+  "boundary_fact": "subducts northward beneath the Antarctic Plate at the South Shetland Trench",
+  "carries": "the South Shetland Islands",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/South_Shetland_Plate",
+  "definition": "The South Shetland Plate is a small oceanic microplate off the tip of the Antarctic Peninsula, carrying the South Shetland Islands, that formed 3-4 million years ago through back-arc rifting and is bordered mostly by the Antarctic Plate."
+ },
+ "solomon-sea-plate": {
+  "plate_kind": "minor, oceanic",
+  "region": "Southwest Pacific, Solomon Sea",
+  "boundary_fact": "dives beneath the South Bismarck and Pacific Plates at the New Britain Trench",
+  "carries": "ocean floor of the Solomon Sea, no land",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Solomon_Sea_Plate",
+  "definition": "The Solomon Sea Plate is a small oceanic plate east of Papua New Guinea that is being consumed by subduction beneath the South Bismarck and Pacific Plates at the highly active New Britain Trench."
+ },
+ "south-bismarck-plate": {
+  "plate_kind": "minor, mixed continental-oceanic",
+  "region": "Bismarck Sea, Papua New Guinea",
+  "boundary_fact": "overrides the Solomon Sea Plate as it subducts beneath New Britain at the New Britain Trench",
+  "carries": "the eastern part of New Guinea and the island of New Britain",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/South_Bismarck_Plate",
+  "definition": "The South Bismarck Plate is a small plate in the southern Bismarck Sea carrying eastern New Guinea and New Britain, marked by high earthquake and volcanic activity where the Solomon Sea Plate subducts beneath it."
+ },
+ "timor-plate": {
+  "plate_kind": "minor, mixed continental-oceanic",
+  "region": "Southeast Asia, Timor",
+  "boundary_fact": "overrides the Australian Plate as it subducts beneath its southern edge",
+  "carries": "the island of Timor and surrounding islands",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Timor_Plate",
+  "definition": "The Timor Plate is a small plate in Southeast Asia carrying the island of Timor, formed where the Australian Plate subducts beneath its southern edge and it converges with the Banda Sea Plate to the north."
+ },
+ "tonga-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "Southwest Pacific, north of New Zealand",
+  "boundary_fact": "overrides the Pacific Plate as it subducts along the Tonga Trench, one of the fastest subduction zones on Earth",
+  "carries": "ocean floor and the volcanic arc near Tonga",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Tonga_Plate",
+  "definition": "The Tonga Plate is a small, elongated oceanic microplate in the southwest Pacific that subducts the Pacific Plate along the Tonga Trench and rotates clockwise amid intense seismic activity."
+ },
+ "woodlark-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "Southwest Pacific, east of New Guinea (Woodlark Basin)",
+  "boundary_fact": "is subducted northeastward beneath the New Georgia Islands of the Solomon Sea and Pacific Plate system on its eastern side",
+  "carries": "seafloor of the Woodlark Basin, no significant land",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Woodlark_Plate",
+  "definition": "The Woodlark Plate is a small, triangular oceanic microplate in the Woodlark Basin east of New Guinea, now understood via GPS data to be much smaller than once thought, being subducted beneath the New Georgia Islands to its east."
+ },
+ "yangtze-plate": {
+  "plate_kind": "minor, continental",
+  "region": "Southern China",
+  "boundary_fact": "is separated from the Okinawa Plate by a rift forming the Okinawa Trough and collides with the Eurasian Plate along the Longmenshan Fault",
+  "carries": "the bulk of southern China",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Yangtze_Plate",
+  "definition": "The Yangtze Plate is a minor continental plate underlying most of southern China that moves southeast at about 15 mm/year, rifting away from the Okinawa Plate to its east and colliding with the Eurasian Plate along the Longmenshan Fault to its west."
+ },
+ "niuafo-ou-plate": {
+  "plate_kind": "microplate, oceanic",
+  "region": "Southwest Pacific, Lau Basin, west of Tonga",
+  "boundary_fact": "borders the highly unstable Tonga Plate to its east across the actively spreading Lau Basin",
+  "carries": "seafloor of the Lau Basin, no significant land",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/Niuafo%27ou_Plate",
+  "definition": "The Niuafo'ou Plate is a small, earthquake-prone oceanic microplate in the Lau Basin west of Tonga, riddled with active faults where it abuts the volatile Tonga Plate."
+ }
+}

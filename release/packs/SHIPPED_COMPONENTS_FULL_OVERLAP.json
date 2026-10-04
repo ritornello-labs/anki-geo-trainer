@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "backend": "Anki 25.09 disposable collection",
+  "actual_delivered_components": [
+    "united-states-subdivisions",
+    "brazil-subdivisions",
+    "china-subdivisions",
+    "reference-lines-time"
+  ],
+  "sequence": [
+    "four actual AnkiWeb-delivered components",
+    "corrected full-union candidate",
+    "same four delivered components"
+  ],
+  "existing_notes": 488,
+  "existing_cards": 510,
+  "ids_fields_guids_unchanged": true,
+  "duplicates_created": 0,
+  "full_candidate_notes": 2987,
+  "full_candidate_cards": 4212,
+  "full_candidate_not_published": true
+}

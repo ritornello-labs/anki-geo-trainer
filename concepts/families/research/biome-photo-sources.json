@@ -1,0 +1,388 @@
+{
+  "tundra": [
+    {
+      "commons_title": "File:1002 Area- Tundra looking south toward Brooks Range - DPLA - dee0325986d1746a3ac976a0b770ea26.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:1002_Area-_Tundra_looking_south_toward_Brooks_Range_-_DPLA_-_dee0325986d1746a3ac976a0b770ea26.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "author": "U.S. Fish and Wildlife Service",
+      "caption": "Tussock tundra, Arctic National Wildlife Refuge, Alaska"
+    },
+    {
+      "commons_title": "File:Arctic tundra in fall colors Kola Peninsula Murmansk Russia.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Arctic_tundra_in_fall_colors_Kola_Peninsula_Murmansk_Russia.jpg",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0",
+      "author": "Artem Abdukakharov",
+      "caption": "Autumn shrub tundra, Kola Peninsula, Russia"
+    },
+    {
+      "commons_title": "File:Bierikjåhkå Sarek.JPG",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Bierikj%C3%A5hk%C3%A5_Sarek.JPG",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "author": "Ökologix",
+      "caption": "Tundra valley, Sarek National Park, Sweden"
+    },
+    {
+      "commons_title": "File:Alpine Tundra Plants on Grey Mountain (16190679740).jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Alpine_Tundra_Plants_on_Grey_Mountain_(16190679740).jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "author": "Chris Hunkeler",
+      "caption": "Mountain tundra and lichen, Grey Mountain, Yukon"
+    }
+  ],
+  "taiga-and-boreal-forests": [
+    {
+      "commons_title": "File:Ergaki, Taiga in Siberia, Coniferous forest, Sayan Mountains, Siberia, Russia.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Ergaki,_Taiga_in_Siberia,_Coniferous_forest,_Sayan_Mountains,_Siberia,_Russia.jpg",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0",
+      "author": "Vyacheslav Argenberg",
+      "caption": "Dark coniferous taiga, Sayan Mountains, Siberia"
+    },
+    {
+      "commons_title": "File:Taiga Landscape in Canada.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Taiga_Landscape_in_Canada.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "author": "peupleloup",
+      "caption": "Black spruce taiga, Quebec, Canada"
+    },
+    {
+      "commons_title": "File:Swedish Spruce Forest.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Swedish_Spruce_Forest.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "author": "Nick Lott",
+      "caption": "Spruce boreal forest near Ånnaboda, Sweden"
+    },
+    {
+      "commons_title": "File:Boreal forest at Scoter Lake - DPLA - 0ba72e6d6f41af4aa2c483bad02c1b32.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Boreal_forest_at_Scoter_Lake_-_DPLA_-_0ba72e6d6f41af4aa2c483bad02c1b32.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "author": "U.S. Fish and Wildlife Service",
+      "caption": "Boreal spruce forest at Scoter Lake, Alaska"
+    }
+  ],
+  "temperate-broadleaf-and-mixed-forests": [
+    {
+      "commons_title": "File:Beech Flats Prong (463487992).jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Beech_Flats_Prong_(463487992).jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "author": "Chris M Morris",
+      "caption": "Broadleaf forest valley, Great Smoky Mountains, USA"
+    },
+    {
+      "commons_title": "File:Auró Deciduous Forest 1.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Aur%C3%B3_Deciduous_Forest_1.jpg",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "author": "Auró",
+      "caption": "Mixed deciduous forest in autumn, Catalonia, Spain"
+    },
+    {
+      "commons_title": "File:Birken-Eichenwald Blankenburg 2.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Birken-Eichenwald_Blankenburg_2.jpg",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "author": "Ordercrazy",
+      "caption": "Birch-oak forest, Harz, Germany"
+    },
+    {
+      "commons_title": "File:Beech and ferns in Gullmarsskogen.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Beech_and_ferns_in_Gullmarsskogen.jpg",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "author": "W.carter",
+      "caption": "Beech forest with ferns, Gullmarsskogen, Sweden"
+    }
+  ],
+  "temperate-coniferous-forests": [
+    {
+      "commons_title": "File:365-365 ~ Stout Grove -redwood -trees -panorama -california -statepark -green (9468408094).jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:365-365_~_Stout_Grove_-redwood_-trees_-panorama_-california_-statepark_-green_(9468408094).jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "author": "Ray Bouknight",
+      "caption": "Old-growth redwood grove, Stout Grove, California"
+    },
+    {
+      "commons_title": "File:Barrskog med skimrande sol.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Barrskog_med_skimrande_sol.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "MMN-o",
+      "caption": "Sunlit pine forest, protected reserve, Sweden"
+    },
+    {
+      "commons_title": "File:Caducifolias y coníferas - Pirineos.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Caducifolias_y_con%C3%ADferas_-_Pirineos.jpg",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "author": "Fev",
+      "caption": "Montane conifer belt, Pyrenees, Spain"
+    },
+    {
+      "commons_title": "File:Bor lowland typical forest.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Bor_lowland_typical_forest.jpg",
+      "license": "CC BY 3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0",
+      "author": "Doronenko",
+      "caption": "Pine forest with fern understory, Bor lowland"
+    }
+  ],
+  "tropical-and-subtropical-moist-broadleaf-forests": [
+    {
+      "commons_title": "File:Sunrise in Danum Valley, Borneo.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Sunrise_in_Danum_Valley,_Borneo.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "author": "Rob and Stephanie Levy",
+      "caption": "Misty dipterocarp canopy, Danum Valley, Borneo"
+    },
+    {
+      "commons_title": "File:Complex mesophyll vine forest Daintree National Park Queensland 1986 IMG 0012 (2).jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Complex_mesophyll_vine_forest_Daintree_National_Park_Queensland_1986_IMG_0012_(2).jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "John Robert McPherson",
+      "caption": "Rainforest canopy over coast, Daintree, Queensland"
+    },
+    {
+      "commons_title": "File:Amazonía Ecuador.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Amazon%C3%ADa_Ecuador.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "ALAI - Agencia Latinoamericana de Información",
+      "caption": "Amazon rainforest along a river, Yasuní, Ecuador"
+    },
+    {
+      "commons_title": "File:Rain forest close to Diosso - Pointe-Noire (Republic of Congo).jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Rain_forest_close_to_Diosso_-_Pointe-Noire_(Republic_of_Congo).jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Liandi Navek",
+      "caption": "Congo Basin rainforest near Pointe-Noire"
+    }
+  ],
+  "tropical-and-subtropical-dry-broadleaf-forests": [
+    {
+      "commons_title": "File:Awash in yellow.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Awash_in_yellow.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "author": "Nagarjun",
+      "caption": "Dry deciduous forest in dry season, Kanha, India"
+    },
+    {
+      "commons_title": "File:Chamela-Cuixmala DryForest.JPG",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Chamela-Cuixmala_DryForest.JPG",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "author": "Aedrake09",
+      "caption": "Tropical dry forest, Chamela-Cuixmala, Jalisco, Mexico"
+    },
+    {
+      "commons_title": "File:Forest, Santa Criz Dept, Bolivia.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Forest,_Santa_Criz_Dept,_Bolivia.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "author": "Sam Beebe",
+      "caption": "Chiquitano dry forest canopy, Santa Cruz, Bolivia"
+    },
+    {
+      "commons_title": "File:Baobab (Adansonia madagascariensis boenensis).jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Baobab_(Adansonia_madagascariensis_boenensis).jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Papango401",
+      "caption": "Baobab in dry forest, Ankarafantsika, Madagascar"
+    }
+  ],
+  "temperate-grasslands-savannas-and-shrublands": [
+    {
+      "commons_title": "File:Flint Hills - 51424666164.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Flint_Hills_-_51424666164.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "author": "Larry Mills",
+      "caption": "Tallgrass prairie, Flint Hills, Kansas, USA"
+    },
+    {
+      "commons_title": "File:Astana-steppe-7748.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Astana-steppe-7748.jpg",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "author": "Vmenkov",
+      "caption": "Open steppe grassland, Akmola Province, Kazakhstan"
+    },
+    {
+      "commons_title": "File:Caballos libres en la reserva, Iberá, Corrientes, Argentina.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Caballos_libres_en_la_reserva,_Iber%C3%A1,_Corrientes,_Argentina.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Nico141",
+      "caption": "Grassland reserve, Iberá, Corrientes, Argentina"
+    },
+    {
+      "commons_title": "File:Cerca casco 2.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Cerca_casco_2.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "author": "Rufus1961",
+      "caption": "Patagonian steppe shrubland, Valle Chacabuco, Chile"
+    }
+  ],
+  "tropical-and-subtropical-grasslands-savannas-and-shrublands": [
+    {
+      "commons_title": "File:1973-12-22 Serengeti - Masai Mara.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:1973-12-22_Serengeti_-_Masai_Mara.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Guus Gorter",
+      "caption": "Acacia savanna grassland, Serengeti-Mara, East Africa",
+      "crop": [
+        0.022,
+        0.024,
+        0.022,
+        0.024
+      ]
+    },
+    {
+      "commons_title": "File:Approaching Nourlangie Rock in the morning.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Approaching_Nourlangie_Rock_in_the_morning.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Travelstine",
+      "caption": "Savanna woodland, Kakadu National Park, Australia"
+    },
+    {
+      "commons_title": "File:Atardecer en los Llanos de Guárico.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Atardecer_en_los_Llanos_de_Gu%C3%A1rico.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "author": "g013m",
+      "caption": "Llanos grassland at dusk, Guárico, Venezuela"
+    },
+    {
+      "commons_title": "File:Rain clouds gather over the Velavadar Blacbuck National Park.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Rain_clouds_gather_over_the_Velavadar_Blacbuck_National_Park.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Uday Damodaran",
+      "caption": "Dry-season savanna grassland, Velavadar, India",
+      "crop": [
+        0.0,
+        0.0,
+        0.0,
+        0.13
+      ]
+    }
+  ],
+  "mediterranean-forests-woodlands-and-scrub": [
+    {
+      "commons_title": "File:File--i-Aesculus californica-i--br--Soapberry family (Sapindaceae) (fd18f8d1-eb8b-f5b7-34d1-c4d864c076a6).jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:File--i-Aesculus_californica-i--br--Soapberry_family_(Sapindaceae)_(fd18f8d1-eb8b-f5b7-34d1-c4d864c076a6).jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "author": "National Park Service",
+      "caption": "Chaparral hillside, Pinnacles National Park, California"
+    },
+    {
+      "commons_title": "File:Betty's Bay.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Betty%27s_Bay.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "author": "Nick Coombe",
+      "caption": "Fynbos shrubland above the coast, Betty's Bay, South Africa"
+    },
+    {
+      "commons_title": "File:Aumelas garrigue.JPG",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Aumelas_garrigue.JPG",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Fagairolles 34",
+      "caption": "Garrigue scrub, Aumelas, southern France"
+    },
+    {
+      "commons_title": "File:Cajon de Maipo 15.6.08 2.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Cajon_de_Maipo_15.6.08_2.jpg",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "author": "Penarc",
+      "caption": "Matorral-covered foothills, Cajón del Maipo, Chile"
+    }
+  ],
+  "deserts-and-xeric-shrublands": [
+    {
+      "commons_title": "File:Desert landscape with cacti in Tucson, AZ at dusk.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Desert_landscape_with_cacti_in_Tucson,_AZ_at_dusk.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "WClarke",
+      "caption": "Saguaro cacti at dusk, Sonoran Desert, Arizona"
+    },
+    {
+      "commons_title": "File:20150731 Namib-Naukloft (Namib Desrt Lodge).jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:20150731_Namib-Naukloft_(Namib_Desrt_Lodge).jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Matthias Bethke",
+      "caption": "Sparse desert trees and grass, Namib-Naukluft, Namibia"
+    },
+    {
+      "commons_title": "File:A landscape picture of the Tost Local Protected Area in South Gobi, Mongolia 01.JPG",
+      "description_url": "https://commons.wikimedia.org/wiki/File:A_landscape_picture_of_the_Tost_Local_Protected_Area_in_South_Gobi,_Mongolia_01.JPG",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Ksuryawanshi",
+      "caption": "Sparse desert-steppe shrubland, South Gobi, Mongolia"
+    },
+    {
+      "commons_title": "File:Arbre du Ténéré.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Arbre_du_T%C3%A9n%C3%A9r%C3%A9.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Yahiaoui Bellahouel",
+      "caption": "Acacia trees on a dune, Ténéré, Sahara"
+    }
+  ],
+  "mangroves": [
+    {
+      "commons_title": "File:Beauty of Sundarban Mangrove.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Beauty_of_Sundarban_Mangrove.jpg",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "author": "MD sajjad hossain photography",
+      "caption": "Mangrove forest along a tidal creek, Sundarbans"
+    },
+    {
+      "commons_title": "File:Benoa Bali Indonesia-Mangrove-forest-01.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Benoa_Bali_Indonesia-Mangrove-forest-01.jpg",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "author": "CEphoto, Uwe Aranas",
+      "caption": "Mangrove roots at low tide, Benoa, Bali, Indonesia"
+    },
+    {
+      "commons_title": "File:Mangue Manguezal na Área de Proteção Ambiental de Guadalupe ( APA de Guadalupe ) – Pernambuco, Brasil – Eric Bem dos Santos ( 2019 ) - 2).jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Mangue_Manguezal_na_%C3%81rea_de_Prote%C3%A7%C3%A3o_Ambiental_de_Guadalupe_(_APA_de_Guadalupe_)_%E2%80%93_Pernambuco,_Brasil_%E2%80%93_Eric_Bem_dos_Santos_(_2019_)_-_2).jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Eric Bem dos Santos",
+      "caption": "Mangrove stand, Guadalupe reserve, Pernambuco, Brazil"
+    },
+    {
+      "commons_title": "File:Dans le Delta du sine saloum.jpg",
+      "description_url": "https://commons.wikimedia.org/wiki/File:Dans_le_Delta_du_sine_saloum.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "author": "Issiaga0",
+      "caption": "Mangrove islands, Sine-Saloum Delta, Senegal, West Africa"
+    }
+  ]
+}

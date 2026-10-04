@@ -1,0 +1,32 @@
+{
+  "isthmus-of-panama": {
+    "connects": ["North America", "South America"],
+    "separates": ["Caribbean Sea", "Pacific Ocean"],
+    "location": "Panama"
+  },
+  "isthmus-of-kra": {
+    "connects": ["Tenasserim Hills", "Phuket Range"],
+    "separates": ["Andaman Sea", "Gulf of Thailand"],
+    "location": "southern Thailand"
+  },
+  "isthmus-of-suez": {
+    "connects": ["Africa", "Asia"],
+    "separates": ["Mediterranean Sea", "Red Sea"],
+    "location": "Egypt"
+  },
+  "bosporus": {
+    "connects": ["Black Sea", "Sea of Marmara"],
+    "separates": ["Europe", "Asia"],
+    "location": "northwest Turkey"
+  },
+  "strait-of-hormuz": {
+    "connects": ["Persian Gulf", "Gulf of Oman"],
+    "separates": ["Iran", "Musandam Peninsula (Oman)"],
+    "location": "between Iran and Oman"
+  },
+  "suez-canal": {
+    "connects": ["Mediterranean Sea", "Red Sea"],
+    "separates": ["Africa", "Asia"],
+    "location": "Egypt"
+  }
+}

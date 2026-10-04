@@ -31,6 +31,7 @@ import genanki
 from build_reference_lines_qa import reference_decks
 from build_time_zone_atlas_qa import atlas_decks
 from globe_placement import build_globe_scope, globe_deck
+from public_concepts import PACK_ROOTS, concept_pack
 
 ROOT = Path(__file__).resolve().parent.parent
 ENGINE = ROOT / "engine" / "geo-engine.js"
@@ -664,10 +665,25 @@ def public_pack_decks(scopes: list[str]) -> list:
             decks.extend(atlas)
         elif scope == "world-islands-globe":
             deck, _ = globe_deck()
+            deck.name = deck.name.replace("GeoTrainer::World::Islands", PACK_ROOTS["islands-archipelagos"], 1)
             decks.append(deck)
         else:
             scope_result, _ = scope_decks(scope)
+            for deck in scope_result:
+                if scope in PUBLIC_PACKS["physical-geography"]:
+                    deck.name = deck.name.replace("GeoTrainer::Physical", PACK_ROOTS["physical-geography"], 1)
+                elif scope in PUBLIC_PACKS["plate-tectonics"]:
+                    prefix = "GeoTrainer::Physical::Tectonic Plates" if deck.name.startswith("GeoTrainer::Physical::Tectonic Plates") else "GeoTrainer::Physical"
+                    deck.name = deck.name.replace(prefix, PACK_ROOTS["plate-tectonics"], 1)
+                elif scope in PUBLIC_PACKS["world-countries"]:
+                    prefix = "GeoTrainer::Continents" if scope == "continents" else "GeoTrainer::World"
+                    replacement = PACK_ROOTS["world-countries"] + ("::Continents" if scope == "continents" else "")
+                    deck.name = deck.name.replace(prefix, replacement, 1)
             decks.extend(scope_result)
+    for name in ("physical-geography", "plate-tectonics", "islands-archipelagos", "world-countries"):
+        if set(PUBLIC_PACKS[name]).issubset(scopes):
+            concepts, _ = concept_pack(name)
+            decks.extend(concepts)
     return decks
 
 
@@ -678,6 +694,11 @@ def build_public_pack(name: str, scopes: list[str]) -> Path:
     package = genanki.Package(decks)
     if "reference-lines-time" in scopes:
         _, package.media_files = atlas_decks()
+    for pack_name in PACK_ROOTS:
+        if set(PUBLIC_PACKS[pack_name]).issubset(scopes):
+            _, files = concept_pack(pack_name)
+            package.media_files.extend(files)
+    package.media_files = sorted(set(package.media_files))
     package.write_to_file(str(out))
     print(f"wrote {out} ({len(decks)} leaves, {sum(len(d.notes) for d in decks)} notes)")
     return out

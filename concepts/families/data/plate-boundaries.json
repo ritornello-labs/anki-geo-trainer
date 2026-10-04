@@ -1,0 +1,39 @@
+{
+ "family": "plate-boundaries",
+ "title": "Plate Boundary Types",
+ "concepts": [
+  {
+   "slug": "convergent-boundary",
+   "name": "Convergent boundary",
+   "kind": "boundary_type",
+   "alt_names": "destructive boundary",
+   "definition": "Boundary where two plates move toward each other, so crust is consumed by subduction or crumpled upward by collision.",
+   "locator_map": "",
+   "blank_map": "",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Convergent_boundary",
+   "wikidata_id": ""
+  },
+  {
+   "slug": "divergent-boundary",
+   "name": "Divergent boundary",
+   "kind": "boundary_type",
+   "alt_names": "constructive boundary",
+   "definition": "Boundary where two plates move apart and magma rises to create new crust, forming rifts on land and ridges at sea.",
+   "locator_map": "",
+   "blank_map": "",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Divergent_boundary",
+   "wikidata_id": ""
+  },
+  {
+   "slug": "transform-boundary",
+   "name": "Transform boundary",
+   "kind": "boundary_type",
+   "alt_names": "conservative boundary",
+   "definition": "Boundary where two plates slide horizontally past each other, so crust is neither created nor destroyed.",
+   "locator_map": "",
+   "blank_map": "",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Transform_fault",
+   "wikidata_id": ""
+  }
+ ]
+}

@@ -1,0 +1,297 @@
+{
+  "andes": {
+    "highest_peak": "Aconcagua (6,961 m)",
+    "countries": [
+      "Argentina",
+      "Chile",
+      "Bolivia",
+      "Peru",
+      "Ecuador",
+      "Colombia",
+      "Venezuela"
+    ],
+    "role": "longest continental mountain range in the world"
+  },
+  "rocky-mountains": {
+    "highest_peak": "Mount Elbert (4,401 m)",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "role": "carries the Continental Divide of the Americas"
+  },
+  "appalachian-mountains": {
+    "highest_peak": "Mount Mitchell (2,037 m)",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "role": "shaped westward expansion as an early transport barrier"
+  },
+  "alps": {
+    "highest_peak": "Mont Blanc (4,809 m)",
+    "countries": [
+      "Austria",
+      "Italy",
+      "France",
+      "Switzerland",
+      "Germany",
+      "Slovenia",
+      "Liechtenstein",
+      "Monaco"
+    ],
+    "role": "Europe's chief freshwater source, splitting wet north from dry south"
+  },
+  "pyrenees": {
+    "highest_peak": "Aneto (3,404 m)",
+    "countries": [
+      "Spain",
+      "France",
+      "Andorra"
+    ],
+    "role": "political boundary between Spain and France"
+  },
+  "carpathians": {
+    "highest_peak": "Gerlachovský štít (2,655 m)",
+    "countries": [
+      "Romania",
+      "Slovakia",
+      "Poland",
+      "Ukraine",
+      "Serbia",
+      "Czech Republic",
+      "Hungary",
+      "Austria"
+    ],
+    "role": "watershed between the northern seas and the Black Sea"
+  },
+  "apennines": {
+    "highest_peak": "Corno Grande (2,912 m)",
+    "countries": [
+      "Italy",
+      "San Marino"
+    ],
+    "role": "spine of the Italian peninsula, giving it its shape"
+  },
+  "atlas-mountains": {
+    "highest_peak": "Toubkal (4,167 m)",
+    "countries": [
+      "Morocco",
+      "Algeria",
+      "Tunisia"
+    ],
+    "role": "separates the Sahara from the Mediterranean and Atlantic"
+  },
+  "ural-mountains": {
+    "highest_peak": "Mount Narodnaya (1,894 m)",
+    "countries": [
+      "Russia",
+      "Kazakhstan"
+    ],
+    "role": "conventional boundary between Europe and Asia"
+  },
+  "himalayas": {
+    "highest_peak": "Mount Everest (8,849 m)",
+    "countries": [
+      "Nepal",
+      "India",
+      "China",
+      "Bhutan",
+      "Pakistan"
+    ],
+    "role": "holds Earth's highest peaks"
+  },
+  "karakoram": {
+    "highest_peak": "K2 (8,611 m)",
+    "countries": [
+      "Pakistan",
+      "China",
+      "India",
+      "Afghanistan"
+    ],
+    "role": "most heavily glaciated place outside the polar regions"
+  },
+  "hindu-kush": {
+    "highest_peak": "Tirich Mir (7,708 m)",
+    "countries": [
+      "Afghanistan",
+      "Pakistan",
+      "Tajikistan"
+    ],
+    "role": "divides the Amu Darya basin from the Indus basin"
+  },
+  "tian-shan": {
+    "highest_peak": "Jengish Chokusu (7,439 m)",
+    "countries": [
+      "Kyrgyzstan",
+      "China",
+      "Kazakhstan",
+      "Uzbekistan",
+      "Tajikistan"
+    ],
+    "role": "separates the Taklamakan/Tarim basin from the Junggar Basin"
+  },
+  "altai-mountains": {
+    "highest_peak": "Belukha (4,506 m)",
+    "countries": [
+      "Russia",
+      "China",
+      "Mongolia",
+      "Kazakhstan"
+    ],
+    "role": "headwaters of the Irtysh and Ob rivers"
+  },
+  "zagros-mountains": {
+    "highest_peak": "Mount Dena (4,409 m)",
+    "countries": [
+      "Iran",
+      "Iraq",
+      "Turkey"
+    ],
+    "role": "barrier between the Mesopotamian Plain and the Iranian plateau"
+  },
+  "great-dividing-range": {
+    "highest_peak": "Mount Kosciuszko (2,228 m)",
+    "countries": [
+      "Australia"
+    ],
+    "role": "watershed dividing eastern Australia's river systems"
+  },
+  "drakensberg": {
+    "highest_peak": "Thabana Ntlenyana (3,482 m)",
+    "countries": [
+      "South Africa",
+      "Lesotho",
+      "Eswatini"
+    ],
+    "role": "highest section of southern Africa's Great Escarpment"
+  },
+  "alaska-range": {
+    "highest_peak": "Denali (6,190 m)",
+    "countries": [
+      "United States"
+    ],
+    "role": "acts as a barrier blocking moist Gulf of Alaska air"
+  },
+  "annamite-range": {
+    "highest_peak": "Phou Bia (2,819 m)",
+    "countries": [
+      "Laos",
+      "Vietnam",
+      "Cambodia"
+    ],
+    "role": "divides the Mekong basin from Vietnam's coastal plain"
+  },
+  "brooks-range": {
+    "highest_peak": "Mount Isto (2,736 m)",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "role": "northernmost drainage divide in North America"
+  },
+  "cascade-range": {
+    "highest_peak": "Mount Rainier (4,392 m)",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "role": "volcanic arc active as part of the Pacific Ring of Fire"
+  },
+  "caucasus-mountains": {
+    "highest_peak": "Mount Elbrus (5,642 m)",
+    "countries": [
+      "Russia",
+      "Georgia",
+      "Azerbaijan",
+      "Armenia"
+    ],
+    "role": "traditional boundary between Europe and Asia"
+  },
+  "coast-mountains": {
+    "highest_peak": "Mount Waddington (4,019 m)",
+    "countries": [
+      "Canada",
+      "United States"
+    ],
+    "role": "holds the largest temperate-latitude ice fields on Earth"
+  },
+  "ellsworth-mountains": {
+    "highest_peak": "Mount Vinson (4,892 m)",
+    "countries": [
+      "Antarctica"
+    ],
+    "role": "Antarctica's highest mountain range"
+  },
+  "greater-khingan": {
+    "highest_peak": "Huanggang Liang (2,035 m)",
+    "countries": [
+      "China",
+      "Mongolia"
+    ],
+    "role": "watershed between Amur and Nen-Songhua river systems"
+  },
+  "kunlun-mountains": {
+    "highest_peak": "Liushi Shan (7,167 m)",
+    "countries": [
+      "China"
+    ],
+    "role": "forms the northern edge of the Tibetan Plateau"
+  },
+  "pamir-mountains": {
+    "highest_peak": "Kongur Tagh (7,649 m)",
+    "countries": [
+      "Tajikistan",
+      "Kyrgyzstan",
+      "Afghanistan",
+      "China",
+      "Pakistan"
+    ],
+    "role": "hub linking the Tian Shan, Karakoram, Kunlun, and Himalayas"
+  },
+  "pensacola-mountains": {
+    "highest_peak": "England Peak (2,150 m)",
+    "countries": [
+      "Antarctica"
+    ],
+    "role": "part of the Transantarctic Mountains system"
+  },
+  "queen-maud-mountains": {
+    "highest_peak": "Mount Kaplan (4,230 m)",
+    "countries": [
+      "Antarctica"
+    ],
+    "role": "segment of the Transantarctic Mountains named by Amundsen"
+  },
+  "siwalik-hills": {
+    "highest_peak": "no single named summit (ridge crest approx. 1,500-2,000 m)",
+    "countries": [
+      "India",
+      "Nepal",
+      "Pakistan"
+    ],
+    "role": "outermost, youngest foothills of the Himalayas"
+  },
+  "stanovoy-range": {
+    "highest_peak": "Skalisty Golets (2,412 m)",
+    "countries": [
+      "Russia"
+    ],
+    "role": "historic Russia-China border and Arctic-Pacific watershed"
+  },
+  "transantarctic-mountains": {
+    "highest_peak": "Mount Kirkpatrick (4,528 m)",
+    "countries": [
+      "Antarctica"
+    ],
+    "role": "divides East and West Antarctica"
+  },
+  "ethiopian-highlands": {
+    "highest_peak": "Ras Dashen (4,550 m)",
+    "countries": [
+      "Ethiopia",
+      "Eritrea"
+    ],
+    "role": "the “Roof of Africa”; the continent's largest continuous elevated region"
+  }
+}

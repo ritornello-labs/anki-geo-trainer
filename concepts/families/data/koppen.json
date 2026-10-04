@@ -1,0 +1,216 @@
+{
+ "family": "koppen",
+ "title": "Köppen Climate",
+ "concepts": [
+  {
+   "code": "A",
+   "name": "Tropical",
+   "group_code": "A",
+   "group_name": "Tropical",
+   "classification_note": "Tropical group: every month averages at least 18 °C, so there is no true winter.",
+   "distribution_map": "Koppen-Geiger_Map_v2_A_1991_2020-1291ddd51c.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Tropical_climate"
+  },
+  {
+   "code": "B",
+   "name": "Arid",
+   "group_code": "B",
+   "group_name": "Arid",
+   "classification_note": "Arid group: annual precipitation falls below the dryness threshold set by mean annual temperature and the season of rainfall.",
+   "distribution_map": "Koppen-Geiger_Map_v2_B_1991_2020-b39044d173.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Semi-arid_climate"
+  },
+  {
+   "code": "C",
+   "name": "Temperate",
+   "group_code": "C",
+   "group_name": "Temperate",
+   "classification_note": "Temperate group: coldest month averages between 0 °C (or −3 °C) and 18 °C, with the warmest month above 10 °C.",
+   "distribution_map": "Koppen-Geiger_Map_v2_C_1991_2020-e4e55a1747.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Temperate_climate"
+  },
+  {
+   "code": "D",
+   "name": "Continental",
+   "group_code": "D",
+   "group_name": "Continental",
+   "classification_note": "Continental group: coldest month averages below 0 °C (or −3 °C) while the warmest month still averages above 10 °C.",
+   "distribution_map": "Koppen-Geiger_Map_v2_D_1991_2020-86a5db5052.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Continental_climate"
+  },
+  {
+   "code": "E",
+   "name": "Polar",
+   "group_code": "E",
+   "group_name": "Polar",
+   "classification_note": "Polar group: no month averages above 10 °C, so summer warmth is too weak for trees.",
+   "distribution_map": "Koppen-Geiger_Map_v2_E_1991_2020-acb6def53f.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Polar_climate"
+  },
+  {
+   "code": "Af",
+   "name": "Tropical rainforest",
+   "group_code": "A",
+   "group_name": "Tropical",
+   "classification_note": "Tropical rainforest: every month averages at least 18 °C and every month receives at least 60 mm of rain.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Af_1991_2020-76ed3e275b.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Tropical_rainforest_climate"
+  },
+  {
+   "code": "Am",
+   "name": "Tropical monsoon",
+   "group_code": "A",
+   "group_name": "Tropical",
+   "classification_note": "Tropical monsoon: every month above 18 °C; driest month under 60 mm but above the 100−(annual/25) threshold.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Am_1991_2020-bf2a8e9145.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Tropical_monsoon_climate"
+  },
+  {
+   "code": "Aw",
+   "name": "Tropical savanna",
+   "group_code": "A",
+   "group_name": "Tropical",
+   "classification_note": "Tropical savanna, dry winter: every month above 18 °C, with a driest month under 60 mm and below the 100−(annual/25) threshold.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Aw_1991_2020-15730a79a1.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Tropical_savanna_climate"
+  },
+  {
+   "code": "BWh",
+   "name": "Hot desert",
+   "group_code": "B",
+   "group_name": "Arid",
+   "classification_note": "Hot desert: arid with precipitation below half the dryness threshold and a mean annual temperature of at least 18 °C.",
+   "distribution_map": "Koppen-Geiger_Map_v2_BWh_1991_2020-62c6c572b8.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Desert_climate"
+  },
+  {
+   "code": "BWk",
+   "name": "Cold desert",
+   "group_code": "B",
+   "group_name": "Arid",
+   "classification_note": "Cold desert: arid with precipitation below half the dryness threshold and a mean annual temperature under 18 °C.",
+   "distribution_map": "Koppen-Geiger_Map_v2_BWk_1991_2020-7bd823c0e9.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Desert_climate"
+  },
+  {
+   "code": "BSh",
+   "name": "Hot semi-arid",
+   "group_code": "B",
+   "group_name": "Arid",
+   "classification_note": "Hot steppe: semi-arid with precipitation between 50% and 100% of the dryness threshold and mean annual temperature at least 18 °C.",
+   "distribution_map": "Koppen-Geiger_Map_v2_BSh_1991_2020-ddb022e513.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Semi-arid_climate"
+  },
+  {
+   "code": "BSk",
+   "name": "Cold semi-arid",
+   "group_code": "B",
+   "group_name": "Arid",
+   "classification_note": "Cold steppe: semi-arid with precipitation between 50% and 100% of the dryness threshold and mean annual temperature under 18 °C.",
+   "distribution_map": "Koppen-Geiger_Map_v2_BSk_1991_2020-ec584640e0.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Semi-arid_climate"
+  },
+  {
+   "code": "Csa",
+   "name": "Hot-summer Mediterranean",
+   "group_code": "C",
+   "group_name": "Temperate",
+   "classification_note": "Temperate, dry hot summer: coldest month 0–18 °C, warmest month above 22 °C, with a pronounced summer drought.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Csa_1991_2020-75910c05f6.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Mediterranean_climate"
+  },
+  {
+   "code": "Csb",
+   "name": "Warm-summer Mediterranean",
+   "group_code": "C",
+   "group_name": "Temperate",
+   "classification_note": "Temperate, dry warm summer: coldest month 0–18 °C, warmest month below 22 °C but four-plus months above 10 °C, with summer drought.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Csb_1991_2020-9c75640e55.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Mediterranean_climate"
+  },
+  {
+   "code": "Cfa",
+   "name": "Humid subtropical",
+   "group_code": "C",
+   "group_name": "Temperate",
+   "classification_note": "Temperate, fully humid, hot summer: coldest month 0–18 °C, warmest month above 22 °C, with no dry season.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Cfa_1991_2020-24bf546465.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Humid_subtropical_climate"
+  },
+  {
+   "code": "Cfb",
+   "name": "Oceanic",
+   "group_code": "C",
+   "group_name": "Temperate",
+   "classification_note": "Temperate, fully humid, warm summer: coldest month 0–18 °C, warmest month below 22 °C but four-plus months above 10 °C, no dry season.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Cfb_1991_2020-55bdeccb46.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Oceanic_climate"
+  },
+  {
+   "code": "Dfa",
+   "name": "Hot-summer humid continental",
+   "group_code": "D",
+   "group_name": "Continental",
+   "classification_note": "Continental, fully humid, hot summer: coldest month below 0 °C, warmest month above 22 °C, with no dry season.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Dfa_1991_2020-c8463f02d5.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Humid_continental_climate"
+  },
+  {
+   "code": "Dfb",
+   "name": "Warm-summer humid continental",
+   "group_code": "D",
+   "group_name": "Continental",
+   "classification_note": "Continental, fully humid, warm summer: coldest month below 0 °C, warmest month below 22 °C but four-plus months above 10 °C, no dry season.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Dfb_1991_2020-b93ab423c3.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Humid_continental_climate"
+  },
+  {
+   "code": "Dfc",
+   "name": "Subarctic",
+   "group_code": "D",
+   "group_name": "Continental",
+   "classification_note": "Subarctic, fully humid: coldest month below 0 °C, only one to three months above 10 °C, coldest month above −38 °C, no dry season.",
+   "distribution_map": "Koppen-Geiger_Map_v2_Dfc_1991_2020-9a93ea4a3a.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Subarctic_climate"
+  },
+  {
+   "code": "ET",
+   "name": "Tundra",
+   "group_code": "E",
+   "group_name": "Polar",
+   "classification_note": "Tundra: warmest month averages between 0 °C and 10 °C.",
+   "distribution_map": "Koppen-Geiger_Map_v2_ET_1991_2020-2011a62d6e.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Tundra_climate"
+  },
+  {
+   "code": "EF",
+   "name": "Ice cap",
+   "group_code": "E",
+   "group_name": "Polar",
+   "classification_note": "Ice cap: every month averages below 0 °C, so it never thaws.",
+   "distribution_map": "Koppen-Geiger_Map_v2_EF_1991_2020-3f2875aa74.png",
+   "blank_map": "world-blank.svg",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Ice_cap_climate"
+  }
+ ]
+}

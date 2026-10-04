@@ -1,0 +1,114 @@
+{
+  "malay-archipelago": {
+    "countries": [
+      "Indonesia",
+      "Philippines",
+      "Malaysia",
+      "Brunei",
+      "Papua New Guinea",
+      "East Timor"
+    ],
+    "waters": [
+      "Indian Ocean",
+      "Pacific Ocean"
+    ],
+    "distinctive": "World's largest archipelago by area, over 25,000 islands"
+  },
+  "british-isles": {
+    "countries": [
+      "United Kingdom",
+      "Ireland",
+      "Isle of Man",
+      "Jersey",
+      "Guernsey"
+    ],
+    "waters": [
+      "North Atlantic Ocean"
+    ],
+    "distinctive": "Over 6,000 smaller islands beyond Great Britain and Ireland"
+  },
+  "japanese-archipelago": {
+    "countries": [
+      "Japan"
+    ],
+    "waters": [
+      "Sea of Okhotsk",
+      "North Pacific Ocean",
+      "East China Sea",
+      "Philippine Sea"
+    ],
+    "distinctive": "14,125 islands spanning 3,000 km, world's 4th-largest island nation"
+  },
+  "aleutian-islands": {
+    "countries": [
+      "United States",
+      "Russia"
+    ],
+    "waters": [
+      "Bering Sea",
+      "North Pacific Ocean"
+    ],
+    "distinctive": "57 volcanoes form the Ring of Fire's northernmost arc"
+  },
+  "kuril-islands": {
+    "countries": [
+      "Russia",
+      "Japan"
+    ],
+    "waters": [
+      "Sea of Okhotsk",
+      "North Pacific Ocean"
+    ],
+    "distinctive": "56 volcanic islands separating the Sea of Okhotsk from the Pacific"
+  },
+  "canary-islands": {
+    "countries": [
+      "Spain"
+    ],
+    "waters": [
+      "North Atlantic Ocean"
+    ],
+    "distinctive": "Volcanic archipelago with Mount Teide, Spain's highest peak"
+  },
+  "balearic-islands": {
+    "countries": [
+      "Spain"
+    ],
+    "waters": [
+      "Western Mediterranean Sea"
+    ],
+    "distinctive": "Spain's second-largest archipelago, includes Mallorca, Menorca, Ibiza"
+  },
+  "greater-antilles": {
+    "countries": [
+      "Cuba",
+      "Dominican Republic",
+      "Haiti",
+      "Jamaica",
+      "Puerto Rico",
+      "Cayman Islands"
+    ],
+    "waters": [
+      "Caribbean Sea"
+    ],
+    "distinctive": "Larger Caribbean islands holding nearly 90% of West Indies' landmass"
+  },
+  "lesser-antilles": {
+    "countries": [
+      "Trinidad and Tobago",
+      "Barbados",
+      "Grenada",
+      "Saint Vincent and the Grenadines",
+      "Saint Lucia",
+      "Dominica",
+      "Antigua and Barbuda",
+      "Saint Kitts and Nevis",
+      "plus French, Dutch, British and US island territories"
+    ],
+    "waters": [
+      "Caribbean Sea",
+      "North Atlantic Ocean"
+    ],
+    "distinctive": "Arc of small islands forming the Caribbean's volcanic eastern edge"
+  }
+}

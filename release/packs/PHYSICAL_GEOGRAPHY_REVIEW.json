@@ -1,0 +1,68 @@
+{
+  "status": "awaiting-image-approval",
+  "notes": 404,
+  "cards": 963,
+  "native_media_files": 223,
+  "images": [
+    {
+      "file": "river.gif",
+      "sha256": "c3b16c45b1a2d7bebdea7ab245758f58eca60d5d8213c694a036f1c8ed3ae5d7",
+      "bytes": 169913,
+      "frames": 100,
+      "distinct_frames": 60,
+      "width": 760,
+      "height": 500,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "place.gif",
+      "sha256": "855bd3ea7dd77729afce24cd7152775b4dc7263ba08b45e20ec4ad76f3cfed17",
+      "bytes": 94486,
+      "frames": 70,
+      "distinct_frames": 25,
+      "width": 760,
+      "height": 456,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "sketch.gif",
+      "sha256": "cc33b04c2251b7e6603eca9351f972e3615c65ac0ae77457df49b6c895860c5e",
+      "bytes": 203715,
+      "frames": 110,
+      "distinct_frames": 78,
+      "width": 760,
+      "height": 500,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "biome.gif",
+      "sha256": "ee1a31563919ca299a12f2d42f388d487fc7b4933fdd9351691b3aaf1fdff4bc",
+      "bytes": 166389,
+      "frames": 56,
+      "distinct_frames": 2,
+      "width": 760,
+      "height": 502,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "koppen.gif",
+      "sha256": "cc5efceefe7b34d55b2674d36acf40f47963aac94d430b73386fe4db2d8adde2",
+      "bytes": 162904,
+      "frames": 48,
+      "distinct_frames": 2,
+      "width": 760,
+      "height": 456,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    }
+  ],
+  "public_images_uploaded": false,
+  "publisher_staged": false,
+  "personal_collection_accessed": false,
+  "preview": "www/.tmp/publish-batch-physical-geography/physical-geography-listing.png",
+  "visual_check": "All five final native front/answer captures checked; Amazon good course (~28 km), Sahara great placement (~94 km), Tibetan Plateau solid sketch (2% average offset), complete credited vegetation gallery, complete restored Af distribution map. No grade selected; native pan icon renders correctly."
+}

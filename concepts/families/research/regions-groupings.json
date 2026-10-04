@@ -1,0 +1,67 @@
+{
+  "mesopotamia": {
+    "members": ["Iraq", "Kuwait", "Syria", "Turkey", "Iran"],
+    "basis": "historical region between the Tigris and Euphrates, cradle of civilization",
+    "fuzzy": true
+  },
+  "southern-cone": {
+    "members": ["Argentina", "Chile", "Uruguay", "Paraguay", "Brazil (south)"],
+    "basis": "temperate, developed southernmost subregion of South America",
+    "fuzzy": true
+  },
+  "northern-triangle-of-central-america": {
+    "members": ["Guatemala", "Honduras", "El Salvador"],
+    "basis": "geopolitical grouping of three Central American states sharing a tripoint",
+    "fuzzy": false
+  },
+  "caribbean-south-america": {
+    "members": ["Colombia (Caribbean coast)", "Venezuela", "Guyana", "Suriname", "French Guiana"],
+    "basis": "South American countries/territories bordering the Caribbean Sea",
+    "fuzzy": true
+  },
+  "the-guianas": {
+    "members": ["Guyana", "Suriname", "French Guiana"],
+    "basis": "region between the Orinoco and Amazon, former Guiana colonies",
+    "fuzzy": false
+  },
+  "siberia": {
+    "members": ["Russia (Ural Mountains to the Pacific Ocean)"],
+    "basis": "vast historical/geographic macroregion of Russia, no fixed borders",
+    "fuzzy": true
+  },
+  "european-russia": {
+    "members": ["Russia (west of the Ural Mountains)"],
+    "basis": "western, most populated part of Russia, informal geographic region",
+    "fuzzy": true
+  },
+  "mainland-southeast-asia": {
+    "members": ["Cambodia", "Laos", "Myanmar", "Thailand", "Vietnam", "Malaysia (peninsular)", "Singapore"],
+    "basis": "continental Southeast Asia, historically called Indochina",
+    "fuzzy": false
+  },
+  "horn-of-africa": {
+    "members": ["Somalia", "Djibouti", "Ethiopia", "Eritrea"],
+    "basis": "horn-shaped peninsula of NE Africa shaped by the Great Rift Valley",
+    "fuzzy": false
+  },
+  "sahel": {
+    "members": ["Senegal", "Mauritania", "Mali", "Burkina Faso", "Niger", "Nigeria", "Chad", "Sudan", "Eritrea"],
+    "basis": "semi-arid climate belt transitioning Sahara to Sudanian savanna",
+    "fuzzy": true
+  },
+  "maghreb": {
+    "members": ["Morocco", "Algeria", "Tunisia", "Libya", "Mauritania", "Western Sahara"],
+    "basis": "western Arab North Africa, west of Egypt and the Mashriq",
+    "fuzzy": false
+  },
+  "baltic-states": {
+    "members": ["Estonia", "Latvia", "Lithuania"],
+    "basis": "three eastern Baltic Sea states with shared Soviet-era history",
+    "fuzzy": false
+  },
+  "benelux": {
+    "members": ["Belgium", "Netherlands", "Luxembourg"],
+    "basis": "politico-economic union named from its three members' initial syllables",
+    "fuzzy": false
+  }
+}

@@ -534,3 +534,8 @@ Approved component submitted through anki-addon-release at `1962312135`, exact s
 ### Reference/time archive and storefront verified — 2026-10-04
 
 Exact delivered `geo-trainer-reference-lines-time.apkg` attached to `v2026.10.04`; GitHub digest/size verified. Combined release notes retain China and link Reference source commit `84f549d`. Website homepage, four approved GIFs and canonical download/release links deployed and Chrome-verified. No resubmission needed. Next broad packs require the recorded Geo Concepts reconciliation and fresh image review.
+
+
+## Physical Geography preparation — 2026-10-04
+
+The accepted component is rebuilt: 404 notes / 963 cards (250 map games and 713 concept cards), with all ten routed semantic families and all 223 media files. Missing Köppen rasters are restored with provenance and existing filenames retained. Native component/full/component overlap, native media export, public-source reproduction and all four shipped-component overlap checks pass. Corrected full-union candidate: 2,987 notes / 4,212 cards; no publication of that candidate. Five actual-Anki GIFs and complete listing await image approval. No Physical Geography Publisher staging or submission; personal collection untouched. See `release/packs/PHYSICAL_GEOGRAPHY_PREPARATION.md` for verification and exact resume steps.

@@ -1,0 +1,74 @@
+{
+  "biomes": {
+    "id": 766404678,
+    "original_name": "World Geography Concepts::Biomes"
+  },
+  "bloc-drill": {
+    "id": 1596407564,
+    "original_name": "World Geography Concepts::Bloc Membership Drill"
+  },
+  "capes": {
+    "id": 1066762304,
+    "original_name": "World Geography Concepts::Capes"
+  },
+  "chokepoints": {
+    "id": 1272779008,
+    "original_name": "World Geography Concepts::Straits, Canals & Isthmuses"
+  },
+  "country-blocs": {
+    "id": 5484331,
+    "original_name": "World Geography Concepts::Country Blocs & Organizations"
+  },
+  "deserts": {
+    "id": 1138461826,
+    "original_name": "World Geography Concepts::Deserts"
+  },
+  "islands-archipelagos": {
+    "id": 1757101196,
+    "original_name": "World Geography Concepts::Islands & Archipelagos"
+  },
+  "koppen-letters": {
+    "id": 1003593711,
+    "original_name": "World Geography Concepts::K\u00f6ppen Letter System"
+  },
+  "koppen": {
+    "id": 2111906111,
+    "original_name": "World Geography Concepts::K\u00f6ppen Climate"
+  },
+  "minor-plates": {
+    "id": 1647983472,
+    "original_name": "World Geography Concepts::Minor Tectonic Plates"
+  },
+  "mountain-ranges": {
+    "id": 971652927,
+    "original_name": "World Geography Concepts::Mountain Ranges"
+  },
+  "named-boundaries": {
+    "id": 239888903,
+    "original_name": "World Geography Concepts::Named Plate Boundaries"
+  },
+  "peninsulas": {
+    "id": 1196573754,
+    "original_name": "World Geography Concepts::Peninsulas"
+  },
+  "plains-grasslands": {
+    "id": 1348859797,
+    "original_name": "World Geography Concepts::Plains, Grasslands & Steppes"
+  },
+  "plate-boundaries": {
+    "id": 1231569810,
+    "original_name": "World Geography Concepts::Plate Boundary Types"
+  },
+  "plateaus-basins": {
+    "id": 931978833,
+    "original_name": "World Geography Concepts::Plateaus, Highlands & Basins"
+  },
+  "regions-groupings": {
+    "id": 1463923363,
+    "original_name": "World Geography Concepts::Regions & Groupings"
+  },
+  "tectonic-plates": {
+    "id": 1215360311,
+    "original_name": "World Geography Concepts::Tectonic Plates"
+  }
+}

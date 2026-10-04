@@ -1,0 +1,47 @@
+{
+  "convergent-boundary": {
+    "motion": "plates move toward each other",
+    "crust": "crust is destroyed (consumed by subduction)",
+    "features": [
+      "Deep ocean trenches — where one plate bends down beneath the other",
+      "Volcanic arcs — chains of volcanoes fed by the sinking plate melting",
+      "Fold mountain ranges — crust crumpled upward where two continents collide",
+      "The strongest earthquakes — the locked, sinking plate slips in great jolts"
+    ],
+    "examples": [
+      "Nazca under South American - the Andes",
+      "India into Eurasia - the Himalayas",
+      "Pacific under Philippine Sea - the Mariana Trench"
+    ]
+  },
+  "divergent-boundary": {
+    "motion": "plates move apart",
+    "crust": "new crust is created from rising magma",
+    "features": [
+      "Mid-ocean ridges — underwater mountain chains of freshly made crust",
+      "Rift valleys — the land stretched and dropped as a continent begins to split",
+      "Shallow earthquakes — small and near the surface, from crust cracking apart",
+      "Fissure volcanism — lava welling up through cracks rather than from cones"
+    ],
+    "examples": [
+      "Mid-Atlantic Ridge - North American from Eurasian",
+      "East African Rift - African from Somali",
+      "Iceland, where the ridge runs onshore"
+    ]
+  },
+  "transform-boundary": {
+    "motion": "plates slide horizontally past each other",
+    "crust": "crust is neither created nor destroyed",
+    "features": [
+      "Strike-slip faults — the two sides slide horizontally past each other",
+      "Offset ridges and streams — features cut and shifted sideways along the fault",
+      "Shallow but destructive earthquakes — near the surface, so they hit hard",
+      "No volcanism — nothing melts when plates only grind sideways"
+    ],
+    "examples": [
+      "San Andreas Fault - Pacific past North American",
+      "North Anatolian Fault",
+      "Alpine Fault, New Zealand"
+    ]
+  }
+}

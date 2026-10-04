@@ -1,0 +1,19 @@
+{
+  "status": "passed-offline-source-and-native-media-verification",
+  "notes": 404,
+  "cards": 963,
+  "geometry_notes_cards": 250,
+  "concept_notes": 154,
+  "concept_cards": 713,
+  "concept_families": 10,
+  "leaves": 23,
+  "models": 23,
+  "media": 223,
+  "source_sha256": "e569e7b9ba411077c71f918bc87236c70bcd9a7928b29d0e60ec3e88fe864258",
+  "existing_model_deck_guid_ids_preserved": true,
+  "public_root": "GeoTrainer::Physical Geography",
+  "personal_collection_accessed": false,
+  "retired_flow_families_included": false,
+  "koppen_maps_restored": 21,
+  "atlas_export_reference_fix_required": false
+}

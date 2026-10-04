@@ -1,0 +1,218 @@
+{
+ "mid-atlantic-ridge": {
+  "boundary_type": "divergent",
+  "plates": [
+   "North American and Eurasian, north of the Azores",
+   "South American and African, south of it"
+  ],
+  "forms": [
+   "New ocean floor, widening the Atlantic by 2-5 cm a year",
+   "A rift valley along the ridge crest",
+   "Iceland and the Azores, where the ridge rises above sea level",
+   "Shallow earthquakes; no explosive arc volcanism"
+  ],
+  "region": "Atlantic Ocean"
+ },
+ "east-pacific-rise": {
+  "boundary_type": "divergent",
+  "plates": [
+   "Pacific and Nazca",
+   "Pacific and Cocos, at its northern end"
+  ],
+  "forms": [
+   "The fastest seafloor spreading on Earth, up to ~150 mm a year",
+   "A broad low swell rather than a deep rift valley, because fast spreading keeps the crust hot",
+   "Hydrothermal vents and black smokers"
+  ],
+  "region": "Eastern Pacific"
+ },
+ "east-african-rift": {
+  "boundary_type": "divergent",
+  "plates": [
+   "African (Nubian) and Somali"
+  ],
+  "forms": [
+   "A continental rift valley, the early stage of an ocean basin",
+   "The rift lakes: Tanganyika, Malawi, Turkana",
+   "Volcanoes including Kilimanjaro, Nyiragongo and Erta Ale",
+   "The Afar triple junction, where it meets the Red Sea and Gulf of Aden rifts"
+  ],
+  "region": "East Africa"
+ },
+ "red-sea-rift": {
+  "boundary_type": "divergent",
+  "plates": [
+   "Arabian and African (Nubian)"
+  ],
+  "forms": [
+   "The Red Sea itself, a rift basin already flooded by the sea",
+   "New oceanic crust along its axis: an ocean caught in the act of being born",
+   "Steep faulted escarpments on both shores"
+  ],
+  "region": "Arabia and north-east Africa"
+ },
+ "san-andreas-fault": {
+  "boundary_type": "transform",
+  "plates": [
+   "Pacific and North American"
+  ],
+  "forms": [
+   "A right-lateral strike-slip fault about 1,200 km long",
+   "Offset streams, ridges and fences",
+   "Great shallow earthquakes: 1857 Fort Tejon, 1906 San Francisco, 1989 Loma Prieta",
+   "No volcanic arc, because no crust is being consumed"
+  ],
+  "region": "California"
+ },
+ "alpine-fault": {
+  "boundary_type": "transform, with a strong reverse (transpressional) component",
+  "plates": [
+   "Australian and Pacific"
+  ],
+  "forms": [
+   "The Southern Alps: the oblique convergence lifts them as the fault slips",
+   "Right-lateral offset of about 480 km of South Island geology",
+   "Large infrequent ruptures, the last around 1717"
+  ],
+  "region": "South Island, New Zealand"
+ },
+ "dead-sea-transform": {
+  "boundary_type": "transform",
+  "plates": [
+   "Arabian and African (Nubian)"
+  ],
+  "forms": [
+   "The Jordan Rift Valley",
+   "The Dead Sea, a pull-apart basin and the lowest land on Earth",
+   "Left-lateral offset carrying Arabia north past Africa"
+  ],
+  "region": "Levant, Gulf of Aqaba to southern Turkey"
+ },
+ "north-scotia-ridge": {
+  "boundary_type": "transform",
+  "plates": [
+   "Scotia and South American"
+  ],
+  "forms": [
+   "The northern rim of the Scotia Sea",
+   "A submarine ridge carrying South Georgia and the Shag Rocks",
+   "Left-lateral slip of about 7 mm a year"
+  ],
+  "region": "Southern Ocean, east of Tierra del Fuego"
+ },
+ "himalayan-collision-zone": {
+  "boundary_type": "convergent (continental collision)",
+  "plates": [
+   "Indian and Eurasian"
+  ],
+  "forms": [
+   "The Himalayas and the Tibetan Plateau",
+   "Crustal thickening instead of subduction: both plates are too buoyant to sink",
+   "No volcanic arc, unlike ocean-plate convergence",
+   "Large thrust earthquakes along the Himalayan front"
+  ],
+  "region": "South and Central Asia"
+ },
+ "zagros-fold-belt": {
+  "boundary_type": "convergent (continental collision)",
+  "plates": [
+   "Arabian and Eurasian"
+  ],
+  "forms": [
+   "The Zagros Mountains of Iran and Iraq",
+   "Long parallel folds in the sedimentary cover, textbook fold-and-thrust structure",
+   "The oil and gas traps of the Persian Gulf basin"
+  ],
+  "region": "Iran and Iraq"
+ },
+ "peru-chile-trench": {
+  "boundary_type": "convergent (ocean-continent subduction)",
+  "plates": [
+   "Nazca subducting beneath South American"
+  ],
+  "forms": [
+   "The trench itself, over 8,000 m deep",
+   "The Andes",
+   "Andean arc volcanoes and the Altiplano",
+   "The largest earthquake ever recorded, Valdivia 1960 (M9.5)"
+  ],
+  "region": "Pacific margin of South America"
+ },
+ "sunda-trench": {
+  "boundary_type": "convergent (ocean-continent subduction)",
+  "plates": [
+   "Australian subducting beneath Sunda"
+  ],
+  "forms": [
+   "The Sumatra-Java volcanic arc, including Krakatoa and Tambora",
+   "The 2004 Indian Ocean megathrust earthquake and tsunami",
+   "The forearc island chain off western Sumatra"
+  ],
+  "region": "Indian Ocean off Sumatra and Java"
+ },
+ "mariana-trench": {
+  "boundary_type": "convergent (ocean-ocean subduction)",
+  "plates": [
+   "Pacific subducting beneath the Mariana Plate, a sliver on the eastern edge of the Philippine Sea Plate"
+  ],
+  "forms": [
+   "The deepest point in the ocean: Challenger Deep, about 10,900 m",
+   "The Mariana volcanic island arc, including Guam and Saipan",
+   "A back-arc basin opening behind the arc",
+   "A very steep slab: old, cold, dense Pacific crust sinks almost vertically"
+  ],
+  "region": "Western Pacific"
+ },
+ "middle-america-trench": {
+  "boundary_type": "convergent (ocean-continent subduction)",
+  "plates": [
+   "Cocos subducting beneath North American off Mexico",
+   "Cocos subducting beneath Caribbean off Central America"
+  ],
+  "forms": [
+   "The Trans-Mexican Volcanic Belt and the Central American volcanic arc",
+   "Destructive subduction earthquakes, including Mexico City 1985",
+   "A trench about 2,750 km long"
+  ],
+  "region": "Pacific coast of Mexico and Central America"
+ },
+ "cascadia-subduction-zone": {
+  "boundary_type": "convergent (ocean-continent subduction)",
+  "plates": [
+   "Juan de Fuca subducting beneath North American",
+   "The small Explorer and Gorda plates share the same system"
+  ],
+  "forms": [
+   "The Cascade volcanoes: Rainier, St Helens, Shasta",
+   "A locked megathrust that ruptures at about magnitude 9, last in January 1700",
+   "Little routine seismicity, which is why the hazard was recognised late"
+  ],
+  "region": "Pacific Northwest, northern California to Vancouver Island"
+ },
+ "aleutian-trench": {
+  "boundary_type": "convergent (ocean-ocean subduction)",
+  "plates": [
+   "Pacific subducting beneath North American"
+  ],
+  "forms": [
+   "The Aleutian island arc",
+   "A trench about 3,400 km long from Kamchatka to the Gulf of Alaska",
+   "The 1964 Good Friday earthquake (M9.2), the largest in North American history",
+   "Convergence becoming increasingly oblique towards the west"
+  ],
+  "region": "North Pacific, Alaska"
+ },
+ "lesser-antilles-arc": {
+  "boundary_type": "convergent (ocean-ocean subduction)",
+  "plates": [
+   "South American subducting beneath Caribbean"
+  ],
+  "forms": [
+   "The Lesser Antilles volcanic islands from Saba to Grenada",
+   "Soufriere Hills on Montserrat and Mount Pelee on Martinique",
+   "Slow convergence, about 2 cm a year, so the arc is modest in scale",
+   "Northward it grades into the mostly strike-slip Puerto Rico Trench"
+  ],
+  "region": "Eastern Caribbean"
+ }
+}
