@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "backend": "native Anki 25.09 disposable collection",
+  "sequence": [
+    "actual AnkiWeb-delivered U.S. APKG",
+    "September 30 full candidate",
+    "actual delivered U.S. APKG again"
+  ],
+  "us_notes_cards": 200,
+  "us_note_model_card_leaf_ids_unchanged": true,
+  "duplicates_created": 0,
+  "delivered_sha256": "a4e942b5686a56b3ab501397e99d484e3ff224ede308e9bcb9f513a5f6441f8a",
+  "full_candidate_notes": 2651,
+  "full_candidate_cards": 2673,
+  "limitation": "U.S. compatibility check only; full candidate scope is superseded and not a shipping artifact."
+}

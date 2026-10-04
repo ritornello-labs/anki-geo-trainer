@@ -27,5 +27,8 @@
     "cards": 200,
     "source_content_unchanged": true,
     "integrity": "ok"
-  }
+  },
+  "delivered_sha256": "a4e942b5686a56b3ab501397e99d484e3ff224ede308e9bcb9f513a5f6441f8a",
+  "delivered_bytes": 1242024,
+  "canonical_archive": "Actual AnkiWeb-delivered APKG, byte-identical at GitHub; server repackaging changes ZIP/collection metadata from the local Publisher export. GUIDs, model/deck IDs, fields, card associations, templates and CSS match."
 }
