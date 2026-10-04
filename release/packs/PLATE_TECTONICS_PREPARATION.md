@@ -20,7 +20,7 @@ placement; Arabian Plate sketch; San Andreas Fault zoom/pan/trace; named-boundar
 type recall with its complete locator map. They came from anki-addon-workbench
 in a disposable Docker/Xvfb Anki 25.09 profile with native pointer input, real
 answer reveals and ffmpeg X11 capture. No Anki grades were recorded. Noto Emoji
-was installed only in that capture environment. The trace is deliberately an
+was installed only in that capture environment. The trace shows an
 imperfect recall attempt, followed by the native roughly-right/Hard suggestion.
 
 Source/copyright check: PB2002 by Peter Bird, converted by Hugo Ahlenius/Nordpil,
