@@ -472,3 +472,17 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
 
 - Geometry-embedding strategy (per-note vs. per-template scope bundle) — resolve empirically
   in the M0 spike by measuring APKG size and render speed both ways.
+
+## Publication milestone — 2026-10-03
+
+The first component, U.S. States, was submitted at AnkiWeb `909756180`: all
+50 states × four games, 200 cards, with four approved actual-Anki GIFs.
+The explicitly approved isolated-Publisher full Upload completed; personal Anki
+was untouched. AnkiWeb's delivered package is the canonical GitHub
+`v2026.10.03` artifact, SHA-256
+`a4e942b5686a56b3ab501397e99d484e3ff224ede308e9bcb9f513a5f6441f8a`.
+Native disposable import tests confirm the delivered component retains its
+GUIDs/model/card/leaf-deck IDs across component → full candidate → component,
+with zero duplicates. The candidate is only compatibility evidence; accepted
+full-edition scope still needs reconciliation. Website component gallery and
+download links are deployed and browser-verified.
