@@ -1,0 +1,218 @@
+{
+  "sahara": {
+    "desert_type": "hot",
+    "countries": [
+      "Algeria",
+      "Libya",
+      "Egypt",
+      "Sudan",
+      "Chad",
+      "Niger",
+      "Mali",
+      "Mauritania",
+      "Morocco",
+      "Tunisia",
+      "Western Sahara"
+    ],
+    "superlative": "largest hot desert in the world"
+  },
+  "arabian-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "Saudi Arabia",
+      "Yemen",
+      "Oman",
+      "United Arab Emirates",
+      "Qatar",
+      "Kuwait",
+      "Bahrain",
+      "Iraq",
+      "Jordan"
+    ],
+    "superlative": "largest desert in Asia"
+  },
+  "gobi-desert": {
+    "desert_type": "cold",
+    "countries": [
+      "Mongolia",
+      "China"
+    ],
+    "superlative": ""
+  },
+  "taklamakan-desert": {
+    "desert_type": "cold",
+    "countries": [
+      "China"
+    ],
+    "superlative": ""
+  },
+  "kalahari-desert": {
+    "desert_type": "semi-arid",
+    "countries": [
+      "Botswana",
+      "Namibia",
+      "South Africa"
+    ],
+    "superlative": ""
+  },
+  "namib-desert": {
+    "desert_type": "coastal",
+    "countries": [
+      "Namibia",
+      "South Africa",
+      "Angola"
+    ],
+    "superlative": "possibly the world's oldest desert"
+  },
+  "atacama-desert": {
+    "desert_type": "coastal",
+    "countries": [
+      "Chile",
+      "Peru"
+    ],
+    "superlative": "driest non-polar desert on Earth"
+  },
+  "thar-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "India",
+      "Pakistan"
+    ],
+    "superlative": "most densely populated desert in the world"
+  },
+  "karakum-desert": {
+    "desert_type": "cold",
+    "countries": [
+      "Turkmenistan",
+      "Uzbekistan",
+      "Kazakhstan"
+    ],
+    "superlative": ""
+  },
+  "kyzylkum-desert": {
+    "desert_type": "cold",
+    "countries": [
+      "Uzbekistan",
+      "Kazakhstan",
+      "Turkmenistan"
+    ],
+    "superlative": ""
+  },
+  "mojave-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "United States"
+    ],
+    "superlative": "smallest, driest desert in North America"
+  },
+  "sonoran-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "Mexico",
+      "United States"
+    ],
+    "superlative": "most plant-rich desert on Earth"
+  },
+  "chihuahuan-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "Mexico",
+      "United States"
+    ],
+    "superlative": "largest hot desert in North America"
+  },
+  "great-victoria-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "Australia"
+    ],
+    "superlative": "largest desert in Australia"
+  },
+  "great-sandy-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "Australia"
+    ],
+    "superlative": "second-largest desert in Australia"
+  },
+  "simpson-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "Australia"
+    ],
+    "superlative": "world's longest parallel sand dunes"
+  },
+  "dasht-e-kavir": {
+    "desert_type": "hot",
+    "countries": [
+      "Iran"
+    ],
+    "superlative": ""
+  },
+  "dasht-e-lut": {
+    "desert_type": "hot",
+    "countries": [
+      "Iran"
+    ],
+    "superlative": "hottest land surface temperature on Earth"
+  },
+  "betpak-dala": {
+    "desert_type": "cold",
+    "countries": [
+      "Kazakhstan"
+    ],
+    "superlative": ""
+  },
+  "caatinga": {
+    "desert_type": "semi-arid",
+    "countries": [
+      "Brazil"
+    ],
+    "superlative": "only biome found exclusively in Brazil"
+  },
+  "libyan-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "Libya",
+      "Egypt",
+      "Sudan",
+      "Chad"
+    ],
+    "superlative": "one of the Sahara's most arid, least populated regions"
+  },
+  "nubian-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "Sudan",
+      "Egypt"
+    ],
+    "superlative": ""
+  },
+  "rub-al-khali": {
+    "desert_type": "hot",
+    "countries": [
+      "Saudi Arabia",
+      "Oman",
+      "United Arab Emirates",
+      "Yemen"
+    ],
+    "superlative": "world's largest contiguous sand desert"
+  },
+  "syrian-desert": {
+    "desert_type": "semi-arid",
+    "countries": [
+      "Syria",
+      "Jordan",
+      "Iraq",
+      "Saudi Arabia"
+    ],
+    "superlative": ""
+  },
+  "western-desert": {
+    "desert_type": "hot",
+    "countries": [
+      "Egypt"
+    ],
+    "superlative": "covers two-thirds of Egypt's land area"
+  }
+}

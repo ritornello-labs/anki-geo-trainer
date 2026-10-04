@@ -1,0 +1,162 @@
+{
+  "tibetan-plateau": {
+    "countries": [
+      "China",
+      "India",
+      "Nepal",
+      "Bhutan",
+      "Pakistan",
+      "Tajikistan",
+      "Afghanistan"
+    ],
+    "bounded_by": [
+      "Himalayas",
+      "Kunlun Mountains",
+      "Qilian Mountains",
+      "Karakoram"
+    ],
+    "distinctive": "world's largest and highest plateau, averaging over 4,500 m"
+  },
+  "deccan-plateau": {
+    "countries": [
+      "India"
+    ],
+    "bounded_by": [
+      "Eastern Ghats",
+      "Western Ghats",
+      "Satpura Range",
+      "Vindhya Range"
+    ],
+    "distinctive": "422,000 km² plateau averaging 600 m, famed for the Deccan Traps"
+  },
+  "iranian-plateau": {
+    "countries": [
+      "Iran",
+      "Afghanistan",
+      "Pakistan",
+      "Azerbaijan",
+      "Iraq",
+      "Turkmenistan"
+    ],
+    "bounded_by": [
+      "Zagros Mountains",
+      "Kopet Dag",
+      "Hindu Kush",
+      "Armenian Highlands"
+    ],
+    "distinctive": "spans ~3.7 million km², elevation ranges from 300 m to 7,492 m"
+  },
+  "anatolian-plateau": {
+    "countries": [
+      "Turkey"
+    ],
+    "bounded_by": [
+      "Pontic Mountains",
+      "Taurus Mountains"
+    ],
+    "distinctive": "semi-arid interior plateau, elevation rises from 600 m to 1,200 m"
+  },
+  "mongolian-plateau": {
+    "countries": [
+      "Mongolia",
+      "China",
+      "Russia"
+    ],
+    "bounded_by": [
+      "Greater Khingan Range",
+      "Yin Mountains",
+      "Altai Mountains",
+      "Sayan Mountains",
+      "Khentii Mountains"
+    ],
+    "distinctive": "vast 3.2 million km² inland plateau encompassing the Gobi Desert"
+  },
+  "mexican-plateau": {
+    "countries": [
+      "Mexico"
+    ],
+    "bounded_by": [
+      "Sierra Madre Occidental",
+      "Sierra Madre Oriental",
+      "Trans-Mexican Volcanic Belt"
+    ],
+    "distinctive": "arid plateau averaging 1,825 m, flanked by two Sierra Madre ranges"
+  },
+  "colorado-plateau": {
+    "countries": [
+      "United States"
+    ],
+    "bounded_by": [
+      "Rocky Mountains",
+      "Uinta Mountains",
+      "Wasatch Mountains",
+      "Rio Grande Rift",
+      "Mogollon Rim",
+      "Basin and Range Province"
+    ],
+    "distinctive": "geologically stable 340,000 km² plateau, holds 9 US national parks"
+  },
+  "altiplano": {
+    "countries": [
+      "Bolivia",
+      "Peru",
+      "Chile",
+      "Argentina"
+    ],
+    "bounded_by": [
+      "Cordillera Occidental",
+      "Cordillera Real"
+    ],
+    "distinctive": "most extensive high plateau outside Tibet, averaging ~3,750 m"
+  },
+  "brazilian-highlands": {
+    "countries": [
+      "Brazil"
+    ],
+    "bounded_by": [
+      "Serra do Mar",
+      "Serra da Mantiqueira",
+      "Serra do Espinhaço",
+      "Serra da Borborema"
+    ],
+    "distinctive": "eroded highlands covering ~half of Brazil, rising to Pico da Bandeira 2,891 m"
+  },
+  "amazon-basin": {
+    "countries": [
+      "Brazil",
+      "Peru",
+      "Bolivia",
+      "Colombia",
+      "Ecuador",
+      "Venezuela",
+      "Guyana",
+      "Suriname",
+      "French Guiana (France)"
+    ],
+    "bounded_by": [
+      "Amazon River drainage",
+      "Andes",
+      "Guiana Highlands",
+      "Brazilian Highlands"
+    ],
+    "distinctive": "world's largest rainforest and river basin, ~7 million km²"
+  },
+  "congo-basin": {
+    "countries": [
+      "Democratic Republic of the Congo",
+      "Republic of the Congo",
+      "Cameroon",
+      "Central African Republic",
+      "Angola",
+      "Gabon",
+      "Zambia"
+    ],
+    "bounded_by": [
+      "Congo River drainage",
+      "East African Rift",
+      "Bié Swell",
+      "Nile-Congo Swell"
+    ],
+    "distinctive": "Africa's largest rainforest basin, ~3.7 million km²"
+  }
+}

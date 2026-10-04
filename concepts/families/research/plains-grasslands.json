@@ -1,0 +1,95 @@
+{
+  "great-plains": {
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "vegetation": "semi-arid temperate grassland, mixed and tallgrass prairie",
+    "term_origin": ""
+  },
+  "pampas": {
+    "countries": [
+      "Argentina",
+      "Uruguay",
+      "Brazil"
+    ],
+    "vegetation": "temperate lowland grassland, pampas-grass prairie",
+    "term_origin": "Quechua for 'plain'"
+  },
+  "eurasian-steppe": {
+    "countries": [
+      "Kazakhstan",
+      "Russia",
+      "Mongolia",
+      "Ukraine",
+      "China"
+    ],
+    "vegetation": "temperate grass steppe, feathergrass and wormwood",
+    "term_origin": "Steppe from Russian 'step'', 'flat grassy plain'"
+  },
+  "pontic-caspian-steppe": {
+    "countries": [
+      "Ukraine",
+      "Russia",
+      "Kazakhstan",
+      "Romania",
+      "Moldova"
+    ],
+    "vegetation": "temperate steppe grassland, feather grass and spring wildflowers",
+    "term_origin": "Pontic = Black Sea (Greek Pontus Euxinus); Caspian Sea"
+  },
+  "kazakh-steppe": {
+    "countries": [
+      "Kazakhstan",
+      "Russia"
+    ],
+    "vegetation": "semi-arid dry steppe, feathergrass, wormwood and fescue",
+    "term_origin": "Named for Kazakhstan; world's largest dry steppe"
+  },
+  "north-china-plain": {
+    "countries": [
+      "China"
+    ],
+    "vegetation": "fertile alluvial farmland, yellow-earth wheat and maize plain",
+    "term_origin": ""
+  },
+  "indo-gangetic-plain": {
+    "countries": [
+      "India",
+      "Pakistan",
+      "Bangladesh",
+      "Nepal"
+    ],
+    "vegetation": "fertile alluvial plain, monsoon rice and wheat farmland",
+    "term_origin": "Named for the Indus and Ganges river systems"
+  },
+  "llanos": {
+    "countries": [
+      "Colombia",
+      "Venezuela"
+    ],
+    "vegetation": "tropical savanna grassland, seasonally flooded plains",
+    "term_origin": "Spanish for 'the plains'"
+  },
+  "campos": {
+    "countries": [
+      "Brazil",
+      "Uruguay",
+      "Argentina"
+    ],
+    "vegetation": "temperate/subtropical grassland, northern extension of the Pampas",
+    "term_origin": "Portuguese for 'fields'"
+  },
+  "veld": {
+    "countries": [
+      "South Africa",
+      "Namibia",
+      "Zimbabwe",
+      "Botswana",
+      "Lesotho",
+      "Eswatini"
+    ],
+    "vegetation": "open grassland/low-scrub plateau (highveld, lowveld, bushveld)",
+    "term_origin": "Afrikaans/Dutch for 'field'"
+  }
+}

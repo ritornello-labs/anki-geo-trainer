@@ -95,3 +95,7 @@ by `scripts/droid_ui.py` / `scripts/droid_cdp.py`.
   day-seeded fallback for the random-dot family.
 - Drags use pointer events *plus* a non-passive touch fallback because AnkiDroid's
   WebView fires `pointercancel` mid-gesture.
+
+### Building the Physical Geography component
+
+The accepted component contains 404 notes / 963 cards, with map games plus all ten physical-geography concept families. Build it with `uv run python scripts/build_physical_geography_pack.py`. All 223 required media files are included in the source; see [source credits](concepts/README.md). Its AnkiWeb listing and five native-Anki GIFs are awaiting image approval.

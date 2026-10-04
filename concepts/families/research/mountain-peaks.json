@@ -1,0 +1,226 @@
+{
+  "andes": {
+    "peak": "Aconcagua",
+    "wikidata_id": "Q39739",
+    "lon": -70.011666666,
+    "lat": -32.653055555,
+    "source": "Wikidata P610/P625"
+  },
+  "rocky-mountains": {
+    "peak": "Mount Elbert",
+    "wikidata_id": "Q657225",
+    "lon": -106.445277777,
+    "lat": 39.117777777,
+    "source": "Wikidata P610/P625"
+  },
+  "appalachian-mountains": {
+    "peak": "Mount Mitchell",
+    "wikidata_id": "Q615337",
+    "lon": -82.264861111,
+    "lat": 35.764761111,
+    "source": "Wikidata P610/P625"
+  },
+  "alps": {
+    "peak": "Mont Blanc",
+    "wikidata_id": "Q583",
+    "lon": 6.865,
+    "lat": 45.832777777,
+    "source": "Wikidata P610/P625"
+  },
+  "pyrenees": {
+    "peak": "Aneto",
+    "wikidata_id": "Q208081",
+    "lon": 0.656686111,
+    "lat": 42.630991666,
+    "source": "Wikidata P610/P625"
+  },
+  "carpathians": {
+    "peak": "Gerlachovský štít",
+    "wikidata_id": "Q81213",
+    "lon": 20.133888888,
+    "lat": 49.164166666,
+    "source": "Wikidata P610/P625"
+  },
+  "apennines": {
+    "peak": "Corno Grande",
+    "wikidata_id": "Q636540",
+    "lon": 13.565555555,
+    "lat": 42.469166666,
+    "source": "Wikidata P610/P625"
+  },
+  "atlas-mountains": {
+    "peak": "Toubkal",
+    "wikidata_id": "Q503433",
+    "lon": -7.916111111,
+    "lat": 31.061944444,
+    "source": "Wikidata P610/P625"
+  },
+  "ural-mountains": {
+    "peak": "Mount Narodnaya",
+    "wikidata_id": "Q1142817",
+    "lon": 60.116666666,
+    "lat": 65.033333333,
+    "source": "Wikidata P610/P625"
+  },
+  "himalayas": {
+    "peak": "Mount Everest",
+    "wikidata_id": "Q513",
+    "lon": 86.925,
+    "lat": 27.988055555,
+    "source": "Wikidata P610/P625"
+  },
+  "karakoram": {
+    "peak": "K2",
+    "wikidata_id": "Q43512",
+    "lon": 76.513333333,
+    "lat": 35.881111111,
+    "source": "Wikidata P610/P625"
+  },
+  "hindu-kush": {
+    "peak": "Tirich Mir",
+    "wikidata_id": "Q207132",
+    "lon": 71.843888888,
+    "lat": 36.245833333,
+    "source": "Wikidata P610/P625"
+  },
+  "tian-shan": {
+    "peak": "Jengish Chokusu",
+    "wikidata_id": "Q332762",
+    "lon": 80.128713,
+    "lat": 42.034662,
+    "source": "Wikidata P610/P625"
+  },
+  "altai-mountains": {
+    "peak": "Belukha",
+    "wikidata_id": "Q724367",
+    "lon": 86.589722222,
+    "lat": 49.806944444,
+    "source": "Wikidata P610/P625"
+  },
+  "zagros-mountains": {
+    "peak": "Mount Dena",
+    "wikidata_id": "Q1183932",
+    "lon": 51.4333,
+    "lat": 30.95,
+    "source": "hand-checked: Wikidata P610 for Zagros points at Zard Kuh, but Dena (4,409 m) is the higher summit"
+  },
+  "great-dividing-range": {
+    "peak": "Mount Kosciuszko",
+    "wikidata_id": "Q178167",
+    "lon": 148.2635105,
+    "lat": -36.4558303,
+    "source": "Wikidata P610/P625"
+  },
+  "drakensberg": {
+    "peak": "Thabana Ntlenyana",
+    "wikidata_id": "Q733132",
+    "lon": 29.266666666,
+    "lat": -29.466666666,
+    "source": "Wikidata P610/P625"
+  },
+  "ethiopian-highlands": {
+    "peak": "Ras Dashen",
+    "wikidata_id": "Q275435",
+    "lon": 38.3725,
+    "lat": 13.236666666,
+    "source": "Wikidata P610/P625"
+  },
+  "alaska-range": {
+    "peak": "Denali",
+    "wikidata_id": "Q130018",
+    "lon": -151.0063,
+    "lat": 63.0691,
+    "source": "Wikidata P625"
+  },
+  "annamite-range": {
+    "peak": "Phou Bia",
+    "wikidata_id": "Q239485",
+    "lon": 103.133333333,
+    "lat": 18.983333333,
+    "source": "Wikidata label match, P625"
+  },
+  "brooks-range": {
+    "peak": "Mount Isto",
+    "wikidata_id": "Q8529786",
+    "lon": -143.802,
+    "lat": 69.2024,
+    "source": "Wikidata label match, P625"
+  },
+  "cascade-range": {
+    "peak": "Mount Rainier",
+    "wikidata_id": "Q194057",
+    "lon": -121.760277777,
+    "lat": 46.851666666,
+    "source": "Wikidata label match, P625"
+  },
+  "caucasus-mountains": {
+    "peak": "Mount Elbrus",
+    "wikidata_id": "Q43105",
+    "lon": 42.437875,
+    "lat": 43.35254,
+    "source": "Wikidata label match, P625"
+  },
+  "coast-mountains": {
+    "peak": "Mount Waddington",
+    "wikidata_id": "Q1737059",
+    "lon": -125.263333,
+    "lat": 51.373611,
+    "source": "Wikidata label match, P625"
+  },
+  "ellsworth-mountains": {
+    "peak": "Mount Vinson",
+    "wikidata_id": "Q17189941",
+    "lon": -85.6172222,
+    "lat": -78.5252778,
+    "source": "Wikidata label match, P625"
+  },
+  "greater-khingan": {
+    "peak": "Huanggang Liang",
+    "wikidata_id": null,
+    "lon": 117.52,
+    "lat": 43.55,
+    "source": "hand-entered: Huanggangliang, Hexigten Banner, Inner Mongolia (no Wikidata coordinates)"
+  },
+  "kunlun-mountains": {
+    "peak": "Liushi Shan",
+    "wikidata_id": "Q6654097",
+    "lon": 80.91583333,
+    "lat": 35.31583333,
+    "source": "Wikidata label match, P625"
+  },
+  "pamir-mountains": {
+    "peak": "Kongur Tagh",
+    "wikidata_id": "Q646398",
+    "lon": 75.313333333,
+    "lat": 38.593888888,
+    "source": "Wikidata label match, P625"
+  },
+  "pensacola-mountains": {
+    "peak": "England Peak",
+    "wikidata_id": "Q5377995",
+    "lon": -52.8167,
+    "lat": -82.6167,
+    "source": "Wikidata label match, P625"
+  },
+  "queen-maud-mountains": {
+    "peak": "Mount Kaplan",
+    "wikidata_id": "Q3321901",
+    "lon": 175.316666666,
+    "lat": -84.55,
+    "source": "Wikidata label match, P625"
+  },
+  "stanovoy-range": {
+    "peak": "Skalisty Golets",
+    "wikidata_id": "Q4421491",
+    "lon": 119.095833333,
+    "lat": 56.400277777,
+    "source": "Wikidata label match, P625"
+  },
+  "transantarctic-mountains": {
+    "peak": "Mount Kirkpatrick",
+    "wikidata_id": "Q1929197",
+    "lon": 166.416666666,
+    "lat": -84.333333333,
+    "source": "Wikidata label match, P625"
+  }
+}

@@ -1,0 +1,90 @@
+{
+ "family": "chokepoints",
+ "title": "Straits, Canals & Isthmuses",
+ "concepts": [
+  {
+   "slug": "isthmus-of-panama",
+   "name": "Isthmus of Panama",
+   "kind": "isthmus",
+   "alt_names": "",
+   "definition": "Narrow land bridge linking North and South America across Panama, separating the Caribbean Sea from the Pacific Ocean and traversed by the Panama Canal.",
+   "locator_map": "isthmus-of-panama-locator.svg",
+   "blank_map": "world-blank.svg",
+   "members": "",
+   "countries_touched": "",
+   "water_bodies_connected": "",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Isthmus_of_Panama",
+   "wikidata_id": "Q182139"
+  },
+  {
+   "slug": "isthmus-of-kra",
+   "name": "Isthmus of Kra",
+   "kind": "isthmus",
+   "alt_names": "",
+   "definition": "The narrowest part of the Malay Peninsula, in southern Thailand, only about 44 km wide between the Andaman Sea and the Gulf of Thailand.",
+   "locator_map": "isthmus-of-kra-locator.svg",
+   "blank_map": "world-blank.svg",
+   "members": "",
+   "countries_touched": "",
+   "water_bodies_connected": "",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Kra_Isthmus",
+   "wikidata_id": "Q322356"
+  },
+  {
+   "slug": "isthmus-of-suez",
+   "name": "Isthmus of Suez",
+   "kind": "isthmus",
+   "alt_names": "",
+   "definition": "The roughly 125-km land bridge in Egypt joining Africa to Asia and separating the Mediterranean from the Red Sea, cut through by the Suez Canal.",
+   "locator_map": "isthmus-of-suez-locator.svg",
+   "blank_map": "world-blank.svg",
+   "members": "",
+   "countries_touched": "",
+   "water_bodies_connected": "",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Isthmus_of_Suez",
+   "wikidata_id": "Q46291"
+  },
+  {
+   "slug": "bosporus",
+   "name": "Bosporus",
+   "kind": "strait",
+   "alt_names": "",
+   "definition": "Narrow strait through Istanbul in northwest Turkey linking the Black Sea to the Sea of Marmara and separating Europe from Asia.",
+   "locator_map": "bosporus-locator.svg",
+   "blank_map": "world-blank.svg",
+   "members": "",
+   "countries_touched": "Turkey",
+   "water_bodies_connected": "Black Sea|Sea of Marmara",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Bosporus",
+   "wikidata_id": "Q35958"
+  },
+  {
+   "slug": "strait-of-hormuz",
+   "name": "Strait of Hormuz",
+   "kind": "strait",
+   "alt_names": "",
+   "definition": "Strategic strait connecting the Persian Gulf to the Gulf of Oman, separating Iran from Oman's Musandam Peninsula.",
+   "locator_map": "strait-of-hormuz-locator.svg",
+   "blank_map": "world-blank.svg",
+   "members": "",
+   "countries_touched": "Iran|Oman",
+   "water_bodies_connected": "Persian Gulf|Gulf of Oman",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Strait_of_Hormuz",
+   "wikidata_id": "Q79883"
+  },
+  {
+   "slug": "suez-canal",
+   "name": "Suez Canal",
+   "kind": "canal",
+   "alt_names": "",
+   "definition": "Artificial sea-level waterway across Egypt's Isthmus of Suez, running 193 km to connect the Mediterranean Sea with the Red Sea.",
+   "locator_map": "suez-canal-locator.svg",
+   "blank_map": "world-blank.svg",
+   "members": "",
+   "countries_touched": "Egypt",
+   "water_bodies_connected": "Mediterranean Sea|Red Sea",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Suez_Canal",
+   "wikidata_id": "Q899"
+  }
+ ]
+}

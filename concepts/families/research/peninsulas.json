@@ -1,0 +1,169 @@
+{
+  "sinai-peninsula": {
+    "countries": [
+      "Egypt"
+    ],
+    "waters": [
+      "Mediterranean Sea",
+      "Red Sea",
+      "Gulf of Suez",
+      "Gulf of Aqaba"
+    ]
+  },
+  "italian-peninsula": {
+    "countries": [
+      "Italy",
+      "San Marino",
+      "Vatican City"
+    ],
+    "waters": [
+      "Tyrrhenian Sea",
+      "Adriatic Sea",
+      "Ionian Sea",
+      "Ligurian Sea"
+    ]
+  },
+  "jutland": {
+    "countries": [
+      "Denmark",
+      "Germany"
+    ],
+    "waters": [
+      "North Sea",
+      "Baltic Sea",
+      "Skagerrak",
+      "Kattegat"
+    ]
+  },
+  "kola-peninsula": {
+    "countries": [
+      "Russia"
+    ],
+    "waters": [
+      "Barents Sea",
+      "White Sea"
+    ]
+  },
+  "baja-california": {
+    "countries": [
+      "Mexico"
+    ],
+    "waters": [
+      "Pacific Ocean",
+      "Gulf of California"
+    ]
+  },
+  "yucatan-peninsula": {
+    "countries": [
+      "Mexico",
+      "Belize",
+      "Guatemala"
+    ],
+    "waters": [
+      "Gulf of Mexico",
+      "Caribbean Sea"
+    ]
+  },
+  "labrador-peninsula": {
+    "countries": [
+      "Canada"
+    ],
+    "waters": [
+      "Hudson Bay",
+      "Hudson Strait",
+      "Labrador Sea",
+      "Gulf of St. Lawrence"
+    ]
+  },
+  "delmarva-peninsula": {
+    "countries": [
+      "United States"
+    ],
+    "waters": [
+      "Chesapeake Bay",
+      "Delaware Bay",
+      "Atlantic Ocean"
+    ]
+  },
+  "guajira-peninsula": {
+    "countries": [
+      "Colombia",
+      "Venezuela"
+    ],
+    "waters": [
+      "Caribbean Sea",
+      "Gulf of Venezuela"
+    ]
+  },
+  "iberian-peninsula": {
+    "countries": [
+      "Spain",
+      "Portugal",
+      "Andorra",
+      "Gibraltar (UK)"
+    ],
+    "waters": [
+      "Atlantic Ocean",
+      "Mediterranean Sea",
+      "Bay of Biscay"
+    ]
+  },
+  "kamchatka-peninsula": {
+    "countries": [
+      "Russia"
+    ],
+    "waters": [
+      "Sea of Okhotsk",
+      "Bering Sea",
+      "Pacific Ocean"
+    ]
+  },
+  "malay-peninsula": {
+    "countries": [
+      "Malaysia",
+      "Thailand",
+      "Myanmar",
+      "Singapore"
+    ],
+    "waters": [
+      "Strait of Malacca",
+      "Andaman Sea",
+      "Gulf of Thailand",
+      "South China Sea"
+    ]
+  },
+  "scandinavian-peninsula": {
+    "countries": [
+      "Norway",
+      "Sweden",
+      "Finland"
+    ],
+    "waters": [
+      "Norwegian Sea",
+      "Barents Sea",
+      "Baltic Sea",
+      "Gulf of Bothnia"
+    ]
+  },
+  "cape-york-peninsula": {
+    "countries": [
+      "Australia"
+    ],
+    "waters": [
+      "Gulf of Carpentaria",
+      "Coral Sea",
+      "Torres Strait"
+    ]
+  },
+  "peloponnese": {
+    "countries": [
+      "Greece"
+    ],
+    "waters": [
+      "Ionian Sea",
+      "Aegean Sea",
+      "Mediterranean Sea"
+    ],
+    "unverified": true
+  }
+}

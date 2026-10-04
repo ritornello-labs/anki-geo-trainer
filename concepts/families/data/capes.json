@@ -1,0 +1,48 @@
+{
+ "family": "capes",
+ "title": "Capes",
+ "concepts": [
+  {
+   "slug": "cape-of-good-hope",
+   "name": "Cape of Good Hope",
+   "kind": "cape",
+   "alt_names": "",
+   "definition": "Rocky headland on South Africa's Cape Peninsula, a historic maritime waypoint often mistaken for Africa's southern tip, which is actually Cape Agulhas to the southeast.",
+   "locator_map": "cape-of-good-hope-locator.svg",
+   "blank_map": "world-blank.svg",
+   "members": "",
+   "countries_touched": "",
+   "water_bodies_connected": "",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Cape_of_Good_Hope",
+   "wikidata_id": "Q4092"
+  },
+  {
+   "slug": "cape-horn",
+   "name": "Cape Horn",
+   "kind": "cape",
+   "alt_names": "",
+   "definition": "The southernmost headland of South America, on Chile's Hornos Island, marking the northern edge of the Drake Passage and long infamous for treacherous seas.",
+   "locator_map": "cape-horn-locator.svg",
+   "blank_map": "world-blank.svg",
+   "members": "",
+   "countries_touched": "",
+   "water_bodies_connected": "",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Cape_Horn",
+   "wikidata_id": "Q4078"
+  },
+  {
+   "slug": "north-cape",
+   "name": "North Cape",
+   "kind": "cape",
+   "alt_names": "",
+   "definition": "Cliff-topped cape on Magerøya island in northern Norway, popularly billed as Europe's northernmost point, though nearby Knivskjellodden and mainland Cape Nordkinn reach further north.",
+   "locator_map": "north-cape-locator.svg",
+   "blank_map": "world-blank.svg",
+   "members": "",
+   "countries_touched": "",
+   "water_bodies_connected": "",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/North_Cape",
+   "wikidata_id": "Q403467"
+  }
+ ]
+}

@@ -1,0 +1,115 @@
+{
+ "codes": {
+  "A": {
+   "criteria": "Every month averages 18 °C or higher, so there is no true winter (tropical group).",
+   "examples": ["Amazon Basin", "Congo Basin", "Indonesia and Malaysia", "Central America"]
+  },
+  "B": {
+   "criteria": "Annual precipitation falls below an aridity threshold set by mean annual temperature and rainfall seasonality (arid group).",
+   "examples": ["Sahara Desert", "Arabian Peninsula", "Australian Outback", "American Southwest"]
+  },
+  "C": {
+   "criteria": "Coldest month averages 0–18 °C (some sources use −3 °C), warmest month above 10 °C (temperate group).",
+   "examples": ["Mediterranean Basin", "Southeastern United States", "Western Europe", "Southeastern China"]
+  },
+  "D": {
+   "criteria": "Coldest month averages below 0 °C (or −3 °C) while warmest month still averages above 10 °C (continental group).",
+   "examples": ["Interior/upper-east North America", "Siberia", "Northern China", "Eastern Europe"]
+  },
+  "E": {
+   "criteria": "No month averages above 10 °C, too cold for tree growth (polar group).",
+   "examples": ["Antarctica", "Greenland interior", "Northern Canadian Arctic", "Svalbard"]
+  },
+  "Af": {
+   "criteria": "Every month at least 18 °C and every month at least 60 mm precipitation; no dry season.",
+   "examples": ["Amazon Basin", "Congo Basin", "Indonesia and Malaysia", "Singapore"]
+  },
+  "Am": {
+   "criteria": "Every month above 18 °C; short dry season where driest month is under 60 mm but above 100 minus (annual mm/25).",
+   "examples": ["Mumbai, India", "Chittagong, Bangladesh", "Miami, Florida", "Yangon, Myanmar"]
+  },
+  "Aw": {
+   "criteria": "Every month above 18 °C; driest month under 60 mm and below 100 minus (annual mm/25), dry season in low-sun winter.",
+   "examples": ["Llanos, Venezuela/Colombia", "Brazilian Cerrado", "Sahel", "Darwin, Australia"]
+  },
+  "BWh": {
+   "criteria": "Annual precipitation below half the aridity threshold; mean annual temperature 18 °C or above.",
+   "examples": ["Sahara Desert", "Arabian Desert", "Sonoran Desert", "Phoenix, Arizona"]
+  },
+  "BWk": {
+   "criteria": "Annual precipitation below half the aridity threshold; mean annual temperature under 18 °C.",
+   "examples": ["Gobi Desert", "Atacama Desert interior", "Great Basin Desert", "Patagonian Desert"]
+  },
+  "BSh": {
+   "criteria": "Precipitation between 50% and 100% of the aridity threshold; mean annual temperature 18 °C or above.",
+   "examples": ["Sahel", "Rajasthan fringe, India", "Northern Mexico", "Outback fringe, Australia"]
+  },
+  "BSk": {
+   "criteria": "Precipitation between 50% and 100% of the aridity threshold; mean annual temperature under 18 °C.",
+   "examples": ["Great Plains, United States", "Central Asian steppe", "Patagonia", "Anatolian Plateau, Turkey"]
+  },
+  "Csa": {
+   "criteria": "Coldest month 0–18 °C, warmest month above 22 °C, dry summer (driest summer month under 40 mm, wettest winter month at least 3x driest summer month).",
+   "examples": ["Mediterranean Basin (Rome)", "Central Valley, California", "Central Chile", "Perth, Australia"]
+  },
+  "Csb": {
+   "criteria": "Coldest month 0–18 °C, warmest month below 22 °C with 4+ months above 10 °C, same dry-summer rule as Csa.",
+   "examples": ["Pacific Northwest coast (Seattle/Portland)", "Galicia, Spain", "Cape Town, South Africa", "Coastal Central Chile"]
+  },
+  "Cfa": {
+   "criteria": "Coldest month 0–18 °C, warmest month above 22 °C, no significant dry season.",
+   "examples": ["Southeastern United States", "Southeastern China", "Buenos Aires", "Sydney, Australia"]
+  },
+  "Cfb": {
+   "criteria": "Coldest month 0–18 °C, warmest month below 22 °C with 4+ months above 10 °C, no dry season.",
+   "examples": ["Western Europe (London/Paris)", "New Zealand", "Southeastern Australia", "Pacific coastal British Columbia"]
+  },
+  "Dfa": {
+   "criteria": "Coldest month below 0 °C, warmest month above 22 °C, no significant dry season.",
+   "examples": ["US Midwest (Chicago)", "Northern China", "Southern Ontario, Canada", "Ukraine/southern Russia"]
+  },
+  "Dfb": {
+   "criteria": "Coldest month below 0 °C, warmest month below 22 °C with 4+ months above 10 °C, no dry season.",
+   "examples": ["New England, United States", "Central Europe (Germany/Poland)", "Southern Quebec, Canada", "Moscow, Russia"]
+  },
+  "Dfc": {
+   "criteria": "Coldest month below 0 °C, only 1–3 months above 10 °C, coldest month above −38 °C, no dry season.",
+   "examples": ["Siberia", "Interior/Southcentral Alaska", "Northern Canada", "Northern Scandinavia"]
+  },
+  "ET": {
+   "criteria": "Warmest month averages between 0 °C and 10 °C.",
+   "examples": ["Northern Alaska (Utqiagvik)", "Arctic Canada", "Svalbard, Norway", "High Andes/Himalaya above the tree line"]
+  },
+  "EF": {
+   "criteria": "Every month averages below 0 °C; permanent ice, never thaws.",
+   "examples": ["Antarctic interior", "Greenland ice sheet", "High-altitude Andes and Himalaya summits"]
+  }
+ },
+ "letters": {
+  "first": {
+   "A": "tropical",
+   "B": "arid",
+   "C": "temperate",
+   "D": "continental",
+   "E": "polar"
+  },
+  "second": {
+   "f": "no dry season",
+   "m": "monsoon (short dry season, doesn't meet w/s criteria)",
+   "w": "dry winter",
+   "s": "dry summer",
+   "W": "desert (B group only)",
+   "S": "steppe / semi-arid (B group only)",
+   "T": "tundra (E group only)",
+   "F": "ice cap (E group only)"
+  },
+  "third": {
+   "a": "hot summer (warmest month above 22 °C)",
+   "b": "warm summer (warmest month below 22 °C, but 4+ months above 10 °C)",
+   "c": "cold summer (only 1-3 months above 10 °C)",
+   "d": "very cold winter (coldest month below -38 °C; D group only)",
+   "h": "hot arid (mean annual temperature 18 °C or above; B group only)",
+   "k": "cold arid (mean annual temperature below 18 °C; B group only)"
+  }
+ }
+}

@@ -28,7 +28,10 @@ import json
 from pathlib import Path
 
 import genanki
+from build_reference_lines_qa import reference_decks
+from build_time_zone_atlas_qa import atlas_decks
 from globe_placement import build_globe_scope, globe_deck
+from public_concepts import PACK_ROOTS, concept_pack
 
 ROOT = Path(__file__).resolve().parent.parent
 ENGINE = ROOT / "engine" / "geo-engine.js"
@@ -621,23 +624,91 @@ def build_scope(scope: str, test_ids: bool = False) -> Path:
     return out
 
 
-def build_combined() -> Path:
-    """One shareable APKG holding the whole GeoTrainer tree — the single deck we
-    publish on AnkiWeb so the listing and screenshots cover everything at once."""
-    all_decks, total = [], 0
-    for scope in SCOPE_PACKS:
-        decks, n = scope_decks(scope)
-        all_decks.extend(decks)
-        total += n
-    globe, n = globe_deck()
-    all_decks.append(globe)
-    total += n
+# Public packs contain only accepted families. The held physical-systems QA
+# scopes and foundations prototype are deliberately absent.
+PUBLIC_PACKS = {
+    "world-countries": ["continents", "europe-countries", "north-america-countries",
+                        "south-america-countries", "africa-countries", "asia-countries",
+                        "oceania-countries"],
+    "physical-geography": ["world-rivers", "world-ranges", "world-deserts", "world-lakes",
+                           "world-plateaus", "world-grasslands",
+                           "world-peninsulas"],
+    "plate-tectonics": ["world-tectonic-plates", "world-minor-plates", "world-plate-boundaries"],
+    "islands-archipelagos": ["world-islands-globe"],
+    "reference-lines-time": ["reference-lines-time"],
+}
+for _country, _scope in {
+    "united-states": "us-states", "brazil": "brazil-states", "india": "india-states",
+    "russia": "russia-subjects", "china": "china-provinces", "canada": "canada-provinces",
+    "australia": "australia-states", "argentina": "argentina-provinces",
+    "mexico": "mexico-states", "indonesia": "indonesia-provinces",
+}.items():
+    PUBLIC_PACKS[_country + "-subdivisions"] = [_scope]
+
+HELD_SCOPES = {
+    "atmospheric-cells", "atmospheric-pressure-belts", "world-prevailing-winds",
+    "world-jet-streams", "south-asia-monsoon-winds", "indian-ocean-seasonal-currents",
+    "atlantic-overturning", "equatorial-pacific-enso",
+    # Withdrawn from publication pending the October 3 retirement reconciliation.
+    "world-ocean-currents",
+}
+
+
+def public_pack_decks(scopes: list[str]) -> list:
+    if HELD_SCOPES.intersection(scopes):
+        raise ValueError("Unaccepted physical-systems scope in public pack")
+    decks = []
+    for scope in scopes:
+        if scope == "reference-lines-time":
+            atlas, _ = atlas_decks()
+            decks.extend(reference_decks())
+            decks.extend(atlas)
+        elif scope == "world-islands-globe":
+            deck, _ = globe_deck()
+            deck.name = deck.name.replace("GeoTrainer::World::Islands", PACK_ROOTS["islands-archipelagos"], 1)
+            decks.append(deck)
+        else:
+            scope_result, _ = scope_decks(scope)
+            for deck in scope_result:
+                if scope in PUBLIC_PACKS["physical-geography"]:
+                    deck.name = deck.name.replace("GeoTrainer::Physical", PACK_ROOTS["physical-geography"], 1)
+                elif scope in PUBLIC_PACKS["plate-tectonics"]:
+                    prefix = "GeoTrainer::Physical::Tectonic Plates" if deck.name.startswith("GeoTrainer::Physical::Tectonic Plates") else "GeoTrainer::Physical"
+                    deck.name = deck.name.replace(prefix, PACK_ROOTS["plate-tectonics"], 1)
+                elif scope in PUBLIC_PACKS["world-countries"]:
+                    prefix = "GeoTrainer::Continents" if scope == "continents" else "GeoTrainer::World"
+                    replacement = PACK_ROOTS["world-countries"] + ("::Continents" if scope == "continents" else "")
+                    deck.name = deck.name.replace(prefix, replacement, 1)
+            decks.extend(scope_result)
+    for name in ("physical-geography", "plate-tectonics", "islands-archipelagos", "world-countries"):
+        if set(PUBLIC_PACKS[name]).issubset(scopes):
+            concepts, _ = concept_pack(name)
+            decks.extend(concepts)
+    return decks
+
+
+def build_public_pack(name: str, scopes: list[str]) -> Path:
+    decks = public_pack_decks(scopes)
     DIST.mkdir(parents=True, exist_ok=True)
-    out = DIST / "geo-trainer-all.apkg"
-    genanki.Package(all_decks).write_to_file(str(out))
-    size_kb = out.stat().st_size / 1024
-    print(f"wrote {out}  ({len(all_decks)} decks, {total} notes, {size_kb / 1024:.1f} MB)")
+    out = DIST / f"geo-trainer-{name}.apkg"
+    package = genanki.Package(decks)
+    if "reference-lines-time" in scopes:
+        _, package.media_files = atlas_decks()
+    for pack_name in PACK_ROOTS:
+        if set(PUBLIC_PACKS[pack_name]).issubset(scopes):
+            _, files = concept_pack(pack_name)
+            package.media_files.extend(files)
+    package.media_files = sorted(set(package.media_files))
+    package.write_to_file(str(out))
+    print(f"wrote {out} ({len(decks)} leaves, {sum(len(d.notes) for d in decks)} notes)")
     return out
+
+
+def build_combined() -> Path:
+    scopes = [scope for pack in PUBLIC_PACKS.values() for scope in pack]
+    if len(scopes) != len(set(scopes)):
+        raise ValueError("Public scopes assigned to more than one pack")
+    return build_public_pack("all", scopes)
 
 
 def main() -> None:
@@ -645,11 +716,17 @@ def main() -> None:
     ap.add_argument(
         "--scope", default="all", choices=["all", "world-islands-globe", *SCOPE_PACKS.keys()]
     )
+    ap.add_argument("--public-packs", action="store_true", help="build accepted modular public packs")
     ap.add_argument("--combined", action="store_true",
                     help="also write one geo-trainer-all.apkg with the whole tree")
     ap.add_argument("--test-ids", action="store_true",
                     help="offset ids and rename (emulator re-import testing only)")
     args = ap.parse_args()
+    if args.public_packs:
+        for name, pack_scopes in PUBLIC_PACKS.items():
+            build_public_pack(name, pack_scopes)
+        build_combined()
+        return
     scopes = list(SCOPE_PACKS) if args.scope == "all" else [] if args.scope == "world-islands-globe" else [args.scope]
     for scope in scopes:
         build_scope(scope, test_ids=args.test_ids)

@@ -1,0 +1,288 @@
+{
+  "tundra": {
+    "temperature": {
+      "bucket": "below -5 °C",
+      "median": -19,
+      "p25": -34,
+      "p75": -11,
+      "detail": "middle half of the biome: -34 to -11°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "under 250 mm/yr",
+      "median": 214,
+      "p25": 83,
+      "p75": 388,
+      "detail": "middle half of the biome: 83 to 388 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "30 to 40 °C",
+      "median": 34,
+      "p25": 29,
+      "p75": 43,
+      "detail": "middle half of the biome: 29 to 43°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 317081
+    }
+  },
+  "taiga-and-boreal-forests": {
+    "temperature": {
+      "bucket": "-5 to 0 °C",
+      "median": -3,
+      "p25": -7,
+      "p75": 0,
+      "detail": "middle half of the biome: -7 to -0°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "500-750 mm/yr",
+      "median": 503,
+      "p25": 369,
+      "p75": 605,
+      "detail": "middle half of the biome: 369 to 605 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "40 to 50 °C",
+      "median": 49,
+      "p25": 43,
+      "p75": 55,
+      "detail": "middle half of the biome: 43 to 55°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 94535
+    }
+  },
+  "temperate-broadleaf-and-mixed-forests": {
+    "temperature": {
+      "bucket": "5 to 10 °C",
+      "median": 9,
+      "p25": 5,
+      "p75": 13,
+      "detail": "middle half of the biome: 5 to 13°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "750-1000 mm/yr",
+      "median": 769,
+      "p25": 590,
+      "p75": 1099,
+      "detail": "middle half of the biome: 590 to 1099 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "30 to 40 °C",
+      "median": 33,
+      "p25": 27,
+      "p75": 39,
+      "detail": "middle half of the biome: 27 to 39°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 58872
+    }
+  },
+  "temperate-coniferous-forests": {
+    "temperature": {
+      "bucket": "0 to 5 °C",
+      "median": 4,
+      "p25": 1,
+      "p75": 8,
+      "detail": "middle half of the biome: 1 to 8°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "500-750 mm/yr",
+      "median": 618,
+      "p25": 453,
+      "p75": 1037,
+      "detail": "middle half of the biome: 453 to 1037 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "30 to 40 °C",
+      "median": 34,
+      "p25": 29,
+      "p75": 39,
+      "detail": "middle half of the biome: 29 to 39°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 21355
+    }
+  },
+  "tropical-and-subtropical-moist-broadleaf-forests": {
+    "temperature": {
+      "bucket": "above 25 °C",
+      "median": 25,
+      "p25": 23,
+      "p75": 26,
+      "detail": "middle half of the biome: 23 to 26°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "1500-2000 mm/yr",
+      "median": 1851,
+      "p25": 1468,
+      "p75": 2422,
+      "detail": "middle half of the biome: 1468 to 2422 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "10 to 20 °C",
+      "median": 13,
+      "p25": 11,
+      "p75": 18,
+      "detail": "middle half of the biome: 11 to 18°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 65117
+    }
+  },
+  "tropical-and-subtropical-dry-broadleaf-forests": {
+    "temperature": {
+      "bucket": "above 25 °C",
+      "median": 26,
+      "p25": 24,
+      "p75": 27,
+      "detail": "middle half of the biome: 24 to 27°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "1000-1500 mm/yr",
+      "median": 1113,
+      "p25": 810,
+      "p75": 1448,
+      "detail": "middle half of the biome: 810 to 1448 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "10 to 20 °C",
+      "median": 17,
+      "p25": 14,
+      "p75": 23,
+      "detail": "middle half of the biome: 14 to 23°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 15281
+    }
+  },
+  "temperate-grasslands-savannas-and-shrublands": {
+    "temperature": {
+      "bucket": "5 to 10 °C",
+      "median": 8,
+      "p25": 3,
+      "p75": 14,
+      "detail": "middle half of the biome: 3 to 14°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "250-500 mm/yr",
+      "median": 414,
+      "p25": 313,
+      "p75": 586,
+      "detail": "middle half of the biome: 313 to 586 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "40 to 50 °C",
+      "median": 40,
+      "p25": 32,
+      "p75": 47,
+      "detail": "middle half of the biome: 32 to 47°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 46862
+    }
+  },
+  "tropical-and-subtropical-grasslands-savannas-and-shrublands": {
+    "temperature": {
+      "bucket": "20 to 25 °C",
+      "median": 25,
+      "p25": 22,
+      "p75": 27,
+      "detail": "middle half of the biome: 22 to 27°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "750-1000 mm/yr",
+      "median": 886,
+      "p25": 499,
+      "p75": 1296,
+      "detail": "middle half of the biome: 499 to 1296 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "20 to 30 °C",
+      "median": 21,
+      "p25": 17,
+      "p75": 26,
+      "detail": "middle half of the biome: 17 to 26°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 68548
+    }
+  },
+  "mediterranean-forests-woodlands-and-scrub": {
+    "temperature": {
+      "bucket": "15 to 20 °C",
+      "median": 16,
+      "p25": 14,
+      "p75": 18,
+      "detail": "middle half of the biome: 14 to 18°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "250-500 mm/yr",
+      "median": 430,
+      "p25": 290,
+      "p75": 626,
+      "detail": "middle half of the biome: 290 to 626 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "20 to 30 °C",
+      "median": 28,
+      "p25": 24,
+      "p75": 30,
+      "detail": "middle half of the biome: 24 to 30°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 13770
+    }
+  },
+  "deserts-and-xeric-shrublands": {
+    "temperature": {
+      "bucket": "20 to 25 °C",
+      "median": 22,
+      "p25": 16,
+      "p75": 25,
+      "detail": "middle half of the biome: 16 to 25°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "under 250 mm/yr",
+      "median": 133,
+      "p25": 42,
+      "p75": 255,
+      "detail": "middle half of the biome: 42 to 255 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "30 to 40 °C",
+      "median": 33,
+      "p25": 30,
+      "p75": 39,
+      "detail": "middle half of the biome: 30 to 39°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 93789
+    }
+  },
+  "mangroves": {
+    "temperature": {
+      "bucket": "above 25 °C",
+      "median": 26,
+      "p25": 26,
+      "p75": 27,
+      "detail": "middle half of the biome: 26 to 27°C (WorldClim 2.1)"
+    },
+    "precipitation": {
+      "bucket": "1500-2000 mm/yr",
+      "median": 1911,
+      "p25": 1266,
+      "p75": 2691,
+      "detail": "middle half of the biome: 1266 to 2691 mm (WorldClim 2.1)"
+    },
+    "temperature_range": {
+      "bucket": "10 to 20 °C",
+      "median": 11,
+      "p25": 10,
+      "p75": 15,
+      "detail": "middle half of the biome: 10 to 15°C (WorldClim 2.1)"
+    },
+    "cells": {
+      "count": 4342
+    }
+  }
+}

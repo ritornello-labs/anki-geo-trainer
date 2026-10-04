@@ -1,0 +1,104 @@
+{
+ "african-plate": {
+  "plate_kind": "major, mixed continental-oceanic",
+  "boundary_fact": "splits from the Somali Plate along the East African Rift",
+  "carries": "Africa and adjacent Atlantic and Indian Ocean floor",
+  "boundary_type": "divergent"
+ },
+ "antarctic-plate": {
+  "plate_kind": "major, mixed continental-oceanic",
+  "boundary_fact": "subducts beneath the South American Plate, uplifting Patagonia",
+  "carries": "Antarctica and surrounding Southern Ocean floor",
+  "boundary_type": "convergent"
+ },
+ "eurasian-plate": {
+  "plate_kind": "major, mixed continental-oceanic",
+  "boundary_fact": "collides with the Indian Plate, raising the Himalayas",
+  "carries": "Europe and Asia, plus North Atlantic and Arctic seafloor",
+  "boundary_type": "convergent"
+ },
+ "australian-plate": {
+  "plate_kind": "major, mixed continental-oceanic",
+  "boundary_fact": "subducts under the Sunda Plate at the Java Trench",
+  "carries": "Australia, New Guinea and surrounding ocean floor",
+  "boundary_type": "convergent"
+ },
+ "indian-plate": {
+  "plate_kind": "minor, mixed continental-oceanic",
+  "boundary_fact": "collides with the Eurasian Plate, raising the Himalayas",
+  "carries": "Indian subcontinent and part of the Indian Ocean floor",
+  "boundary_type": "convergent"
+ },
+ "north-american-plate": {
+  "plate_kind": "major, mixed continental-oceanic",
+  "boundary_fact": "grinds past the Pacific Plate along the San Andreas Fault",
+  "carries": "North America, Greenland, and parts of Siberia and Iceland",
+  "boundary_type": "transform"
+ },
+ "pacific-plate": {
+  "plate_kind": "major, mostly oceanic",
+  "boundary_fact": "grinds past the North American Plate along the San Andreas Fault",
+  "carries": "the Pacific Ocean basin, including Hawaii",
+  "boundary_type": "transform"
+ },
+ "south-american-plate": {
+  "plate_kind": "major, mixed continental-oceanic",
+  "boundary_fact": "is overridden by the subducting Nazca Plate, raising the Andes",
+  "carries": "South America and Atlantic Ocean seabed",
+  "boundary_type": "convergent"
+ },
+ "arabian-plate": {
+  "plate_kind": "minor, mostly continental",
+  "boundary_fact": "collides with the Eurasian Plate, raising the Zagros Mountains",
+  "carries": "the Arabian Peninsula and Red Sea floor",
+  "boundary_type": "convergent"
+ },
+ "caribbean-plate": {
+  "plate_kind": "minor, mostly oceanic",
+  "boundary_fact": "overrides the subducting South American Plate, forming the Lesser Antilles arc",
+  "carries": "Central America and the Caribbean Sea floor",
+  "boundary_type": "convergent"
+ },
+ "nazca-plate": {
+  "plate_kind": "minor, oceanic",
+  "boundary_fact": "subducts under the South American Plate, raising the Andes",
+  "carries": "eastern Pacific Ocean floor off South America",
+  "boundary_type": "convergent"
+ },
+ "philippine-sea-plate": {
+  "plate_kind": "minor, oceanic",
+  "boundary_fact": "receives the subducting Pacific Plate, forming the Mariana Trench",
+  "carries": "the Philippine Sea and Izu-Bonin-Mariana island arcs",
+  "boundary_type": "convergent"
+ },
+ "scotia-plate": {
+  "plate_kind": "minor, mixed oceanic-continental",
+  "boundary_fact": "slides past the South American Plate, opening the Scotia Sea",
+  "carries": "the Scotia Sea, Drake Passage and South Georgia",
+  "boundary_type": "transform"
+ },
+ "somali-plate": {
+  "plate_kind": "minor, mixed continental-oceanic",
+  "boundary_fact": "splits from the African Plate along the East African Rift",
+  "carries": "Madagascar, the Horn of Africa and nearby seafloor",
+  "boundary_type": "divergent"
+ },
+ "sunda-plate": {
+  "plate_kind": "minor, mixed continental-oceanic",
+  "boundary_fact": "is undercut by the Australian Plate at the Java Trench",
+  "carries": "mainland Southeast Asia, Borneo, Java and Sumatra",
+  "boundary_type": "convergent"
+ },
+ "cocos-plate": {
+  "plate_kind": "minor, oceanic",
+  "boundary_fact": "subducts beneath the Caribbean and North American plates at the Middle America Trench",
+  "carries": "carries only Cocos Island, off Costa Rica",
+  "boundary_type": "convergent"
+ },
+ "juan-de-fuca-plate": {
+  "plate_kind": "minor, oceanic",
+  "boundary_fact": "subducts under the North American Plate, forming the Cascadia subduction zone",
+  "carries": "carries oceanic crust from the Juan de Fuca Ridge",
+  "boundary_type": "convergent"
+ }
+}

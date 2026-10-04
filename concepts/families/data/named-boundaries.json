@@ -1,0 +1,421 @@
+{
+ "family": "named-boundaries",
+ "title": "Named Plate Boundaries",
+ "_note": "Hand-maintained (not derived from the seed CSV). `pairs` and `bbox` drive scripts/generate_named_boundary_maps.py: pairs are PB2002 plate codes (order-insensitive), bbox is [lon_min, lat_min, lon_max, lat_max] and selects which segments of that plate pair belong to this named boundary. A bbox whose lon_min > lon_max wraps the antimeridian.",
+ "concepts": [
+  {
+   "slug": "mid-atlantic-ridge",
+   "name": "Mid-Atlantic Ridge",
+   "kind": "plate_boundary",
+   "alt_names": "MAR",
+   "definition": "The spreading centre running the length of the Atlantic, where new ocean floor is created along a rift valley at the ridge crest; it breaches sea level in Iceland and the Azores.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Mid-Atlantic_Ridge",
+   "pairs": [
+    [
+     "NA",
+     "EU"
+    ],
+    [
+     "NA",
+     "AF"
+    ],
+    [
+     "SA",
+     "AF"
+    ]
+   ],
+   "bbox": [
+    -50,
+    -58,
+    10,
+    78
+   ],
+   "locator_map": "named-boundary-mid-atlantic-ridge.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "east-pacific-rise",
+   "name": "East Pacific Rise",
+   "kind": "plate_boundary",
+   "alt_names": "",
+   "definition": "The fastest-spreading ridge on Earth, opening the eastern Pacific at up to about 150 mm a year and lined with hydrothermal vents.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/East_Pacific_Rise",
+   "pairs": [
+    [
+     "PA",
+     "NZ"
+    ],
+    [
+     "PA",
+     "CO"
+    ],
+    [
+     "PA",
+     "EA"
+    ],
+    [
+     "EA",
+     "NZ"
+    ],
+    [
+     "PA",
+     "JZ"
+    ],
+    [
+     "JZ",
+     "NZ"
+    ]
+   ],
+   "bbox": [
+    -130,
+    -60,
+    -85,
+    25
+   ],
+   "locator_map": "named-boundary-east-pacific-rise.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "east-african-rift",
+   "name": "East African Rift",
+   "kind": "plate_boundary",
+   "alt_names": "Great Rift Valley",
+   "definition": "A continental rift splitting the African Plate into the Nubian and Somali plates, the clearest place on land to watch a divergent boundary tear a continent apart.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/East_African_Rift",
+   "pairs": [
+    [
+     "AF",
+     "SO"
+    ]
+   ],
+   "bbox": [
+    26,
+    -22,
+    52,
+    20
+   ],
+   "locator_map": "named-boundary-east-african-rift.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "red-sea-rift",
+   "name": "Red Sea Rift",
+   "kind": "plate_boundary",
+   "alt_names": "",
+   "definition": "The spreading centre pulling Arabia away from Africa, an incipient ocean basin that has already flooded to become the Red Sea.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Red_Sea_Rift",
+   "pairs": [
+    [
+     "AR",
+     "AF"
+    ]
+   ],
+   "bbox": [
+    31,
+    11,
+    46,
+    28.5
+   ],
+   "locator_map": "named-boundary-red-sea-rift.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "san-andreas-fault",
+   "name": "San Andreas Fault",
+   "kind": "plate_boundary",
+   "alt_names": "",
+   "definition": "A right-lateral strike-slip fault running about 1,200 km through California, where the Pacific Plate slides north-west past North America.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/San_Andreas_Fault",
+   "pairs": [
+    [
+     "PA",
+     "NA"
+    ]
+   ],
+   "bbox": [
+    -127,
+    22,
+    -108,
+    42
+   ],
+   "locator_map": "named-boundary-san-andreas-fault.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "alpine-fault",
+   "name": "Alpine Fault",
+   "kind": "plate_boundary",
+   "alt_names": "",
+   "definition": "The boundary running the length of New Zealand's South Island, right-lateral but with a strong reverse component, so it both offsets and lifts.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Alpine_Fault",
+   "pairs": [
+    [
+     "AU",
+     "PA"
+    ]
+   ],
+   "bbox": [
+    163,
+    -49,
+    180,
+    -39
+   ],
+   "locator_map": "named-boundary-alpine-fault.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "dead-sea-transform",
+   "name": "Dead Sea Transform",
+   "kind": "plate_boundary",
+   "alt_names": "Dead Sea Rift, Jordan Rift Valley",
+   "definition": "A left-lateral transform running from the Gulf of Aqaba to southern Turkey, along which Arabia slides north past Africa.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Dead_Sea_Transform",
+   "pairs": [
+    [
+     "AR",
+     "AF"
+    ]
+   ],
+   "bbox": [
+    32,
+    28.5,
+    38,
+    37
+   ],
+   "locator_map": "named-boundary-dead-sea-transform.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "north-scotia-ridge",
+   "name": "North Scotia Ridge",
+   "kind": "plate_boundary",
+   "alt_names": "",
+   "definition": "The left-lateral transform forming the northern edge of the Scotia Sea, where the small Scotia Plate slides past South America at about 7 mm a year.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/North_Scotia_Ridge",
+   "pairs": [
+    [
+     "SC",
+     "SA"
+    ]
+   ],
+   "bbox": [
+    -70,
+    -60,
+    -25,
+    -50
+   ],
+   "locator_map": "named-boundary-north-scotia-ridge.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "himalayan-collision-zone",
+   "name": "Himalayan collision zone",
+   "kind": "plate_boundary",
+   "alt_names": "Indus-Yarlung suture",
+   "definition": "The continent-to-continent collision where India drives into Asia; with no dense ocean plate to sink, the crust thickens and rises instead of subducting.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Himalayas",
+   "pairs": [
+    [
+     "IN",
+     "EU"
+    ]
+   ],
+   "bbox": [
+    70,
+    25,
+    100,
+    40
+   ],
+   "locator_map": "named-boundary-himalayan-collision-zone.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "zagros-fold-belt",
+   "name": "Zagros fold belt",
+   "kind": "plate_boundary",
+   "alt_names": "Zagros fold and thrust belt",
+   "definition": "The collision zone where Arabia pushes into Eurasia, crumpling the sedimentary cover of Iran into long parallel folds.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Zagros_Mountains",
+   "pairs": [
+    [
+     "AR",
+     "EU"
+    ]
+   ],
+   "bbox": [
+    42,
+    25,
+    62,
+    42
+   ],
+   "locator_map": "named-boundary-zagros-fold-belt.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "peru-chile-trench",
+   "name": "Peru–Chile Trench",
+   "kind": "plate_boundary",
+   "alt_names": "Atacama Trench",
+   "definition": "The trench running the length of South America's Pacific margin, where the Nazca Plate dives under the continent.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Peru%E2%80%93Chile_Trench",
+   "pairs": [
+    [
+     "NZ",
+     "SA"
+    ]
+   ],
+   "bbox": [
+    -85,
+    -57,
+    -65,
+    8
+   ],
+   "locator_map": "named-boundary-peru-chile-trench.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "sunda-trench",
+   "name": "Sunda Trench",
+   "kind": "plate_boundary",
+   "alt_names": "Java Trench",
+   "definition": "The subduction zone off Sumatra and Java; its 2004 megathrust rupture caused the Indian Ocean tsunami.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Sunda_Trench",
+   "pairs": [
+    [
+     "AU",
+     "SU"
+    ]
+   ],
+   "bbox": [
+    90,
+    -15,
+    125,
+    10
+   ],
+   "locator_map": "named-boundary-sunda-trench.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "mariana-trench",
+   "name": "Mariana Trench",
+   "kind": "plate_boundary",
+   "alt_names": "",
+   "definition": "The deepest trench on Earth, reaching about 10,900 m at Challenger Deep, where old cold Pacific floor sinks almost vertically.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Mariana_Trench",
+   "pairs": [
+    [
+     "PA",
+     "MA"
+    ]
+   ],
+   "bbox": [
+    138,
+    10,
+    152,
+    25
+   ],
+   "locator_map": "named-boundary-mariana-trench.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "middle-america-trench",
+   "name": "Middle America Trench",
+   "kind": "plate_boundary",
+   "alt_names": "",
+   "definition": "The subduction zone off western Mexico and Central America that feeds the volcanic chain from Popocatépetl to Costa Rica.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Middle_America_Trench",
+   "pairs": [
+    [
+     "CO",
+     "CA"
+    ],
+    [
+     "CO",
+     "NA"
+    ],
+    [
+     "RI",
+     "NA"
+    ]
+   ],
+   "bbox": [
+    -108,
+    5,
+    -83,
+    23
+   ],
+   "locator_map": "named-boundary-middle-america-trench.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "cascadia-subduction-zone",
+   "name": "Cascadia subduction zone",
+   "kind": "plate_boundary",
+   "alt_names": "",
+   "definition": "A quiet-looking offshore megathrust from northern California to Vancouver Island that locks for centuries between magnitude-9 ruptures.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Cascadia_subduction_zone",
+   "pairs": [
+    [
+     "JF",
+     "NA"
+    ]
+   ],
+   "bbox": [
+    -133,
+    39,
+    -120,
+    52
+   ],
+   "locator_map": "named-boundary-cascadia-subduction-zone.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "aleutian-trench",
+   "name": "Aleutian Trench",
+   "kind": "plate_boundary",
+   "alt_names": "",
+   "definition": "The 3,400 km trench arcing from Kamchatka to the Gulf of Alaska, where the Pacific Plate sinks at about 7.5 cm a year.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Aleutian_Trench",
+   "pairs": [
+    [
+     "PA",
+     "NA"
+    ]
+   ],
+   "bbox": [
+    165,
+    45,
+    -140,
+    62
+   ],
+   "locator_map": "named-boundary-aleutian-trench.png",
+   "blank_map": "tectonic-plates-blank.png"
+  },
+  {
+   "slug": "lesser-antilles-arc",
+   "name": "Lesser Antilles arc",
+   "kind": "plate_boundary",
+   "alt_names": "Lesser Antilles subduction zone",
+   "definition": "The curved chain of volcanic islands from Saba to Grenada, built where Atlantic floor of the South American Plate subducts beneath the Caribbean.",
+   "wikipedia_url": "https://en.wikipedia.org/wiki/Lesser_Antilles",
+   "pairs": [
+    [
+     "CA",
+     "SA"
+    ],
+    [
+     "CA",
+     "NA"
+    ]
+   ],
+   "bbox": [
+    -65,
+    9,
+    -57,
+    19
+   ],
+   "locator_map": "named-boundary-lesser-antilles-arc.png",
+   "blank_map": "tectonic-plates-blank.png"
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+  "cape-of-good-hope": {
+    "country": "South Africa",
+    "waters": ["Atlantic Ocean"],
+    "significance": "historic waypoint on the Europe-Asia sea route"
+  },
+  "cape-horn": {
+    "country": "Chile",
+    "waters": ["Pacific Ocean", "Atlantic Ocean", "Drake Passage"],
+    "significance": "notorious, hazardous clipper-route passage linking Atlantic and Pacific"
+  },
+  "north-cape": {
+    "country": "Norway",
+    "waters": ["Arctic Ocean", "Barents Sea"],
+    "significance": "popularly marks mainland Europe's northernmost navigable point"
+  }
+}
