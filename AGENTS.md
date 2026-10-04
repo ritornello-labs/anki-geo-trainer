@@ -6,7 +6,7 @@ These instructions apply to the `anki-geo-trainer` repository.
 
 ## What this project is
 
-Interactive, Sheppard-Software-style geography task decks for Anki, driven by a shared
+Interactive geography task decks for Anki, driven by a shared
 JS engine inlined into note templates. `PLAN.md` is the plan of record; keep it current
 when scope, task families, or milestones change.
 

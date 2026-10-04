@@ -59,9 +59,8 @@ remain deliberately excluded. Quality of each card type over breadth.
 ## Why
 
 Anki's geography ecosystem covers *passive* recall well: highlighted region → name,
-silhouette → name. Sites like [Sheppard Software](https://www.sheppardsoftware.com/)
-show that the higher rungs are *active*: find it on a blank map, judge a random
-point, place the piece, draw the outline. This project builds that ladder as Anki
+silhouette → name. Active practice adds further skills: find a region on a blank map,
+judge a random point, place a silhouette, and draw an outline from memory. This project builds that ladder as Anki
 decks — beautiful, cross-platform, and tagged so students can assemble curricula
 (see the curriculum doc for ready-made filtered-deck searches).
 

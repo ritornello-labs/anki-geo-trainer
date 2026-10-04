@@ -8,7 +8,7 @@ support_url: https://github.com/ritornello-labs/anki-geo-trainer
 
 [Explore all Ritornello decks and add-ons](https://ritornello.dev/).
 
-Sheppard-Software-style **interactive** geography practice, right inside Anki — but
+**Interactive** geography practice, right inside Anki — but
 with the internal borders hidden, so it's genuine spatial recall, not matching a
 labelled shape. Name the region under a dot, drag a silhouette to where it belongs,
 sketch it in place on a blank parent map, draw it without any map, trace a
