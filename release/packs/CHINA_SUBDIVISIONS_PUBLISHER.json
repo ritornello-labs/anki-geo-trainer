@@ -43,5 +43,7 @@
     "metadata": "AnkiWeb ZIP/collection metadata differs; canonical archive uses actual delivered bytes.",
     "delivered_bytes": 1386812,
     "delivered_sha256": "f95e481da79786e168a24e322e64c80f8dc9f28d6bfa4ee329486a9a427b1a01"
-  }
+  },
+  "github_asset_digest_verified": true,
+  "website": "Homepage, four approved GIF gallery, AnkiWeb and GitHub download links deployed and live Chrome verified (October 4)."
 }
