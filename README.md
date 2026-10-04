@@ -98,4 +98,6 @@ by `scripts/droid_ui.py` / `scripts/droid_cdp.py`.
 
 ### Building the Physical Geography component
 
-The accepted component contains 404 notes / 963 cards, with map games plus all ten physical-geography concept families. Build it with `uv run python scripts/build_physical_geography_pack.py`. All 223 required media files are included in the source; see [source credits](concepts/README.md). Its AnkiWeb listing and five native-Anki GIFs are awaiting image approval.
+The accepted component contains 404 notes / 963 cards, with map games plus all ten physical-geography concept families. Build it with `uv run python scripts/build_physical_geography_pack.py`. All 223 required media files are included in the source; see [source credits](concepts/README.md). Its AnkiWeb listing was submitted October 4 with all five approved native-Anki GIFs; public review is pending.
+
+Physical Geography: [AnkiWeb](https://ankiweb.net/shared/info/1832856685) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04) · [Download APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-physical-geography.apkg). 404 notes / 963 cards; all maps and photos bundled.

@@ -1,7 +1,9 @@
 # Physical Geography release preparation — October 4
 
-Status: **complete listing and all five real-Anki GIFs approved by Elvis on 2026-10-04**.
-Publication is in progress. Personal Anki has not been accessed or changed.
+Status: **published on 2026-10-04 at [1832856685](https://ankiweb.net/shared/info/1832856685)**.
+Owner-verified with public review pending. All five approved GIFs deployed; exact
+AnkiWeb-delivered artifact archived on the date-tagged release. Personal Anki was
+not accessed or changed. Quota observed: 8/20 deck shares.
 
 ## Accepted content and verification
 
@@ -40,7 +42,7 @@ Source listing: `physical-geography.md`; release configuration:
 `physical-geography.toml`. The original brand banner, gallery link, visible GitHub
 URL, full-edition update-pending link and stable support page are included.
 
-## Resume after image approval
+## Completed publication workflow
 
 1. Confirm the approved hashes, then deploy those exact GIFs and reduced-motion
    posters to the versioned website media path. Keep listing copy and Git commits

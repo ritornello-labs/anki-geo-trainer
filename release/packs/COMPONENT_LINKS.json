@@ -34,5 +34,13 @@
     "release": "v2026.10.04",
     "artifact": "geo-trainer-reference-lines-time.apkg",
     "public_review_pending": true
+  },
+  "physical-geography": {
+    "title": "GeoTrainer: Physical Geography",
+    "ankiweb_id": "1832856685",
+    "ankiweb_url": "https://ankiweb.net/shared/info/1832856685",
+    "release": "v2026.10.04",
+    "artifact": "geo-trainer-physical-geography.apkg",
+    "public_review_pending": true
   }
 }
