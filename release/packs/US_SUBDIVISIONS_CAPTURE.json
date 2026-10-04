@@ -1,0 +1,75 @@
+{
+  "status": "proposed-for-image-approval",
+  "artifact_sha256": "a8c60baf97589e8c93ad19dc5b63d91d33b6805f1aaffb3a297c44c80fa7f6d9",
+  "media": [
+    {
+      "task": "point",
+      "file": "point.gif",
+      "sha256": "27d9b07d34a5b34b29b56d1a0cbc1c7599041054dc55dd70a8fc37fff6ff43f1",
+      "bytes": 73071,
+      "source": "Current U.S. APKG imported into disposable real Anki with anki-addon-workbench recording",
+      "duration": 4.0,
+      "frames": 48,
+      "width": 960,
+      "source_capture_size": {
+        "height": 900,
+        "width": 1440
+      },
+      "capture_timestamp": 1791084184,
+      "pointer_overlay": false,
+      "front_attempt_answer_reviewed": true
+    },
+    {
+      "task": "place",
+      "file": "place.gif",
+      "sha256": "d314c38f69460e20b7bf5955607545ad3f16d42b3d1498ee516ba85bd71f0d86",
+      "bytes": 125921,
+      "source": "Current U.S. APKG imported into disposable real Anki with anki-addon-workbench recording",
+      "duration": 5.5,
+      "frames": 66,
+      "width": 960,
+      "source_capture_size": {
+        "height": 900,
+        "width": 1440
+      },
+      "capture_timestamp": 1791084241,
+      "pointer_overlay": false,
+      "front_attempt_answer_reviewed": true
+    },
+    {
+      "task": "sketch",
+      "file": "sketch.gif",
+      "sha256": "afd98154a60ed8fa4b962b887c2a75042f7c49bd791e8ef2ac4b955241042a0e",
+      "bytes": 73274,
+      "source": "Current U.S. APKG imported into disposable real Anki with anki-addon-workbench recording",
+      "duration": 6.5,
+      "frames": 78,
+      "width": 960,
+      "source_capture_size": {
+        "height": 900,
+        "width": 1440
+      },
+      "capture_timestamp": 1791084387,
+      "pointer_overlay": false,
+      "front_attempt_answer_reviewed": true
+    },
+    {
+      "task": "draw",
+      "file": "draw.gif",
+      "sha256": "4181de22ad0817aa8e0a406ef3b672150db35650ac62bd486cf9b3e4f12a0f26",
+      "bytes": 75168,
+      "source": "Current U.S. APKG imported into disposable real Anki with anki-addon-workbench recording",
+      "duration": 9.0,
+      "frames": 108,
+      "width": 960,
+      "source_capture_size": {
+        "height": 900,
+        "width": 1440
+      },
+      "capture_timestamp": 1791084664,
+      "pointer_overlay": false,
+      "front_attempt_answer_reviewed": true
+    }
+  ],
+  "story": "Use Texas to compare identify, place, contextual sketch and blank-canvas draw. Show each unhinted front and actual answer feedback."
+}

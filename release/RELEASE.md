@@ -2,7 +2,7 @@
 
 ## Current publication pass — October 3, 2026
 
-**Components first; full edition last.** The previous full-edition preview and September 30 package counts are superseded pending scope reconciliation. The old seven-demo listing omitted accepted Reference Lines & Time interactions, did not include the Geo Concepts membership drill, and included a flow/current demo Elvis identified as obsolete. No GeoTrainer submission has occurred in this publication pass.
+**Components first; full edition last.** Elvis approved the full component map and selected U.S. subdivisions as the first listing and reference pattern for the other countries. Its fresh 50-state/200-card build, source identity checks, real-Anki overlap check and four Texas game recordings are complete; the full listing/GIF batch awaits image approval. See `release/packs/US_SUBDIVISIONS_*.json` and `SUBDIVISION_LISTING_PATTERN.md`. The previous full-edition preview and September 30 package counts are superseded pending scope reconciliation. The old seven-demo listing omitted accepted Reference Lines & Time interactions, did not include the Geo Concepts membership drill, and included a flow/current demo Elvis identified as obsolete. No GeoTrainer submission has occurred in this publication pass.
 
 The eight physical-systems QA scopes and foundations remain excluded. Surface ocean currents are also withheld pending retirement reconciliation. The September 29 Geo Concepts approval record includes 1,573 cards in a separate source project; Elvis confirmed all accepted families are included; source repository separation is not a release exclusion. Most of the old flow deck was discarded. See SCOPE_RECONCILIATION_2026-10-03.md.
 
