@@ -506,3 +506,7 @@ component/full/component import verification preserved all scoped identities
 and created zero duplicate cards. AnkiWeb public review remains pending.
 Fresh Bahia game gallery and canonical download links are deployed with the
 standard support page. No personal Anki collection changes.
+
+### China subdivision review checkpoint
+
+Fresh China pack: 31 province-level divisions / 124 notes and cards across identification, placement, map sketch and outline drawing. Coverage includes 22 provinces, five autonomous regions and four municipalities; Hong Kong, Macao and Taiwan are excluded. All model/leaf IDs and note GUIDs survive native component → superseded full candidate → component imports with zero duplicates. Four Sichuan demonstrations were captured with native workbench input in disposable Anki 25.09 and visually verified, including positive placement/sketch/outline feedback. Complete listing preview and exact image manifest are prepared; Elvis’s image approval is pending. China has not been staged in Publisher or submitted. U.S. and Brazil remain shipped; broad concept reconciliation and final full union remain open. Root PUBLISH_QUEUE.md records the exact resume sequence.
