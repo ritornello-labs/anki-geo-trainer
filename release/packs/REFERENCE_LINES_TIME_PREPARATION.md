@@ -1,6 +1,6 @@
 # Reference Lines & Time preparation — 2026-10-04
 
-Status: awaiting Elvis's complete listing/image approval. Not staged in Publisher, not submitted to AnkiWeb, no shared ID assigned. The accepted component includes the complete 78-card reference/time curriculum; the two historical internal model names containing “QA” retain their identities. These are accepted families, distinct from the rejected physical-systems QA scopes and foundations prototype.
+Status: shipped October 4 at AnkiWeb `1962312135`, owner verified with public review pending. Exact delivered artifact is archived on `v2026.10.04`; website and approved four-GIF gallery verified live. Do not restage or resubmit. The accepted component includes all 78 reference/time cards. Historical internal “QA” model names retain their identities; these accepted families are distinct from rejected physical-systems QA and foundations scopes.
 
 ## Verification
 
@@ -18,7 +18,7 @@ Status: awaiting Elvis's complete listing/image approval. Not staged in Publishe
 - The atlas uses named civil-time areas; only the Brazil maps union areas sharing an offset at 2026-09-25 12:00 UTC. Local Xinjiang practice is approximate and dashed. Standard/daylight conditions are explicit on seasonal questions.
 - Individual cards retain their original NOAA, USGS, NASA, USNO, NIST, BIPM, ITU, IANA and national source links. No personal collection content was changed.
 
-## Resume after approval
+## Completed publication workflow (historical)
 
 1. Deploy exactly the reviewed GIFs and record immutable URLs from the listing's `2026-10-04-v1/geo-trainer-reference-lines-time` media directory.
 2. Back up and verify the isolated Publisher. Determine its existing reference/atlas scope by the source GUIDs and model IDs; ensure scope models are exclusive before replacing obsolete Publisher content. Preserve canonical package model/leaf IDs and GUIDs; hash all outside-scope content before and after.
@@ -27,3 +27,6 @@ Status: awaiting Elvis's complete listing/image approval. Not staged in Publishe
 5. Sign/push source, run `anki-release.sh` preflight/publish with `release/packs/reference-lines-time.toml`. Credentials resolve only at the `op run` process boundary; authenticated browser reuse requires no credential typing.
 6. Verify owner listing/title/counts/exact original share name and current quota. Download the actual AnkiWeb-delivered APKG; compare note GUIDs/fields/card associations/models/templates/CSS/leaf IDs against the native export. Archive that exact file on a dated tagged GitHub release, verifying the asset digest. Add to the existing shipping-date release if appropriate; never overwrite another component's asset.
 7. Update component links, public README, website/gallery, queue and workspace status. Retain the full-edition hold and recheck its final union identities.
+
+
+Native export correction: atlas Map fields contain ordinary HTML image references, rendered directly by the template. Native export and actual AnkiWeb delivery include all 32 maps with byte-identical content. All identities and the approved appearance are preserved. Canonical source and closure evidence: `REFERENCE_LINES_TIME_PUBLISHER.json`.

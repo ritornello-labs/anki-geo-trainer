@@ -42,5 +42,9 @@
     "delivered_sha256": "ec4d7a40b7beb144f8b70786485d557bf64cbd1f6b30dc99a35da648453c7a70"
   },
   "archive_tag": "v2026.10.04",
-  "archive_filename": "geo-trainer-reference-lines-time.apkg"
+  "archive_filename": "geo-trainer-reference-lines-time.apkg",
+  "github_asset_digest_verified": true,
+  "public_source_commit": "84f549d",
+  "archive_source_note": "Shipping-date tag retains original China source; Reference source is linked by exact public commit in the combined release notes.",
+  "website": "Homepage, four approved GIF gallery, release and canonical download links deployed and live Chrome verified October 4."
 }
