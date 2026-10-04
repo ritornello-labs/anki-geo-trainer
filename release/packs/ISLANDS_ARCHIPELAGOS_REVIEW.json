@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-image-approval",
+  "status": "image-approved",
   "notes": 76,
   "cards": 112,
   "native_media_files": 10,
@@ -27,11 +27,12 @@
       "capture_backend": "ffmpeg-x11grab"
     }
   ],
-  "public_images_uploaded": false,
-  "publisher_staged": false,
+  "public_images_uploaded": true,
+  "publisher_staged": true,
   "personal_collection_accessed": false,
   "preview": "www/.tmp/publish-batch-islands-archipelagos/islands-archipelagos-listing.png",
   "visual_check": "Two distinct experiences captured in actual Anki 25.09: Japan globe rotation, native ellipse drawing/movement/resizing, and answer feedback (Good, 107/109 components, 477 km, 0.8x footprint) with complete text; Japanese archipelago waters recall with the entire native locator map. No Anki grade recorded.",
   "capture_source_sha256": "5332be58a2ca8449fb360254a87c75354af3c2504f0bf7c05cecdba008031252",
-  "licenses": "Native capture templates contain full original ISC notices for d3-array and d3-geo; comments have no visible effect."
+  "licenses": "Native capture templates contain full original ISC notices for d3-array and d3-geo; comments have no visible effect.",
+  "approval": "Elvis: It's great! (2026-10-04), in response to the complete listing and two GIFs."
 }
