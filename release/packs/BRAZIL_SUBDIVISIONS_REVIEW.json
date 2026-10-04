@@ -1,0 +1,35 @@
+{
+  "title": "GeoTrainer: Brazilian States",
+  "notes": 108,
+  "cards": 108,
+  "units": 27,
+  "tasks": 4,
+  "demo": "Bahia identification, native drag, contextual sketch and outline drawing in disposable Anki 25.09",
+  "approval": "pending",
+  "images": [
+    {
+      "file": "point.gif",
+      "bytes": 61201,
+      "sha256": "b617936669e61978a2cc3cc95aaf242713e892da816a2c7e27b79b2982abade0",
+      "origin": "anki-addon-workbench native Docker/Xvfb recording"
+    },
+    {
+      "file": "place.gif",
+      "bytes": 111419,
+      "sha256": "084f1f84ca433e3ffee4641f61275080a45db1f074adab25e2e23e99e00b0c6f",
+      "origin": "anki-addon-workbench native Docker/Xvfb recording"
+    },
+    {
+      "file": "sketch.gif",
+      "bytes": 85063,
+      "sha256": "dfe9e8d166adbc4fc099e8f31477ac06978cfcbd1cd204a764ab4bbbcc69d930",
+      "origin": "anki-addon-workbench native Docker/Xvfb recording"
+    },
+    {
+      "file": "draw.gif",
+      "bytes": 93970,
+      "sha256": "4a3b0e54d6511a6a017817872fa3ff0e5576470f5c0a3813459831767e76fa70",
+      "origin": "anki-addon-workbench native Docker/Xvfb recording"
+    }
+  ]
+}

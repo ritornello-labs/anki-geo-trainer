@@ -486,3 +486,9 @@ GUIDs/model/card/leaf-deck IDs across component → full candidate → component
 with zero duplicates. The candidate is only compatibility evidence; accepted
 full-edition scope still needs reconciliation. Website component gallery and
 download links are deployed and browser-verified.
+
+Brazil is the next ready component using the U.S. four-game pattern: 26 states
+plus the Federal District, 108 cards, with fresh actual-Anki Bahia recordings.
+Native component/full/component imports preserve note/model/card/leaf-deck IDs
+and create zero duplicates. Complete listing preview and GIF manifest are ready
+for Elvis's approval. Publisher staging and submission remain pending.
