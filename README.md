@@ -15,11 +15,19 @@ The animation is captured from real Anki. [Browse all GeoTrainer samples](https:
 
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
-**Release status:** components will ship first, followed by the full edition. The previous full-edition preview and package counts are superseded pending [scope reconciliation](release/SCOPE_RECONCILIATION_2026-10-03.md). No GeoTrainer update has been submitted in this publication pass. See [pack records](release/PACKS.md).
+**Release status:** components will ship first, followed by the full edition. The previous full-edition preview and package counts are superseded pending [scope reconciliation](release/SCOPE_RECONCILIATION_2026-10-03.md). The U.S. States component was submitted on October 3; AnkiWeb public review is pending. See [pack records](release/PACKS.md).
 
 Accepted content includes countries and continent silhouettes; subdivisions of ten countries; rivers, lakes, ranges, deserts, plateaus, grasslands and peninsulas; major/minor tectonic plates and boundaries; islands and archipelagos; and reference lines and time zones. The physical-systems QA scopes and foundations prototype remain outside the public packages.
 
 Each scope retains its existing model IDs, leaf deck IDs, and note GUIDs in every pack and the full edition. An overlapping import updates the same notes.
+
+## Component downloads
+
+| Component | Cards | AnkiWeb | GitHub archive |
+|---|---|---|---|
+| U.S. States | 200 (50 states × four tasks) | [909756180](https://ankiweb.net/shared/info/909756180) — public review pending | [v2026.10.03 APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-united-states-subdivisions.apkg) |
+
+[See the four U.S. games](https://ritornello.dev/#geo-trainer-us-states). Components share their source identities with the forthcoming full edition.
 
 ## Task families
 

@@ -1,0 +1,14 @@
+{
+  "united-states-subdivisions": {
+    "title": "GeoTrainer: U.S. States",
+    "ankiweb_id": "909756180",
+    "ankiweb_url": "https://ankiweb.net/shared/info/909756180",
+    "release": "v2026.10.03",
+    "artifact": "geo-trainer-united-states-subdivisions.apkg",
+    "public_review_pending": true
+  },
+  "full-edition": {
+    "ankiweb_id": "908455862",
+    "status": "components first, update pending"
+  }
+}
