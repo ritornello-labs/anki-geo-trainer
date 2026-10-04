@@ -50,7 +50,8 @@ def runtime_script() -> str:
         + "window.IslandGlobe.mount(document.querySelector('[data-island-globe]'),"
         + "window.__ISLAND_GLOBE_BUNDLE__);"
     )
-    return guard_js("\n".join((d3_array, d3_geo, engine, boot)))
+    licenses = (ROOT / "D3_LICENSES.txt").read_text(encoding="utf-8")
+    return guard_js("\n".join(("/*\n" + licenses + "*/", d3_array, d3_geo, engine, boot)))
 
 
 def card_template(path: Path, runtime: str) -> str:

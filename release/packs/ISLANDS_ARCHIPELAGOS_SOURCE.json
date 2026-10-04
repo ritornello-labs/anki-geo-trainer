@@ -1,0 +1,23 @@
+{
+  "notes": 76,
+  "cards": 112,
+  "globe_game_notes_cards": 67,
+  "concept_notes": 9,
+  "concept_cards": 45,
+  "models": {
+    "1607420001": "Island Globe \u2014 Place",
+    "1336105501": "Geo Archipelago"
+  },
+  "leaf_decks": {
+    "1607420100": "GeoTrainer::Islands & Archipelagos::1 Globe Placement",
+    "1757101196": "GeoTrainer::Islands & Archipelagos::Concepts::Islands & Archipelagos"
+  },
+  "native_media_files": 10,
+  "source_artifact": {
+    "file": "geo-trainer-islands-archipelagos.apkg",
+    "bytes": 7109548,
+    "sha256": "5332be58a2ca8449fb360254a87c75354af3c2504f0bf7c05cecdba008031252"
+  },
+  "held_QA_foundations_and_retired_spherical_tasks_included": false,
+  "bundled_runtime_license_notices": "d3-array and d3-geo complete ISC notices inline in both native templates"
+}

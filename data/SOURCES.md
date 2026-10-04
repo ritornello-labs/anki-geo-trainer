@@ -112,3 +112,7 @@ map and always names the boreal season and month range.
 ## Reference lines and civil time
 
 Reference Lines & Time retains the accepted deterministic model, deck, and note identities. Its manifest records each factual source. Civil-time map geometry comes from [Timezone Boundary Builder 2026d](https://github.com/evansiroky/timezone-boundary-builder/releases/tag/2026d), licensed ODbL. IANA tzdb supplies time-zone rules. The atlas is a curated September 2026 snapshot, with explicit standard/daylight conditions and approximate local-time practice marked. Generated maps must accompany the atlas APKG.
+
+## Accepted island globe placement
+
+The 67 island/country/territory target geometries and continental anchors use Natural Earth public-domain 1:110m, 1:50m and 1:10m datasets. The bundled D3 array/geography code retains the complete original ISC copyright/permission notices from `D3_LICENSES.txt` inside its inline JavaScript. License comments have no visible effect and preserve model, deck and GUID identities. The nine accepted archipelago concept notes use locally generated Natural Earth maps and retain their original Wikipedia references and applicable CC BY-SA prose attribution.
