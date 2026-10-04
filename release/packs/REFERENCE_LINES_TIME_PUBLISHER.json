@@ -1,0 +1,26 @@
+{
+  "profile": "isolated Publisher",
+  "notes": 56,
+  "cards": 78,
+  "source_guid_fields_models_templates_css_card_ord_and_leaf_ids": "exact-match",
+  "outside_reference_unchanged_sha256": "36031b3fe0ed19ba7a8b18f3353f41f13f17369c7cf0cb28513524c9fd31f389",
+  "integrity": "ok",
+  "export_bytes": 2217412,
+  "export_sha256": "0471315591f367d50781c518159f61f82884d18269ecdda5d0e929524a46476c",
+  "source_artifact_sha256": "aeed69679302a819f9f461ec8cb2d3a80bc1ec1bee1fca20eb4d2d581afea4c3",
+  "staging": "New accepted reference/time scope imported through supported native importer; no prior scope/models existed; all other Publisher notes/cards/models hash-identical. Native exporter returns 56 notes; package independently verified as 56 notes / 78 cards / 32 maps.",
+  "full_sync": {
+    "profile": "isolated Publisher",
+    "direction": "full-upload",
+    "approval": "Prior explicit isolated-Publisher full Upload approval; approved Reference Lines & Time publication (2026-10-04)",
+    "full_upload_completed": true,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 56,
+    "cards": 78,
+    "source_content_unchanged": true,
+    "integrity": "ok"
+  },
+  "status": "staged-and-synced-awaiting-submission",
+  "image_approval": "Elvis: That\u2019s it, go (2026-10-04)"
+}

@@ -187,7 +187,7 @@ def template(question: str, answer: str, zone: str, gate: str) -> dict:
     back = (f'{{{{#{gate}}}}}<main class="tza"><div class="mast">TIME ZONE ATLAS</div>'
             f'<h1>{question}</h1><div class="answer">{answer}</div>'
             f'<p class="zone">{zone}</p><p class="region">{{{{Region}}}}</p>'
-            '<div class="map"><img src="{{Map}}" alt="{{MapAlt}}"></div>'
+            '<div class="map">{{Map}}</div>'
             '<p class="legend">{{MapLegend}}</p>'
             '{{#Note}}<p class="note">{{Note}}</p>{{/Note}}'
             '<p class="source"><a href="{{Source}}">Time-zone source</a> · '
@@ -280,7 +280,7 @@ def atlas_decks() -> tuple[list, list[str]]:
                   item.get("second_offset", ""), item.get("code", ""),
                   item.get("second_code", ""), item.get("code_expansion", ""),
                   item.get("second_code_expansion", ""), question, second_question,
-                  filename, map_alt, map_legend, note_text, source]
+                  f'<img src="{html.escape(filename, quote=True)}" alt="{html.escape(map_alt, quote=True)}">', map_alt, map_legend, note_text, source]
         tags = ["ai-created", "geo-time-zone::qa", "geo-time-zone::continent::" +
                 item["continent"].lower().replace(" ", "-")]
         if item.get("second_offset"):

@@ -1,6 +1,6 @@
 {
   "title": "GeoTrainer: Reference Lines & Time",
-  "status": "prepared-awaiting-image-approval",
+  "status": "approved-for-publication",
   "notes": 56,
   "cards": 78,
   "reference_drill_notes_cards": 24,
@@ -35,7 +35,7 @@
   "artifact": {
     "file": "geo-trainer-reference-lines-time.apkg",
     "bytes": 3158426,
-    "sha256": "c74fdeb86d7fcc35a5699c502e59218ee1175046f795643830f0be95c58298ad"
+    "sha256": "aeed69679302a819f9f461ec8cb2d3a80bc1ec1bee1fca20eb4d2d581afea4c3"
   },
   "media": {
     "bundled_svg_maps": 32,
@@ -83,7 +83,7 @@
     "atlas_map_clock_snapshot": "Brazilian offset grouping only: 2026-09-25 12:00 UTC",
     "note": "Other atlas maps select the named civil-time area. Local Xinjiang practice is approximate and dashed."
   },
-  "approval": "pending",
+  "approval": "Elvis: That\u2019s it, go (2026-10-04)",
   "demos": [
     "Native globe rotation and Tropic of Cancer placement",
     "22:00 UTC-3 to 01:00 UTC next day",
@@ -138,5 +138,6 @@
     }
   ],
   "visual_check": "All four native answer renders visually checked: 23.5 N parallel; 01:00 next day; eastward subtract/westward add; Kathmandu UTC+5:45 with Nepal highlighted.",
-  "preview": "www/.tmp/publish-batch-reference-lines-time/reference-lines-time-listing.png"
+  "preview": "www/.tmp/publish-batch-reference-lines-time/reference-lines-time-listing.png",
+  "media_reference_fix": "Atlas Map field contains a native HTML img reference and template renders it directly. Native export now includes all 32 maps; same actual Anki appearance verified after correction. GUID/model/leaf/card IDs unchanged. Approved GIF bytes unchanged."
 }
