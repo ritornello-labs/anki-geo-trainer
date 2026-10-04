@@ -101,3 +101,5 @@ by `scripts/droid_ui.py` / `scripts/droid_cdp.py`.
   WebView fires `pointercancel` mid-gesture.
 
 Support continued development: [ritornello.dev/support](https://ritornello.dev/support).
+
+Plate Tectonics: [AnkiWeb](https://ankiweb.net/shared/info/22154578) (public review pending) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04) · [Exact delivered APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-plate-tectonics.apkg). 204 notes / 492 cards; 70 bundled media files.

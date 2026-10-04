@@ -545,3 +545,5 @@ Physical Geography shipped October 4 at `1832856685` (404 notes / 963 cards / 22
 Plate Tectonics preview prepared October 4: 204 notes / 492 cards, all four accepted concept families, ten model/leaf IDs and 70 media. Native export, public-source rebuild and component/full overlap pass. Five real-Anki GIFs and complete listing await image approval; no Publisher staging or image upload. Next resume: `release/packs/PLATE_TECTONICS_PREPARATION.md`.
 
 Plate Tectonics image batch approved October 4. Exact approved GIFs deployed; native Publisher import and normal sync pass for 204 notes / 492 cards / 70 media, outside content/deck names/IDs/media unchanged. No full Upload required; normal/final required 0. Listing submission next.
+
+Plate Tectonics shipped at 22154578, exact share name GeoTrainer::Plate Tectonics. Delivered APKG (204 notes / 492 cards, 70 media) identity/media exact and GitHub digest verified on existing v2026.10.04; prior assets/tag preserved. Owner listing and approved images verified; public review pending. Observed quota 9/20. Next: Islands & Archipelagos review.

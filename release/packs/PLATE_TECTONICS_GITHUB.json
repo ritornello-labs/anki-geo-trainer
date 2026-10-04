@@ -1,0 +1,9 @@
+{
+  "release": "v2026.10.04",
+  "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04",
+  "artifact": "geo-trainer-plate-tectonics.apkg",
+  "size": 44224181,
+  "digest": "sha256:6d4040dfdc9aa5598e342a5f0a3242b4fdf907501a9f254ad66f011d5ae8449b",
+  "canonical_ankiweb_bytes_verified": true,
+  "existing_assets_and_tag_preserved": true
+}

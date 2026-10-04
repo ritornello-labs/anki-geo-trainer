@@ -1,0 +1,23 @@
+{
+  "owner": {
+    "ankiweb_id": "22154578",
+    "title": "GeoTrainer: Plate Tectonics",
+    "source_share_name": "GeoTrainer::Plate Tectonics",
+    "owner_title_counts_and_6_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 9,
+    "delivered_bytes": 44224181,
+    "delivered_sha256": "6d4040dfdc9aa5598e342a5f0a3242b4fdf907501a9f254ad66f011d5ae8449b"
+  },
+  "identity": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 204,
+    "cards": 492,
+    "bundled_media_files": 70,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 44224181,
+    "delivered_sha256": "6d4040dfdc9aa5598e342a5f0a3242b4fdf907501a9f254ad66f011d5ae8449b"
+  },
+  "verification_recovery": "Share completed. Parenthesized Wikimedia source URL caused a false paragraph mismatch; corrected verifier independently verifies all approved paragraphs. No resubmission."
+}
