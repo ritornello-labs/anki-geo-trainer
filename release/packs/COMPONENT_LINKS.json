@@ -42,5 +42,13 @@
     "release": "v2026.10.04",
     "artifact": "geo-trainer-physical-geography.apkg",
     "public_review_pending": true
+  },
+  "plate-tectonics": {
+    "title": "GeoTrainer: Plate Tectonics",
+    "ankiweb_id": "22154578",
+    "ankiweb_url": "https://ankiweb.net/shared/info/22154578",
+    "release": "v2026.10.04",
+    "artifact": "geo-trainer-plate-tectonics.apkg",
+    "public_review_pending": true
   }
 }

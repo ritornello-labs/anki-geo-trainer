@@ -103,3 +103,5 @@ The accepted component contains 404 notes / 963 cards, with map games plus all t
 Physical Geography: [AnkiWeb](https://ankiweb.net/shared/info/1832856685) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04) · [Download APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-physical-geography.apkg). 404 notes / 963 cards; all maps and photos bundled.
 
 Plate Tectonics build: `uv run python scripts/build_plate_tectonics_pack.py` (204 notes / 492 cards, 70 media). The complete listing and five native-Anki demos await image approval before publication; credits are in [concepts/README.md](concepts/README.md).
+
+Plate Tectonics: [AnkiWeb](https://ankiweb.net/shared/info/22154578) (public review pending) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04) · [Exact delivered APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-plate-tectonics.apkg). 204 notes / 492 cards; 70 bundled media files.
