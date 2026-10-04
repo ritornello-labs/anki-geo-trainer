@@ -1,8 +1,7 @@
 # Physical Geography release preparation — October 4
 
-Status: **complete listing and five real-Anki GIFs await Elvis's image approval**.
-No Physical Geography image has been uploaded; no Publisher staging or submission
-has occurred. Personal Anki has not been accessed or changed.
+Status: **complete listing and all five real-Anki GIFs approved by Elvis on 2026-10-04**.
+Publication is in progress. Personal Anki has not been accessed or changed.
 
 ## Accepted content and verification
 

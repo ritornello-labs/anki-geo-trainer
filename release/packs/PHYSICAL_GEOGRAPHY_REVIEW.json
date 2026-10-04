@@ -60,9 +60,11 @@
       "capture_backend": "ffmpeg-x11grab"
     }
   ],
-  "public_images_uploaded": false,
-  "publisher_staged": false,
+  "public_images_uploaded": true,
+  "publisher_staged": true,
   "personal_collection_accessed": false,
   "preview": "www/.tmp/publish-batch-physical-geography/physical-geography-listing.png",
-  "visual_check": "All five final native front/answer captures checked; Amazon good course (~28 km), Sahara great placement (~94 km), Tibetan Plateau solid sketch (2% average offset), complete credited vegetation gallery, complete restored Af distribution map. No grade selected; native pan icon renders correctly."
+  "visual_check": "All five final native front/answer captures checked; Amazon good course (~28 km), Sahara great placement (~94 km), Tibetan Plateau solid sketch (2% average offset), complete credited vegetation gallery, complete restored Af distribution map. No grade selected; native pan icon renders correctly.",
+  "approval": "Explicit user approval in this chat on 2026-10-04: Okay, I love it. We should proceed.",
+  "approved": true
 }
