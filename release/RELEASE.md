@@ -4,7 +4,7 @@
 
 **Components first; full edition last.** The previous full-edition preview and September 30 package counts are superseded pending scope reconciliation. The old seven-demo listing omitted accepted Reference Lines & Time interactions, did not include the Geo Concepts membership drill, and included a flow/current demo Elvis identified as obsolete. No GeoTrainer submission has occurred in this publication pass.
 
-The eight physical-systems QA scopes and foundations remain excluded. Surface ocean currents are also withheld pending retirement reconciliation. The September 29 Geo Concepts approval record includes 1,573 cards in a separate source project; inclusion of all those families versus the interactive drill is being clarified. See SCOPE_RECONCILIATION_2026-10-03.md.
+The eight physical-systems QA scopes and foundations remain excluded. Surface ocean currents are also withheld pending retirement reconciliation. The September 29 Geo Concepts approval record includes 1,573 cards in a separate source project; Elvis confirmed all accepted families are included; source repository separation is not a release exclusion. Most of the old flow deck was discarded. See SCOPE_RECONCILIATION_2026-10-03.md.
 
 Elvis approved 908455862 as the eventual full edition, retaining its exact original share name (still to verify). Each component will link to that listing with an update-pending note; the final full listing will link back to every shipped component. Real-Anki demos are selected by distinct learning experience, including membership taps, reference-line globe placement and UTC conversion where relevant.
 
