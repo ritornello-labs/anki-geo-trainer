@@ -476,3 +476,17 @@ filtered deck. This is more flexible than shipped filtered decks and survives re
 ## Public component publication — 2026-10-03
 
 U.S. States is the first approved component: 50 states, 200 cards and four real-Anki game GIFs. AnkiWeb `909756180` was owner-verified and awaits public review; the exact scoped Publisher artifact is archived at GitHub `v2026.10.03`. Components retain source GUID/model/leaf-deck IDs and precede the refreshed full edition at `908455862`. The subdivision listing pattern is in `release/packs/SUBDIVISION_LISTING_PATTERN.md`. Personal Anki was untouched.
+
+### Brazil component shipped — 2026-10-03
+
+Approved four-GIF listing submitted through `anki-addon-release` at `834723592`:
+26 states plus the Federal District, 108 cards. Only the obsolete Publisher
+Brazil copy was replaced; all other notes/cards/models are hash-identical.
+Approved isolated-Publisher Upload and normal/final sync completed with clean
+integrity. Canonical GitHub `v2026.10.03` now includes the exact AnkiWeb-delivered
+Brazil APKG, SHA-256
+`381da9926e435e0ce8a15804ecaaddd1b1fe497e9df064bc5a5149962d4beb48`; native
+component/full/component import verification preserved all scoped identities
+and created zero duplicate cards. AnkiWeb public review remains pending.
+Fresh Bahia game gallery and canonical download links are deployed with the
+standard support page. No personal Anki collection changes.

@@ -19,6 +19,8 @@ The GIF comes from a real Anki render. [See all four U.S. State games](https://r
 
 [U.S. States on AnkiWeb](https://ankiweb.net/shared/info/909756180) — **50 states, 200 cards**, with identification, placement, contextual sketching and outline drawing. Submitted October 3; AnkiWeb public review is pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-united-states-subdivisions.apkg) or [view the release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.03).
 
+[Brazilian States on AnkiWeb](https://ankiweb.net/shared/info/834723592) — **26 states plus the Federal District, 108 cards**, with the same four spatial recall games. Submitted October 3; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-brazil-subdivisions.apkg) or [see all four Bahia demos](https://ritornello.dev/#geo-trainer-brazil-states).
+
 Components are publishing first. The existing [full-edition listing](https://ankiweb.net/shared/info/908455862) will be updated after the components; its current package is the earlier edition. The forthcoming full edition and components preserve overlapping note GUIDs, model IDs and leaf deck IDs. Physical-systems QA and foundations prototypes are excluded, and the retired flow families stay out. Detailed current scope decisions: [reconciliation](https://github.com/ritornello-labs/anki-geo-trainer/blob/publish-packs-20260930/release/SCOPE_RECONCILIATION_2026-10-03.md).
 
 GitHub: [https://github.com/ritornello-labs/anki-geo-trainer](https://github.com/ritornello-labs/anki-geo-trainer)
