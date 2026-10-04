@@ -105,3 +105,5 @@ Physical Geography: [AnkiWeb](https://ankiweb.net/shared/info/1832856685) · [Gi
 Plate Tectonics build: `uv run python scripts/build_plate_tectonics_pack.py` (204 notes / 492 cards, 70 media). The complete listing and five native-Anki demos await image approval before publication; credits are in [concepts/README.md](concepts/README.md).
 
 Plate Tectonics: [AnkiWeb](https://ankiweb.net/shared/info/22154578) (public review pending) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04) · [Exact delivered APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-plate-tectonics.apkg). 204 notes / 492 cards; 70 bundled media files.
+
+Islands & Archipelagos component preparation: `python scripts/build_islands_archipelagos_pack.py` builds the accepted 76-note / 112-card pack, with 67 globe games and nine concept notes (45 cards). Exact stable model/leaf IDs and GUIDs overlap the full edition. Ten concept maps bundled; full D3 ISC notices included. New listing/image approval pending.
