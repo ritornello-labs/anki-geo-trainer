@@ -1,12 +1,12 @@
 {
-  "status": "awaiting-identify-timing-approval",
+  "status": "approved-for-publication",
   "notes": 900,
   "cards": 1220,
   "native_media_files": 77,
   "images": [
     {
       "file": "point.gif",
-      "sha256": "6c31f599384466b9eaa6e9354129758756f462d00e9b5a73fcc75f836451034a",
+      "sha256": "181501fe074ff5515890e38e863af82c99089d6416dec0983411c4369b02a66b",
       "bytes": 122682,
       "frames": 70,
       "distinct_frames": 3,
@@ -17,10 +17,10 @@
       "playback_timing": {
         "method": "GIF delay metadata only; all 70 native frame pixels and all other bytes unchanged",
         "original_sha256": "46add43fab1043c4f829c444991a8ba220557a9c4d2c0886f6634525b5b25721",
-        "revised_sha256": "6c31f599384466b9eaa6e9354129758756f462d00e9b5a73fcc75f836451034a",
+        "revised_sha256": "181501fe074ff5515890e38e863af82c99089d6416dec0983411c4369b02a66b",
         "front_seconds": 2,
-        "answer_seconds": 5,
-        "loop_seconds": 7,
+        "answer_seconds": 3,
+        "loop_seconds": 5,
         "pixel_identity_verified": true
       }
     },
@@ -84,5 +84,9 @@
   "publisher_staged": false,
   "personal_collection_accessed": false,
   "preview": "www/.tmp/publish-batch-world-countries/world-countries-listing.png",
-  "user_feedback": "Elvis likes the batch; requested shorter Identify front and longer answer."
+  "approval": "Elvis requested final 2 s front / 3 s answer regeneration and explicitly authorized publication.",
+  "similar_static_reveal_drill_pattern": {
+    "front_seconds": 2,
+    "answer_seconds": 3
+  }
 }

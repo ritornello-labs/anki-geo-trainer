@@ -1,13 +1,15 @@
 # World Countries preparation — October 4
 
-Status: Elvis likes the complete batch; revised Identify timing awaits approval.
-Identify now holds the front for 2 seconds and the answer for 5 (7-second loop).
-Only GIF frame-delay metadata changed; all 70 native rendered frames are identical.
-Other five GIFs unchanged. Revised hash is frozen in WORLD_COUNTRIES_REVIEW.json.
-No public image upload, Publisher staging or AnkiWeb submission for this pack.
+Status: final regeneration and publication explicitly approved by Elvis.
+Identify holds 2 seconds on the front and 3 on the answer (5-second loop).
+Default for similar static reveal drills: 2 s question + 3 s answer. Interaction
+demos retain enough time to show the task and feedback; no forced 5-second cap.
+All 70 native frames unchanged, only delays adjusted. Other five GIFs unchanged.
+Publication in progress.
+Approved images deployed; Publisher staging verified, sync/submission in progress.
 Personal Anki never accessed or changed. Islands already shipped at 1449321738;
 do not resubmit any shipped pack. Current observed quota 10/20, no rejection,
-reset unknown. Isolated Publisher is closed; disposable capture stopped/removed.
+reset unknown. Isolated Publisher is closed for native sync; disposable capture stopped/removed.
 
 ## Accepted scope and verification
 
