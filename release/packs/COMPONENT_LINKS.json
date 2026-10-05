@@ -82,5 +82,13 @@
     "release": "v2026.10.04",
     "artifact": "geo-trainer-russia-subdivisions.apkg",
     "public_review_pending": true
+  },
+  "canada-subdivisions": {
+    "title": "GeoTrainer: Canadian Provinces & Territories",
+    "ankiweb_id": "1166705214",
+    "ankiweb_url": "https://ankiweb.net/shared/info/1166705214",
+    "release": "v2026.10.04",
+    "artifact": "geo-trainer-canada-subdivisions.apkg",
+    "public_review_pending": true
   }
 }

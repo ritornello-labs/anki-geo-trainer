@@ -1,10 +1,12 @@
 # Canada subdivisions preparation — October 4
 
-Status: Elvis approved the complete listing and four native Ontario GIFs. Exact
-approved GIFs deployed and live-byte verified. Isolated Publisher reconciled
-39 legacy notes/cards to approved 52, all source content/identities exact, outside
-content/deck names/IDs/media unchanged. Approved Upload and normal/final required 0;
-integrity ok. Submission next; personal Anki never accessed or changed.
+Status: shipped October 4 at **1166705214**, public review pending. Complete listing
+and four native Ontario GIFs approved. Actual delivered APKG 1,396,031 bytes,
+SHA-256 19ec4db43a311c79bf5e157fdee08a0211de643a9209d57401f637b9a170b1f0
+archived and digest-verified on existing v2026.10.04; prior eight assets/tag intact.
+Source/export/delivered identities and content exact; all outside Publisher content,
+deck names/IDs/media unchanged, approved Upload and normal/final required 0.
+Quota 14/20, no rejection; next Australia review. Personal Anki untouched.
 
 ## Accepted scope and verification
 
@@ -31,7 +33,7 @@ URL, support page and full-edition link; no videos. Preview:
 www/.tmp/publish-batch-canada-subdivisions/canada-subdivisions-listing.png;
 animated complete listing: index.html. Capture container stopped and removed.
 
-## Resume after explicit batch approval
+## Publication procedure (completed; do not resubmit)
 
 1. Verify REVIEW hashes; deploy exact four GIFs/eight native posters/manifest to
    immutable 2026-10-04-v1/geo-trainer-canada-subdivisions paths, signed site commit/
