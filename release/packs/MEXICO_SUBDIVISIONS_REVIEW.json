@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-image-approval",
+  "status": "approved",
   "notes": 128,
   "cards": 128,
   "native_media_files": 0,
@@ -63,5 +63,6 @@
   "personal_collection_accessed": false,
   "preview": "www/.tmp/publish-batch-mexico-subdivisions/mexico-subdivisions-listing.png",
   "source_artifact_sha256": "05e39e96405b687a8b519b5f61ddbf0f6a7ef6961eff99a6ffcaf7b2c29c5544",
-  "front_answer_inspection": "All four final native fronts/answers inspected; entire maps/canvas and native feedback visible; map demos cropped to remove excess blank margin"
+  "front_answer_inspection": "All four final native fronts/answers inspected; entire maps/canvas and native feedback visible; map demos cropped to remove excess blank margin",
+  "approval": "Elvis: Go ahead please! (2026-10-05); complete Mexico listing and four native Jalisco GIFs"
 }
