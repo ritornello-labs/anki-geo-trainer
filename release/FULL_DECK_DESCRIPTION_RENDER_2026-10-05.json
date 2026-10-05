@@ -1,0 +1,47 @@
+{
+  "origin": "actual Anki 25.09 deck overview through anki-addon-workbench in disposable Docker/Xvfb",
+  "deck": "GeoTrainer::Physical Geography::Concepts::K\u00f6ppen::Climate Classes",
+  "native_overview": {
+    "heading": "Physical Geography \u2014 Concepts \u2014 K\u00f6ppen \u2014 Climate Classes",
+    "links": [
+      {
+        "label": "Classification and code guide",
+        "url": "https://en.wikipedia.org/wiki/K%C3%B6ppen_climate_classification"
+      },
+      {
+        "label": "Af \u2014 tropical rainforest",
+        "url": "https://en.wikipedia.org/wiki/Tropical_rainforest_climate"
+      },
+      {
+        "label": "Am \u2014 tropical monsoon",
+        "url": "https://en.wikipedia.org/wiki/Tropical_monsoon_climate"
+      },
+      {
+        "label": "Aw/As \u2014 tropical savanna",
+        "url": "https://en.wikipedia.org/wiki/Tropical_savanna_climate"
+      },
+      {
+        "label": "BWh/BWk \u2014 desert",
+        "url": "https://en.wikipedia.org/wiki/Desert_climate"
+      },
+      {
+        "label": "Cfa \u2014 humid subtropical",
+        "url": "https://en.wikipedia.org/wiki/Humid_subtropical_climate"
+      },
+      {
+        "label": "Cfb \u2014 oceanic",
+        "url": "https://en.wikipedia.org/wiki/Oceanic_climate"
+      },
+      {
+        "label": "All Ritornello decks and add-ons",
+        "url": "https://ritornello.dev/"
+      },
+      {
+        "label": "Support",
+        "url": "https://ritornello.dev/support"
+      }
+    ],
+    "text": "GeoTrainer::Physical Geography::Concepts::K\u00f6ppen::Climate Classes\nPhysical Geography \u2014 Concepts \u2014 K\u00f6ppen \u2014 Climate Classes\n\n\n\nLearn the K\u00f6ppen\u2013Geiger climate codes and the temperature and precipitation patterns they describe. These cards connect selected class/group codes with their names, criteria, examples and distribution maps. The maps represent the 1991\u20132020 classification.\n\n\n\n\nHow to study: Learn the group letters first, then retrieve the more specific codes. Read the answer explanations before grading; classification is based on climate patterns rather than a country label.\n\n\n\n\nRead more: Classification and code guide \u00b7 Af \u2014 tropical rainforest \u00b7 Am \u2014 tropical monsoon \u00b7 Aw/As \u2014 tropical savanna \u00b7 BWh/BWk \u2014 desert \u00b7 Cfa \u2014 humid subtropical \u00b7 Cfb \u2014 oceanic\n\n\n\n\nAll Ritornello decks and add-ons \u00b7 Support\n\n\n\nNew:\t20\nLearning:\t0\nTo Review:\t0\n\tStudy Now"
+  },
+  "personal_collection_accessed": false
+}

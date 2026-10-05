@@ -1,12 +1,13 @@
 {
-  "status": "image-batch-approved-legacy-upgrade-decision-pending",
+  "status": "awaiting-full-batch-review-and-legacy-upgrade-decision",
   "cards": 4232,
   "notes": 3007,
   "source_share_name": "GeoTrainer",
   "ankiweb_id": "908455862",
+  "prior_approval": "Elvis approved the earlier ten-GIF batch; October 5 requested subject variety and descriptions; revised images require review",
   "images": [
     {
-      "label": "Identify",
+      "label": "Identify \u2014 Italy",
       "component": "world-countries",
       "original_file": "point.gif",
       "local_file": "world-countries-point.gif",
@@ -31,23 +32,26 @@
       }
     },
     {
-      "label": "Place",
-      "component": "world-countries",
+      "label": "Place \u2014 California",
+      "component": "united-states-subdivisions",
       "original_file": "place.gif",
-      "local_file": "world-countries-place.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/place.gif",
+      "local_file": "united-states-subdivisions-place.gif",
+      "url": "https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/place.gif",
       "file": "place.gif",
-      "sha256": "f1cd455d68b50f78c1c253125c99997a1fbe901199118c4f433dd44423f605ec",
-      "bytes": 174544,
-      "frames": 80,
-      "distinct_frames": 22,
+      "sha256": "e5972f50108e81ae6684facafff1415144750c149763948698f81aea284d3d52",
+      "bytes": 164568,
+      "frames": 70,
+      "distinct_frames": 21,
       "width": 760,
-      "height": 712,
-      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
-      "capture_backend": "ffmpeg-x11grab"
+      "height": 770,
+      "subject": "California, United States",
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer drag and reveal",
+      "capture_backend": "ffmpeg-x11grab",
+      "answer_text": "PLACE\nCalifornia\nGreat placement \u2014 ~60 km off\nGrade: Good / Easy",
+      "personal_collection_accessed": false
     },
     {
-      "label": "Sketch",
+      "label": "Sketch \u2014 France",
       "component": "world-countries",
       "original_file": "sketch.gif",
       "local_file": "world-countries-sketch.gif",
@@ -63,16 +67,16 @@
       "capture_backend": "ffmpeg-x11grab"
     },
     {
-      "label": "Draw",
-      "component": "world-countries",
+      "label": "Draw \u2014 Maharashtra, India",
+      "component": "india-subdivisions",
       "original_file": "draw.gif",
-      "local_file": "world-countries-draw.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/draw.gif",
+      "local_file": "india-subdivisions-draw.gif",
+      "url": "https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-india-subdivisions/draw.gif",
       "file": "draw.gif",
-      "sha256": "402ca8349ef60bf50fbe039e124c56d08b4272a228af497dbfe65572e98c75a0",
-      "bytes": 144908,
-      "frames": 200,
-      "distinct_frames": 90,
+      "sha256": "cda213ce14a5cc5400d6fda275adef643e1895fddea418a758a8732bc6ca4a72",
+      "bytes": 140184,
+      "frames": 140,
+      "distinct_frames": 89,
       "width": 760,
       "height": 856,
       "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
@@ -183,12 +187,10 @@
       }
     }
   ],
-  "source": "approved real-Anki workbench captures; nine GIFs byte-identical, concept GIF delays revised to 2+3 with identical native pixels; cards verified against current full package by delivered-component semantic overlap tests",
+  "source": "real-Anki workbench captures: Italy Identify, new California Place, France Sketch and Maharashtra Draw; eight reused GIFs byte-identical, concept delays 2+3 with identical native pixels; all subjects belong to current accepted full package",
   "new_public_media_uploaded": false,
   "publisher_staged": false,
   "legacy_upgrade_shippable": false,
-  "listing_sha256": "0042a9328a4ed089562c22e9a1c25799eb1e6c3c9643b28d99abd92a2ad525c3",
-  "preview": "www/.tmp/publish-batch-full-edition/index.html",
-  "image_batch_approval": "Elvis: Looks fine to me. You will use GIFs, right? (2026-10-05). Approved the presented full-edition GIF image batch; legacy model-ID decision remains separate.",
-  "public_listing_animations": "ten GIFs; static contact sheet only used for review"
+  "listing_sha256": "8bdc4706717a3be8538535ef858dcbc3f5d0431d85564d7a09c3d88ad8858303",
+  "preview": "www/.tmp/publish-batch-full-edition/index.html"
 }
