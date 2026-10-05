@@ -1,6 +1,6 @@
 # Mexico subdivisions preparation — October 5
 
-Status: complete listing/four native Jalisco GIFs await Elvis's image approval.
+Status: complete listing/four native Jalisco GIFs approved by Elvis October 5; exact media deployed and verified. Publisher reconciled/synced 128 cards; submission next.
 No public Mexico media upload or Publisher staging. Australia shipped at 1585515572,
 exact archive/live gallery verified. Quota 15/20, no rejection; reset unknown.
 Task-owned Publisher/capture closed. Personal Anki never accessed or changed.
