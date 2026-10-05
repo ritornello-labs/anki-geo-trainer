@@ -1,0 +1,25 @@
+{
+  "notes": 140,
+  "cards": 140,
+  "entities": 36,
+  "tasks": {
+    "GeoTrainer Which State \u2014 India States": 36,
+    "GeoTrainer Place \u2014 India States": 36,
+    "GeoTrainer Sketch \u2014 India States": 32,
+    "GeoTrainer Draw \u2014 India States": 36
+  },
+  "models": {
+    "1607398001": "GeoTrainer Which State \u2014 India States",
+    "1607398002": "GeoTrainer Place \u2014 India States",
+    "1607398005": "GeoTrainer Sketch \u2014 India States",
+    "1607398003": "GeoTrainer Draw \u2014 India States"
+  },
+  "leaf_decks": {
+    "1607398050": "GeoTrainer::World::Asia::India::1 Which State",
+    "1607398051": "GeoTrainer::World::Asia::India::2 Place",
+    "1607398054": "GeoTrainer::World::Asia::India::3 Sketch",
+    "1607398052": "GeoTrainer::World::Asia::India::4 Draw"
+  },
+  "media_files": 0,
+  "source_sha256": "1699336278cce82c1354488259f193c0d3c133af18e3e0eca91df8440c1c2a69"
+}

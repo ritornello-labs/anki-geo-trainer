@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "backend": "Anki 25.09 disposable collection",
+  "sequence": [
+    "India Subdivisions component",
+    "corrected full-union candidate",
+    "India Subdivisions component again"
+  ],
+  "component_notes": 140,
+  "component_cards": 140,
+  "full_notes": 2987,
+  "full_cards": 4212,
+  "note_model_card_leaf_ids_unchanged": true,
+  "duplicates_created": 0,
+  "missing_component_media": 0,
+  "full_candidate_not_published": true
+}
