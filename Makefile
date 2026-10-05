@@ -26,7 +26,7 @@ apkg: bundle
 	uv run python scripts/emit_card_fixture.py
 
 apkg-all: bundle
-	uv run python scripts/build_apkg.py --combined
+	uv run python scripts/build_apkg.py --public-full
 	uv run python scripts/emit_card_fixture.py
 
 lint:

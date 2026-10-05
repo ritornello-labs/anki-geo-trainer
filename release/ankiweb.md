@@ -18,29 +18,29 @@ Older GeoTrainer downloads need a one-time desktop upgrade to preserve their exi
 
 ## Practice the different games
 
-### Identify
+### Identify — Italy
 
-Name the country containing the dot on a map without internal borders, then reveal its name and outline.
+Identify Italy from the dot on a map without internal borders, then reveal its name and outline.
 
-![Identify in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/point.gif)
+![Identify — Italy in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/point.gif)
 
-### Place
+### Place — California
 
-Drag a supplied silhouette into position and compare your placement with the answer.
+Drag California’s silhouette into place on the United States map and compare your placement with the answer.
 
-![Place in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/place.gif)
+![Place — California in real Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/place.gif)
 
-### Sketch
+### Sketch — France
 
-Draw a region where it belongs on a blank parent map; shape, scale and position matter.
+Sketch France where it belongs on the map of Europe; shape, scale and position matter.
 
-![Sketch in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/sketch.gif)
+![Sketch — France in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/sketch.gif)
 
-### Draw
+### Draw — Maharashtra, India
 
-Recall the outline on a blank canvas without a map or aspect-ratio hint. Reveal the answer to compare the shapes.
+Draw Maharashtra, India from memory on a blank canvas without a map or aspect-ratio hint. Reveal the answer to compare the shapes.
 
-![Draw in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/draw.gif)
+![Draw — Maharashtra, India in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-india-subdivisions/draw.gif)
 
 ### Select members
 
@@ -100,7 +100,7 @@ World countries includes 195 countries, continent silhouettes, membership drills
 
 ## Studying with GeoTrainer
 
-Task subdecks separate the exercises so you can introduce one skill at a time. Games give feedback and may suggest a grade; **you choose Anki’s answer grade yourself**. Required maps, photos and game code are bundled for offline study. Embedded Wikipedia references require an internet connection. Desktop, AnkiMobile and AnkiDroid are supported, with light and dark themes.
+Every deck includes a Markdown description with study guidance and Wikipedia background links, including a Köppen climate-code guide. Task subdecks separate the exercises so you can introduce one skill at a time. Games give feedback and may suggest a grade; **you choose Anki’s answer grade yourself**. Required maps, photos and game code are bundled for offline study. Embedded Wikipedia references require an internet connection. Desktop, AnkiMobile and AnkiDroid are supported, with light and dark themes.
 
 ## Sources & edition
 
