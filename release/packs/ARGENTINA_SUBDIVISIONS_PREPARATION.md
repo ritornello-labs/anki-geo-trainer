@@ -2,8 +2,7 @@
 
 Status: shipped at 1530523005; public review pending. Approved listing/four native
 Córdoba GIFs; exact delivered APKG on v2026.10.05, prior assets/tag preserved.
-Owner counts/title/share-name/image URLs verified. Website deployed, live verification
-pending. All outside Publisher content/deck names/IDs/media unchanged; approved
+Owner counts/title/share-name/image URLs verified. Live website/gallery/release/download links verified. All outside Publisher content/deck names/IDs/media unchanged; approved
 Upload and normal/final sync clear. Task-owned Publisher closed. Quota 17/20,
 no rejection/reset unknown. Personal Anki untouched. Do not resubmit.
 
