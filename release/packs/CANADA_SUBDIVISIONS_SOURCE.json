@@ -1,0 +1,41 @@
+{
+  "notes": 52,
+  "cards": 52,
+  "entities": 13,
+  "entity_names": [
+    "Alberta",
+    "British Columbia",
+    "Manitoba",
+    "New Brunswick",
+    "Newfoundland and Labrador",
+    "Northwest Territories",
+    "Nova Scotia",
+    "Nunavut",
+    "Ontario",
+    "Prince Edward Island",
+    "Qu\u00e9bec",
+    "Saskatchewan",
+    "Yukon"
+  ],
+  "tasks": {
+    "GeoTrainer Which Province \u2014 Canada Provinces": 13,
+    "GeoTrainer Place \u2014 Canada Provinces": 13,
+    "GeoTrainer Sketch \u2014 Canada Provinces": 13,
+    "GeoTrainer Draw \u2014 Canada Provinces": 13
+  },
+  "contextual_sketch_omissions": [],
+  "models": {
+    "1607401001": "GeoTrainer Which Province \u2014 Canada Provinces",
+    "1607401002": "GeoTrainer Place \u2014 Canada Provinces",
+    "1607401005": "GeoTrainer Sketch \u2014 Canada Provinces",
+    "1607401003": "GeoTrainer Draw \u2014 Canada Provinces"
+  },
+  "leaf_decks": {
+    "1607401050": "GeoTrainer::World::North America::Canada::1 Which Province",
+    "1607401051": "GeoTrainer::World::North America::Canada::2 Place",
+    "1607401054": "GeoTrainer::World::North America::Canada::3 Sketch",
+    "1607401052": "GeoTrainer::World::North America::Canada::4 Draw"
+  },
+  "media_files": 0,
+  "source_sha256": "bbb243bb10665321a92e27aa2a42b7772b8b47588d5985baa2337a878a82a9e6"
+}
