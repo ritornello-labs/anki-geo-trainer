@@ -1,0 +1,34 @@
+{
+  "staging": {
+    "profile": "isolated Publisher",
+    "old_notes_cards": 516,
+    "old_exclusive_models": 24,
+    "notes": 900,
+    "cards": 1220,
+    "models": 29,
+    "leaf_decks": 29,
+    "media_files": 77,
+    "source_guid_fields_models_templates_css_card_ord_and_leaf_ids": "exact-match",
+    "outside_scope_unchanged_sha256": "ad0a56a1e6c063fc67c8886b6ccb599d3ef3abb19b13cd2b675010a59d295a40",
+    "outside_deck_names_and_ids": "unchanged",
+    "all_existing_media": "unchanged",
+    "integrity": "ok",
+    "full_sync_required": true,
+    "export_bytes": 22907247,
+    "export_sha256": "6c9eb5a1347d9d5abd3f85b3bc26fc2a2a51b3605a0b431bb35feba06288c83b",
+    "source_artifact_sha256": "eb10c776992147be1c2f51a0828d43eec24f932ae0ebfe798393fc85a3ffbde7"
+  },
+  "sync": {
+    "profile": "isolated Publisher",
+    "direction": "full-upload",
+    "approval": "Prior explicit isolated-Publisher full Upload approval; approved World Countries publication (2026-10-04)",
+    "full_upload_completed": true,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 900,
+    "cards": 1220,
+    "source_content_unchanged": true,
+    "all_publisher_note_content_and_card_identity_unchanged": true,
+    "integrity": "ok"
+  }
+}
