@@ -5,7 +5,10 @@ No personal mutation/import/sync or rollout is included. **Completed:** approved
 October 5, submitted at `1473740061`, exact delivered artifact archived on
 `v2026.10.05`; see `INDONESIA_SUBDIVISIONS_PUBLICATION.json`. Publisher is closed.
 The steps below are the historical preparation recipe; do not resubmit. Website
-deployment awaits GitHub Actions runner recovery; local gallery checks pass.
+deployment failed before build start: GitHub could not allocate a hosted runner
+(run 37366778233). Runner incident 3q1yb5m7ltvb remains under investigation. Retry
+that deployment after runner recovery, then verify the live gallery; local checks
+pass and listing GIFs use verified immutable GitHub URLs.
 
 ## Accepted source and checks
 

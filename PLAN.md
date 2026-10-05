@@ -1,10 +1,13 @@
 # anki-geo-trainer — Plan
 
 Status: all fifteen public components submitted and exact delivered APKGs archived.
-The full-edition update for `908455862` is held for actual July-release import
-compatibility; both standard and merge-note-types imports fail the safe-update
-gate. See `release/FULL_LEGACY_IMPORT_2026-10-05.md`. Personal collection changes
-are outside this publication pass. Created 2026-07-05.
+The full-edition update for `908455862` remains held: ordinary July imports fail,
+but the GUID-aware disposable migration prototype now passes, including existing
+World Countries installs and all fifteen delivered components. Older users need a
+one-time model-ID transition; Elvis's decision and user-facing upgrade remain
+pending. The ten-GIF complete full listing is prepared for fresh batch review.
+See `release/FULL_LEGACY_IMPORT_2026-10-05.md`. Personal collection changes are
+outside this publication pass. Created 2026-07-05.
 
 ## Privacy boundary
 

@@ -2,7 +2,7 @@
 
 ## Current publication pass — October 5, 2026
 
-**All fifteen components submitted; full edition held for legacy compatibility.**
+**All fifteen components submitted; full edition awaits legacy-upgrade decision and batch review.**
 The latest Indonesian Provinces pack is 38 provinces / 151 cards at `1473740061`;
 its four approved native GIFs and exact delivered APKG are archived with the other
 October 5 components on `v2026.10.05`. Owner metadata/source name and delivered
@@ -136,3 +136,14 @@ above remain in force. See `release/ENCLAVE_FIX_2026-09-22.md` for verification.
 
 - Additional country subdivisions are intentionally outside the core release. Build
   them as optional expansion packs only if demand appears.
+
+### October 5: legacy transition prototype and full preview
+
+Ordinary July-release imports still fail. The disposable GUID-aware transition
+passes with old identities/history preserved, all 3,007 current notes exact, no
+duplicates, 92 older retired cards retained, and all fifteen component reimports.
+A partial World Countries installation also passes. Older users necessarily move
+to current model IDs; decision and a supported user-facing upgrade are pending.
+The held complete full-edition listing now has ten native GIFs and reciprocal
+component links, ready for fresh batch review. No full submission/staging.
+See `FULL_LEGACY_IMPORT_2026-10-05.md` and its pinned QA/review receipts.

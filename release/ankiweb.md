@@ -1,95 +1,113 @@
 ---
-title: "GeoTrainer: Interactive Geography (Borderless Recall)"
-tags: geography maps interactive world countries rivers deserts mountains
+title: "GeoTrainer: Full Edition"
+tags: geography maps interactive world countries tectonics timezones
 support_url: https://github.com/ritornello-labs/anki-geo-trainer
 ---
 
-**Interactive** geography practice, right inside Anki — but
-with the internal borders hidden, so it's genuine spatial recall, not matching a
-labelled shape. Name the region under a dot, drag a silhouette to where it belongs,
-sketch it in place on a blank parent map, draw it without any map, trace a
-river/current route, or place an island archipelago on a rotating globe. The card grades
-your answer and suggests a button — you still press Anki's own answer keys, so
-scheduling stays 100% Anki.
+<img src="https://ritornello.dev/media/brand/listing-banner-v1.png" alt="Ritornello" width="700">
 
-Works on **Desktop, AnkiMobile (iOS) and AnkiDroid** — all the map code is inlined
-into the note templates, so there are no media downloads and nothing to configure.
-Light and dark mode included.
+[Explore all Ritornello decks and add-ons](https://ritornello.dev/).
 
-## See it in Anki
+The complete GeoTrainer collection: **4,232 cards from 3,007 notes**, combining map games and geography concepts in one deck tree. Learn country and subdivision shapes, physical geography, tectonic plates, islands, country groupings, reference lines and time.
 
-![GeoTrainer place-the-shape review](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/preview.gif)
+The full edition contains the same content as the fifteen focused components below. **Current components and this full edition update the same notes** when imported together. Choose the whole collection or the topics you want to study.
 
-![Place the Libyan Desert on a borderless map](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/gallery-01.png)
+## Updating the July 2026 edition
 
-![Trace the Amazon from memory](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/gallery-02.png)
+Older GeoTrainer downloads need a one-time desktop upgrade to preserve their existing cards and study history. **Do not import this APKG directly over the July edition.** The upgrade instructions must be completed before this update can be published. This notice is part of the held publication draft.
 
-[3.75-second Place MP4](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/place.mp4)
+## Practice the different games
 
-[3-second Amazon Trace MP4](https://ritornello.dev/media/ankiweb/2026-08-06-v4/geo-trainer/river.mp4)
+### Identify
 
-## Task families
+Name the country containing the dot on a map without internal borders, then reveal its name and outline.
 
-- **Which one?** — a dot lands inside a region (a different spot each review) on a
-  **borderless** map; recall which region it is.
-- **Place** — drag the region's silhouette onto the borderless map to where it
-  belongs — there's no labelled slot to snap into.
-- **Sketch** — draw a country on its blank continent, a state/province on its blank
-  country, or a continent on the blank world. The map supplies geographic context but
-  no internal borders; shape, position, and scale all count.
-- **Draw** — sketch the outline from memory; scored on both boundary faithfulness
-  and area overlap, so a right-size wrong-shape blob (a lazy circle) fails while an
-  honest freehand attempt passes.
-- **Trace** (rivers) — trace a major river's course over a world map; graded by how
-  closely your line follows the real one. Starts on the *full* world map (no hint
-  where it is) — tap **＋** to zoom in and trace precisely.
-- **Trace** (ocean currents) — trace from origin to destination. Your stroke ends
-  in an arrow; the back reveals a forgiving route corridor and direction. Drawing
-  the right route backwards is still wrong.
-- **Atmospheric circulation** — trace paired hemispheric Hadley, Ferrel, and Polar
-  loops on a curved latitude–altitude cross-section, place global pressure belts
-  without a count hint, and trace prevailing winds in forgiving broad belts plus
-  broad jet-stream corridors.
-- **Seasonal circulation** — paired summer/winter monsoon-wind and northern Indian
-  Ocean current cards name the boreal season and month range explicitly; tracing the
-  other season's direction is wrong.
-- **Atlantic overturning** — choose upper/deep limb directions and order the AMOC
-  pathway on a labelled Atlantic latitude–depth section.
-- **ENSO** — compare neutral, El Niño, and La Niña through Pacific plan/depth
-  schematics showing winds, warm pool, rainfall, thermocline, and upwelling.
-- **Globe placement** — rotate a randomly oriented globe and draw a movable, resizable
-  ellipse around a named island or archipelago; coverage, center, and footprint all count.
+![Identify in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/point.gif)
 
-All drawing surfaces support **zoom & pan**: +/− buttons and mouse-wheel to zoom, and a
-**✋ Move** toggle that turns a drag into a pan so you can reposition a zoomed-in view
-onto the right part of the world. On a phone you can also pinch-zoom and two-finger
-pan — fine work is easy even on a small screen.
+### Place
 
-## What's covered
+Drag a supplied silhouette into position and compare your placement with the answer.
 
-Continents (countries): **Europe, Africa, Asia, South America, North America,
-Oceania**. Country subdivisions: **US states, Brazil, India, Russia, China, Canada,
-Australia, Argentina, Mexico, Indonesia**. Physical: **mountain ranges** and
-**deserts** (place or sketch them over the continents), **major lakes** (identify
-and place), **tectonic plates** (identify, place, and sketch), **major rivers** (trace the
-course), **ocean currents** (trace route + direction), and **atmospheric circulation**
-(paired cells, pressure belts, winds, jets, and season-aware monsoon flows). A
-depth-aware Atlantic cross-section teaches the **Atlantic Meridional Overturning
-Circulation**, and an equatorial-Pacific scope compares neutral, **El Niño**, and
-**La Niña** states. A 67-card **Islands** scope adds globe placement for island countries
-and dispersed archipelagos. And a **Continents**
-deck: first sketch each one on a blank world map, then
-draw its silhouette from memory without context.
+![Place in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/place.gif)
 
-Cards are **tagged by skill and scope** (`geotrainer::skill::…`,
-`geotrainer::scope::…`) so you can build your own study path with saved searches and
-filtered decks — see the GitHub README for ready-made recipes.
+### Sketch
 
-## Source & issues
+Draw a region where it belongs on a blank parent map; shape, scale and position matter.
+
+![Sketch in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/sketch.gif)
+
+### Draw
+
+Recall the outline on a blank canvas without a map or aspect-ratio hint. Reveal the answer to compare the shapes.
+
+![Draw in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/draw.gif)
+
+### Select members
+
+Click the countries belonging to the requested bloc or organization. Zoom and pan to reach smaller countries, then reveal selected and missed members.
+
+![Select members in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-world-countries/membership.gif)
+
+### Trace a river
+
+Trace the Amazon on a blank map and compare your route with the river. The collection also has named tectonic boundary tracing.
+
+![Trace a river in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-physical-geography/river.gif)
+
+### Place an archipelago
+
+Rotate a globe and place a movable, resizable ellipse around Japan. Reveal the answer to compare its coverage, centre and footprint.
+
+![Place an archipelago in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-islands-archipelagos/globe.gif)
+
+### Place a reference line
+
+Rotate the globe and place the Tropic of Cancer. Reference-line cards cover the Equator, Greenwich, both tropics, both polar circles and the 180-degree meridian.
+
+![Place a reference line in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-reference-lines-time/globe.gif)
+
+### Convert UTC and date
+
+Convert between UTC and UTC−3, including previous, same and next-day results. The collection also contains an illustrated time-zone atlas.
+
+![Convert UTC and date in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-reference-lines-time/utc.gif)
+
+### Recall a concept
+
+Connect map recall with geography concepts: country blocs and regions, landscapes and climates, tectonic plates and boundaries, and islands. Representative photos, maps and linked references support the answers.
+
+![Recall a concept in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-physical-geography/biome.gif)
+
+## Choose a focused component
+
+World countries includes 195 countries, continent silhouettes, membership drills and country-grouping concepts. The ten subdivision packs cover their accepted units; Indonesia uses the updated 38-province boundaries. Physical geography includes rivers, lakes, ranges, deserts, plateaus, grasslands, peninsulas and the accepted landscape/climate concepts. Plate tectonics includes major/minor plates, boundary types and named boundaries. Islands & archipelagos and Reference lines & time combine their interactive tasks with accepted recall cards.
+
+- [U.S. States](https://ankiweb.net/shared/info/909756180)
+- [Brazilian States](https://ankiweb.net/shared/info/834723592)
+- [China Provinces & Regions](https://ankiweb.net/shared/info/315064803)
+- [Reference Lines & Time](https://ankiweb.net/shared/info/1962312135)
+- [Physical Geography](https://ankiweb.net/shared/info/1832856685)
+- [Plate Tectonics](https://ankiweb.net/shared/info/22154578)
+- [Islands & Archipelagos](https://ankiweb.net/shared/info/1449321738)
+- [World Countries](https://ankiweb.net/shared/info/452389265)
+- [Indian States & Union Territories](https://ankiweb.net/shared/info/346168633)
+- [Russian Regions](https://ankiweb.net/shared/info/2018363684)
+- [Canadian Provinces & Territories](https://ankiweb.net/shared/info/1166705214)
+- [Australian States & Territories](https://ankiweb.net/shared/info/1585515572)
+- [Mexican States & Mexico City](https://ankiweb.net/shared/info/875505875)
+- [Argentine Provinces & Buenos Aires City](https://ankiweb.net/shared/info/1530523005)
+- [Indonesian Provinces](https://ankiweb.net/shared/info/1473740061)
+
+## Studying with GeoTrainer
+
+Task subdecks separate the exercises so you can introduce one skill at a time. Games give feedback and may suggest a grade; **you choose Anki’s answer grade yourself**. Required maps, photos and game code are bundled for offline study. Embedded Wikipedia references require an internet connection. Desktop, AnkiMobile and AnkiDroid are supported, with light and dark themes.
+
+## Sources & edition
+
+Geometry and locator maps use [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/) public-domain data. Plate boundaries use the credited PB2002-derived dataset. Biome distributions use RESOLVE Ecoregions 2017; Köppen maps use Beck and colleagues’ Köppen–Geiger v2 classification. Time-zone maps use Timezone Boundary Builder. The repository and component listings record their source links, licenses and individual media credits. Concept notes retain their references and applicable CC BY-SA attribution.
+
+This is the accepted September/October 2026 curriculum. Memberships, time zones and geopolitical facts can change; consult the linked references for current details. Borders and climate regions are learning references and may have fuzzy, transitional or disputed boundaries.
 
 GitHub: [https://github.com/ritornello-labs/anki-geo-trainer](https://github.com/ritornello-labs/anki-geo-trainer)
 
-Maps are rendered primarily from [Natural Earth](https://www.naturalearthdata.com/)
-public-domain data. Tectonic plates use the PB2002-derived GeoJSON credited in the
-repository's data-source notes; current routes are schematic adaptations of NOAA
-education maps. Built with the open-source generator in the repository above.
+Support continued development: [ritornello.dev/support](https://ritornello.dev/support).
