@@ -1,0 +1,47 @@
+{
+  "status": "submitted-pending-public-review",
+  "date": "2026-10-05",
+  "owner": {
+    "ankiweb_id": "1585515572",
+    "title": "GeoTrainer: Australian States & Territories",
+    "source_share_name": "GeoTrainer::World::Oceania::Australia",
+    "owner_title_counts_and_5_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 15,
+    "delivered_bytes": 931095,
+    "delivered_sha256": "cd7dd8364586e3cc3d32acf52ac61a7e812009146f24755cc8260aadd00be0ed"
+  },
+  "delivered_identity": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 35,
+    "cards": 35,
+    "bundled_media_files": 0,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 931095,
+    "delivered_sha256": "cd7dd8364586e3cc3d32acf52ac61a7e812009146f24755cc8260aadd00be0ed"
+  },
+  "github_release": "v2026.10.05",
+  "github_asset": {
+    "apiUrl": "https://api.github.com/repos/ritornello-labs/anki-geo-trainer/releases/assets/613258266",
+    "contentType": "application/octet-stream",
+    "createdAt": "2026-10-05T17:45:15Z",
+    "digest": "sha256:cd7dd8364586e3cc3d32acf52ac61a7e812009146f24755cc8260aadd00be0ed",
+    "downloadCount": 0,
+    "id": "RA_kwDOUHtMws4kjZQa",
+    "label": "",
+    "name": "geo-trainer-australia-subdivisions.apkg",
+    "size": 931095,
+    "state": "uploaded",
+    "updatedAt": "2026-10-05T17:45:15Z",
+    "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-australia-subdivisions.apkg"
+  },
+  "previous_release_v2026_10_04_retained": true,
+  "personal_collection_accessed": false,
+  "live_site": {
+    "live_homepage_counts_and_release_links": "verified",
+    "four_gallery_images_decoded": true,
+    "live_gallery_opened": true,
+    "personal_collection_accessed": false
+  }
+}

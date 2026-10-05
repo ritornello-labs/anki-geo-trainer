@@ -1,10 +1,12 @@
 # Australia subdivisions preparation — October 4
 
-Status: complete listing/four native Queensland GIFs approved October 5. Exact
-approved media deployed and live-byte verified. Isolated Publisher reconciled
-27 legacy notes/cards to approved 35; source content/identities exact and all
-outside content/deck names/IDs/media unchanged. Approved full Upload completed,
-normal/final required 0, integrity ok. AnkiWeb submission next. Personal Anki untouched.
+Status: shipped October 5 at **1585515572**, public review pending. Approved complete
+listing/four native Queensland GIFs. Exact AnkiWeb-delivered APKG 931,095 bytes,
+SHA-256 cd7dd8364586e3cc3d32acf52ac61a7e812009146f24755cc8260aadd00be0ed
+archived and digest-verified on v2026.10.05. Source/export/delivered identities
+and content exact; outside Publisher content/deck names/IDs/media unchanged,
+approved Upload and normal/final required 0. Quota 15/20; next Mexico image review.
+Task-owned Publisher closed; personal Anki untouched.
 
 ## Accepted scope and verification
 
@@ -33,7 +35,7 @@ australia-subdivisions-listing.png; animated index.html. Title, Ritornello banne
 explore link, exact scope/edition note, full-edition link, GitHub visible full URL,
 support page, four native GIFs; no videos. Capture container stopped/removed.
 
-## Resume after explicit batch approval
+## Publication procedure (completed; do not resubmit)
 
 1. Verify REVIEW hashes; deploy exact four approved GIFs/eight posters/manifest to
    immutable 2026-10-04-v1/geo-trainer-australia-subdivisions paths; signed site
