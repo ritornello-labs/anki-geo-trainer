@@ -1,0 +1,508 @@
+{
+  "status": "passed",
+  "source_url": "https://raw.githubusercontent.com/AlfianAliM/Indonesia-GeoJSON/169e53b256e99ee9d3f30c863c05e964a45f7008/provinsi.geojson",
+  "upstream_commit": "169e53b256e99ee9d3f30c863c05e964a45f7008",
+  "source_sha256": "7bf28fb7f8ab4c84904c1f9b0334e09dc36f0dbe92579efa3e84f6caddc98df6",
+  "source_reference": {
+    "name": "Laravel Nusa",
+    "url": "https://nusa.creasi.dev",
+    "github": "https://github.com/creasico/laravel-nusa",
+    "data_reference": "Kepmendagri No 300.2.2-2138 Tahun 2025"
+  },
+  "license": "MIT",
+  "upstream_notice_embedded_in_all_four_models": true,
+  "provinces": 38,
+  "previous_provinces": 33,
+  "notes": 151,
+  "cards": 151,
+  "existing_notes_retained": 131,
+  "new_notes": 20,
+  "existing_region_keys_model_ids_leaf_ids_guids_retained": true,
+  "outside_full_content_unchanged": true,
+  "full_notes": 3007,
+  "full_cards": 4232,
+  "small_regions": [
+    {
+      "id": "ID-JK",
+      "name": "Jakarta"
+    }
+  ],
+  "repairs": [
+    {
+      "code": "11",
+      "name": "Aceh",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 4.639400452196997
+    },
+    {
+      "code": "51",
+      "name": "Bali",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 0.45916701495738116
+    },
+    {
+      "code": "36",
+      "name": "Banten",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 0.7648642269866462
+    },
+    {
+      "code": "34",
+      "name": "Daerah Istimewa Yogyakarta",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 0.2579978827933622
+    },
+    {
+      "code": "31",
+      "name": "Daerah Khusus Ibukota Jakarta",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 0.05373714932945627
+    },
+    {
+      "code": "75",
+      "name": "Gorontalo",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 0.9769320230757885
+    },
+    {
+      "code": "15",
+      "name": "Jambi",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 3.979945011438441
+    },
+    {
+      "code": "32",
+      "name": "Jawa Barat",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 3.034829332439615
+    },
+    {
+      "code": "33",
+      "name": "Jawa Tengah",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 2.8203001210830823
+    },
+    {
+      "code": "35",
+      "name": "Jawa Timur",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 3.9363409812053116
+    },
+    {
+      "code": "61",
+      "name": "Kalimantan Barat",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 11.952585030564377
+    },
+    {
+      "code": "63",
+      "name": "Kalimantan Selatan",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 3.022119938908043
+    },
+    {
+      "code": "62",
+      "name": "Kalimantan Tengah",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 12.478525042407403
+    },
+    {
+      "code": "64",
+      "name": "Kalimantan Timur",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 10.297236351153924
+    },
+    {
+      "code": "65",
+      "name": "Kalimantan Utara",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 5.696817614512578
+    },
+    {
+      "code": "19",
+      "name": "Kepulauan Bangka Belitung",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 1.3650339229675528
+    },
+    {
+      "code": "21",
+      "name": "Kepulauan Riau",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 0.6485997338169717
+    },
+    {
+      "code": "18",
+      "name": "Lampung",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 2.7419059993881434
+    },
+    {
+      "code": "81",
+      "name": "Maluku",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 3.737892415576926
+    },
+    {
+      "code": "82",
+      "name": "Maluku Utara",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 2.5437957608166553
+    },
+    {
+      "code": "52",
+      "name": "Nusa Tenggara Barat",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 1.6179926374587574
+    },
+    {
+      "code": "53",
+      "name": "Nusa Tenggara Timur",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 3.8126344878376153
+    },
+    {
+      "code": "91",
+      "name": "Papua",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 6.68963130336651
+    },
+    {
+      "code": "92",
+      "name": "Papua Barat",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 4.826027074252441
+    },
+    {
+      "code": "96",
+      "name": "Papua Barat Daya",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 3.1629173764021954
+    },
+    {
+      "code": "94",
+      "name": "Papua Tengah",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 5.05078616893001
+    },
+    {
+      "code": "14",
+      "name": "Riau",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 7.292247037808909
+    },
+    {
+      "code": "76",
+      "name": "Sulawesi Barat",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 1.349548372553394
+    },
+    {
+      "code": "73",
+      "name": "Sulawesi Selatan",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 3.6900595775044867
+    },
+    {
+      "code": "72",
+      "name": "Sulawesi Tengah",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 4.995417298039706
+    },
+    {
+      "code": "74",
+      "name": "Sulawesi Tenggara",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 2.944824028346896
+    },
+    {
+      "code": "71",
+      "name": "Sulawesi Utara",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 1.1744147905968767
+    },
+    {
+      "code": "13",
+      "name": "Sumatera Barat",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 3.4234484948009847
+    },
+    {
+      "code": "12",
+      "name": "Sumatera Utara",
+      "reason": "nested or duplicate polygon shells",
+      "source_area_square_degrees": 5.892021697109407
+    }
+  ],
+  "source_cross_province_overlap_fraction": 0.00014023279573950826,
+  "source_cross_province_overlaps": [
+    {
+      "codes": [
+        "11",
+        "12"
+      ],
+      "overlap_square_degrees": 9.427127000588009e-05
+    },
+    {
+      "codes": [
+        "17",
+        "18"
+      ],
+      "overlap_square_degrees": 0.0004562406346404796
+    },
+    {
+      "codes": [
+        "31",
+        "36"
+      ],
+      "overlap_square_degrees": 8.416593687352204e-06
+    },
+    {
+      "codes": [
+        "31",
+        "32"
+      ],
+      "overlap_square_degrees": 8.397873790933302e-05
+    },
+    {
+      "codes": [
+        "15",
+        "17"
+      ],
+      "overlap_square_degrees": 0.0005580186894224271
+    },
+    {
+      "codes": [
+        "15",
+        "16"
+      ],
+      "overlap_square_degrees": 0.0013494539518340656
+    },
+    {
+      "codes": [
+        "32",
+        "36"
+      ],
+      "overlap_square_degrees": 7.553890886431646e-05
+    },
+    {
+      "codes": [
+        "32",
+        "33"
+      ],
+      "overlap_square_degrees": 0.0006153476016802742
+    },
+    {
+      "codes": [
+        "33",
+        "34"
+      ],
+      "overlap_square_degrees": 0.0003999093320842558
+    },
+    {
+      "codes": [
+        "33",
+        "35"
+      ],
+      "overlap_square_degrees": 3.216277064337997e-05
+    },
+    {
+      "codes": [
+        "61",
+        "62"
+      ],
+      "overlap_square_degrees": 0.0014550465568356197
+    },
+    {
+      "codes": [
+        "61",
+        "64"
+      ],
+      "overlap_square_degrees": 0.0005188809834767259
+    },
+    {
+      "codes": [
+        "63",
+        "64"
+      ],
+      "overlap_square_degrees": 0.0005383724148624155
+    },
+    {
+      "codes": [
+        "62",
+        "63"
+      ],
+      "overlap_square_degrees": 6.35390805025013e-05
+    },
+    {
+      "codes": [
+        "62",
+        "64"
+      ],
+      "overlap_square_degrees": 0.0011360616159103623
+    },
+    {
+      "codes": [
+        "64",
+        "65"
+      ],
+      "overlap_square_degrees": 0.002225909081900602
+    },
+    {
+      "codes": [
+        "91",
+        "95"
+      ],
+      "overlap_square_degrees": 0.00040950990625967577
+    },
+    {
+      "codes": [
+        "91",
+        "94"
+      ],
+      "overlap_square_degrees": 0.0006904612035675488
+    },
+    {
+      "codes": [
+        "92",
+        "96"
+      ],
+      "overlap_square_degrees": 0.00011980850366423608
+    },
+    {
+      "codes": [
+        "92",
+        "94"
+      ],
+      "overlap_square_degrees": 0.00019077748420299003
+    },
+    {
+      "codes": [
+        "93",
+        "95"
+      ],
+      "overlap_square_degrees": 0.0002850799450984936
+    },
+    {
+      "codes": [
+        "93",
+        "94"
+      ],
+      "overlap_square_degrees": 0.0006050183692505489
+    },
+    {
+      "codes": [
+        "94",
+        "95"
+      ],
+      "overlap_square_degrees": 0.0007617583418251465
+    },
+    {
+      "codes": [
+        "14",
+        "15"
+      ],
+      "overlap_square_degrees": 0.0007445373228768153
+    },
+    {
+      "codes": [
+        "73",
+        "76"
+      ],
+      "overlap_square_degrees": 0.0005856409353016689
+    },
+    {
+      "codes": [
+        "73",
+        "74"
+      ],
+      "overlap_square_degrees": 0.0009424758858265241
+    },
+    {
+      "codes": [
+        "72",
+        "75"
+      ],
+      "overlap_square_degrees": 0.0005062433602828473
+    },
+    {
+      "codes": [
+        "72",
+        "76"
+      ],
+      "overlap_square_degrees": 0.0004719397627295932
+    },
+    {
+      "codes": [
+        "72",
+        "73"
+      ],
+      "overlap_square_degrees": 0.0008271123247473609
+    },
+    {
+      "codes": [
+        "72",
+        "74"
+      ],
+      "overlap_square_degrees": 0.000512846385534115
+    },
+    {
+      "codes": [
+        "71",
+        "75"
+      ],
+      "overlap_square_degrees": 0.0002910711112690643
+    },
+    {
+      "codes": [
+        "13",
+        "17"
+      ],
+      "overlap_square_degrees": 0.0002849045427729171
+    },
+    {
+      "codes": [
+        "13",
+        "15"
+      ],
+      "overlap_square_degrees": 0.00103289748572575
+    },
+    {
+      "codes": [
+        "13",
+        "14"
+      ],
+      "overlap_square_degrees": 0.0005011915637707452
+    },
+    {
+      "codes": [
+        "16",
+        "17"
+      ],
+      "overlap_square_degrees": 0.0003409845953909357
+    },
+    {
+      "codes": [
+        "16",
+        "18"
+      ],
+      "overlap_square_degrees": 0.0005126085882937658
+    },
+    {
+      "codes": [
+        "12",
+        "14"
+      ],
+      "overlap_square_degrees": 0.0004231007407099312
+    },
+    {
+      "codes": [
+        "12",
+        "13"
+      ],
+      "overlap_square_degrees": 0.0009190461457466146
+    }
+  ],
+  "geometry_note": "Upstream nested shells unioned; study-map simplification unchanged. Minor upstream boundary slivers are below 0.1% of national geometry; no cadastral accuracy claim.",
+  "personal_collection_mutated": false,
+  "artifact_sha256": "7f243b9a12a8e9604b9f55bb216f57ad39ea8ace791ee71095ef220ef3768c47"
+}

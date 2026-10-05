@@ -35,6 +35,7 @@ Bundle shape (JSON):
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import re
@@ -69,6 +70,11 @@ SOURCES = {
     "marine50": "ne_50m_geography_marine_polys.geojson",
 }
 EXTERNAL_SOURCES = {
+    "indonesia38": (
+        "indonesia-provinces-2025.geojson",
+        "https://raw.githubusercontent.com/AlfianAliM/Indonesia-GeoJSON/"
+        "169e53b256e99ee9d3f30c863c05e964a45f7008/provinsi.geojson",
+    ),
     "plates": (
         "PB2002_plates.json",
         "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/"
@@ -103,11 +109,37 @@ def ensure_source(key: str) -> Path:
         print(f"downloading {url} -> {path}")
         with urllib.request.urlopen(url) as resp, path.open("wb") as fh:
             shutil.copyfileobj(resp, fh)
+    if key == "indonesia38":
+        expected = "7bf28fb7f8ab4c84904c1f9b0334e09dc36f0dbe92579efa3e84f6caddc98df6"
+        if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+            raise SystemExit("Indonesia source checksum mismatch; refusing unreviewed data")
     return path
 
 
 def load_features(key: str) -> list[dict]:
-    return json.loads(ensure_source(key).read_text(encoding="utf-8"))["features"]
+    features = json.loads(ensure_source(key).read_text(encoding="utf-8"))["features"]
+    if key == "indonesia38":
+        # Stable project region keys, including the 33 legacy keys. These are
+        # identity keys, not a claim that every key is a current ISO code.
+        codes = {
+            "11": "AC", "51": "BA", "36": "BT", "17": "BE", "34": "YO",
+            "31": "JK", "75": "GO", "15": "JA", "32": "JB", "33": "JT",
+            "35": "JI", "61": "KB", "63": "KS", "62": "KT", "64": "KI",
+            "65": "KU", "19": "BB", "21": "KR", "18": "LA", "81": "MA",
+            "82": "MU", "52": "NB", "53": "NT", "91": "PA", "92": "PB",
+            "96": "PD", "95": "PE", "93": "PS", "94": "PT", "14": "RI",
+            "76": "SR", "73": "SN", "72": "ST", "74": "SG", "71": "SA",
+            "13": "SB", "16": "SS", "12": "SU",
+        }
+        if len(features) != 38 or {f["properties"]["code"] for f in features} != set(codes):
+            raise SystemExit("Indonesia source must contain exactly the accepted 38 provinces")
+        labels = {"31": "Jakarta", "34": "Yogyakarta", "19": "Bangka Belitung"}
+        for feature in features:
+            props = feature["properties"]
+            code = props["code"]
+            props.update(adm0_a3="IDN", iso_3166_2="ID-" + codes[code],
+                         postal=codes[code], name=labels.get(code, props["name"]))
+    return features
 
 
 def prop(props: dict, *names: str):
@@ -822,7 +854,8 @@ SUBDIVISION_SCOPES = {
         "deck_root": "GeoTrainer::World::Oceania::Australia",
     },
     "indonesia-provinces": {
-        "title": "Indonesia — Provinces", "a3": "IDN", "noun": "province",
+        "title": "Indonesia — 38 Provinces", "a3": "IDN", "noun": "province",
+        "source": "indonesia38",
         "deck_root": "GeoTrainer::World::Asia::Indonesia",
     },
     "argentina-provinces": {
@@ -871,6 +904,13 @@ def _build_admin1_country(scope_name: str, cfg: dict) -> tuple[dict, dict]:
 
     def render_geom(f):
         g = shape(f["geometry"])
+        if source == "indonesia38" and not g.is_valid:
+            # Upstream multipolygons include nested/duplicate shells. Union the
+            # valid polygon parts; retain holes and all distinct islands.
+            parts = list(g.geoms) if isinstance(g, MultiPolygon) else [g]
+            g = unary_union([p if p.is_valid else p.buffer(0) for p in parts])
+            if not g.is_valid or g.is_empty:
+                raise SystemExit("Invalid repaired Indonesia geometry")
         return _unwrap_antimeridian(g) if unwrap else g
 
     geoms = [render_geom(f) for f in feats]

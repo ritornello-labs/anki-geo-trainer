@@ -1,0 +1,91 @@
+{
+  "status": "awaiting-image-approval",
+  "notes": 151,
+  "cards": 151,
+  "native_media_files": 0,
+  "images": [
+    {
+      "file": "point.gif",
+      "sha256": "55a7fb5387c7b45f23938bb38cd24beee7f833e3354ba7e485ff9a892c52a964",
+      "bytes": 81564,
+      "frames": 70,
+      "distinct_frames": 3,
+      "width": 760,
+      "height": 560,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab",
+      "playback_timing": {
+        "method": "GIF delay metadata only; all 70 native frame pixels and all other bytes unchanged",
+        "original_sha256": "baef5c312125e975b639ba7b7bfd3f3815042e825d1b0909a3e9475bf9efc1f8",
+        "revised_sha256": "55a7fb5387c7b45f23938bb38cd24beee7f833e3354ba7e485ff9a892c52a964",
+        "front_seconds": 2,
+        "answer_seconds": 3,
+        "loop_seconds": 5,
+        "pixel_identity_verified": true
+      },
+      "actual_native_scene_timing": {
+        "status": "passed",
+        "native_pixel_groups": [
+          {
+            "first_frame": 0,
+            "pixel_sha256": "85d09f5f1043a1c79b3cbf2269890c070eb1bd3191b6dfc2da162cf5cbd082f1",
+            "frames": 20,
+            "milliseconds": 2000
+          },
+          {
+            "first_frame": 20,
+            "pixel_sha256": "df9ec35e4cd222510842e6a133344953419b32bc8624a54bbc7ddf64ebb750a7",
+            "frames": 50,
+            "milliseconds": 3000
+          }
+        ],
+        "audit_crop": [
+          0,
+          0,
+          760,
+          420
+        ],
+        "crop_contains_card_task_heading_map_and_answer_name": true,
+        "question_ms": 2000,
+        "answer_ms": 3000
+      }
+    },
+    {
+      "file": "place.gif",
+      "sha256": "d89bc81713f14c46faafcb98f14727465ff917e1a01f50cfa90341574e3b3061",
+      "bytes": 107656,
+      "frames": 70,
+      "distinct_frames": 21,
+      "width": 760,
+      "height": 560,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "sketch.gif",
+      "sha256": "ff526be0498230bbfdd38762a9bfd905f806fadcc3ac955ec95f532a1a33488c",
+      "bytes": 101304,
+      "frames": 110,
+      "distinct_frames": 52,
+      "width": 760,
+      "height": 560,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "draw.gif",
+      "sha256": "6047abfea343d24faaabd576dcc37e1607594ceaadd1fbfaa3d46551f83c702f",
+      "bytes": 140503,
+      "frames": 115,
+      "distinct_frames": 79,
+      "width": 760,
+      "height": 856,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    }
+  ],
+  "public_images_uploaded": false,
+  "publisher_staged": false,
+  "personal_collection_accessed_read_only": true,
+  "preview": "www/.tmp/publish-batch-indonesia-subdivisions/indonesia-subdivisions-listing.png"
+}

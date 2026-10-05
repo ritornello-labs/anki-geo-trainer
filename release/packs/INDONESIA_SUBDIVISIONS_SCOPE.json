@@ -1,27 +1,28 @@
 {
-  "status": "scope-decision-requested",
-  "source_map_units": 33,
+  "status": "38-province-update-authorized",
+  "source_map_units": 38,
   "current_bps_provinces": 38,
   "official_reference": "https://www.bps.go.id/en/statistics-table/2/MTM1IzI%3D/jumlah-desa-menurut-provinsi-dan-",
-  "source_edition_missing_new_units": [
-    "Kalimantan Utara",
-    "Papua Selatan",
-    "Papua Tengah",
-    "Papua Pegunungan",
-    "Papua Barat Daya"
-  ],
   "required_existing_boundary_updates": [
     "Kalimantan Timur",
     "Papua",
     "Papua Barat"
   ],
-  "source_keys_labels_geometry_model_deck_guids_changed": false,
-  "personal_collection_accessed": false,
   "public_media_uploaded": false,
   "publisher_staged": false,
-  "decision_options": [
-    "update-public-map-to-38-preserving-existing-note-identities",
-    "clearly-labeled-historical-33-province-edition"
-  ],
-  "geometry_candidate_note": "Existing Natural Earth 50m and cached 10m have 33 units. Any replacement requires verified redistribution terms/provenance, count/key/geometry audit, stable existing IDs, native render/media/export/overlap verification before review. No replacement dataset selected."
+  "geometry_candidate_note": "Selected pinned MIT Peta Nusa / Laravel Nusa export; source and native update/overlap checks passed. See INDONESIA_SUBDIVISIONS_SOURCE.json and OVERLAP.json.",
+  "decision": "update-public-map-to-38-preserving-existing-note-identities",
+  "authorization": "Elvis: Oh yea, we should update (2026-10-05)",
+  "existing_identity_keys_retained": true,
+  "personal_collection_accessed_read_only": true,
+  "personal_collection_mutated": false,
+  "geometry_and_selected_display_labels_updated": true,
+  "previous_source_map_units": 33,
+  "source_edition_previously_missing_units": [
+    "Kalimantan Utara",
+    "Papua Selatan",
+    "Papua Tengah",
+    "Papua Pegunungan",
+    "Papua Barat Daya"
+  ]
 }

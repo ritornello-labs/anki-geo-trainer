@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "backend": "native Anki 25.09 disposable collection",
+  "sequence": [
+    "old 33-province component",
+    "updated 38-province component",
+    "updated full candidate",
+    "updated component again"
+  ],
+  "old_notes": 131,
+  "updated_notes": 151,
+  "updated_cards": 151,
+  "full_notes": 3007,
+  "full_cards": 4232,
+  "old_note_model_card_leaf_ids_unchanged": true,
+  "existing_guids_retained": 131,
+  "native_updated_fields_templates_css_exact": true,
+  "duplicates_created": 0,
+  "missing_component_media": 0,
+  "full_candidate_not_published": true,
+  "personal_collection_mutated": false
+}
