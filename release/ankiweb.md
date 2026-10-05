@@ -76,7 +76,7 @@ Convert between UTC and UTC−3, including previous, same and next-day results. 
 
 Connect map recall with geography concepts: country blocs and regions, landscapes and climates, tectonic plates and boundaries, and islands. Representative photos, maps and linked references support the answers.
 
-![Recall a concept in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-physical-geography/biome.gif)
+![Recall a concept in real Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/biome.gif)
 
 ## Choose a focused component
 

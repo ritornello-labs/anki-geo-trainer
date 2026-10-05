@@ -79,8 +79,10 @@ continue the other publication queue. This decision is required because the
 original instruction explicitly required unchanged model IDs. It does not
 request or authorize any change to the personal collection.
 
-The ten-GIF full-edition batch now uses the byte-identical, previously approved
-native component captures. `release/FULL_EDITION_REVIEW_2026-10-05.json` pins their
+The ten-GIF full-edition batch now uses previously approved native component
+captures: nine GIFs are byte-identical; the static concept GIF changes delay
+metadata only to the approved 2-second front / 3-second answer pattern, with every
+native frame pixel and all other bytes preserved. `release/FULL_EDITION_REVIEW_2026-10-05.json` pins their
 hashes; the complete held draft is in `release/ankiweb.md`. It includes membership,
 reference-line globe placement and UTC/date conversion, excludes retired flows,
 and links all fifteen submitted components. This new complete listing batch
