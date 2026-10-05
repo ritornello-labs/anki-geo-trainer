@@ -1,0 +1,9 @@
+{
+  "release": "v2026.10.04",
+  "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04",
+  "artifact": "geo-trainer-islands-archipelagos.apkg",
+  "size": 3953028,
+  "digest": "sha256:8aecec15e354a1d6f00137d2f54ac306a7b714a9a58d6968e47c485b704730ec",
+  "canonical_ankiweb_bytes_verified": true,
+  "existing_assets_and_tag_preserved": true
+}

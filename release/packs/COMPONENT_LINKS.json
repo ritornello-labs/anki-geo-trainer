@@ -50,5 +50,13 @@
     "release": "v2026.10.04",
     "artifact": "geo-trainer-plate-tectonics.apkg",
     "public_review_pending": true
+  },
+  "islands-archipelagos": {
+    "title": "GeoTrainer: Islands & Archipelagos",
+    "ankiweb_id": "1449321738",
+    "ankiweb_url": "https://ankiweb.net/shared/info/1449321738",
+    "release": "v2026.10.04",
+    "artifact": "geo-trainer-islands-archipelagos.apkg",
+    "public_review_pending": true
   }
 }
