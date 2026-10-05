@@ -14,25 +14,25 @@ Learn the shapes and locations of **Indonesia’s 38 provinces** through four sp
 
 Name the province containing the dot on a map without internal borders. Reveal its name and outline.
 
-![Identify Kalimantan Utara in real Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/point.gif)
+![Identify Kalimantan Utara in real Anki](https://raw.githubusercontent.com/ritornello-labs/www/13b47a66ba9712e9f580c564fe74e06b34b99556/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/point.gif)
 
 ## Place the shape
 
 Drag Kalimantan Utara's silhouette into position on the blank map, then reveal the answer and native distance feedback.
 
-![Place Kalimantan Utara in real Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/place.gif)
+![Place Kalimantan Utara in real Anki](https://raw.githubusercontent.com/ritornello-labs/www/13b47a66ba9712e9f580c564fe74e06b34b99556/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/place.gif)
 
 ## Sketch in context
 
 Draw Kalimantan Utara where it belongs on the map. The answer compares your outline with its shape and position.
 
-![Sketch Kalimantan Utara in real Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/sketch.gif)
+![Sketch Kalimantan Utara in real Anki](https://raw.githubusercontent.com/ritornello-labs/www/13b47a66ba9712e9f580c564fe74e06b34b99556/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/sketch.gif)
 
 ## Draw from memory
 
 Recall Kalimantan Utara's outline on a square canvas without a map or aspect-ratio hint. The answer compares shape independently of drawing size and position.
 
-![Draw Kalimantan Utara in real Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/draw.gif)
+![Draw Kalimantan Utara in real Anki](https://raw.githubusercontent.com/ritornello-labs/www/13b47a66ba9712e9f580c564fe74e06b34b99556/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/draw.gif)
 
 ## Using the pack
 
