@@ -106,6 +106,8 @@ Plate Tectonics build: `uv run python scripts/build_plate_tectonics_pack.py` (20
 
 Plate Tectonics: [AnkiWeb](https://ankiweb.net/shared/info/22154578) (public review pending) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04) · [Exact delivered APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-plate-tectonics.apkg). 204 notes / 492 cards; 70 bundled media files.
 
-Islands & Archipelagos component preparation: `python scripts/build_islands_archipelagos_pack.py` builds the accepted 76-note / 112-card pack, with 67 globe games and nine concept notes (45 cards). Exact stable model/leaf IDs and GUIDs overlap the full edition. Ten concept maps bundled; full D3 ISC notices included. New listing/image approval pending.
+Islands & Archipelagos component preparation: `python scripts/build_islands_archipelagos_pack.py` builds the accepted 76-note / 112-card pack, with 67 globe games and nine concept notes (45 cards). Exact stable model/leaf IDs and GUIDs overlap the full edition. Ten concept maps bundled; full D3 ISC notices included. Published listing and release links below.
 
 Islands & Archipelagos: [AnkiWeb](https://ankiweb.net/shared/info/1449321738) (public review pending) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04) · [Exact delivered APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-islands-archipelagos.apkg). 76 notes / 112 cards; ten bundled maps.
+
+World Countries component preparation: `python scripts/build_world_countries_pack.py` builds all accepted geometry, membership drills and concepts: 900 notes / 1,220 cards, 77 bundled maps. Six actual-Anki GIFs and complete listing await image approval. Native export, reproducibility and overlap checks passed; no public submission yet.

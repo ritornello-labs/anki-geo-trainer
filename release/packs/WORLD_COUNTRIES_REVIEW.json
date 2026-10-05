@@ -1,0 +1,78 @@
+{
+  "status": "awaiting-image-approval",
+  "notes": 900,
+  "cards": 1220,
+  "native_media_files": 77,
+  "images": [
+    {
+      "file": "point.gif",
+      "sha256": "46add43fab1043c4f829c444991a8ba220557a9c4d2c0886f6634525b5b25721",
+      "bytes": 122682,
+      "frames": 70,
+      "distinct_frames": 3,
+      "width": 760,
+      "height": 666,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "place.gif",
+      "sha256": "f1cd455d68b50f78c1c253125c99997a1fbe901199118c4f433dd44423f605ec",
+      "bytes": 174544,
+      "frames": 80,
+      "distinct_frames": 22,
+      "width": 760,
+      "height": 712,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "sketch.gif",
+      "sha256": "05a7fdb460b9b24e8db7477c02f83f8ef4e68f4a50541ddae72db3c73a4a85c6",
+      "bytes": 141885,
+      "frames": 160,
+      "distinct_frames": 57,
+      "width": 760,
+      "height": 712,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "draw.gif",
+      "sha256": "402ca8349ef60bf50fbe039e124c56d08b4272a228af497dbfe65572e98c75a0",
+      "bytes": 144908,
+      "frames": 200,
+      "distinct_frames": 90,
+      "width": 760,
+      "height": 856,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "membership.gif",
+      "sha256": "68f3b383550a2ed4c5096725c02e646d2bb647433fa15a1daa01acc008e14402",
+      "bytes": 1283268,
+      "frames": 170,
+      "distinct_frames": 97,
+      "width": 960,
+      "height": 624,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "concept.gif",
+      "sha256": "5838faa10f59e8b5090a60eff17707801b887e667782c155bb7cd607e7b7036a",
+      "bytes": 79093,
+      "frames": 56,
+      "distinct_frames": 2,
+      "width": 960,
+      "height": 646,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    }
+  ],
+  "public_images_uploaded": false,
+  "publisher_staged": false,
+  "personal_collection_accessed": false,
+  "preview": "www/.tmp/publish-batch-world-countries/world-countries-listing.png"
+}
