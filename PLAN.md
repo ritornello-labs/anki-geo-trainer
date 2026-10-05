@@ -5,7 +5,8 @@ The full-edition update for `908455862` remains held: ordinary July imports fail
 but the GUID-aware disposable migration prototype now passes, including existing
 World Countries installs and all fifteen delivered components. Older users need a
 one-time model-ID transition; Elvis's decision and user-facing upgrade remain
-pending. The ten-GIF complete full listing is prepared for fresh batch review.
+pending. Elvis approved the ten-GIF full image batch on October 5; the review contact sheet
+is not public listing media. Legacy model-ID decision and supported upgrade remain pending.
 See `release/FULL_LEGACY_IMPORT_2026-10-05.md`. Personal collection changes are
 outside this publication pass. Created 2026-07-05.
 

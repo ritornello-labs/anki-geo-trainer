@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-full-batch-review-and-legacy-upgrade-decision",
+  "status": "image-batch-approved-legacy-upgrade-decision-pending",
   "cards": 4232,
   "notes": 3007,
   "source_share_name": "GeoTrainer",
@@ -188,5 +188,7 @@
   "publisher_staged": false,
   "legacy_upgrade_shippable": false,
   "listing_sha256": "0042a9328a4ed089562c22e9a1c25799eb1e6c3c9643b28d99abd92a2ad525c3",
-  "preview": "www/.tmp/publish-batch-full-edition/index.html"
+  "preview": "www/.tmp/publish-batch-full-edition/index.html",
+  "image_batch_approval": "Elvis: Looks fine to me. You will use GIFs, right? (2026-10-05). Approved the presented full-edition GIF image batch; legacy model-ID decision remains separate.",
+  "public_listing_animations": "ten GIFs; static contact sheet only used for review"
 }
