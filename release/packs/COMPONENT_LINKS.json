@@ -90,5 +90,13 @@
     "release": "v2026.10.04",
     "artifact": "geo-trainer-canada-subdivisions.apkg",
     "public_review_pending": true
+  },
+  "australia-subdivisions": {
+    "title": "GeoTrainer: Australian States & Territories",
+    "ankiweb_id": "1585515572",
+    "ankiweb_url": "https://ankiweb.net/shared/info/1585515572",
+    "release": "v2026.10.05",
+    "artifact": "geo-trainer-australia-subdivisions.apkg",
+    "public_review_pending": true
   }
 }
