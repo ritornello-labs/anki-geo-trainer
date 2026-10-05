@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-image-approval",
+  "status": "approved",
   "notes": 151,
   "cards": 151,
   "native_media_files": 0,
@@ -87,5 +87,7 @@
   "public_images_uploaded": false,
   "publisher_staged": false,
   "personal_collection_accessed_read_only": true,
-  "preview": "www/.tmp/publish-batch-indonesia-subdivisions/indonesia-subdivisions-listing.png"
+  "preview": "www/.tmp/publish-batch-indonesia-subdivisions/indonesia-subdivisions-listing.png",
+  "approval": "Elvis: Indonesia is approved (2026-10-05)",
+  "approved_date": "2026-10-05"
 }
