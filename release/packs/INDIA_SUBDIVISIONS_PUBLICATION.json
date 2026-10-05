@@ -1,0 +1,49 @@
+{
+  "owner": {
+    "ankiweb_id": "346168633",
+    "title": "GeoTrainer: Indian States & Union Territories",
+    "source_share_name": "GeoTrainer::World::Asia::India",
+    "owner_title_counts_and_5_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 12,
+    "delivered_bytes": 1330119,
+    "delivered_sha256": "f2be9bfec7f28be8579d647cd0f8cacaa2eb81b0e463f2ffe4f071ee016d9ae2"
+  },
+  "delivered_identity": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 140,
+    "cards": 140,
+    "bundled_media_files": 0,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 1330119,
+    "delivered_sha256": "f2be9bfec7f28be8579d647cd0f8cacaa2eb81b0e463f2ffe4f071ee016d9ae2"
+  },
+  "live_media": {
+    "status": "verified",
+    "exact_approved_gifs": [
+      "point.gif",
+      "place.gif",
+      "sketch.gif",
+      "draw.gif"
+    ],
+    "identify_front_seconds": 2,
+    "identify_answer_seconds": 3
+  },
+  "archive": {
+    "tag": "v2026.10.04",
+    "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04",
+    "artifact": "geo-trainer-india-subdivisions.apkg",
+    "bytes": 1330119,
+    "sha256": "f2be9bfec7f28be8579d647cd0f8cacaa2eb81b0e463f2ffe4f071ee016d9ae2",
+    "github_asset_digest_verified": true,
+    "previous_tag_and_six_assets_preserved": true
+  },
+  "site": {
+    "live_homepage_counts_and_release_links": "verified",
+    "four_gallery_images_decoded": true,
+    "live_gallery_opened": true,
+    "personal_collection_accessed": false
+  },
+  "publisher_closed": true
+}

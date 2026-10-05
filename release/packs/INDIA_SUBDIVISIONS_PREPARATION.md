@@ -1,12 +1,15 @@
 # India subdivisions preparation — October 4
 
-Status: Elvis approved the complete listing and four actual-Anki Maharashtra GIFs
-on October 4. Exact reviewed image bytes are deployed and verified. Native Publisher
-staging passed (140 notes/cards, outside content/media unchanged); approved full
-Upload and normal sync completed; final required 0 and integrity ok. No AnkiWeb
-submission yet. Personal Anki never accessed or changed. World Countries shipped at
-452389265, archive/gallery verified; do not resubmit. Quota remains 11/20, no
-rejection, reset unknown. Publisher closed; disposable India capture stopped/removed.
+Status: shipped at https://ankiweb.net/shared/info/346168633; public review pending.
+Exact source/share name GeoTrainer::World::Asia::India. Four approved native GIFs
+live, Identify 2 seconds front + 3 seconds answer. Actual delivered APKG 1,330,119
+bytes; SHA-256 f2be9bfec7f28be8579d647cd0f8cacaa2eb81b0e463f2ffe4f071ee016d9ae2.
+Native export identities/content and inline geometry/code exact. Digest verified
+on existing GitHub v2026.10.04; prior tag and six assets preserved. Live homepage,
+four-GIF gallery and release/download links verified. Outside Publisher content,
+deck names/IDs/media unchanged; approved Upload and normal/final required 0,
+integrity ok. Publisher closed; personal Anki untouched. Quota 12/20, no rejection,
+reset date unknown. Do not resubmit India. Next: Russia image batch.
 
 ## Scope and verification
 
@@ -34,7 +37,7 @@ Complete review: www/.tmp/publish-batch-india-subdivisions/index.html (animated)
 india-subdivisions-listing.png. Standard banner, explore/support/GitHub/full-edition
 links; no video links. Natural Earth PD source/edition note included.
 
-## Resume after explicit batch approval
+## Completed publication steps (historical; do not resubmit)
 
 1. Verify approved GIF hashes; deploy exact GIF/front/back assets to immutable
    paths in india-subdivisions.md, signed commit/push, verify live byte hashes.
