@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-image-approval",
+  "status": "approved",
   "notes": 333,
   "cards": 333,
   "native_media_files": 0,
@@ -58,10 +58,11 @@
       "capture_backend": "ffmpeg-x11grab"
     }
   ],
-  "public_images_uploaded": false,
-  "publisher_staged": false,
+  "public_images_uploaded": true,
+  "publisher_staged": true,
   "personal_collection_accessed": false,
   "preview": "www/.tmp/publish-batch-russia-subdivisions/russia-subdivisions-listing.png",
   "source_artifact_sha256": "40beca84d69954824715b65e4ce46a53b09f8f0b0ff17611a9c603159edb95c0",
-  "place_seed": "Native pointer drag brings entire silhouette into map before recording; native screen pixels only"
+  "place_seed": "Native pointer drag brings entire silhouette into map before recording; native screen pixels only",
+  "approval": "Elvis: Great, proceed (2026-10-04); complete listing and four native GIFs"
 }
