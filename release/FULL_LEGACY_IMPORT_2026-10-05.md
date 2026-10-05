@@ -86,7 +86,10 @@ native frame pixel and all other bytes preserved. `release/FULL_EDITION_REVIEW_2
 hashes; the complete held draft is in `release/ankiweb.md`. It includes membership,
 reference-line globe placement and UTC/date conversion, excludes retired flows,
 and links all fifteen submitted components. This new complete listing batch
-still needs review. No full submission or Publisher staging has occurred.
+was approved by Elvis on October 5 (Looks fine to me; GIFs confirmed). The
+contact sheet is review-only; the public listing uses all ten animated GIFs.
+Legacy model-ID decision and supported upgrade remain pending. No full submission
+or Publisher staging has occurred.
 
 Reproduction with Anki 25.09's Python interpreter:
 

@@ -147,3 +147,7 @@ to current model IDs; decision and a supported user-facing upgrade are pending.
 The held complete full-edition listing now has ten native GIFs and reciprocal
 component links, ready for fresh batch review. No full submission/staging.
 See `FULL_LEGACY_IMPORT_2026-10-05.md` and its pinned QA/review receipts.
+
+October 5: Elvis approved the full-edition ten-GIF image batch. The static contact
+sheet is review-only. Legacy model-ID exception and supported upgrade remain
+pending; no full submission/staging. Preserve the approved GIF hashes.
