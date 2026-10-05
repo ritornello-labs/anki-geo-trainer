@@ -1,9 +1,9 @@
 # Russia subdivisions preparation — October 4
 
-Status: corrected public pack and complete listing/four real-Anki GIFs ready for
-Elvis's image approval. No public Russia images uploaded or Publisher staging.
-India shipped at 346168633, exact delivered archive/live gallery verified. Quota
-12/20; no rejection, reset date unknown. Publisher and disposable capture closed.
+Status: Elvis approved the complete listing/four real-Anki GIFs (October 4). Exact
+approved images deployed and live-byte verified. Isolated Publisher reconciled
+and synced: 333 notes/cards, exact source content/identities, all outside content
+unchanged, normal/final sync required 0 and integrity ok. AnkiWeb submission next.
 Personal Anki never accessed or changed.
 
 ## Accepted scope and source correction

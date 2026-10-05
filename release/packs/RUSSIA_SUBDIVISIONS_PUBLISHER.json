@@ -1,0 +1,35 @@
+{
+  "staging": {
+    "profile": "isolated Publisher",
+    "old_notes_cards": 255,
+    "old_exclusive_models": 5,
+    "notes": 333,
+    "cards": 333,
+    "models": 4,
+    "leaf_decks": 4,
+    "media_files": 0,
+    "source_guid_fields_models_templates_css_card_ord_and_leaf_ids": "exact-match",
+    "outside_scope_unchanged_sha256": "07fd8f8a9dfad844f47555c10fd2f5b22018c88823a85ebebce33e31efb38288",
+    "outside_deck_names_and_ids": "unchanged",
+    "all_existing_media": "unchanged",
+    "integrity": "ok",
+    "full_sync_required": true,
+    "export_bytes": 1834898,
+    "export_sha256": "4dd251fe8ab02868c899a7eafbfd9a7013add1926d4e5d218c375a1c973e821d",
+    "source_artifact_sha256": "40beca84d69954824715b65e4ce46a53b09f8f0b0ff17611a9c603159edb95c0"
+  },
+  "sync": {
+    "profile": "isolated Publisher",
+    "direction": "full-upload",
+    "approval": "Prior explicit isolated-Publisher full Upload approval; approved Russia subdivisions publication (2026-10-04)",
+    "full_upload_completed": true,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 333,
+    "cards": 333,
+    "source_content_unchanged": true,
+    "all_publisher_note_content_and_card_identity_unchanged": true,
+    "integrity": "ok",
+    "normal_sync_timestamp_reconciliation": false
+  }
+}
