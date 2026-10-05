@@ -1,0 +1,52 @@
+{
+  "notes": 96,
+  "cards": 96,
+  "entities": 24,
+  "tasks": {
+    "GeoTrainer Which Province \u2014 Argentina Provinces": 24,
+    "GeoTrainer Place \u2014 Argentina Provinces": 24,
+    "GeoTrainer Sketch \u2014 Argentina Provinces": 24,
+    "GeoTrainer Draw \u2014 Argentina Provinces": 24
+  },
+  "contextual_sketch_omissions": [],
+  "models": {
+    "1607403001": "GeoTrainer Which Province \u2014 Argentina Provinces",
+    "1607403002": "GeoTrainer Place \u2014 Argentina Provinces",
+    "1607403005": "GeoTrainer Sketch \u2014 Argentina Provinces",
+    "1607403003": "GeoTrainer Draw \u2014 Argentina Provinces"
+  },
+  "leaf_decks": {
+    "1607403050": "GeoTrainer::World::South America::Argentina::1 Which Province",
+    "1607403051": "GeoTrainer::World::South America::Argentina::2 Place",
+    "1607403054": "GeoTrainer::World::South America::Argentina::3 Sketch",
+    "1607403052": "GeoTrainer::World::South America::Argentina::4 Draw"
+  },
+  "media_files": 0,
+  "source_sha256": "95941081c2f9509b767886117501d3d348ce597191fac8e65e743b9777c964fe",
+  "entity_names": [
+    "Buenos Aires",
+    "Catamarca",
+    "Chaco",
+    "Chubut",
+    "Ciudad de Buenos Aires",
+    "Corrientes",
+    "C\u00f3rdoba",
+    "Entre R\u00edos",
+    "Formosa",
+    "Jujuy",
+    "La Pampa",
+    "La Rioja",
+    "Mendoza",
+    "Misiones",
+    "Neuqu\u00e9n",
+    "R\u00edo Negro",
+    "Salta",
+    "San Juan",
+    "San Luis",
+    "Santa Cruz",
+    "Santa Fe",
+    "Santiago del Estero",
+    "Tierra del Fuego",
+    "Tucum\u00e1n"
+  ]
+}
