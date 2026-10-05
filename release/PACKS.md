@@ -1,6 +1,6 @@
 # GeoTrainer public packs
 
-Historical candidate built 2026-09-30 from the sanitized public source. Its identity/union checks and real-Anki overlapping import smoke passed for that candidate only. **Superseded October 3: publication scope is under reconciliation and the full-edition preview is withdrawn.** Components will ship first and the full edition last. See [scope reconciliation](SCOPE_RECONCILIATION_2026-10-03.md). Elvis approved the existing listing’s full-edition assignment on September 30; original owner share-name verification and Publisher staging remain.
+Historical candidate built 2026-09-30 from the sanitized public source. Its identity/union checks and real-Anki overlapping import smoke passed for that candidate only. **Superseded October 3: publication scope is under reconciliation and the full-edition preview is withdrawn.** Components will ship first and the full edition last. See [scope reconciliation](SCOPE_RECONCILIATION_2026-10-03.md). Elvis approved the existing listing’s full-edition assignment on September 30; original share name `GeoTrainer` is verified, but [actual legacy import compatibility fails](FULL_LEGACY_IMPORT_2026-10-05.md). All fifteen components are submitted; the full update remains held.
 
 The September 30 candidate contained 2,651 notes / 2,673 cards; these are not final release counts. Every pack uses the same scope model IDs, leaf deck IDs, GUIDs, fields, and templates as the full edition. The eight physical-systems QA scopes and the foundations prototype are excluded.
 

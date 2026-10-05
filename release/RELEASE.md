@@ -1,12 +1,26 @@
 # Release plan (M5)
 
-## Current publication pass — October 4, 2026
+## Current publication pass — October 5, 2026
 
-**Components first; full edition last.** Fourteen components submitted: U.S., Brazil, China, Reference Lines & Time, Physical Geography, Plate Tectonics, Islands & Archipelagos, World Countries, India, Russia, Canada, Australia, Mexico and Argentina. Approved native GIFs, exact delivered artifacts on tagged releases and site galleries/release links. Australia is 9 units / 35 cards at 1585515572, exact archive v2026.10.05; source/export/delivered identities exact, outside Publisher content unchanged, approved Upload and normal/final sync clear. Observed quota 17/20, no rejection; reset unknown. Next Indonesia component, full edition last. Mexico City and State of Mexico display-label corrections preserve all geometry and identities; every other full-union note/model unchanged. Indonesia update to 38 provinces authorized October 5: pinned MIT source, 151 cards, all 131 old identities retained, native old→new/component→full overlap passed. Complete listing/four North Kalimantan GIFs await image approval; no public media upload or Publisher staging. Full candidate 3,007 notes / 4,232 cards unpublished; legacy-public-full compatibility still pending. Records: release/packs/*_PREPARATION.md and *_PUBLICATION.json.
+**All fifteen components submitted; full edition held for legacy compatibility.**
+The latest Indonesian Provinces pack is 38 provinces / 151 cards at `1473740061`;
+its four approved native GIFs and exact delivered APKG are archived with the other
+October 5 components on `v2026.10.05`. Owner metadata/source name and delivered
+content/identities are verified; public review is pending. Observed deck quota
+18/20, no rejection; reset unknown. The website gallery/release links are committed
+and locally verified; deployment awaits GitHub Actions runner recovery. The listing
+uses byte-identical approved GIFs at immutable GitHub URLs during that incident.
+
+Fresh component/full overlap checks pass, but the actual July public full release
+fails both standard and merge-note-types imports. Do not publish the current full
+candidate. See [legacy import gate](FULL_LEGACY_IMPORT_2026-10-05.md). Exact original
+share/source name `GeoTrainer` verified for `908455862`. No personal collection
+mutation/import/sync is authorized. Continue scope, source/map correctness, and
+semantic update checks for every subsequent item, as Elvis requested.
 
 The eight physical-systems QA scopes and foundations remain excluded. Surface ocean currents are also withheld pending retirement reconciliation. The September 29 Geo Concepts approval record includes 1,573 cards in a separate source project; Elvis confirmed all accepted families are included; source repository separation is not a release exclusion. Most of the old flow deck was discarded. See SCOPE_RECONCILIATION_2026-10-03.md.
 
-Elvis approved 908455862 as the eventual full edition, retaining its exact original share name (still to verify). Each component will link to that listing with an update-pending note; the final full listing will link back to every shipped component. Real-Anki demos are selected by distinct learning experience, including membership taps, reference-line globe placement and UTC conversion where relevant.
+Elvis approved 908455862 as the eventual full edition, retaining its exact original share name `GeoTrainer` (verified October 5). Each component will link to that listing with an update-pending note; the final full listing will link back to every shipped component. Real-Anki demos are selected by distinct learning experience, including membership taps, reference-line globe placement and UTC conversion where relevant.
 
 The dated records below describe earlier releases; current pack details are in PACKS.md and PACK_VERIFICATION.json.
 

@@ -19,11 +19,11 @@ The animation is captured from real Anki. [Browse all GeoTrainer samples](https:
 
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
-**Release status:** components will ship first, followed by the full edition. The previous full-edition preview and package counts are superseded pending [scope reconciliation](release/SCOPE_RECONCILIATION_2026-10-03.md). The U.S. States component was submitted on October 3; AnkiWeb public review is pending. See [pack records](release/PACKS.md).
+**Release status:** components will ship first, followed by the full edition. The previous full-edition preview and package counts are superseded pending [scope reconciliation](release/SCOPE_RECONCILIATION_2026-10-03.md). All fifteen components are submitted, with public review pending. The full-edition update is held until [legacy import compatibility](release/FULL_LEGACY_IMPORT_2026-10-05.md) is repaired. See [pack records](release/PACKS.md).
 
 Accepted content includes countries and continent silhouettes; subdivisions of ten countries; rivers, lakes, ranges, deserts, plateaus, grasslands and peninsulas; major/minor tectonic plates and boundaries; islands and archipelagos; and reference lines and time zones. The physical-systems QA scopes and foundations prototype remain outside the public packages.
 
-Each scope retains its existing model IDs, leaf deck IDs, and note GUIDs in every pack and the full edition. An overlapping import updates the same notes.
+Each scope retains its existing model IDs, leaf deck IDs, and note GUIDs in every pack and the full edition. Current component/full overlap imports update the same notes. Imports over the July public full edition need a separately verified upgrade; see the legacy import gate above.
 
 ## Component downloads
 
@@ -127,4 +127,6 @@ Mexican States & Mexico City: [AnkiWeb](https://ankiweb.net/shared/info/87550587
 Argentine Provinces & Buenos Aires City: [AnkiWeb](https://ankiweb.net/shared/info/1530523005) (public review pending) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.05) · [Exact delivered APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-argentina-subdivisions.apkg). 23 provinces plus Buenos Aires city / 24 jurisdictions / 96 cards, four approved native Córdoba GIFs. Source labels/geometry/identities retained; native export/public rebuild/zero-duplicate full overlap passed. Rebuild: `python scripts/build_argentina_subdivisions_pack.py`.
 
 
-Indonesia component: current 38-province map / 151 cards; image review pending. Adds North Kalimantan and the four new Papua provinces, preserving all 33 prior region keys and existing note/model/deck identities. Boundary source: MIT Peta Nusa/Laravel Nusa; see [source record](release/packs/INDONESIA_SUBDIVISIONS_SOURCE.json) and [listing draft](release/packs/indonesia-subdivisions.md). Rebuild: `python scripts/build_indonesia_subdivisions_pack.py`. No personal collection rollout is included.
+Indonesian Provinces: [AnkiWeb](https://ankiweb.net/shared/info/1473740061) (public review pending) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.05) · [Exact delivered APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-indonesia-subdivisions.apkg). Current 38-province map / 151 cards and four approved native North Kalimantan GIFs. Adds North Kalimantan and the four new Papua provinces, preserving all 33 prior region keys and 131 existing source identities. Boundary source: MIT Peta Nusa/Laravel Nusa; see [source record](release/packs/INDONESIA_SUBDIVISIONS_SOURCE.json). Rebuild: `python scripts/build_indonesia_subdivisions_pack.py`. No personal collection rollout is included.
+
+All 1,573 accepted Geo Concepts cards are included inside the corresponding Physical Geography, Plate Tectonics, Islands & Archipelagos and World Countries components. Recognition/fact cards and interactive games remain distinct exercises. [Delivered-package audit](release/PUBLIC_CONCEPTS_MERGE_AUDIT_2026-10-05.json).

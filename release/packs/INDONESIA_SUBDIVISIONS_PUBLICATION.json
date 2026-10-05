@@ -1,0 +1,58 @@
+{
+  "status": "submitted-pending-public-review",
+  "date": "2026-10-05",
+  "owner": {
+    "ankiweb_id": "1473740061",
+    "title": "GeoTrainer: Indonesian Provinces",
+    "source_share_name": "GeoTrainer::World::Asia::Indonesia",
+    "owner_title_counts_and_5_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 18,
+    "delivered_bytes": 1625379,
+    "delivered_sha256": "7c5a14e693509350045a62e5982068fb793c5453a150e31c22732599dfba0c8b"
+  },
+  "delivered_identity": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 151,
+    "cards": 151,
+    "bundled_media_files": 0,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 1625379,
+    "delivered_sha256": "7c5a14e693509350045a62e5982068fb793c5453a150e31c22732599dfba0c8b"
+  },
+  "github_release": "v2026.10.05",
+  "github_asset": {
+    "apiUrl": "https://api.github.com/repos/ritornello-labs/anki-geo-trainer/releases/assets/613511935",
+    "contentType": "application/octet-stream",
+    "createdAt": "2026-10-05T19:52:22Z",
+    "digest": "sha256:7c5a14e693509350045a62e5982068fb793c5453a150e31c22732599dfba0c8b",
+    "downloadCount": 0,
+    "id": "RA_kwDOUHtMws4kkXL_",
+    "label": "",
+    "name": "geo-trainer-indonesia-subdivisions.apkg",
+    "size": 1625379,
+    "state": "uploaded",
+    "updatedAt": "2026-10-05T19:52:23Z",
+    "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-indonesia-subdivisions.apkg"
+  },
+  "previous_assets_and_tag_retained": true,
+  "personal_collection_mutated": false,
+  "publisher_closed": true,
+  "website": {
+    "commit": "79c5cd6",
+    "local_checks": {
+      "local_homepage_counts_and_release_links": "verified",
+      "four_gallery_images_decoded": true,
+      "local_gallery_opened": true,
+      "personal_collection_accessed": false
+    },
+    "deployment": "pending GitHub Actions runner delay; live homepage/gallery not yet verified",
+    "approved_listing_image_hosting": {
+      "status": "verified",
+      "base_url": "https://raw.githubusercontent.com/ritornello-labs/www/13b47a66ba9712e9f580c564fe74e06b34b99556/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/",
+      "exact_approved_image_bytes": true,
+      "github_pages_deployment_queued": true
+    }
+  }
+}

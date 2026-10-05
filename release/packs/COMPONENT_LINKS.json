@@ -9,7 +9,7 @@
   },
   "full-edition": {
     "ankiweb_id": "908455862",
-    "status": "components first, update pending"
+    "status": "held: actual July-release import fails safe in-place update; exact share name GeoTrainer verified"
   },
   "brazil-subdivisions": {
     "title": "GeoTrainer: Brazilian States",
@@ -113,6 +113,14 @@
     "ankiweb_url": "https://ankiweb.net/shared/info/1530523005",
     "release": "v2026.10.05",
     "artifact": "geo-trainer-argentina-subdivisions.apkg",
+    "public_review_pending": true
+  },
+  "indonesia-subdivisions": {
+    "title": "GeoTrainer: Indonesian Provinces",
+    "ankiweb_id": "1473740061",
+    "ankiweb_url": "https://ankiweb.net/shared/info/1473740061",
+    "release": "v2026.10.05",
+    "artifact": "geo-trainer-indonesia-subdivisions.apkg",
     "public_review_pending": true
   }
 }
