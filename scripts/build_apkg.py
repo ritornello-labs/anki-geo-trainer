@@ -465,8 +465,15 @@ def build_templates(scope: str, mode: str) -> tuple[str, str, str]:
     # F8 capital cards carry the capital's name + projected point per note.
     cap_attrs = ' data-capname="{{CapitalName}}" data-cappt="{{CapitalPt}}"' if mode == "capital" else ""
 
+    notice = ""
+    if scope == "indonesia-provinces":
+        # Include the upstream MIT notice in every distributed note template,
+        # including standalone Draw, without adding visible card content.
+        notice = "<!--\n" + (ROOT / "data/sources/INDONESIA_DATA_LICENSE.txt").read_text() + "\n-->\n"
+
     def side(which: str) -> str:
         return (
+            notice +
             f'<div class="gt-app" data-scope="{scope}" data-mode="{mode}" '
             'data-target="{{RegionId}}" data-name="{{RegionName}}"' + cap_attrs + " "
             'data-side="' + which + '"></div>\n'

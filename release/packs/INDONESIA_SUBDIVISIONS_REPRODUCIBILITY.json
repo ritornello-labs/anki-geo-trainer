@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "public_main_rebuild_identical_guid_fields_model_templates_css_card_ordinals_leaf_ids": true,
+  "source_notes": 151,
+  "source_cards": 151,
+  "source_sha256": "7f243b9a12a8e9604b9f55bb216f57ad39ea8ace791ee71095ef220ef3768c47",
+  "public_rebuild_sha256": "2aa4347cddcf7862712a52ee95c4763bb0b8d4e73da9c1bbe23cb1262c1e16b7",
+  "zip_creation_metadata_may_differ": true
+}

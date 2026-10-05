@@ -116,3 +116,25 @@ Reference Lines & Time retains the accepted deterministic model, deck, and note 
 ## Accepted island globe placement
 
 The 67 island/country/territory target geometries and continental anchors use Natural Earth public-domain 1:110m, 1:50m and 1:10m datasets. The bundled D3 array/geography code retains the complete original ISC copyright/permission notices from `D3_LICENSES.txt` inside its inline JavaScript. License comments have no visible effect and preserve model, deck and GUID identities. The nine accepted archipelago concept notes use locally generated Natural Earth maps and retain their original Wikipedia references and applicable CC BY-SA prose attribution.
+
+## Indonesia: current 38-province map
+
+The Indonesia scope replaces Natural Earth's historical 33-province map with
+[Peta Nusa / Laravel Nusa](https://github.com/creasico/laravel-nusa) geometry,
+distributed by [AlfianAliM/Indonesia-GeoJSON](https://github.com/AlfianAliM/Indonesia-GeoJSON)
+at commit `169e53b256e99ee9d3f30c863c05e964a45f7008`. Upstream identifies
+Kepmendagri No 300.2.2-2138 Tahun 2025 as its administrative reference; its
+38-feature export is dated 2026-02-16. The generator pins and verifies SHA-256
+`7bf28fb7f8ab4c84904c1f9b0334e09dc36f0dbe92579efa3e84f6caddc98df6`.
+
+License: MIT, copyright 2023 Creasi.co. The full notice is in
+`data/sources/INDONESIA_DATA_LICENSE.txt` and inside each Indonesia card template.
+Nested polygon shells are unioned before projection; tiny islands and detailed
+coastlines are simplified by the existing study-map machinery. This is a
+simplified administrative study map, not a cadastral boundary survey.
+
+All 33 existing region keys are retained, including `ID-PA` for Papua; these are
+stable project identity keys. Five new keys (`ID-KU`, `ID-PS`, `ID-PT`, `ID-PE`,
+`ID-PD`) add North Kalimantan and the four new Papua provinces. Existing model,
+leaf deck and note GUID identities remain unchanged; parent provinces use their
+current reduced boundaries. No personal collection rollout is included.
