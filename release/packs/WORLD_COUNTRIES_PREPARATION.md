@@ -1,15 +1,17 @@
 # World Countries preparation — October 4
 
-Status: final regeneration and publication explicitly approved by Elvis.
-Identify holds 2 seconds on the front and 3 on the answer (5-second loop).
-Default for similar static reveal drills: 2 s question + 3 s answer. Interaction
-demos retain enough time to show the task and feedback; no forced 5-second cap.
-All 70 native frames unchanged, only delays adjusted. Other five GIFs unchanged.
-Publication in progress.
-Approved images deployed; Publisher staging verified, sync/submission in progress.
-Personal Anki never accessed or changed. Islands already shipped at 1449321738;
-do not resubmit any shipped pack. Current observed quota 10/20, no rejection,
-reset unknown. Isolated Publisher is closed for native sync; disposable capture stopped/removed.
+Status: shipped at https://ankiweb.net/shared/info/452389265; public review pending.
+Exact source/share name GeoTrainer::World Countries. All six approved GIFs live;
+Identify uses 2 seconds front + 3 seconds answer, default for similar static drills.
+Canonical actual delivered APKG: 22,911,385 bytes, SHA-256
+`590266fd9af943ae7b754c7677fe0513d5793fdf790af7c8f82ff9b9d90f4f7c`.
+Identities/content/all 77 media match native Publisher export; GitHub digest verified
+on existing v2026.10.04, prior tag and five assets retained. Live homepage, six GIFs
+and gallery/release links verified. Approved full Upload, normal/final required 0,
+all outside Publisher content/deck names/IDs/media unchanged; native integrity ok.
+Publisher and disposable capture closed; personal Anki never accessed or changed.
+Quota 11/20, no rejection, reset unknown. Do not resubmit World Countries.
+Next: India subdivision image batch.
 
 ## Accepted scope and verification
 
@@ -48,7 +50,7 @@ source/edition notes included. Natural Earth PD geometry/maps and applicable
 Wikipedia CC BY-SA attribution retained; accepted September 2026 concepts are a
 snapshot, with linked references for changing memberships.
 
-## Resume after explicit image approval
+## Completed publication procedure (historical; do not resubmit)
 
 1. Verify review GIF hashes; deploy exact images/posters to immutable paths in
    world-countries.md, signed commit/push, verify live hashes.

@@ -1,0 +1,51 @@
+{
+  "owner": {
+    "ankiweb_id": "452389265",
+    "title": "GeoTrainer: World Countries",
+    "source_share_name": "GeoTrainer::World Countries",
+    "owner_title_counts_and_7_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 11,
+    "delivered_bytes": 22911385,
+    "delivered_sha256": "590266fd9af943ae7b754c7677fe0513d5793fdf790af7c8f82ff9b9d90f4f7c"
+  },
+  "delivered_identity": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 900,
+    "cards": 1220,
+    "bundled_media_files": 77,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 22911385,
+    "delivered_sha256": "590266fd9af943ae7b754c7677fe0513d5793fdf790af7c8f82ff9b9d90f4f7c"
+  },
+  "live_media": {
+    "status": "verified",
+    "exact_approved_gifs": [
+      "point.gif",
+      "place.gif",
+      "sketch.gif",
+      "draw.gif",
+      "membership.gif",
+      "concept.gif"
+    ],
+    "identify_front_seconds": 2,
+    "identify_answer_seconds": 3
+  },
+  "archive": {
+    "tag": "v2026.10.04",
+    "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.04",
+    "artifact": "geo-trainer-world-countries.apkg",
+    "bytes": 22911385,
+    "sha256": "590266fd9af943ae7b754c7677fe0513d5793fdf790af7c8f82ff9b9d90f4f7c",
+    "github_asset_digest_verified": true,
+    "previous_tag_and_five_assets_preserved": true
+  },
+  "site": {
+    "live_homepage_counts_and_release_links": "verified",
+    "six_gallery_images_decoded": true,
+    "live_gallery_opened": true,
+    "personal_collection_accessed": false
+  },
+  "publisher_closed": true
+}
