@@ -1,0 +1,35 @@
+{
+  "staging": {
+    "profile": "isolated Publisher",
+    "old_notes_cards": 39,
+    "old_exclusive_models": 5,
+    "notes": 52,
+    "cards": 52,
+    "models": 4,
+    "leaf_decks": 4,
+    "media_files": 0,
+    "source_guid_fields_models_templates_css_card_ord_and_leaf_ids": "exact-match",
+    "outside_scope_unchanged_sha256": "c6a6877bb43fe9f5760db5c03670c783e8352981c74266fa1c0e2868cad8d846",
+    "outside_deck_names_and_ids": "unchanged",
+    "all_existing_media": "unchanged",
+    "integrity": "ok",
+    "full_sync_required": true,
+    "export_bytes": 1396095,
+    "export_sha256": "9a87f9d52c3b31d535d437670d979fc018b2d1131535cf0d957938806b6a7969",
+    "source_artifact_sha256": "bbb243bb10665321a92e27aa2a42b7772b8b47588d5985baa2337a878a82a9e6"
+  },
+  "sync": {
+    "profile": "isolated Publisher",
+    "direction": "full-upload",
+    "approval": "Prior explicit isolated-Publisher full Upload approval; approved Canada subdivisions publication (2026-10-04)",
+    "full_upload_completed": true,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 52,
+    "cards": 52,
+    "source_content_unchanged": true,
+    "all_publisher_note_content_and_card_identity_unchanged": true,
+    "integrity": "ok",
+    "normal_sync_timestamp_reconciliation": true
+  }
+}

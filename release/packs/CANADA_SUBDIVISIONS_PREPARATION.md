@@ -1,9 +1,10 @@
 # Canada subdivisions preparation — October 4
 
-Status: complete listing and four native Ontario GIFs await Elvis's batch approval.
-No public Canada image upload or Publisher staging. Russia shipped and archived at
-2018363684; live gallery verified, quota 13/20. Reset date unknown; no rejection.
-Personal Anki never accessed or changed. Task-owned Publisher/capture closed.
+Status: Elvis approved the complete listing and four native Ontario GIFs. Exact
+approved GIFs deployed and live-byte verified. Isolated Publisher reconciled
+39 legacy notes/cards to approved 52, all source content/identities exact, outside
+content/deck names/IDs/media unchanged. Approved Upload and normal/final required 0;
+integrity ok. Submission next; personal Anki never accessed or changed.
 
 ## Accepted scope and verification
 
