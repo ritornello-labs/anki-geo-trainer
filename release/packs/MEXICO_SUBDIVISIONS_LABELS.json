@@ -1,0 +1,18 @@
+{
+  "scope": "publication source only; personal Anki excluded",
+  "changed": [
+    {
+      "region_id": "MX-DIF",
+      "before": "Distrito Federal",
+      "after": "Mexico City"
+    },
+    {
+      "region_id": "MX-MEX",
+      "before": "M\u00e9xico",
+      "after": "State of Mexico"
+    }
+  ],
+  "all_geometry_region_ids_guid_model_leaf_identity_spaces": "unchanged",
+  "reference": "https://www.inegi.org.mx/app/areasgeograficas/",
+  "official_state_name": "M\u00e9xico; English display State of Mexico disambiguates it from the country"
+}

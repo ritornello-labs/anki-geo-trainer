@@ -1,9 +1,10 @@
 # Australia subdivisions preparation — October 4
 
-Status: complete listing/four native Queensland GIFs await Elvis's image approval.
-No public Australia media upload or Publisher staging. Canada shipped at 1166705214,
-exact archive and live gallery verified. Quota 14/20, no rejection; reset unknown.
-Task-owned Publisher/capture closed. Personal Anki never accessed or changed.
+Status: complete listing/four native Queensland GIFs approved October 5. Exact
+approved media deployed and live-byte verified. Isolated Publisher reconciled
+27 legacy notes/cards to approved 35; source content/identities exact and all
+outside content/deck names/IDs/media unchanged. Approved full Upload completed,
+normal/final required 0, integrity ok. AnkiWeb submission next. Personal Anki untouched.
 
 ## Accepted scope and verification
 
