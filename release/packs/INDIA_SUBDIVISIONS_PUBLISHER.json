@@ -1,0 +1,35 @@
+{
+  "staging": {
+    "profile": "isolated Publisher",
+    "old_notes_cards": 108,
+    "old_exclusive_models": 5,
+    "notes": 140,
+    "cards": 140,
+    "models": 4,
+    "leaf_decks": 4,
+    "media_files": 0,
+    "source_guid_fields_models_templates_css_card_ord_and_leaf_ids": "exact-match",
+    "outside_scope_unchanged_sha256": "b45adddecc5cd6fb73df50c42caed3a8131f706cd9231f9a2e2046a8498af7dd",
+    "outside_deck_names_and_ids": "unchanged",
+    "all_existing_media": "unchanged",
+    "integrity": "ok",
+    "full_sync_required": true,
+    "export_bytes": 1335058,
+    "export_sha256": "be9cf6eb9dcaac9091cdac1d049d1bff33778268291e7c193795c933e43a161f",
+    "source_artifact_sha256": "1699336278cce82c1354488259f193c0d3c133af18e3e0eca91df8440c1c2a69"
+  },
+  "sync": {
+    "profile": "isolated Publisher",
+    "direction": "full-upload then normal reconciliation",
+    "approval": "Prior explicit isolated-Publisher full Upload approval; approved India subdivisions publication (2026-10-04)",
+    "full_upload_completed": true,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 140,
+    "cards": 140,
+    "normal_sync_indicator_reconciliation": "Native round-trip of existing dayLearnFirst, original value restored before sync; full-upload mod/ls differed by 1 ms; normal sync finalize cleared status",
+    "source_content_unchanged": true,
+    "all_publisher_note_content_and_card_identity_unchanged": true,
+    "integrity": "ok"
+  }
+}

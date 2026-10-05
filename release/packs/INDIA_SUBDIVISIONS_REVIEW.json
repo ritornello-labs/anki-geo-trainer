@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-image-approval",
+  "status": "approved",
   "notes": 140,
   "cards": 140,
   "native_media_files": 0,
@@ -58,8 +58,9 @@
       "capture_backend": "ffmpeg-x11grab"
     }
   ],
-  "public_images_uploaded": false,
-  "publisher_staged": false,
+  "public_images_uploaded": true,
+  "publisher_staged": true,
   "personal_collection_accessed": false,
-  "preview": "www/.tmp/publish-batch-india-subdivisions/india-subdivisions-listing.png"
+  "preview": "www/.tmp/publish-batch-india-subdivisions/india-subdivisions-listing.png",
+  "approval": "Elvis: Approved (2026-10-04), complete listing and four native GIFs"
 }
