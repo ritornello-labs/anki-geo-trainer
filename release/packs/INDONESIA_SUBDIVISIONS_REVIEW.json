@@ -89,5 +89,8 @@
   "personal_collection_accessed_read_only": true,
   "preview": "www/.tmp/publish-batch-indonesia-subdivisions/indonesia-subdivisions-listing.png",
   "approval": "Elvis: Indonesia is approved (2026-10-05)",
-  "approved_date": "2026-10-05"
+  "approved_date": "2026-10-05",
+  "listing_image_base_url": "https://raw.githubusercontent.com/ritornello-labs/www/13b47a66ba9712e9f580c564fe74e06b34b99556/media/ankiweb/2026-10-05-v1/geo-trainer-indonesia-subdivisions/",
+  "image_bytes_unchanged": true,
+  "hosting_note": "Immutable public GitHub commit image URLs used during confirmed GitHub Actions runner-delay incident; same approved image bytes."
 }
