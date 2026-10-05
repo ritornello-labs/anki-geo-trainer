@@ -1,0 +1,67 @@
+{
+  "status": "awaiting-image-approval",
+  "notes": 333,
+  "cards": 333,
+  "native_media_files": 0,
+  "images": [
+    {
+      "file": "point.gif",
+      "sha256": "71798f2410613ed9de239746d42ea2e0ec5e8ea020cd043af8d2bb9c3f23125e",
+      "bytes": 103308,
+      "frames": 70,
+      "distinct_frames": 2,
+      "width": 760,
+      "height": 618,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab",
+      "playback_timing": {
+        "method": "GIF delay metadata only; all 70 native frame pixels and all other bytes unchanged",
+        "original_sha256": "b7eab0e7c7026c13336d974411b6861cc0911a3b4ec3c1aa742a542fca69a3fc",
+        "revised_sha256": "71798f2410613ed9de239746d42ea2e0ec5e8ea020cd043af8d2bb9c3f23125e",
+        "front_seconds": 2,
+        "answer_seconds": 3,
+        "loop_seconds": 5,
+        "pixel_identity_verified": true
+      }
+    },
+    {
+      "file": "place.gif",
+      "sha256": "7064d9350a4557ffcad252faf000e99c6f23fe73ca5aca666e67eefe9750b12b",
+      "bytes": 236509,
+      "frames": 70,
+      "distinct_frames": 21,
+      "width": 860,
+      "height": 608,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "sketch.gif",
+      "sha256": "4a4a37fc9b186a1f7770b65ae55be2e8071b879d7acc75b86994ef9e4edddf4c",
+      "bytes": 130233,
+      "frames": 110,
+      "distinct_frames": 58,
+      "width": 760,
+      "height": 618,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    },
+    {
+      "file": "draw.gif",
+      "sha256": "fc0f44d27c353c11caaadb76816b32c03264cda6a2d00537f2b04776f3ed5199",
+      "bytes": 134938,
+      "frames": 118,
+      "distinct_frames": 82,
+      "width": 760,
+      "height": 856,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
+      "capture_backend": "ffmpeg-x11grab"
+    }
+  ],
+  "public_images_uploaded": false,
+  "publisher_staged": false,
+  "personal_collection_accessed": false,
+  "preview": "www/.tmp/publish-batch-russia-subdivisions/russia-subdivisions-listing.png",
+  "source_artifact_sha256": "40beca84d69954824715b65e4ce46a53b09f8f0b0ff17611a9c603159edb95c0",
+  "place_seed": "Native pointer drag brings entire silhouette into map before recording; native screen pixels only"
+}

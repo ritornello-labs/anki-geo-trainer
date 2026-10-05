@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "public_source_reproduces": "GUIDs/fields/models/templates/CSS/card ordinals/canonical leaf IDs/names",
+  "notes": 333,
+  "cards": 333,
+  "label_correction_only": "RegionName and embedded map labels; all identities/geometry unchanged",
+  "full_candidate_notes": 2987,
+  "full_candidate_cards": 4212,
+  "every_non_russia_note_model_content_unchanged": true,
+  "media_files": 0
+}
