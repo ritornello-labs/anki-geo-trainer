@@ -1,4 +1,4 @@
-name: Privacy check
+name: Publication checks
 
 on:
   pull_request:
@@ -8,9 +8,45 @@ permissions:
   contents: read
 
 jobs:
-  tracked-artifacts:
+  publication:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Reject live collection snapshots
-        run: python3 scripts/check_private_artifacts.py
+        with:
+          fetch-depth: 0
+      - name: Check public tree and incoming history
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          # Suppress incidental output too; diagnostics belong on the local machine.
+          if ! python3 scripts/check_private_artifacts.py >/dev/null 2>&1; then
+            echo 'Publication check failed. Run the local checker for details.'
+            exit 1
+          fi
+          if [[ "${{ github.event_name }}" == 'pull_request' ]]; then
+            range='${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}'
+          elif [[ -n "$BEFORE" && "$BEFORE" != '0000000000000000000000000000000000000000' ]] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            range="$BEFORE..HEAD"
+          else
+            # Existing history is audited separately; a new branch is compared
+            # with main so old, already-public findings do not disable the gate.
+            if git rev-parse --verify origin/main >/dev/null 2>&1; then
+              range='origin/main..HEAD'
+            else
+              range='HEAD'
+            fi
+          fi
+          if ! python3 scripts/check_private_artifacts.py --history --ref "$range" >/dev/null 2>&1; then
+            echo 'Publication check failed. Run the local checker for details.'
+            exit 1
+          fi
+          echo 'Publication checks passed.'
+      - name: Exercise publication guards
+        shell: bash
+        run: |
+          if ! python3 -m unittest discover -s tests -p 'test_publication*.py' >/dev/null 2>&1; then
+            echo 'Publication regression tests failed. Run them locally for details.'
+            exit 1
+          fi
+          echo 'Publication regression tests passed.'

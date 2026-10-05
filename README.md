@@ -132,3 +132,7 @@ Indonesian Provinces: [AnkiWeb](https://ankiweb.net/shared/info/1473740061) (pub
 All 1,573 accepted Geo Concepts cards are included inside the corresponding Physical Geography, Plate Tectonics, Islands & Archipelagos and World Countries components. Recognition/fact cards and interactive games remain distinct exercises. [Delivered-package audit](release/PUBLIC_CONCEPTS_MERGE_AUDIT_2026-10-05.json).
 
 The prepared next full edition includes [Markdown descriptions for all 159 decks](release/DECK_DESCRIPTIONS_2026-10-05.md), with study guidance and Wikipedia references. [Native description/identity verification](release/FULL_DECK_DESCRIPTIONS_2026-10-05.json) passes. The revised ten-GIF batch varies its examples across Italy, California, France and Maharashtra; fresh image review and a supported July upgrade remain pending. Already archived component bytes are unchanged.
+
+## Contributor publication checks
+
+Before publishing changes or release files, follow [the publication process](release/PUBLICATION_PROCESS.md). Install the local commit/push guards on each publishing machine; live recovery artifacts remain outside Git.

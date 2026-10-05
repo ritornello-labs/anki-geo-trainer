@@ -115,6 +115,8 @@ above remain in force. See `release/ENCLAVE_FIX_2026-09-22.md` for verification.
 
 ## Before publishing (checklist)
 
+Every upload also requires the exact-byte gate in [PUBLICATION_PROCESS.md](PUBLICATION_PROCESS.md). Recheck any Publisher-exported package; a source-build receipt cannot attest to different bytes.
+
 - [x] MIT `LICENSE` added (2026-07-06); tracked-tree secret/absolute-path scan clean.
 - [x] Full history/tree secret and absolute-path scan passed; GitHub repo made public (2026-07-13).
 - [x] Actual Anki reviewer screenshots captured to `release/screenshots/` (2026-07-15).

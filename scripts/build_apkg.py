@@ -621,12 +621,21 @@ def scope_decks(scope: str, test_ids: bool = False) -> tuple[list, int]:
     return decks, total
 
 
+def check_built_package(path: Path) -> None:
+    from prepare_public_release import prepare
+
+    path.with_suffix(".publication.json").unlink(missing_ok=True)
+    receipt = prepare(path, set())
+    path.with_suffix(".publication.json").write_text(json.dumps(receipt, indent=2) + "\n")
+
+
 def build_scope(scope: str, test_ids: bool = False) -> Path:
     pack = SCOPE_PACKS[scope]
     decks, total = scope_decks(scope, test_ids=test_ids)
     DIST.mkdir(parents=True, exist_ok=True)
     out = DIST / (pack["apkg"] if not test_ids else pack["apkg"].replace(".apkg", "-test.apkg"))
     genanki.Package(decks).write_to_file(str(out))
+    check_built_package(out)
     size_kb = out.stat().st_size / 1024
     print(f"wrote {out}  ({len(decks)} decks, {total} notes, {size_kb:.0f} KB)")
     return out
@@ -708,6 +717,7 @@ def build_public_pack(name: str, scopes: list[str]) -> Path:
             package.media_files.extend(files)
     package.media_files = sorted(set(package.media_files))
     package.write_to_file(str(out))
+    check_built_package(out)
     print(f"wrote {out} ({sum(bool(d.notes) for d in decks)} leaves, {len(decks)} described decks, {sum(len(d.notes) for d in decks)} notes)")
     return out
 

@@ -12,7 +12,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const DIR = process.env.GEOTRAINER_BLOC_FIXTURE_DIR ??
+const DIR = process.env.GEOTRAINER_BLOC_FIXTURES ?? process.env.GEOTRAINER_BLOC_FIXTURE_DIR ??
   fileURLToPath(new URL("../../world-geography-concepts/out/qa/drill/", import.meta.url));
 
 test.skip(!existsSync(resolve(DIR, "asean-front.html")),

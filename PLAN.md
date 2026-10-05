@@ -634,3 +634,7 @@ remain the listing format. The complete revised batch needs fresh approval;
 FULL_EDITION_REVIEW_2026-10-05.json pins current media hashes. No new public
 media upload, Publisher staging, full submission or personal collection access.
 Build accepted full only with `python scripts/build_apkg.py --public-full`.
+
+## Publication safety — October 5, 2026
+
+Local staged-object and outgoing-history gates, generic public CI, external live recovery directories, and exact-artifact checks are implemented. See [the publication process](release/PUBLICATION_PROCESS.md). Private audit details are outside Git; the existing release/upgrade holds remain in force.
