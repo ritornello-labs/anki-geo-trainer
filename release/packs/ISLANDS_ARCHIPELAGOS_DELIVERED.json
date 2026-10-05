@@ -1,0 +1,22 @@
+{
+  "owner": {
+    "ankiweb_id": "1449321738",
+    "title": "GeoTrainer: Islands & Archipelagos",
+    "source_share_name": "GeoTrainer::Islands & Archipelagos",
+    "owner_title_counts_and_3_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 10,
+    "delivered_bytes": 3953028,
+    "delivered_sha256": "8aecec15e354a1d6f00137d2f54ac306a7b714a9a58d6968e47c485b704730ec"
+  },
+  "identity": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 76,
+    "cards": 112,
+    "bundled_media_files": 10,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 3953028,
+    "delivered_sha256": "8aecec15e354a1d6f00137d2f54ac306a7b714a9a58d6968e47c485b704730ec"
+  }
+}
