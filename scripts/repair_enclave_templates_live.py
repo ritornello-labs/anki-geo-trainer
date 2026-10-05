@@ -15,6 +15,7 @@ from datetime import datetime
 from pathlib import Path
 
 from build_apkg import guard_js
+from private_artifacts import private_directory, validate_private_path
 from rollout_live_update import invoke, normalized_scheduling
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,6 +24,7 @@ BUNDLE_RE = re.compile(r'(window.GT_BUNDLES\["([^"]+)"\]=JSON.parse\(atob\(")([A
 
 
 def dump(path, obj):
+    path = validate_private_path(Path(path))
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, ensure_ascii=True, indent=2) + '\n')
 
@@ -97,7 +99,7 @@ def cards_snapshot(ids):
 
 def prepare():
     stamp = datetime.now().astimezone().strftime('%Y%m%dT%H%M%S%z')
-    out = ROOT / 'backups/live-imports' / f'{stamp}-enclave-repair'
+    out = private_directory('live-imports') / f'{stamp}-enclave-repair'
     plan = {'models': [], 'collectionCardCount': len(invoke('findCards', query='')),
             'collectionNoteCount': len(invoke('findNotes', query=''))}
     errors = []
@@ -130,6 +132,7 @@ def prepare():
 
 
 def apply(path):
+    path = validate_private_path(Path(path))
     plan = json.loads(path.read_text())
     out = path.parent
     assert not (out / 'verification.json').exists(), 'Already applied and verified'

@@ -15,8 +15,9 @@ from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+from private_artifacts import private_directory, validate_private_path
+
 ROOT = Path(__file__).resolve().parent.parent
-SNAPSHOTS = ROOT / "backups" / "live-imports"
 DAILY_ROOT = "Decks::Geography::GeoTrainer"
 QA_ROOT = "Process::GeoTrainer QA"
 IMPORT_ROOT = "GeoTrainer"
@@ -507,9 +508,10 @@ def main() -> None:
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--resume-before", type=Path)
     args = parser.parse_args()
+    SNAPSHOTS = private_directory("live-imports")
 
     if args.resume_before:
-        report = resume_verify(args.resume_before.resolve())
+        report = resume_verify(validate_private_path(args.resume_before))
         print(json.dumps(report, indent=2, sort_keys=True))
         return
 

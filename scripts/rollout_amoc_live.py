@@ -14,9 +14,10 @@ from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+from private_artifacts import private_directory
+
 ROOT = Path(__file__).resolve().parent.parent
 PACKAGE = ROOT / "dist" / "geo-trainer-atlantic-overturning.apkg"
-SNAPSHOTS = ROOT / "backups" / "live-imports"
 DAILY_ROOT = "Decks::Geography::GeoTrainer"
 QA_ROOT = "Process::GeoTrainer QA"
 IMPORT_ROOT = "GeoTrainer"
@@ -226,6 +227,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
+    SNAPSHOTS = private_directory("live-imports")
 
     before = preflight()
     if not args.apply:

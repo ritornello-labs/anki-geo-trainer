@@ -25,8 +25,9 @@ from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+from private_artifacts import private_directory
+
 ROOT = Path(__file__).resolve().parent.parent
-BACKUPS = ROOT / "backups" / "live-imports"
 LIVE_ROOT = "Process::Geo Concepts Review::GeoTrainer"
 WATCHED = ("Process::Geo Concepts Review", "Decks::Geography::GeoTrainer")
 IMPORT_ROOT = "GeoTrainer"
@@ -87,6 +88,7 @@ def main() -> int:
     parser.add_argument("--scope", action="append", choices=sorted(SCOPES),
                         help="limit to these scopes (default: all)")
     args = parser.parse_args()
+    BACKUPS = private_directory("live-imports")
     scopes = {k: SCOPES[k] for k in (args.scope or SCOPES)}
 
     stamp = datetime.now().strftime("%Y%m%dT%H%M%S")

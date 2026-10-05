@@ -15,8 +15,9 @@ from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+from private_artifacts import private_directory
+
 ROOT = Path(__file__).resolve().parent.parent
-SNAPSHOTS = ROOT / "backups" / "live-moves"
 DAILY_ROOT = "Decks::Geography::GeoTrainer"
 QA_ROOT = "Process::GeoTrainer QA"
 
@@ -246,6 +247,7 @@ def main() -> None:
     )
     action.add_argument("--restore", action="store_true", help="move Process QA → daily")
     args = parser.parse_args()
+    SNAPSHOTS = private_directory("live-moves")
 
     if invoke("version") < 6:
         raise RuntimeError("AnkiConnect version 6 is required")

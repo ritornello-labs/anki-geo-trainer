@@ -13,8 +13,9 @@ from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+from private_artifacts import private_directory, validate_private_path
+
 ROOT = Path(__file__).resolve().parent.parent
-BACKUPS = ROOT / "backups" / "live-imports"
 PACKAGE = ROOT / "dist" / "geo-trainer-all.apkg"
 LIVE_ROOT = "Decks::Geography::GeoTrainer"
 IMPORT_ROOT = "GeoTrainer"
@@ -217,6 +218,7 @@ def main() -> None:
         help="finish cleanup/verification after an interrupted import using this snapshot",
     )
     args = parser.parse_args()
+    BACKUPS = private_directory("live-imports")
 
     stamp = datetime.now().astimezone().strftime("%Y%m%dT%H%M%S%z")
     before_dir = BACKUPS / f"{stamp}-before"
@@ -226,7 +228,7 @@ def main() -> None:
         raise RuntimeError("AnkiConnect version 6 is required")
 
     if args.resume_before:
-        before = read_snapshot(args.resume_before.resolve())
+        before = read_snapshot(validate_private_path(args.resume_before))
         strays = invoke("findCards", query=f'deck:"{IMPORT_ROOT}"')
         if strays:
             raise RuntimeError(f"cannot resume: {len(strays)} cards remain under import root")
@@ -244,7 +246,7 @@ def main() -> None:
             json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )
         print(json.dumps(report, indent=2, sort_keys=True))
-        print(f"before: {args.resume_before.resolve()}")
+        print(f"before: {validate_private_path(args.resume_before)}")
         print(f"after:  {after_dir}")
         return
 

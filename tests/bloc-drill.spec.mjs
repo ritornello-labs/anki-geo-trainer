@@ -11,7 +11,7 @@ import { createServer } from "node:http";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-const DIR = "/Users/elvis/Code/anki-studying/world-geography-concepts/out/qa/drill";
+const DIR = resolve(process.env.GEOTRAINER_BLOC_FIXTURES || "../world-geography-concepts/out/qa/drill");
 
 test.skip(!existsSync(resolve(DIR, "asean-front.html")),
   "bloc drill fixtures not built (run `make drill-fixtures` in world-geography-concepts)");
