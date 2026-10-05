@@ -58,5 +58,13 @@
     "release": "v2026.10.04",
     "artifact": "geo-trainer-islands-archipelagos.apkg",
     "public_review_pending": true
+  },
+  "world-countries": {
+    "title": "GeoTrainer: World Countries",
+    "ankiweb_id": "452389265",
+    "ankiweb_url": "https://ankiweb.net/shared/info/452389265",
+    "release": "v2026.10.04",
+    "artifact": "geo-trainer-world-countries.apkg",
+    "public_review_pending": true
   }
 }
