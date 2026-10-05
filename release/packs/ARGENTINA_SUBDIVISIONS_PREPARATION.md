@@ -1,9 +1,11 @@
 # Argentina subdivisions preparation — October 5
 
-Status: complete listing/four native Córdoba GIFs approved by Elvis October 5. Exact media deployed; Publisher reconciled/synced 96 cards, submission next.
-Mexico shipped at 875505875; exact v2026.10.05 artifact/live gallery verified.
-Quota 16/20, no rejection; reset unknown. No Argentina public media upload or
-Publisher staging. Task-owned Publisher closed; personal Anki never accessed.
+Status: shipped at 1530523005; public review pending. Approved listing/four native
+Córdoba GIFs; exact delivered APKG on v2026.10.05, prior assets/tag preserved.
+Owner counts/title/share-name/image URLs verified. Website deployed, live verification
+pending. All outside Publisher content/deck names/IDs/media unchanged; approved
+Upload and normal/final sync clear. Task-owned Publisher closed. Quota 17/20,
+no rejection/reset unknown. Personal Anki untouched. Do not resubmit.
 
 ## Accepted scope and identity
 

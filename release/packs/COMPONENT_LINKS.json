@@ -106,5 +106,13 @@
     "release": "v2026.10.05",
     "artifact": "geo-trainer-mexico-subdivisions.apkg",
     "public_review_pending": true
+  },
+  "argentina-subdivisions": {
+    "title": "GeoTrainer: Argentine Provinces & Buenos Aires City",
+    "ankiweb_id": "1530523005",
+    "ankiweb_url": "https://ankiweb.net/shared/info/1530523005",
+    "release": "v2026.10.05",
+    "artifact": "geo-trainer-argentina-subdivisions.apkg",
+    "public_review_pending": true
   }
 }
