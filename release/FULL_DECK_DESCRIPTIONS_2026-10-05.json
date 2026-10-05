@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "described_decks": 159,
+  "card_bearing_leaves": 114,
+  "described_containers": 45,
+  "notes": 3007,
+  "cards": 4232,
+  "markdown_enabled_all": true,
+  "existing_source_leaf_deck_ids_model_ids_guid_fields_templates_css_unchanged": true,
+  "source_card_ordinals_and_named_assignments_unchanged": true,
+  "native_render_markdown_links_verified": true,
+  "descriptions_retained_after_fifteen_old_component_imports": 159,
+  "fresh_native_import_maps_deck_ids_by_name": "native behavior; package canonical IDs are verified directly against previous source package",
+  "source_sha256": "4d0111d4877db92bc9e41124697b7fe6eeb2cd13d858e21e5ca86dbfe9ff7a1d",
+  "described_full_sha256": "e5319f59c2c2fd372b0aa2992e2db959f4dcf6c139753c154f35c71ddc3c541f",
+  "personal_collection_accessed": false,
+  "publisher_staged": false,
+  "component_descriptions_refresh_pending": true
+}

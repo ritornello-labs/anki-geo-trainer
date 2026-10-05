@@ -28,6 +28,7 @@ import json
 from pathlib import Path
 
 import genanki
+from markdown_decks import describe_public_decks
 from build_reference_lines_qa import reference_decks
 from build_time_zone_atlas_qa import atlas_decks
 from globe_placement import build_globe_scope, globe_deck
@@ -700,7 +701,7 @@ def public_pack_decks(scopes: list[str]) -> list:
         if set(PUBLIC_PACKS[name]).issubset(scopes):
             concepts, _ = concept_pack(name)
             decks.extend(concepts)
-    return decks
+    return describe_public_decks(decks)
 
 
 def build_public_pack(name: str, scopes: list[str]) -> Path:
@@ -717,7 +718,7 @@ def build_public_pack(name: str, scopes: list[str]) -> Path:
     package.media_files = sorted(set(package.media_files))
     package.write_to_file(str(out))
     check_built_package(out)
-    print(f"wrote {out} ({len(decks)} leaves, {sum(len(d.notes) for d in decks)} notes)")
+    print(f"wrote {out} ({sum(bool(d.notes) for d in decks)} leaves, {len(decks)} described decks, {sum(len(d.notes) for d in decks)} notes)")
     return out
 
 
@@ -734,11 +735,15 @@ def main() -> None:
         "--scope", default="all", choices=["all", "world-islands-globe", *SCOPE_PACKS.keys()]
     )
     ap.add_argument("--public-packs", action="store_true", help="build accepted modular public packs")
+    ap.add_argument("--public-full", action="store_true", help="build only the accepted public full edition")
     ap.add_argument("--combined", action="store_true",
                     help="also write one geo-trainer-all.apkg with the whole tree")
     ap.add_argument("--test-ids", action="store_true",
                     help="offset ids and rename (emulator re-import testing only)")
     args = ap.parse_args()
+    if args.public_full:
+        build_combined()
+        return
     if args.public_packs:
         for name, pack_scopes in PUBLIC_PACKS.items():
             build_public_pack(name, pack_scopes)

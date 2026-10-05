@@ -153,3 +153,34 @@ See `FULL_LEGACY_IMPORT_2026-10-05.md` and its pinned QA/review receipts.
 October 5: Elvis approved the full-edition ten-GIF image batch. The static contact
 sheet is review-only. Legacy model-ID exception and supported upgrade remain
 pending; no full submission/staging. Preserve the approved GIF hashes.
+
+
+### October 5: described public tree and varied GIF revision
+
+AnkiWeb owner catalog reports 35 downloads for listing 908455862, modified
+July 15. Downloads are not unique users, include our QA download and have no
+version breakdown. Treat July users as potentially present; the model-ID
+exception remains pending. See FULL_LEGACY_DOWNLOAD_COUNT_2026-10-05.json.
+
+All 159 accepted public decks now carry native Markdown descriptions and
+Wikipedia background links (114 leaves and 45 explicit containers), including
+a Köppen climate-code guide. The source retains every existing leaf deck ID,
+model ID, GUID, field and card-template/CSS value. Anki 25.09 imports and
+rendered links pass; all descriptions survive reimport of the fifteen delivered
+components. Their already archived bytes remain unchanged; description-only
+component refreshes are queued separately. The described full package still has
+3,007 notes / 4,232 cards. See FULL_DECK_DESCRIPTIONS_2026-10-05.json and
+DECK_DESCRIPTIONS_2026-10-05.md. Native legacy migration proof passes again with
+this exact package; FULL_DESCRIBED_LEGACY_UPGRADE_2026-10-05.json. This proof
+remains a disposable test, not a supported upgrader for users.
+
+Elvis requested subject variety after the earlier image approval. Revised batch:
+Italy Identify; California Place (new native pointer recording); France Sketch;
+Maharashtra, India Draw; EU membership; Amazon trace; Japan archipelago; Tropic
+of Cancer; UTC/date conversion; tropical moist forest concept. Ten animated GIFs
+remain the listing format. The complete revised batch needs fresh approval;
+FULL_EDITION_REVIEW_2026-10-05.json pins current media hashes. No new public
+media upload, Publisher staging, full submission or personal collection access.
+Build accepted full only with `python scripts/build_apkg.py --public-full`.
+
+Publication checker found an inherited hard-coded home path in the membership-drill test. The test now uses a sibling repository URL or `GEOTRAINER_BLOC_FIXTURE_DIR`; all seven existing Chromium membership tests pass. No card template or content changes.
