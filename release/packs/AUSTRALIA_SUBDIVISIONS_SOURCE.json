@@ -1,0 +1,39 @@
+{
+  "notes": 35,
+  "cards": 35,
+  "entities": 9,
+  "entity_names": [
+    "Australian Capital Territory",
+    "Jervis Bay Territory",
+    "New South Wales",
+    "Northern Territory",
+    "Queensland",
+    "South Australia",
+    "Tasmania",
+    "Victoria",
+    "Western Australia"
+  ],
+  "tasks": {
+    "GeoTrainer Which State \u2014 Australia States": 9,
+    "GeoTrainer Place \u2014 Australia States": 9,
+    "GeoTrainer Sketch \u2014 Australia States": 8,
+    "GeoTrainer Draw \u2014 Australia States": 9
+  },
+  "contextual_sketch_omissions": [
+    "Jervis Bay Territory"
+  ],
+  "models": {
+    "1607402001": "GeoTrainer Which State \u2014 Australia States",
+    "1607402002": "GeoTrainer Place \u2014 Australia States",
+    "1607402005": "GeoTrainer Sketch \u2014 Australia States",
+    "1607402003": "GeoTrainer Draw \u2014 Australia States"
+  },
+  "leaf_decks": {
+    "1607402050": "GeoTrainer::World::Oceania::Australia::1 Which State",
+    "1607402051": "GeoTrainer::World::Oceania::Australia::2 Place",
+    "1607402054": "GeoTrainer::World::Oceania::Australia::3 Sketch",
+    "1607402052": "GeoTrainer::World::Oceania::Australia::4 Draw"
+  },
+  "media_files": 0,
+  "source_sha256": "945edb42aaca8f32b9bac44ad7658aeefeebeae99071d3ee3e1c6ef03654a8e2"
+}

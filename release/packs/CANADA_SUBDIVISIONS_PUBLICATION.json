@@ -1,0 +1,47 @@
+{
+  "status": "submitted-pending-public-review",
+  "date": "2026-10-04",
+  "owner": {
+    "ankiweb_id": "1166705214",
+    "title": "GeoTrainer: Canadian Provinces & Territories",
+    "source_share_name": "GeoTrainer::World::North America::Canada",
+    "owner_title_counts_and_5_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 14,
+    "delivered_bytes": 1396031,
+    "delivered_sha256": "19ec4db43a311c79bf5e157fdee08a0211de643a9209d57401f637b9a170b1f0"
+  },
+  "delivered_identity": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 52,
+    "cards": 52,
+    "bundled_media_files": 0,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 1396031,
+    "delivered_sha256": "19ec4db43a311c79bf5e157fdee08a0211de643a9209d57401f637b9a170b1f0"
+  },
+  "github_release": "v2026.10.04",
+  "github_asset": {
+    "apiUrl": "https://api.github.com/repos/ritornello-labs/anki-geo-trainer/releases/assets/611503259",
+    "contentType": "application/octet-stream",
+    "createdAt": "2026-10-05T04:39:02Z",
+    "digest": "sha256:19ec4db43a311c79bf5e157fdee08a0211de643a9209d57401f637b9a170b1f0",
+    "downloadCount": 0,
+    "id": "RA_kwDOUHtMws4kcsyb",
+    "label": "",
+    "name": "geo-trainer-canada-subdivisions.apkg",
+    "size": 1396031,
+    "state": "uploaded",
+    "updatedAt": "2026-10-05T04:39:03Z",
+    "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-canada-subdivisions.apkg"
+  },
+  "prior_eight_assets_and_tag_unchanged": true,
+  "personal_collection_accessed": false,
+  "live_site": {
+    "live_homepage_counts_and_release_links": "verified",
+    "four_gallery_images_decoded": true,
+    "live_gallery_opened": true,
+    "personal_collection_accessed": false
+  }
+}
