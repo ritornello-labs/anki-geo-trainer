@@ -1,8 +1,10 @@
 # India subdivisions preparation — October 4
 
-Status: complete listing plus four actual-Anki Maharashtra GIFs ready for Elvis's
-image approval. No public images uploaded; no Publisher staging or submission for
-this pack. Personal Anki never accessed or changed. World Countries shipped at
+Status: Elvis approved the complete listing and four actual-Anki Maharashtra GIFs
+on October 4. Exact reviewed image bytes are deployed and verified. Native Publisher
+staging passed (140 notes/cards, outside content/media unchanged); approved full
+Upload and normal sync completed; final required 0 and integrity ok. No AnkiWeb
+submission yet. Personal Anki never accessed or changed. World Countries shipped at
 452389265, archive/gallery verified; do not resubmit. Quota remains 11/20, no
 rejection, reset unknown. Publisher closed; disposable India capture stopped/removed.
 
