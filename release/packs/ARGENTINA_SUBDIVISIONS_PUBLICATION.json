@@ -37,5 +37,11 @@
     "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-argentina-subdivisions.apkg"
   },
   "previous_assets_and_tag_retained": true,
-  "personal_collection_accessed": false
+  "personal_collection_accessed": false,
+  "live_site": {
+    "live_homepage_counts_and_release_links": "verified",
+    "four_gallery_images_decoded": true,
+    "live_gallery_opened": true,
+    "personal_collection_accessed": false
+  }
 }
