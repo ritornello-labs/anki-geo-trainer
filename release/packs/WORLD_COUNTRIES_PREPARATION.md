@@ -1,6 +1,9 @@
 # World Countries preparation — October 4
 
-Status: complete listing plus six actual-Anki GIFs ready for Elvis's image approval.
+Status: Elvis likes the complete batch; revised Identify timing awaits approval.
+Identify now holds the front for 2 seconds and the answer for 5 (7-second loop).
+Only GIF frame-delay metadata changed; all 70 native rendered frames are identical.
+Other five GIFs unchanged. Revised hash is frozen in WORLD_COUNTRIES_REVIEW.json.
 No public image upload, Publisher staging or AnkiWeb submission for this pack.
 Personal Anki never accessed or changed. Islands already shipped at 1449321738;
 do not resubmit any shipped pack. Current observed quota 10/20, no rejection,
