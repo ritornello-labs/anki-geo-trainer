@@ -1,11 +1,10 @@
 # anki-geo-trainer — Plan
 
-Status: active; the 2,405-card physical- and atmospheric-geography release is in the
-personal collection and queued for the existing AnkiWeb listing. Its 29-card
-atmospheric, seasonal, ENSO, and Atlantic-overturning batch is temporarily staged under
-`Process::GeoTrainer QA` for manual review before restoration to the normal GeoTrainer
-tree. The 2026-09-22 enclave visibility repair is rebuilt and included in this
-queued update; publication remains on hold. Created 2026-07-05.
+Status: all fifteen public components submitted and exact delivered APKGs archived.
+The full-edition update for `908455862` is held for actual July-release import
+compatibility; both standard and merge-note-types imports fail the safe-update
+gate. See `release/FULL_LEGACY_IMPORT_2026-10-05.md`. Personal collection changes
+are outside this publication pass. Created 2026-07-05.
 
 ## Privacy boundary
 
@@ -582,3 +581,23 @@ Argentina shipped October 5 at 1530523005, exact source/share name GeoTrainer::W
 
 
 Indonesia public update authorized October 5: 38 provinces / 151 cards (38 Identify, 38 Place, 37 Sketch, 38 Draw). All 33 legacy region keys and 131 note/card identities retained, with 20 new notes. Current MIT Peta Nusa/Laravel Nusa boundaries replace the 33-province Natural Earth map; native old→new→full→component test creates zero duplicates. Corrected full candidate is 3,007 notes / 4,232 cards; all non-Indonesia content unchanged. Four native North Kalimantan GIFs and complete listing need explicit review before public media or Publisher staging. Personal collection audit is read-only; no live import or rollout authorized.
+
+## Indonesia shipped and full legacy gate — October 5
+
+Indonesia `1473740061`, exact share/source name `GeoTrainer::World::Asia::Indonesia`:
+38 provinces / 151 cards, four approved native GIFs. Owner counts/images verified;
+public review pending. Actual delivered APKG 1,625,379 bytes, SHA-256
+`7c5a14e693509350045a62e5982068fb793c5453a150e31c22732599dfba0c8b`,
+digest-verified on `v2026.10.05`; previous assets/tag retained. All outside Publisher
+content/names/IDs/media unchanged; approved Upload and normal/final required 0,
+ledger closed, task-owned Publisher closed. Website commit `79c5cd6` locally
+verified; deployment queued during GitHub Actions runner delays. Approved listing
+GIFs use exact bytes from immutable GitHub hosting during that incident. Quota
+18/20; no limit rejection, reset unknown. Do not resubmit.
+
+Delivered components contain all 1,573 accepted Geo Concepts cards under subject
+packs; recognition/fact cards complement games. Actual July full import receives
+stale old templates with merge disabled and extra cards with merge enabled. Hold
+full publication until GUID/model/schema/card identity and scheduling are verified
+across legacy and delivered-component import paths. Continue map/content/source
+checks as requested. No personal collection mutation/import/sync.

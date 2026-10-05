@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "basis": "actual AnkiWeb-delivered packages, identical canonical GitHub assets",
+  "concept_cards_total": 1573,
+  "packs": [
+    {
+      "pack": "physical-geography",
+      "delivered_total_cards": 963,
+      "concept_cards": 713,
+      "game_cards": 250,
+      "concept_leaves": {
+        "GeoTrainer::Physical Geography::Concepts::Biomes": 88,
+        "GeoTrainer::Physical Geography::Concepts::Plateaus, Highlands & Basins": 55,
+        "GeoTrainer::Physical Geography::Concepts::Mountain Ranges": 165,
+        "GeoTrainer::Physical Geography::Concepts::K\u00f6ppen::Letter System": 38,
+        "GeoTrainer::Physical Geography::Concepts::Capes": 15,
+        "GeoTrainer::Physical Geography::Concepts::Deserts": 115,
+        "GeoTrainer::Physical Geography::Concepts::Peninsulas": 60,
+        "GeoTrainer::Physical Geography::Concepts::Straits, Canals & Isthmuses": 24,
+        "GeoTrainer::Physical Geography::Concepts::Plains, Grasslands & Steppes": 48,
+        "GeoTrainer::Physical Geography::Concepts::K\u00f6ppen::Climate Classes": 105
+      },
+      "standalone_geo_concepts_root_present": false
+    },
+    {
+      "pack": "plate-tectonics",
+      "delivered_total_cards": 492,
+      "concept_cards": 360,
+      "game_cards": 132,
+      "concept_leaves": {
+        "GeoTrainer::Plate Tectonics::Concepts::Named Plate Boundaries": 85,
+        "GeoTrainer::Plate Tectonics::Concepts::Tectonic Plates::Major Plates": 85,
+        "GeoTrainer::Plate Tectonics::Concepts::Plate Boundary Types": 15,
+        "GeoTrainer::Plate Tectonics::Concepts::Tectonic Plates::Minor Plates": 175
+      },
+      "standalone_geo_concepts_root_present": false
+    },
+    {
+      "pack": "islands-archipelagos",
+      "delivered_total_cards": 112,
+      "concept_cards": 45,
+      "game_cards": 67,
+      "concept_leaves": {
+        "GeoTrainer::Islands & Archipelagos::Concepts::Islands & Archipelagos": 45
+      },
+      "standalone_geo_concepts_root_present": false
+    },
+    {
+      "pack": "world-countries",
+      "delivered_total_cards": 1220,
+      "concept_cards": 455,
+      "game_cards": 765,
+      "concept_leaves": {
+        "GeoTrainer::World Countries::Concepts::Country Blocs & Organizations": 337,
+        "GeoTrainer::World Countries::Concepts::Regions & Groupings": 59,
+        "GeoTrainer::World Countries::Concepts::Bloc Membership Drill": 59
+      },
+      "standalone_geo_concepts_root_present": false
+    }
+  ]
+}

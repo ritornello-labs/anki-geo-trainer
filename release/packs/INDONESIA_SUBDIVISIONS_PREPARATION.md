@@ -1,8 +1,11 @@
 # Indonesia subdivisions publication preparation — 2026-10-05
 
 Elvis authorized the current 38-province update and a read-only personal audit.
-No personal mutation/import/sync or rollout is included. Isolated Publisher is
-closed; no Indonesia public media, AnkiWeb submission or artifact upload yet.
+No personal mutation/import/sync or rollout is included. **Completed:** approved
+October 5, submitted at `1473740061`, exact delivered artifact archived on
+`v2026.10.05`; see `INDONESIA_SUBDIVISIONS_PUBLICATION.json`. Publisher is closed.
+The steps below are the historical preparation recipe; do not resubmit. Website
+deployment awaits GitHub Actions runner recovery; local gallery checks pass.
 
 ## Accepted source and checks
 

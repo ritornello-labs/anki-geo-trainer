@@ -1,0 +1,54 @@
+{
+  "status": "failed-publication-held",
+  "date": "2026-10-05",
+  "listing": "908455862",
+  "exact_original_share_name": "GeoTrainer",
+  "legacy_download": {
+    "listing": "908455862",
+    "download_bytes": 11737143,
+    "download_sha256": "3769f7c0d84c59858e0a3880e7cce204c54ac41c9559df889a7503751027edcc",
+    "actual_current_ankiweb_download": true
+  },
+  "candidate": {
+    "notes": 3007,
+    "cards": 4232,
+    "models": 106,
+    "leaf_decks": 114
+  },
+  "accepted_old_guid_overlap": 1624,
+  "same_guids_with_different_model_ids": 1536,
+  "retired_legacy_guids_not_in_candidate": 92,
+  "merge_notetypes_true": {
+    "before_notes": 1716,
+    "before_cards": 1716,
+    "after_notes": 3099,
+    "after_cards": 7014,
+    "existing_guids_retained": 1716,
+    "existing_note_ids_retained": 1716,
+    "existing_model_ids_retained": 180,
+    "backend": "native Anki 25.09 disposable",
+    "legacy_source_name": "GeoTrainer",
+    "full_candidate_submitted": false
+  },
+  "standard_import_merge_notetypes_false": {
+    "semantic_updated_fields_for_old_guids": 0,
+    "old_notes_missing_current_Key_field": 1624,
+    "exact_current_templates_for_old_guids": 0,
+    "accepted_old_guid_overlap": 1624,
+    "exact_updated_fields_for_old_guids": 0,
+    "before_notes": 1716,
+    "before_cards": 1716,
+    "after_notes": 3099,
+    "after_cards": 4324,
+    "existing_guids_retained": 1716,
+    "existing_note_ids_retained": 1716,
+    "existing_model_ids_retained": 1716,
+    "merge_notetypes": false,
+    "original_card_ids_retained": 1716,
+    "backend": "native Anki 25.09 disposable",
+    "legacy_source_name": "GeoTrainer",
+    "full_candidate_submitted": false
+  },
+  "personal_collection_accessed": false,
+  "full_candidate_submitted": false
+}
