@@ -41,3 +41,17 @@ when scope, task families, or milestones change.
   age configured for both toolchains when dependencies are first added.
 - Sign commits with GPG (`git commit -S`); commit and push regularly.
 - AnkiWeb listing copy, when it exists, lives in `release/ankiweb.md`.
+
+## Publication boundary
+
+- Follow `release/PUBLICATION_PROCESS.md` before every public commit, push, or upload.
+- Bootstrap and verify publication hooks on each publishing machine. Never use
+  `--no-verify` to bypass a publication finding or push divergent legacy ancestry.
+- Live recovery data and detailed audits belong outside Git. Configure the local
+  `geotrainer.privateDirectory` or `GEOTRAINER_PRIVATE_DIR`; do not put raw live
+  receipts in public release reports. Public reports use explicit allowed fields.
+- Run the artifact gate on exact upload bytes. A rebuild or Publisher export
+  invalidates an earlier check. Preserve approved screenshot hashes and use
+  synthetic/disposable profiles for public QA.
+- Keep public CI output generic. Do not upload diagnostic reports or include
+  matched values, paths, or detailed private incident records in public PRs/issues.

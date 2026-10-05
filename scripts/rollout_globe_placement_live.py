@@ -14,6 +14,7 @@ from datetime import datetime
 from pathlib import Path
 
 from globe_placement import live_template_payload
+from private_artifacts import private_directory
 
 ROOT = Path(__file__).resolve().parent.parent
 ANKI_CONNECT = "http://127.0.0.1:8765"
@@ -204,7 +205,7 @@ def main() -> None:
     args = parser.parse_args()
 
     stamp = datetime.now().astimezone().strftime("%Y%m%dT%H%M%S%z")
-    output = ROOT / "backups" / "live-imports" / f"{stamp}-globe-placement-merge"
+    output = private_directory("live-imports") / f"{stamp}-globe-placement-merge"
     output.mkdir(parents=True, exist_ok=False)
 
     before = snapshot()

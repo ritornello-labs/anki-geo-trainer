@@ -605,3 +605,7 @@ stale old templates with merge disabled and extra cards with merge enabled. Hold
 full publication until GUID/model/schema/card identity and scheduling are verified
 across legacy and delivered-component import paths. Continue map/content/source
 checks as requested. No personal collection mutation/import/sync.
+
+## Publication safety — October 5, 2026
+
+Local staged-object and outgoing-history gates, generic public CI, external live recovery directories, and exact-artifact checks are implemented. See [the publication process](release/PUBLICATION_PROCESS.md). Private audit details are outside Git; the existing release/upgrade holds remain in force.

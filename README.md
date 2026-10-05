@@ -132,3 +132,7 @@ Argentine Provinces & Buenos Aires City: [AnkiWeb](https://ankiweb.net/shared/in
 Indonesian Provinces: [AnkiWeb](https://ankiweb.net/shared/info/1473740061) (public review pending) · [GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.05) · [Exact delivered APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-indonesia-subdivisions.apkg). Current 38-province map / 151 cards and four approved native North Kalimantan GIFs. Adds North Kalimantan and the four new Papua provinces, preserving all 33 prior region keys and 131 existing source identities. Boundary source: MIT Peta Nusa/Laravel Nusa; see [source record](release/packs/INDONESIA_SUBDIVISIONS_SOURCE.json). Rebuild: `python scripts/build_indonesia_subdivisions_pack.py`. No personal collection rollout is included.
 
 All 1,573 accepted Geo Concepts cards are included inside the corresponding Physical Geography, Plate Tectonics, Islands & Archipelagos and World Countries components. Recognition/fact cards and interactive games remain distinct exercises. [Delivered-package audit](release/PUBLIC_CONCEPTS_MERGE_AUDIT_2026-10-05.json).
+
+## Contributor publication checks
+
+Before publishing changes or release files, follow [the publication process](release/PUBLICATION_PROCESS.md). Install the local commit/push guards on each publishing machine; live recovery artifacts remain outside Git.
