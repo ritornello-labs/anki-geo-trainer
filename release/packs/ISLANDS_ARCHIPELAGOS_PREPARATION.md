@@ -1,10 +1,15 @@
 # Islands & Archipelagos preparation — October 4
 
-Status: complete listing and two real-Anki GIFs approved by Elvis; publication in progress.
-No public image upload, Publisher staging or AnkiWeb submission for this pack.
-Personal Anki never accessed or changed. Plate Tectonics already shipped at
-22154578; do not resubmit it. Current observed quota 9/20, no rejection, reset
-unknown. Publisher closed; disposable capture container stopped and removed.
+Status: shipped at https://ankiweb.net/shared/info/1449321738. Complete listing and
+two real-Anki GIFs approved by Elvis. Owner listing, live site/gallery and exact
+GitHub release asset verified. Public AnkiWeb review pending (normally 24 hours).
+Canonical delivered APKG: 3,953,028 bytes; SHA-256
+`8aecec15e354a1d6f00137d2f54ac306a7b714a9a58d6968e47c485b704730ec`.
+Archived on existing v2026.10.04 release, preserving prior tag and assets.
+Publisher import/media/outside-scope checks passed; normal sync sufficient, final
+required 0 and native integrity OK. Publisher and disposable capture closed.
+Personal Anki never accessed or changed. Observed quota 10/20 deck shares, no
+rejection; reset unknown. World Countries is next. Do not resubmit this pack.
 
 Scope: 76 notes / 112 cards, two models and canonical leaf decks. Accepted globe
 placement: 67 notes/cards. Concept family: nine notes / 45 cards (names, locate,
@@ -31,7 +36,7 @@ d3-geo ISC notices are preserved in D3_LICENSES.txt and inline code comments ins
 both globe templates (confirmed in current native Anki). No visible/card-identity
 change. Stable support/gallery/GitHub/full-edition links and banner present.
 
-## Resume after this batch's image approval
+## Completed publication procedure (historical; do not resubmit)
 
 1. Verify the approved local GIF hashes; deploy the exact two GIFs/front/back posters
    to the immutable versioned public paths from islands-archipelagos.md; signed
