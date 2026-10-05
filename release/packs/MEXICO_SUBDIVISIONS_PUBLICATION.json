@@ -1,0 +1,47 @@
+{
+  "status": "submitted-pending-public-review",
+  "date": "2026-10-05",
+  "owner": {
+    "ankiweb_id": "875505875",
+    "title": "GeoTrainer: Mexican States & Mexico City",
+    "source_share_name": "GeoTrainer::World::North America::Mexico",
+    "owner_title_counts_and_5_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 16,
+    "delivered_bytes": 1259375,
+    "delivered_sha256": "b5d7a5db4f15a61a7b2b74868143c4c84a864c4dee84fd4df3b760e2e113c7eb"
+  },
+  "delivered_identity": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 128,
+    "cards": 128,
+    "bundled_media_files": 0,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 1259375,
+    "delivered_sha256": "b5d7a5db4f15a61a7b2b74868143c4c84a864c4dee84fd4df3b760e2e113c7eb"
+  },
+  "github_release": "v2026.10.05",
+  "github_asset": {
+    "apiUrl": "https://api.github.com/repos/ritornello-labs/anki-geo-trainer/releases/assets/613298901",
+    "contentType": "application/octet-stream",
+    "createdAt": "2026-10-05T18:04:08Z",
+    "digest": "sha256:b5d7a5db4f15a61a7b2b74868143c4c84a864c4dee84fd4df3b760e2e113c7eb",
+    "downloadCount": 0,
+    "id": "RA_kwDOUHtMws4kjjLV",
+    "label": "",
+    "name": "geo-trainer-mexico-subdivisions.apkg",
+    "size": 1259375,
+    "state": "uploaded",
+    "updatedAt": "2026-10-05T18:04:09Z",
+    "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-mexico-subdivisions.apkg"
+  },
+  "previous_australia_asset_and_tag_retained": true,
+  "personal_collection_accessed": false,
+  "live_site": {
+    "live_homepage_counts_and_release_links": "verified",
+    "four_gallery_images_decoded": true,
+    "live_gallery_opened": true,
+    "personal_collection_accessed": false
+  }
+}

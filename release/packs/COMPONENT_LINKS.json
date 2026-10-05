@@ -98,5 +98,13 @@
     "release": "v2026.10.05",
     "artifact": "geo-trainer-australia-subdivisions.apkg",
     "public_review_pending": true
+  },
+  "mexico-subdivisions": {
+    "title": "GeoTrainer: Mexican States & Mexico City",
+    "ankiweb_id": "875505875",
+    "ankiweb_url": "https://ankiweb.net/shared/info/875505875",
+    "release": "v2026.10.05",
+    "artifact": "geo-trainer-mexico-subdivisions.apkg",
+    "public_review_pending": true
   }
 }
