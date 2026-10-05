@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-image-approval",
+  "status": "approved",
   "notes": 96,
   "cards": 96,
   "native_media_files": 0,
@@ -81,5 +81,6 @@
     ],
     "question_ms": 2000,
     "answer_ms": 3000
-  }
+  },
+  "approval": "Elvis: Cool, go! (2026-10-05); complete listing and four native C\u00f3rdoba GIFs"
 }
