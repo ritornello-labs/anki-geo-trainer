@@ -9,7 +9,7 @@
   },
   "full-edition": {
     "ankiweb_id": "908455862",
-    "status": "held: actual July-release import fails safe in-place update; exact share name GeoTrainer verified"
+    "status": "held: GUID-aware disposable prototype passes; legacy model-ID exception, supported desktop upgrade and full listing review pending"
   },
   "brazil-subdivisions": {
     "title": "GeoTrainer: Brazilian States",
