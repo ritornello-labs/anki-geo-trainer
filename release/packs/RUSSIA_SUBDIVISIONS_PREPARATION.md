@@ -1,10 +1,12 @@
 # Russia subdivisions preparation — October 4
 
-Status: Elvis approved the complete listing/four real-Anki GIFs (October 4). Exact
-approved images deployed and live-byte verified. Isolated Publisher reconciled
-and synced: 333 notes/cards, exact source content/identities, all outside content
-unchanged, normal/final sync required 0 and integrity ok. AnkiWeb submission next.
-Personal Anki never accessed or changed.
+Status: shipped October 4 at **2018363684**, public review pending. Complete listing
+and four native Sakha GIFs approved. Exact delivered APKG (1,831,235 bytes,
+SHA-256 93b3f907dbf0d6649d510dc18f6519e9c81c5259e69a2fe19484c6d1b01f0710)
+archived and digest-verified on existing v2026.10.04; prior seven assets/tag intact.
+Source/native export/delivered identities and content exact; outside Publisher
+content/deck names/IDs/media unchanged, approved Upload and normal/final required 0.
+Quota 13/20, no rejection; next Canada image review. Personal Anki untouched.
 
 ## Accepted scope and source correction
 
@@ -37,7 +39,7 @@ www/.tmp/publish-batch-russia-subdivisions/index.html; static complete listing
 russia-subdivisions-listing.png. Banner/explore/GitHub/support/full edition links,
 source/territory note, no video links. All capture processes stopped/removed.
 
-## Resume after explicit batch approval
+## Publication procedure (completed; do not resubmit)
 
 1. Verify REVIEW GIF hashes and deploy exact four GIFs/eight posters/manifest to
    immutable 2026-10-04-v1/geo-trainer-russia-subdivisions paths; signed site commit/

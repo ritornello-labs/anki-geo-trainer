@@ -74,5 +74,13 @@
     "release": "v2026.10.04",
     "artifact": "geo-trainer-india-subdivisions.apkg",
     "public_review_pending": true
+  },
+  "russia-subdivisions": {
+    "title": "GeoTrainer: Russian Regions",
+    "ankiweb_id": "2018363684",
+    "ankiweb_url": "https://ankiweb.net/shared/info/2018363684",
+    "release": "v2026.10.04",
+    "artifact": "geo-trainer-russia-subdivisions.apkg",
+    "public_review_pending": true
   }
 }
