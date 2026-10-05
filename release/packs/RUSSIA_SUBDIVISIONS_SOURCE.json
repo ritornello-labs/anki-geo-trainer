@@ -1,0 +1,34 @@
+{
+  "notes": 333,
+  "cards": 333,
+  "entities": 85,
+  "tasks": {
+    "GeoTrainer Which Region \u2014 Russia Subjects": 85,
+    "GeoTrainer Place \u2014 Russia Subjects": 85,
+    "GeoTrainer Sketch \u2014 Russia Subjects": 78,
+    "GeoTrainer Draw \u2014 Russia Subjects": 85
+  },
+  "contextual_sketch_omissions": [
+    "Republic of Adygea",
+    "Republic of Ingushetia",
+    "Karelia",
+    "Moscow (city)",
+    "Republic of North Ossetia-Alania",
+    "Saint Petersburg",
+    "Sevastopol"
+  ],
+  "models": {
+    "1607399001": "GeoTrainer Which Region \u2014 Russia Subjects",
+    "1607399002": "GeoTrainer Place \u2014 Russia Subjects",
+    "1607399005": "GeoTrainer Sketch \u2014 Russia Subjects",
+    "1607399003": "GeoTrainer Draw \u2014 Russia Subjects"
+  },
+  "leaf_decks": {
+    "1607399050": "GeoTrainer::World::Europe::Russia::1 Which Region",
+    "1607399051": "GeoTrainer::World::Europe::Russia::2 Place",
+    "1607399054": "GeoTrainer::World::Europe::Russia::3 Sketch",
+    "1607399052": "GeoTrainer::World::Europe::Russia::4 Draw"
+  },
+  "media_files": 0,
+  "source_sha256": "40beca84d69954824715b65e4ce46a53b09f8f0b0ff17611a9c603159edb95c0"
+}

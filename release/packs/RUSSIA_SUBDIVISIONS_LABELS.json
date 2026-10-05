@@ -1,0 +1,258 @@
+{
+  "source": "Natural Earth 50m admin-1 name_en; existing cached source dataset",
+  "source_url": "https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_50m_admin_1_states_provinces.geojson",
+  "source_geojson_sha256": "69a0e06e640b2d505858ae1cb63034e4677f3000b35a98e16312932b98c426b9",
+  "changes": [
+    {
+      "id": "RU-AD",
+      "before": "Adygey",
+      "after": "Republic of Adygea"
+    },
+    {
+      "id": "RU-ALT",
+      "before": "Altay",
+      "after": "Altai Krai"
+    },
+    {
+      "id": "RU-ARK",
+      "before": "Arkhangel'sk",
+      "after": "Arkhangelsk"
+    },
+    {
+      "id": "RU-AST",
+      "before": "Astrakhan'",
+      "after": "Astrakhan"
+    },
+    {
+      "id": "RU-BU",
+      "before": "Buryat",
+      "after": "Republic of Buryatia"
+    },
+    {
+      "id": "RU-CE",
+      "before": "Chechnya",
+      "after": "Chechen Republic"
+    },
+    {
+      "id": "RU-ZAB",
+      "before": "Chita",
+      "after": "Zabaykalsky Krai"
+    },
+    {
+      "id": "RU-CHU",
+      "before": "Chukchi Autonomous Okrug",
+      "after": "Chukotka Autonomous Okrug"
+    },
+    {
+      "id": "RU-CU",
+      "before": "Chuvash",
+      "after": "Chuvash Republic"
+    },
+    {
+      "id": "RU-SPE",
+      "before": "City of St. Petersburg",
+      "after": "Saint Petersburg"
+    },
+    {
+      "id": "UA-43",
+      "before": "Crimea",
+      "after": "Autonomous Republic of Crimea"
+    },
+    {
+      "id": "RU-DA",
+      "before": "Dagestan",
+      "after": "Republic of Dagestan"
+    },
+    {
+      "id": "RU-AL",
+      "before": "Gorno-Altay",
+      "after": "Altai Republic"
+    },
+    {
+      "id": "RU-IN",
+      "before": "Ingush",
+      "after": "Republic of Ingushetia"
+    },
+    {
+      "id": "RU-KB",
+      "before": "Kabardin-Balkar",
+      "after": "Kabardino-Balkaria"
+    },
+    {
+      "id": "RU-KL",
+      "before": "Kalmyk",
+      "after": "Republic of Kalmykia"
+    },
+    {
+      "id": "RU-KAM",
+      "before": "Kamchatka",
+      "after": "Kamchatka Krai"
+    },
+    {
+      "id": "RU-KC",
+      "before": "Karachay-Cherkess",
+      "after": "Karachay-Cherkess Republic"
+    },
+    {
+      "id": "RU-KHA",
+      "before": "Khabarovsk",
+      "after": "Khabarovsk Krai"
+    },
+    {
+      "id": "RU-KK",
+      "before": "Khakass",
+      "after": "Republic of Khakassia"
+    },
+    {
+      "id": "RU-KHM",
+      "before": "Khanty-Mansiy",
+      "after": "Khanty-Mansi Autonomous Okrug"
+    },
+    {
+      "id": "RU-KO",
+      "before": "Komi",
+      "after": "Komi Republic"
+    },
+    {
+      "id": "RU-KDA",
+      "before": "Krasnodar",
+      "after": "Krasnodar Krai"
+    },
+    {
+      "id": "RU-KYA",
+      "before": "Krasnoyarsk",
+      "after": "Krasnoyarsk Krai"
+    },
+    {
+      "id": "RU-MAG",
+      "before": "Maga Buryatdan",
+      "after": "Magadan"
+    },
+    {
+      "id": "RU-ME",
+      "before": "Mariy-El",
+      "after": "Mari El Republic"
+    },
+    {
+      "id": "RU-MO",
+      "before": "Mordovia",
+      "after": "Republic of Mordovia"
+    },
+    {
+      "id": "RU-MOW",
+      "before": "Moskovskaya",
+      "after": "Moscow Oblast"
+    },
+    {
+      "id": "RU-MOS",
+      "before": "Moskva",
+      "after": "Moscow (city)"
+    },
+    {
+      "id": "RU-NEN",
+      "before": "Nenets",
+      "after": "Nenets Autonomous Okrug"
+    },
+    {
+      "id": "RU-NIZ",
+      "before": "Nizhegorod",
+      "after": "Nizhny Novgorod"
+    },
+    {
+      "id": "RU-SE",
+      "before": "North Ossetia",
+      "after": "Republic of North Ossetia-Alania"
+    },
+    {
+      "id": "RU-ORL",
+      "before": "Orel",
+      "after": "Oryol"
+    },
+    {
+      "id": "RU-PER",
+      "before": "Perm'",
+      "after": "Perm Krai"
+    },
+    {
+      "id": "RU-PRI",
+      "before": "Primor'ye",
+      "after": "Primorsky Krai"
+    },
+    {
+      "id": "RU-RYA",
+      "before": "Ryazan'",
+      "after": "Ryazan"
+    },
+    {
+      "id": "RU-SA",
+      "before": "Sakha (Yakutia)",
+      "after": "Sakha Republic"
+    },
+    {
+      "id": "RU-STA",
+      "before": "Stavropol'",
+      "after": "Stavropol Krai"
+    },
+    {
+      "id": "RU-TA",
+      "before": "Tatarstan",
+      "after": "Republic of Tatarstan"
+    },
+    {
+      "id": "RU-TY",
+      "before": "Tuva",
+      "after": "Tuva Republic"
+    },
+    {
+      "id": "RU-TVE",
+      "before": "Tver'",
+      "after": "Tver"
+    },
+    {
+      "id": "RU-TYU",
+      "before": "Tyumen'",
+      "after": "Tyumen"
+    },
+    {
+      "id": "RU-UD",
+      "before": "Udmurt",
+      "after": "Udmurt Republic"
+    },
+    {
+      "id": "RU-ULY",
+      "before": "Ul'yanovsk",
+      "after": "Ulyanovsk"
+    },
+    {
+      "id": "RU-YAN",
+      "before": "Yamal-Nenets",
+      "after": "Yamalo-Nenets Autonomous Okrug"
+    },
+    {
+      "id": "RU-YAR",
+      "before": "Yaroslavl'",
+      "after": "Yaroslavl"
+    },
+    {
+      "id": "RU-YEV",
+      "before": "Yevrey",
+      "after": "Jewish"
+    }
+  ],
+  "unchanged": "all 85 region IDs, geometry, frames, projection, neighbors, tier, point samples and note GUID/model/leaf identity spaces",
+  "scope": "publication only; no personal collection change",
+  "territory_edition_note": "Dataset scope retains 85 map units including Crimea and Sevastopol, which the UN recognizes as part of Ukraine; listing discloses this explicitly instead of presenting all 85 as internationally recognized Russian subdivisions.",
+  "explicit_disambiguation": {
+    "RU-ALT": "Altai Krai",
+    "RU-MOW": "Moscow Oblast",
+    "RU-MOS": "Moscow (city)"
+  },
+  "disambiguation_sources": [
+    "https://www.council.gov.ru/en/structure/regions/AL/",
+    "https://council.gov.ru/en/structure/regions/MOS/",
+    "https://en.kremlin.ru/catalog/regions",
+    "https://rosstat.gov.ru/bgd/free/B07_16/IssWWW.exe/Stg/region.htm"
+  ],
+  "source_id_caveat": "Natural Earth assigns its legacy RU-MOW row to Moskovskaya (oblast) and RU-MOS to Moskva (city); preserve existing region/note keys rather than silently swapping IDs.",
+  "distinct_display_labels_verified": 85
+}

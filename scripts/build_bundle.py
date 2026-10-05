@@ -804,6 +804,8 @@ SUBDIVISION_SCOPES = {
     },
     "russia-subjects": {
         "title": "Russia — Federal Subjects", "a3": "RUS", "noun": "region",
+        "label_field": "name_en",  # upstream English labels fix Magadan/Chita and legacy transliterations
+        "label_overrides": {"RU-ALT": "Altai Krai", "RU-MOW": "Moscow Oblast", "RU-MOS": "Moscow (city)"},  # disambiguate source name_en collisions; preserve source IDs
         "unwrap_antimeridian": True,  # Chukotka crosses the dateline
         "deck_root": "GeoTrainer::World::Europe::Russia",
     },
@@ -888,7 +890,7 @@ def _build_admin1_country(scope_name: str, cfg: dict) -> tuple[dict, dict]:
         rid = prop(props, "iso_3166_2") or f"{id_prefix}-{prop(props, 'postal')}"
         g = render_geom(f)  # antimeridian-unwrapped where needed
         projected = project_geom(g, project)
-        region = make_region(rid, prop(props, "name"), prop(props, "postal") or "", "main", projected)
+        region = make_region(rid, cfg.get("label_overrides", {}).get(rid) or prop(props, cfg.get("label_field", "name")) or prop(props, "name"), prop(props, "postal") or "", "main", projected)
         if region:
             regions.append(region)
             full_geoms[rid] = g
