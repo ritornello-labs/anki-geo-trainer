@@ -831,6 +831,7 @@ SUBDIVISION_SCOPES = {
         "deck_root": "GeoTrainer::World::South America::Argentina",
     },
     "mexico-states": {
+        "label_overrides": {"MX-DIF": "Mexico City", "MX-MEX": "State of Mexico"},  # public English names; preserve source IDs/geometry
         "title": "Mexico — States", "a3": "MEX", "noun": "state",
         "source": "admin1_10m",
         "deck_root": "GeoTrainer::World::North America::Mexico",

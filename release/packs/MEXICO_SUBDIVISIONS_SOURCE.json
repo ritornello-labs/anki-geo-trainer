@@ -1,0 +1,26 @@
+{
+  "notes": 128,
+  "cards": 128,
+  "entities": 32,
+  "tasks": {
+    "GeoTrainer Which State \u2014 Mexico States": 32,
+    "GeoTrainer Place \u2014 Mexico States": 32,
+    "GeoTrainer Sketch \u2014 Mexico States": 32,
+    "GeoTrainer Draw \u2014 Mexico States": 32
+  },
+  "contextual_sketch_omissions": [],
+  "models": {
+    "1607404001": "GeoTrainer Which State \u2014 Mexico States",
+    "1607404002": "GeoTrainer Place \u2014 Mexico States",
+    "1607404005": "GeoTrainer Sketch \u2014 Mexico States",
+    "1607404003": "GeoTrainer Draw \u2014 Mexico States"
+  },
+  "leaf_decks": {
+    "1607404050": "GeoTrainer::World::North America::Mexico::1 Which State",
+    "1607404051": "GeoTrainer::World::North America::Mexico::2 Place",
+    "1607404054": "GeoTrainer::World::North America::Mexico::3 Sketch",
+    "1607404052": "GeoTrainer::World::North America::Mexico::4 Draw"
+  },
+  "media_files": 0,
+  "source_sha256": "05e39e96405b687a8b519b5f61ddbf0f6a7ef6961eff99a6ffcaf7b2c29c5544"
+}

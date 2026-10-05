@@ -1,0 +1,35 @@
+{
+  "staging": {
+    "profile": "isolated Publisher",
+    "old_notes_cards": 27,
+    "old_exclusive_models": 5,
+    "notes": 35,
+    "cards": 35,
+    "models": 4,
+    "leaf_decks": 4,
+    "media_files": 0,
+    "source_guid_fields_models_templates_css_card_ord_and_leaf_ids": "exact-match",
+    "outside_scope_unchanged_sha256": "8582b0f139d3ad9f325cb17fb5c1a55075f58c46943707a61e08ff11de5c532a",
+    "outside_deck_names_and_ids": "unchanged",
+    "all_existing_media": "unchanged",
+    "integrity": "ok",
+    "full_sync_required": true,
+    "export_bytes": 930599,
+    "export_sha256": "040d3d9a27d223c6028189b97ae6d838af1186a2a8a1fd769eecec1021016891",
+    "source_artifact_sha256": "945edb42aaca8f32b9bac44ad7658aeefeebeae99071d3ee3e1c6ef03654a8e2"
+  },
+  "sync": {
+    "profile": "isolated Publisher",
+    "direction": "full-upload",
+    "approval": "Prior explicit isolated-Publisher full Upload approval; approved Australia subdivisions publication (2026-10-05)",
+    "full_upload_completed": true,
+    "normal_sync_required": 0,
+    "final_sync_required": 0,
+    "notes": 35,
+    "cards": 35,
+    "source_content_unchanged": true,
+    "all_publisher_note_content_and_card_identity_unchanged": true,
+    "integrity": "ok",
+    "normal_sync_timestamp_reconciliation": false
+  }
+}

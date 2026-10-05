@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-image-approval",
+  "status": "approved",
   "notes": 35,
   "cards": 35,
   "native_media_files": 0,
@@ -58,11 +58,12 @@
       "capture_backend": "ffmpeg-x11grab"
     }
   ],
-  "public_images_uploaded": false,
-  "publisher_staged": false,
+  "public_images_uploaded": true,
+  "publisher_staged": true,
   "personal_collection_accessed": false,
   "preview": "www/.tmp/publish-batch-australia-subdivisions/australia-subdivisions-listing.png",
   "source_artifact_sha256": "945edb42aaca8f32b9bac44ad7658aeefeebeae99071d3ee3e1c6ef03654a8e2",
   "place_seed": "Native pointer drag brings complete silhouette inside the map before recording; native pixels only",
-  "front_answer_inspection": "All native maps/canvas and feedback verified; final Place shows complete silhouette"
+  "front_answer_inspection": "All native maps/canvas and feedback verified; final Place shows complete silhouette",
+  "approval": "Elvis: Approved, babe (2026-10-05); complete listing and four native Queensland GIFs"
 }
