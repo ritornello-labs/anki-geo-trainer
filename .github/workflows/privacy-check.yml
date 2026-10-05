@@ -42,3 +42,11 @@ jobs:
             exit 1
           fi
           echo 'Publication checks passed.'
+      - name: Exercise publication guards
+        shell: bash
+        run: |
+          if ! python3 -m unittest discover -s tests -p 'test_publication*.py' >/dev/null 2>&1; then
+            echo 'Publication regression tests failed. Run them locally for details.'
+            exit 1
+          fi
+          echo 'Publication regression tests passed.'
