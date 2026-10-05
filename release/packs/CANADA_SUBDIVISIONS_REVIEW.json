@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-image-approval",
+  "status": "approved",
   "notes": 52,
   "cards": 52,
   "native_media_files": 0,
@@ -58,11 +58,12 @@
       "capture_backend": "ffmpeg-x11grab"
     }
   ],
-  "public_images_uploaded": false,
-  "publisher_staged": false,
+  "public_images_uploaded": true,
+  "publisher_staged": true,
   "personal_collection_accessed": false,
   "preview": "www/.tmp/publish-batch-canada-subdivisions/canada-subdivisions-listing.png",
   "source_artifact_sha256": "bbb243bb10665321a92e27aa2a42b7772b8b47588d5985baa2337a878a82a9e6",
   "place_seed": "Native pointer drag brings entire silhouette into map before recording; native pixels only",
-  "front_answer_inspection": "All four native fronts/answers verified: full map/canvas, meaningful action and legible native feedback"
+  "front_answer_inspection": "All four native fronts/answers verified: full map/canvas, meaningful action and legible native feedback",
+  "approval": "Elvis: Approved (2026-10-04); complete listing and four native Ontario GIFs"
 }
