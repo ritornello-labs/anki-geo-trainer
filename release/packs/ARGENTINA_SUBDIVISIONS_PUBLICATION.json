@@ -1,0 +1,41 @@
+{
+  "status": "submitted-pending-public-review",
+  "date": "2026-10-05",
+  "owner": {
+    "ankiweb_id": "1530523005",
+    "title": "GeoTrainer: Argentine Provinces & Buenos Aires City",
+    "source_share_name": "GeoTrainer::World::South America::Argentina",
+    "owner_title_counts_and_5_image_urls": "verified",
+    "review_pending": true,
+    "quota_deck_shares_used": 17,
+    "delivered_bytes": 1204595,
+    "delivered_sha256": "eb33863291b858e778ea2591f3ecd6c93ca80d6314d914bac078934b06317a9f"
+  },
+  "delivered_identity": {
+    "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+    "notes": 96,
+    "cards": 96,
+    "bundled_media_files": 0,
+    "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+    "all_media_bytes": "exact-match",
+    "delivered_bytes": 1204595,
+    "delivered_sha256": "eb33863291b858e778ea2591f3ecd6c93ca80d6314d914bac078934b06317a9f"
+  },
+  "github_release": "v2026.10.05",
+  "github_asset": {
+    "apiUrl": "https://api.github.com/repos/ritornello-labs/anki-geo-trainer/releases/assets/613334771",
+    "contentType": "application/octet-stream",
+    "createdAt": "2026-10-05T18:20:55Z",
+    "digest": "sha256:eb33863291b858e778ea2591f3ecd6c93ca80d6314d914bac078934b06317a9f",
+    "downloadCount": 0,
+    "id": "RA_kwDOUHtMws4kjr7z",
+    "label": "",
+    "name": "geo-trainer-argentina-subdivisions.apkg",
+    "size": 1204595,
+    "state": "uploaded",
+    "updatedAt": "2026-10-05T18:20:55Z",
+    "url": "https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-argentina-subdivisions.apkg"
+  },
+  "previous_assets_and_tag_retained": true,
+  "personal_collection_accessed": false
+}
