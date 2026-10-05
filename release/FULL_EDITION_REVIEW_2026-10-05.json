@@ -163,22 +163,30 @@
       "component": "physical-geography",
       "original_file": "biome.gif",
       "local_file": "physical-geography-biome.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-physical-geography/biome.gif",
+      "url": "https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/biome.gif",
       "file": "biome.gif",
-      "sha256": "ee1a31563919ca299a12f2d42f388d487fc7b4933fdd9351691b3aaf1fdff4bc",
+      "sha256": "02e48727e69402f629d2cad9316a16d790e2fe3ee16cd1648ead0da57642d802",
       "bytes": 166389,
       "frames": 56,
       "distinct_frames": 2,
       "width": 760,
       "height": 502,
       "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
-      "capture_backend": "ffmpeg-x11grab"
+      "capture_backend": "ffmpeg-x11grab",
+      "playback_timing": {
+        "method": "GIF delay metadata only; every native frame pixel and all other bytes unchanged",
+        "original_sha256": "ee1a31563919ca299a12f2d42f388d487fc7b4933fdd9351691b3aaf1fdff4bc",
+        "revised_sha256": "02e48727e69402f629d2cad9316a16d790e2fe3ee16cd1648ead0da57642d802",
+        "front_seconds": 2,
+        "answer_seconds": 3,
+        "pixel_identity_verified": true
+      }
     }
   ],
-  "source": "unchanged approved real-Anki workbench GIFs, cards verified against current full package by delivered-component semantic overlap tests",
+  "source": "approved real-Anki workbench captures; nine GIFs byte-identical, concept GIF delays revised to 2+3 with identical native pixels; cards verified against current full package by delivered-component semantic overlap tests",
   "new_public_media_uploaded": false,
   "publisher_staged": false,
   "legacy_upgrade_shippable": false,
-  "listing_sha256": "62e753a39017f1792b1856f1d5588d11fc1ed3db810f973de3026cb8a6b1aec1",
+  "listing_sha256": "0042a9328a4ed089562c22e9a1c25799eb1e6c3c9643b28d99abd92a2ad525c3",
   "preview": "www/.tmp/publish-batch-full-edition/index.html"
 }
