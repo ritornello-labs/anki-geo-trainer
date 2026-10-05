@@ -1,12 +1,22 @@
 # Release plan (M5)
 
+## Current publication pass — October 4, 2026
+
+**Components first; full edition last.** Nine components are now submitted: U.S., Brazil, China, Reference Lines & Time, Physical Geography, Plate Tectonics, Islands & Archipelagos, World Countries and India. Each has approved actual-Anki GIFs, exact delivered APKGs archived on tagged GitHub releases and gallery/release links on ritornello.dev. India is 36 units / 140 cards at 346168633; its native identity/content/export checks pass, outside Publisher content/media is unchanged, approved Upload and final normal sync are clear. Observed quota 12/20, no rejection; reset date unknown. Next: Russia image batch, then remaining country components, full edition last. Full candidate 2,987 notes / 4,212 cards remains unpublished. Exact records and current procedures are in release/packs/*_PREPARATION.md and *_PUBLICATION.json.
+
+The eight physical-systems QA scopes and foundations remain excluded. Surface ocean currents are also withheld pending retirement reconciliation. The September 29 Geo Concepts approval record includes 1,573 cards in a separate source project; Elvis confirmed all accepted families are included; source repository separation is not a release exclusion. Most of the old flow deck was discarded. See SCOPE_RECONCILIATION_2026-10-03.md.
+
+Elvis approved 908455862 as the eventual full edition, retaining its exact original share name (still to verify). Each component will link to that listing with an update-pending note; the final full listing will link back to every shipped component. Real-Anki demos are selected by distinct learning experience, including membership taps, reference-line globe placement and UTC conversion where relevant.
+
+## Historical release records (superseded scope)
+
 Status: the initial version was submitted to AnkiWeb on 2026-07-15. The contextual
 **Sketch** family and the physical-geography expansion are installed in the live
 personal collection. The combined update is queued for existing shared deck
 `908455862` but has not yet been uploaded. The 29-card atmospheric, seasonal, ENSO,
 and Atlantic-overturning batch is temporarily staged under `Process::GeoTrainer QA`
-for manual review; restore it to the normal GeoTrainer tree before the Publisher
-export.
+for manual review in that historical build. Exclude these QA scopes from every
+current public component and the full edition.
 
 Verification status (2026-09-22, combined update): all 32 scopes are covered by
 the cross-engine suite (Chromium + WebKit): **362 passed / 26 intentional skips**.
@@ -39,9 +49,7 @@ review in the installed client remains pending.
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
    (**86 leaf decks, 2,472 notes, 63.6 MB** — well under AnkiWeb's per-deck limit).
-2. **Ship everything.** All 32 scopes are import-verified; the single deck includes them
-   all. (Thin spots like Oceania capitals are just fewer cards in a subdeck, not a
-   problem for a combined deck.)
+2. **Accepted families only (2026-09-30).** Exclude retired flows/currents, physical-systems QA and foundations from all current public packs and the full edition. Include all accepted Geo Concepts families. PACKS.md and the per-pack records describe the accepted scope.
 
 ## Release record
 

@@ -66,5 +66,13 @@
     "release": "v2026.10.04",
     "artifact": "geo-trainer-world-countries.apkg",
     "public_review_pending": true
+  },
+  "india-subdivisions": {
+    "title": "GeoTrainer: Indian States & Union Territories",
+    "ankiweb_id": "346168633",
+    "ankiweb_url": "https://ankiweb.net/shared/info/346168633",
+    "release": "v2026.10.04",
+    "artifact": "geo-trainer-india-subdivisions.apkg",
+    "public_review_pending": true
   }
 }
