@@ -8583,7 +8583,8 @@
   },
   "legacy_public_apkg_sha256": "3769f7c0d84c59858e0a3880e7cce204c54ac41c9559df889a7503751027edcc",
   "package_sha256": [
-    "e5319f59c2c2fd372b0aa2992e2db959f4dcf6c139753c154f35c71ddc3c541f"
+    "e5319f59c2c2fd372b0aa2992e2db959f4dcf6c139753c154f35c71ddc3c541f",
+    "0ccac0a02a83d307036bc9d588a52f562793ed54947c41526472e25697a61521"
   ],
   "schema": "published-geotrainer-july-v1"
 }

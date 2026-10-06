@@ -36,7 +36,7 @@
       "component": "united-states-subdivisions",
       "original_file": "place.gif",
       "local_file": "united-states-subdivisions-place.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/place.gif",
+      "url": "https://raw.githubusercontent.com/ritornello-labs/www/41c296ee46244ddea0e864d8151731d35c426665/media/ankiweb/2026-10-05-v1/geo-trainer-full/place.gif",
       "file": "place.gif",
       "sha256": "e5972f50108e81ae6684facafff1415144750c149763948698f81aea284d3d52",
       "bytes": 164568,
@@ -119,7 +119,7 @@
       "component": "islands-archipelagos",
       "original_file": "marshall-globe.gif",
       "local_file": "islands-archipelagos-globe.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/marshall-globe.gif",
+      "url": "https://raw.githubusercontent.com/ritornello-labs/www/41c296ee46244ddea0e864d8151731d35c426665/media/ankiweb/2026-10-05-v1/geo-trainer-full/marshall-globe.gif",
       "file": "marshall-globe.gif",
       "subject": "Marshall Islands",
       "sha256": "08785ba26b0af5047fcae7d13e38f66113d1805445f54f3d00430b458a736935",
@@ -171,7 +171,7 @@
       "component": "physical-geography",
       "original_file": "biome.gif",
       "local_file": "physical-geography-biome.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/biome.gif",
+      "url": "https://raw.githubusercontent.com/ritornello-labs/www/41c296ee46244ddea0e864d8151731d35c426665/media/ankiweb/2026-10-05-v1/geo-trainer-full/biome.gif",
       "file": "biome.gif",
       "sha256": "02e48727e69402f629d2cad9316a16d790e2fe3ee16cd1648ead0da57642d802",
       "bytes": 166389,
@@ -192,10 +192,11 @@
     }
   ],
   "source": "real-Anki workbench captures: Italy Identify, new California Place, France Sketch and Maharashtra Draw; seven reused GIFs byte-identical; new Marshall Islands native capture replaces Japan, concept delays 2+3 with identical native pixels; all subjects belong to current accepted full package",
-  "new_public_media_uploaded": false,
-  "publisher_staged": false,
-  "legacy_upgrade_shippable": false,
-  "listing_sha256": "79084ff3dc1069846ac7d63b74d1f9f777db5b71ba6bfbb948cddf99749c510d",
+  "new_public_media_uploaded": true,
+  "publisher_staged": true,
+  "legacy_upgrade_shippable": true,
+  "listing_sha256": "9b068ac3771c9a182803516ec4e7bac2ca5faa349fa3466a7f4753b9a4620060",
   "preview": "www/.tmp/publish-batch-full-edition/index.html",
-  "final_image_approval": "Elvis approved the Marshall Islands replacement; all other copy and nine GIFs already approved."
+  "final_image_approval": "Elvis approved the Marshall Islands replacement; all other copy and nine GIFs already approved.",
+  "immutable_image_fallback": "GitHub source commit 41c296ee46244ddea0e864d8151731d35c426665 while Pages deployment remains queued; approved GIF bytes unchanged."
 }
