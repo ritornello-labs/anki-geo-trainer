@@ -1,12 +1,13 @@
 # anki-geo-trainer — Plan
 
-Status: all fifteen components submitted and exact delivered APKGs archived.
-Elvis approved the full listing and all ten native GIFs, including the Marshall
-Islands replacement, and authorized publication. The supported July upgrade
-passes native July-only/mixed-install, all fifteen component reimports, custom
-content rejection, interruption/retry and backup restore checks. Real Anki GUI smoke passes. Finish source publication and exact Publisher delivery checks before submitting 908455862
-with source name GeoTrainer. Personal collection changes remain out of scope.
-See release/JULY_UPGRADE.md and FULL_SUPPORTED_UPGRADE_2026-10-05.json.
+Status: all fifteen components and full edition submitted. Full 908455862 is
+owner-verified with 3,007 notes / 4,232 cards and eleven approved image URLs;
+public review is pending. Actual AnkiWeb download preserves all content,
+identities/templates/CSS/media but strips all 159 deck descriptions. Archive
+that exact file and the verified native guides edition; the supported July
+helper restores the guides and passes on both actual delivered installation paths.
+Finish archive/metadata correction/site verification. Quota observed 19/20.
+Personal collection untouched; Publisher normal sync clear.
 
 ## Privacy boundary
 
