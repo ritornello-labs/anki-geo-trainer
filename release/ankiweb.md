@@ -14,7 +14,7 @@ The full edition contains the same content as the fifteen focused components bel
 
 ## Updating the July 2026 edition
 
-Older GeoTrainer downloads need a one-time desktop upgrade to preserve their existing cards and study history. **Do not import this APKG directly over the July edition.** The upgrade instructions must be completed before this update can be published. This notice is part of the held publication draft.
+Older GeoTrainer downloads need a one-time desktop upgrade to preserve their existing cards and study history. **Do not import this APKG directly over the July edition.** Follow the [one-time July upgrade guide](https://github.com/ritornello-labs/anki-geo-trainer/blob/main/release/JULY_UPGRADE.md) and use the helper from the matching GitHub release. It preserves existing cards and reviews while moving old note types to current IDs; retired July exercises remain. New users and current-component users can import normally with note-type merging disabled.
 
 ## Practice the different games
 
@@ -28,7 +28,7 @@ Identify Italy from the dot on a map without internal borders, then reveal its n
 
 Drag California’s silhouette into place on the United States map and compare your placement with the answer.
 
-![Place — California in real Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/place.gif)
+![Place — California in real Anki](https://raw.githubusercontent.com/ritornello-labs/www/41c296ee46244ddea0e864d8151731d35c426665/media/ankiweb/2026-10-05-v1/geo-trainer-full/place.gif)
 
 ### Sketch — France
 
@@ -56,9 +56,9 @@ Trace the Amazon on a blank map and compare your route with the river. The colle
 
 ### Place an archipelago
 
-Rotate a globe and place a movable, resizable ellipse around Japan. Reveal the answer to compare its coverage, centre and footprint.
+Rotate the globe and place a movable, resizable ellipse around the Marshall Islands, whose small atolls are hidden on the question side. Reveal the answer to compare coverage, centre and footprint.
 
-![Place an archipelago in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-islands-archipelagos/globe.gif)
+![Place an archipelago in real Anki](https://raw.githubusercontent.com/ritornello-labs/www/41c296ee46244ddea0e864d8151731d35c426665/media/ankiweb/2026-10-05-v1/geo-trainer-full/marshall-globe.gif)
 
 ### Place a reference line
 
@@ -76,7 +76,7 @@ Convert between UTC and UTC−3, including previous, same and next-day results. 
 
 Connect map recall with geography concepts: country blocs and regions, landscapes and climates, tectonic plates and boundaries, and islands. Representative photos, maps and linked references support the answers.
 
-![Recall a concept in real Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/biome.gif)
+![Recall a concept in real Anki](https://raw.githubusercontent.com/ritornello-labs/www/41c296ee46244ddea0e864d8151731d35c426665/media/ankiweb/2026-10-05-v1/geo-trainer-full/biome.gif)
 
 ## Choose a focused component
 

@@ -1,0 +1,11 @@
+{
+  "package": "geo_trainer_july_upgrade",
+  "name": "GeoTrainer July Upgrade",
+  "human_version": "1.0.0",
+  "mod": 1791244800,
+  "min_point_version": 250900,
+  "max_point_version": 250900,
+  "author": "Ritornello",
+  "homepage": "https://github.com/ritornello-labs/anki-geo-trainer",
+  "description": "One-time backup-aware upgrade for the July 2026 GeoTrainer edition. Run from Tools; never syncs automatically."
+}
