@@ -29,5 +29,7 @@
     "file_picker_and_default_no_confirmation": "passed",
     "actual_background_upgrade_completion": "verified, 1624 notes",
     "worker_stopped": true
-  }
+  },
+  "actual_delivered_package_upgrade": "passed July-only and mixed install; all 159 guides restored",
+  "archive_helper_sha256": "f84f6d5fdfbe094f90704c20771eb83f18cbc0369e5f4e551881de33ee6c34ed"
 }

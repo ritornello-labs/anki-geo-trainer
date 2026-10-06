@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "native_anki": "25.09",
+  "personal_collection_accessed": false,
+  "tests": {
+    "july": {
+      "migrated": 1624,
+      "all_fifteen_components_safe": true,
+      "unrelated_content_preserved": true,
+      "seven_reviews_preserved": true,
+      "backup_created": true,
+      "idempotent_preflight": true
+    },
+    "partial": {
+      "migrated": 1664,
+      "all_fifteen_components_safe": true,
+      "unrelated_content_preserved": true,
+      "seven_reviews_preserved": true,
+      "backup_created": true,
+      "idempotent_preflight": true
+    }
+  },
+  "actual_delivered_sha256": "25eda1858f44e8d6d84e2220ba16252fbd667623ca4b57f2157c2be3c155ea59",
+  "all_159_markdown_guides_restored": true
+}

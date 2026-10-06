@@ -306,6 +306,21 @@ def run(col, pack, recovery_root, checkpoint=lambda step: None):
             updates.append(note)
         col.update_notes(updates)
         load(col, pack)
+        # AnkiWeb strips deck descriptions; restore the same reviewed Markdown
+        # catalog as the guides edition, through native deck APIs only.
+        descriptions = json.loads(CATALOG.read_text())["deck_descriptions"]
+        for name, description in descriptions.items():
+            deck = col.decks.by_name(name)
+            require(deck is not None, "Expected public deck is missing.")
+            deck["desc"], deck["md"] = description, True
+            col.decks.update(deck)
+        require(
+            all(
+                col.decks.by_name(name)["desc"] == description and col.decks.by_name(name)["md"]
+                for name, description in descriptions.items()
+            ),
+            "Deck guide verification failed.",
+        )
         verify(col, plan)
         checkpoint("verified")
         marker.write_text(json.dumps({"state": "verified", "backup": backups[0].name}) + "\n")

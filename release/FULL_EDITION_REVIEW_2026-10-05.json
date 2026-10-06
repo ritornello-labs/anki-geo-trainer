@@ -195,8 +195,9 @@
   "new_public_media_uploaded": true,
   "publisher_staged": true,
   "legacy_upgrade_shippable": true,
-  "listing_sha256": "9b068ac3771c9a182803516ec4e7bac2ca5faa349fa3466a7f4753b9a4620060",
+  "listing_sha256": "ce40568c84c9f2e5bcc47d37d0841523b611e25a762f59a93739aa7ff847db32",
   "preview": "www/.tmp/publish-batch-full-edition/index.html",
   "final_image_approval": "Elvis approved the Marshall Islands replacement; all other copy and nine GIFs already approved.",
-  "immutable_image_fallback": "GitHub source commit 41c296ee46244ddea0e864d8151731d35c426665 while Pages deployment remains queued; approved GIF bytes unchanged."
+  "immutable_image_fallback": "GitHub source commit 41c296ee46244ddea0e864d8151731d35c426665 while Pages deployment remains queued; approved GIF bytes unchanged.",
+  "deck_guide_delivery_note": "AnkiWeb strips deck descriptions; native guides edition and July helper restore all 159. Listing correction pending."
 }

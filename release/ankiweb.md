@@ -100,7 +100,7 @@ World countries includes 195 countries, continent silhouettes, membership drills
 
 ## Studying with GeoTrainer
 
-Every deck includes a Markdown description with study guidance and Wikipedia background links, including a Köppen climate-code guide. Task subdecks separate the exercises so you can introduce one skill at a time. Games give feedback and may suggest a grade; **you choose Anki’s answer grade yourself**. Required maps, photos and game code are bundled for offline study. Embedded Wikipedia references require an internet connection. Desktop, AnkiMobile and AnkiDroid are supported, with light and dark themes.
+For all 159 Markdown deck guides, study guidance and Wikipedia links (including a Köppen climate-code guide), [download the full edition with deck guides from GitHub](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-full-with-deck-guides.apkg). AnkiWeb strips deck descriptions from its APKG download; both editions contain the same cards, templates and media. The July upgrade helper also restores the guides. Task subdecks separate the exercises so you can introduce one skill at a time. Games give feedback and may suggest a grade; **you choose Anki’s answer grade yourself**. Required maps, photos and game code are bundled for offline study. Embedded Wikipedia references require an internet connection. Desktop, AnkiMobile and AnkiDroid are supported, with light and dark themes.
 
 ## Sources & edition
 

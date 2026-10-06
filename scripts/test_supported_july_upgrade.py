@@ -15,6 +15,9 @@ p.add_argument("--legacy-apkg", type=Path, required=True)
 p.add_argument("--current-apkg", type=Path, required=True)
 p.add_argument("--components-dir", type=Path, required=True)
 p.add_argument("--receipt", type=Path, required=True)
+p.add_argument(
+    "--cases", default="july,partial,custom-field,unrelated-collision,interruption,backup-failure"
+)
 a = p.parse_args()
 spec = importlib.util.spec_from_file_location(
     "upgrade_core", Path(__file__).resolve().parents[1] / "upgrade/geo_trainer_july_upgrade/core.py"
@@ -39,14 +42,7 @@ def reviewed(c):
 
 with tempfile.TemporaryDirectory(prefix="geotrainer-helper-test-") as td:
     td = Path(td)
-    for mode in (
-        "july",
-        "partial",
-        "custom-field",
-        "unrelated-collision",
-        "interruption",
-        "backup-failure",
-    ):
+    for mode in a.cases.split(","):
         c = Collection(str(td / (mode + ".anki2")))
         core.load(c, a.legacy_apkg)
         if mode == "partial":
