@@ -14,7 +14,7 @@ The full edition contains the same content as the fifteen focused components bel
 
 ## Updating the July 2026 edition
 
-Older GeoTrainer downloads need a one-time desktop upgrade to preserve their existing cards and study history. **Do not import this APKG directly over the July edition.** The upgrade instructions must be completed before this update can be published. This notice is part of the held publication draft.
+Older GeoTrainer downloads need a one-time desktop upgrade to preserve their existing cards and study history. **Do not import this APKG directly over the July edition.** Follow the [one-time July upgrade guide](https://github.com/ritornello-labs/anki-geo-trainer/blob/main/release/JULY_UPGRADE.md) and use the helper from the matching GitHub release. It preserves existing cards and reviews while moving old note types to current IDs; retired July exercises remain. New users and current-component users can import normally with note-type merging disabled.
 
 ## Practice the different games
 

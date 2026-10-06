@@ -1,5 +1,5 @@
 {
-  "status": "listing-approved-archipelago-replacement-awaiting-review",
+  "status": "listing-and-all-ten-gifs-approved",
   "cards": 4232,
   "notes": 3007,
   "source_share_name": "GeoTrainer",
@@ -196,5 +196,6 @@
   "publisher_staged": false,
   "legacy_upgrade_shippable": false,
   "listing_sha256": "79084ff3dc1069846ac7d63b74d1f9f777db5b71ba6bfbb948cddf99749c510d",
-  "preview": "www/.tmp/publish-batch-full-edition/index.html"
+  "preview": "www/.tmp/publish-batch-full-edition/index.html",
+  "final_image_approval": "Elvis approved the Marshall Islands replacement; all other copy and nine GIFs already approved."
 }

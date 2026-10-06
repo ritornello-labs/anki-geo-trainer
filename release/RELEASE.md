@@ -206,3 +206,25 @@ and verify the supported backup-aware July upgrade before submission; it preserv
 old note/card identities and reviews while moving legacy note types into the
 already-shipped canonical model space. Do not apply it to personal Anki or
 automatically choose a user's sync direction. Disposable capture worker stopped.
+
+
+### Supported July upgrade and final GIF approval — October 5
+
+Elvis approved the Marshall Islands replacement and authorized full publication.
+All ten GIFs and listing copy are approved. The release-file helper 1.0.0 now
+implements the native GUID transition with preflight, synchronous backup, saved
+affected media, interruption marker and exact postflight checks. July-only (1,624
+notes migrated) and July plus World Countries (1,664 migrated) pass, followed by
+all fifteen exact delivered component reimports. Seven native review records and
+unrelated synthetic content remain exact. Custom fields, unrelated model use and
+backup failure reject before mutation; interrupted runs block retry and their
+native backup restores exact original notes/cards/reviews. Real Anki Tools menu,
+file picker, default-No confirmation and background completion also pass. No
+personal collection access or sync. See JULY_UPGRADE.md and
+FULL_SUPPORTED_UPGRADE_2026-10-05.json. Disposable worker stopped.
+
+The helper validates exact supported full-package hashes; after Publisher export,
+add its verified hash to the catalog and rebuild/test before attaching the helper.
+The earlier prototype-only/decision holds are superseded by these supported
+checks and the user's publication authorization. Actual full submission and
+exact delivered artifact/site verification remain outstanding.

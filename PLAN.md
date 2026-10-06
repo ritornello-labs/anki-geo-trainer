@@ -1,14 +1,12 @@
 # anki-geo-trainer — Plan
 
-Status: all fifteen public components submitted and exact delivered APKGs archived.
-The full-edition update for `908455862` remains held: ordinary July imports fail,
-but the GUID-aware disposable migration prototype now passes, including existing
-World Countries installs and all fifteen delivered components. Older users need a
-one-time model-ID transition; Elvis's decision and user-facing upgrade remain
-pending. Elvis approved the ten-GIF full image batch on October 5; the review contact sheet
-is not public listing media. Legacy model-ID decision and supported upgrade remain pending.
-See `release/FULL_LEGACY_IMPORT_2026-10-05.md`. Personal collection changes are
-outside this publication pass. Created 2026-07-05.
+Status: all fifteen components submitted and exact delivered APKGs archived.
+Elvis approved the full listing and all ten native GIFs, including the Marshall
+Islands replacement, and authorized publication. The supported July upgrade
+passes native July-only/mixed-install, all fifteen component reimports, custom
+content rejection, interruption/retry and backup restore checks. Real Anki GUI smoke passes. Finish source publication and exact Publisher delivery checks before submitting 908455862
+with source name GeoTrainer. Personal collection changes remain out of scope.
+See release/JULY_UPGRADE.md and FULL_SUPPORTED_UPGRADE_2026-10-05.json.
 
 ## Privacy boundary
 

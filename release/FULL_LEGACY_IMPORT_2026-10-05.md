@@ -113,3 +113,25 @@ backup, preflight, clear treatment of legacy cards, recovery and full-sync guida
 verify it in disposable Anki and prepare final instructions. It must never choose
 a user's sync direction automatically. Complete the listing review, stage only
 isolated Publisher, and archive the actual delivered full-edition bytes.
+
+
+### Supported July upgrade and final GIF approval — October 5
+
+Elvis approved the Marshall Islands replacement and authorized full publication.
+All ten GIFs and listing copy are approved. The release-file helper 1.0.0 now
+implements the native GUID transition with preflight, synchronous backup, saved
+affected media, interruption marker and exact postflight checks. July-only (1,624
+notes migrated) and July plus World Countries (1,664 migrated) pass, followed by
+all fifteen exact delivered component reimports. Seven native review records and
+unrelated synthetic content remain exact. Custom fields, unrelated model use and
+backup failure reject before mutation; interrupted runs block retry and their
+native backup restores exact original notes/cards/reviews. Real Anki Tools menu,
+file picker, default-No confirmation and background completion also pass. No
+personal collection access or sync. See JULY_UPGRADE.md and
+FULL_SUPPORTED_UPGRADE_2026-10-05.json. Disposable worker stopped.
+
+The helper validates exact supported full-package hashes; after Publisher export,
+add its verified hash to the catalog and rebuild/test before attaching the helper.
+The earlier prototype-only/decision holds are superseded by these supported
+checks and the user's publication authorization. Actual full submission and
+exact delivered artifact/site verification remain outstanding.
