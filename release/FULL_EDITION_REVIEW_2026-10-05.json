@@ -1,10 +1,10 @@
 {
-  "status": "awaiting-full-batch-review-and-legacy-upgrade-decision",
+  "status": "listing-and-all-ten-gifs-approved",
   "cards": 4232,
   "notes": 3007,
   "source_share_name": "GeoTrainer",
   "ankiweb_id": "908455862",
-  "prior_approval": "Elvis approved the earlier ten-GIF batch; October 5 requested subject variety and descriptions; revised images require review",
+  "prior_approval": "Elvis: Other than that the listing is perfect. All current listing copy and nine GIFs approved; Marshall Islands replacement requires review. Conditional authorization to publish after replacement approval is recorded; supported July upgrade must be finished and verified before submission.",
   "images": [
     {
       "label": "Identify \u2014 Italy",
@@ -36,7 +36,7 @@
       "component": "united-states-subdivisions",
       "original_file": "place.gif",
       "local_file": "united-states-subdivisions-place.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/place.gif",
+      "url": "https://raw.githubusercontent.com/ritornello-labs/www/41c296ee46244ddea0e864d8151731d35c426665/media/ankiweb/2026-10-05-v1/geo-trainer-full/place.gif",
       "file": "place.gif",
       "sha256": "e5972f50108e81ae6684facafff1415144750c149763948698f81aea284d3d52",
       "bytes": 164568,
@@ -117,18 +117,22 @@
     {
       "label": "Place an archipelago",
       "component": "islands-archipelagos",
-      "original_file": "globe.gif",
+      "original_file": "marshall-globe.gif",
       "local_file": "islands-archipelagos-globe.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-islands-archipelagos/globe.gif",
-      "file": "globe.gif",
-      "sha256": "d41d760142d2db30f38f2c568b2dc48f071f4fa5eb4aae648061f045d8aa716f",
-      "bytes": 1290593,
-      "frames": 130,
-      "distinct_frames": 73,
+      "url": "https://raw.githubusercontent.com/ritornello-labs/www/41c296ee46244ddea0e864d8151731d35c426665/media/ankiweb/2026-10-05-v1/geo-trainer-full/marshall-globe.gif",
+      "file": "marshall-globe.gif",
+      "subject": "Marshall Islands",
+      "sha256": "08785ba26b0af5047fcae7d13e38f66113d1805445f54f3d00430b458a736935",
+      "bytes": 996156,
+      "frames": 135,
+      "distinct_frames": 72,
       "width": 580,
-      "height": 842,
-      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
-      "capture_backend": "ffmpeg-x11grab"
+      "height": 900,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable full-edition profile, native rotate/draw/move/resize/reveal pointer input",
+      "capture_backend": "ffmpeg-x11grab",
+      "front_target_islands_shown": "0",
+      "answer_text": "GEOTRAINER\nGLOBE REFERENCE\nMarshall Islands\nRotate\nFocus target\nSUGGESTED GRADE\nGood\n22 / 22\nisland components covered\n127 km\ncenter offset\n1.0\u00d7\ntarget footprint\n\nClose. Adjust the ellipse to cover the archipelago without swallowing a large surrounding region.\n\nAll deck islands are visible; clear labels are shown and the target is highlighted.",
+      "personal_collection_accessed": false
     },
     {
       "label": "Place a reference line",
@@ -167,7 +171,7 @@
       "component": "physical-geography",
       "original_file": "biome.gif",
       "local_file": "physical-geography-biome.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/biome.gif",
+      "url": "https://raw.githubusercontent.com/ritornello-labs/www/41c296ee46244ddea0e864d8151731d35c426665/media/ankiweb/2026-10-05-v1/geo-trainer-full/biome.gif",
       "file": "biome.gif",
       "sha256": "02e48727e69402f629d2cad9316a16d790e2fe3ee16cd1648ead0da57642d802",
       "bytes": 166389,
@@ -187,10 +191,12 @@
       }
     }
   ],
-  "source": "real-Anki workbench captures: Italy Identify, new California Place, France Sketch and Maharashtra Draw; eight reused GIFs byte-identical, concept delays 2+3 with identical native pixels; all subjects belong to current accepted full package",
-  "new_public_media_uploaded": false,
-  "publisher_staged": false,
-  "legacy_upgrade_shippable": false,
-  "listing_sha256": "8bdc4706717a3be8538535ef858dcbc3f5d0431d85564d7a09c3d88ad8858303",
-  "preview": "www/.tmp/publish-batch-full-edition/index.html"
+  "source": "real-Anki workbench captures: Italy Identify, new California Place, France Sketch and Maharashtra Draw; seven reused GIFs byte-identical; new Marshall Islands native capture replaces Japan, concept delays 2+3 with identical native pixels; all subjects belong to current accepted full package",
+  "new_public_media_uploaded": true,
+  "publisher_staged": true,
+  "legacy_upgrade_shippable": true,
+  "listing_sha256": "9b068ac3771c9a182803516ec4e7bac2ca5faa349fa3466a7f4753b9a4620060",
+  "preview": "www/.tmp/publish-batch-full-edition/index.html",
+  "final_image_approval": "Elvis approved the Marshall Islands replacement; all other copy and nine GIFs already approved.",
+  "immutable_image_fallback": "GitHub source commit 41c296ee46244ddea0e864d8151731d35c426665 while Pages deployment remains queued; approved GIF bytes unchanged."
 }

@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "native_anki": "25.09",
+  "personal_collection_accessed": false,
+  "tests": {
+    "july": {
+      "migrated": 1624,
+      "all_fifteen_components_safe": true,
+      "unrelated_content_preserved": true,
+      "seven_reviews_preserved": true,
+      "backup_created": true,
+      "idempotent_preflight": true
+    },
+    "partial": {
+      "migrated": 1664,
+      "all_fifteen_components_safe": true,
+      "unrelated_content_preserved": true,
+      "seven_reviews_preserved": true,
+      "backup_created": true,
+      "idempotent_preflight": true
+    },
+    "custom-field": "rejected before mutation",
+    "unrelated-collision": "rejected before mutation",
+    "interruption": "native backup restored exact notes, cards and reviews; failed marker blocks retry",
+    "backup-failure": "rejected before mutation"
+  },
+  "native_gui_smoke": {
+    "tools_menu_action": "GeoTrainer: upgrade July edition\u2026",
+    "file_picker_and_default_no_confirmation": "passed",
+    "actual_background_upgrade_completion": "verified, 1624 notes",
+    "worker_stopped": true
+  }
+}
