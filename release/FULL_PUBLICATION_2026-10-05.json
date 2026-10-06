@@ -1,0 +1,18 @@
+{
+  "comparison": "native Publisher export vs actual AnkiWeb-delivered package",
+  "notes": 3007,
+  "cards": 4232,
+  "bundled_media_files": 410,
+  "deck_descriptions": "AnkiWeb stripped all 159; guides edition and upgrade helper restore them",
+  "note_ids_guids_fields_models_templates_css_card_associations_and_leaf_ids": "exact-match",
+  "all_media_bytes": "exact-match",
+  "delivered_bytes": 114072558,
+  "delivered_sha256": "25eda1858f44e8d6d84e2220ba16252fbd667623ca4b57f2157c2be3c155ea59",
+  "ankiweb_id": "908455862",
+  "title": "GeoTrainer: Full Edition",
+  "source_share_name": "GeoTrainer",
+  "owner_title_counts_support_github_and_all_eleven_image_urls": "verified",
+  "review_pending": true,
+  "quota_deck_shares_used": 19,
+  "personal_collection_accessed": false
+}

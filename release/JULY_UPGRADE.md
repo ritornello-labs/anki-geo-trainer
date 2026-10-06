@@ -1,6 +1,6 @@
 # Upgrading GeoTrainer's July 2026 edition
 
-New users and users of the current focused components can import the full APKG normally, with **Merge note types disabled**. This one-time helper is for installations of the July deck from AnkiWeb listing 908455862. It is distributed in the [October 5 GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.05) as `geo-trainer-july-upgrade.ankiaddon`.
+New users and users of the current focused components can import the full APKG normally, with **Merge note types disabled**. Prefer `geo-trainer-full-with-deck-guides.apkg` from GitHub to include all 159 Markdown deck descriptions: AnkiWeb strips those descriptions from its download. `geo-trainer-full.apkg` is the exact AnkiWeb-delivered archive; both packages have identical cards, templates and media. This one-time helper is for installations of the July deck from AnkiWeb listing 908455862. It is distributed in the [October 5 GitHub release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.05) as `geo-trainer-july-upgrade.ankiaddon`.
 
 The helper requires Anki Desktop 25.09 or newer; native integration testing uses 25.09. It uses native package import, note-type changes and synchronous backup APIs, including import options that preserve existing deck settings. Mobile users should perform this upgrade on desktop and then sync deliberately. The add-on is a release-file install and does not auto-update.
 
@@ -17,7 +17,7 @@ Before changing anything, it creates a fresh native collection backup and saves 
 
 ## What changes
 
-Existing accepted July notes move to the current note-type IDs and receive the current fields, game templates and CSS. Their note/card identities, GUIDs, review history, scheduling, tags and existing card deck assignments are preserved. New content is imported into the GeoTrainer tree. Existing focused components share these canonical IDs, so subsequent component/full imports update the same notes.
+Existing accepted July notes move to the current note-type IDs and receive the current fields, game templates and CSS. Their note/card identities, GUIDs, review history, scheduling, tags and existing card deck assignments are preserved. New content is imported into the GeoTrainer tree, and all 159 reviewed Markdown deck guides are restored. Existing focused components share these canonical IDs, so subsequent component/full imports update the same notes.
 
 The original July download had 1,716 cards, including 92 exercises excluded from today's edition. Those old exercises are retained with their content and rendering intact. A July-only installation therefore has 4,324 GeoTrainer cards after upgrading: 4,232 current cards plus the 92 retained old cards. You may archive or remove those old exercises yourself after review; the helper does not delete them. New users receive only the 4,232 current cards.
 
