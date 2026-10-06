@@ -234,12 +234,12 @@ exact delivered artifact/site verification remain outstanding.
 
 Full edition 908455862 submitted with source/share name exactly GeoTrainer.
 Owner title, 3,007 notes / 4,232 cards, support/GitHub links and all eleven image
-URLs verified. Public review pending; quota 19/20. Native Publisher notes/cards/
+URLs verified. Public review pending; quota 20/20 after the same-listing guide-note correction. Native Publisher notes/cards/
 models/deck names and IDs/media remain unchanged; only 159 descriptions changed,
 normal/final sync 0. Original clone retained; no personal collection operation.
 
-Actual AnkiWeb APKG: 114,072,558 bytes, SHA-256
-25eda1858f44e8d6d84e2220ba16252fbd667623ca4b57f2157c2be3c155ea59.
+Final corrected-listing AnkiWeb APKG: 114,068,910 bytes, SHA-256
+5402d12aff7278342e299ea8f3f1f951c356592ddac87417e1ace97293c881ca.
 All note/card identities, GUIDs, fields, models/templates/CSS, leaf names/IDs and
 410 media bytes match the native export. AnkiWeb strips all 159 deck descriptions.
 Archive the exact file as geo-trainer-full.apkg; also publish the tested native
@@ -249,6 +249,7 @@ The companion has identical cards/templates/media and restores Markdown guides.
 The July helper also restores that 159-deck catalog. Native tests pass on the
 actual delivered package in both July-only and mixed-install cases, then all
 fifteen components. See FULL_PUBLICATION_2026-10-05.json and
-FULL_DELIVERED_UPGRADE_2026-10-05.json. Worker stopped. Metadata guide-note
-correction and archive/site completion remain outstanding; never claim the raw
-AnkiWeb download contains guides.
+FULL_DELIVERED_UPGRADE_2026-10-05.json. Worker stopped. Metadata guide-note correction submitted and owner-verified with the same approved
+images. The exact raw archive and helper now support the corrected delivery hash.
+Website has all ten approved GIFs and archive/guide links. Never claim the raw
+AnkiWeb download contains guides. No further deck uploads at the observed 20/20 limit.
