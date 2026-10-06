@@ -22,15 +22,14 @@ The eight physical-systems QA scopes and foundations remain excluded. Surface oc
 
 Elvis approved 908455862 as the eventual full edition, retaining its exact original share name `GeoTrainer` (verified October 5). Each component will link to that listing with an update-pending note; the final full listing will link back to every shipped component. Real-Anki demos are selected by distinct learning experience, including membership taps, reference-line globe placement and UTC conversion where relevant.
 
-## Historical release records (superseded scope)
+The dated records below describe earlier releases; current pack details are in PACKS.md and PACK_VERIFICATION.json.
 
 Status: the initial version was submitted to AnkiWeb on 2026-07-15. The contextual
 **Sketch** family and the physical-geography expansion are installed in the live
 personal collection. The combined update is queued for existing shared deck
 `908455862` but has not yet been uploaded. The 29-card atmospheric, seasonal, ENSO,
 and Atlantic-overturning batch is temporarily staged under `Process::GeoTrainer QA`
-for manual review in that historical build. Exclude these QA scopes from every
-current public component and the full edition.
+for manual review; exclude it from every public pack and the full edition.
 
 Verification status (2026-09-22, combined update): all 32 scopes are covered by
 the cross-engine suite (Chromium + WebKit): **362 passed / 26 intentional skips**.
@@ -63,7 +62,8 @@ review in the installed client remains pending.
    `GeoTrainer` deck with every scope as a subdeck, so there's one listing and one set
    of screenshots to maintain. Built: `make apkg-all` → `dist/geo-trainer-all.apkg`
    (**86 leaf decks, 2,472 notes, 63.6 MB** — well under AnkiWeb's per-deck limit).
-2. **Accepted families only (2026-09-30).** Exclude retired flows/currents, physical-systems QA and foundations from all current public packs and the full edition. Include all accepted Geo Concepts families. PACKS.md and the per-pack records describe the accepted scope.
+2. **Accepted families only (2026-09-30).** Public packs and the full edition exclude all physical-systems QA scopes and the foundations prototype. The accepted Reference Lines & Time curriculum and the five accepted physical/tectonic geometry scopes are included. No personal collection changes are part of publication. See [PACKS.md](PACKS.md) and [PACK_VERIFICATION.json](PACK_VERIFICATION.json).
+
 
 ## Release record
 
@@ -186,6 +186,28 @@ Build accepted full only with `python scripts/build_apkg.py --public-full`.
 Publication checker found an inherited hard-coded home path in the membership-drill test. The test now uses a sibling repository URL or `GEOTRAINER_BLOC_FIXTURE_DIR`; all seven existing Chromium membership tests pass. No card template or content changes.
 
 
+### October 5: hidden-atoll archipelago replacement
+
+Elvis approved all other full listing copy and nine GIFs, and requested a harder
+archipelago whose position is not visible on the question side. The replacement
+is Marshall Islands, captured from the current full package in actual disposable
+Anki 25.09 through workbench pointer rotation, ellipse drawing, movement, resize
+and reveal. Front reports zero island targets shown; back shows Good, 22/22
+mapped components, 127 km centre error and 1.0× footprint. GIF 13.5 seconds,
+135 frames / 72 distinct native frames, 996,156 bytes, SHA-256
+08785ba26b0af5047fcae7d13e38f66113d1805445f54f3d00430b458a736935.
+Only this subject, its explanatory sentence and GIF URL changed; all nine
+remaining GIF hashes and listing text are unchanged. See
+FULL_MARSHALL_REPLACEMENT_2026-10-05.json and FULL_EDITION_REVIEW_2026-10-05.json.
+
+Replacement approval is pending; no new public image upload or Publisher staging.
+Elvis conditionally authorized publication after this GIF is approved. Complete
+and verify the supported backup-aware July upgrade before submission; it preserves
+old note/card identities and reviews while moving legacy note types into the
+already-shipped canonical model space. Do not apply it to personal Anki or
+automatically choose a user's sync direction. Disposable capture worker stopped.
+
+
 ### Supported July upgrade and final GIF approval — October 5
 
 Elvis approved the Marshall Islands replacement and authorized full publication.
@@ -212,12 +234,12 @@ exact delivered artifact/site verification remain outstanding.
 
 Full edition 908455862 submitted with source/share name exactly GeoTrainer.
 Owner title, 3,007 notes / 4,232 cards, support/GitHub links and all eleven image
-URLs verified. Public review pending; quota 19/20. Native Publisher notes/cards/
+URLs verified. Public review pending; quota 20/20 after the same-listing guide-note correction. Native Publisher notes/cards/
 models/deck names and IDs/media remain unchanged; only 159 descriptions changed,
 normal/final sync 0. Original clone retained; no personal collection operation.
 
-Actual AnkiWeb APKG: 114,072,558 bytes, SHA-256
-25eda1858f44e8d6d84e2220ba16252fbd667623ca4b57f2157c2be3c155ea59.
+Final corrected-listing AnkiWeb APKG: 114,068,910 bytes, SHA-256
+5402d12aff7278342e299ea8f3f1f951c356592ddac87417e1ace97293c881ca.
 All note/card identities, GUIDs, fields, models/templates/CSS, leaf names/IDs and
 410 media bytes match the native export. AnkiWeb strips all 159 deck descriptions.
 Archive the exact file as geo-trainer-full.apkg; also publish the tested native
@@ -227,6 +249,7 @@ The companion has identical cards/templates/media and restores Markdown guides.
 The July helper also restores that 159-deck catalog. Native tests pass on the
 actual delivered package in both July-only and mixed-install cases, then all
 fifteen components. See FULL_PUBLICATION_2026-10-05.json and
-FULL_DELIVERED_UPGRADE_2026-10-05.json. Worker stopped. Metadata guide-note
-correction and archive/site completion remain outstanding; never claim the raw
-AnkiWeb download contains guides.
+FULL_DELIVERED_UPGRADE_2026-10-05.json. Worker stopped. Metadata guide-note correction submitted and owner-verified with the same approved
+images. The exact raw archive and helper now support the corrected delivery hash.
+Website has all ten approved GIFs and archive/guide links. Never claim the raw
+AnkiWeb download contains guides. No further deck uploads at the observed 20/20 limit.
