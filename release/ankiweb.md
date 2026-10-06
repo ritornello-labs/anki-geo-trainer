@@ -56,9 +56,9 @@ Trace the Amazon on a blank map and compare your route with the river. The colle
 
 ### Place an archipelago
 
-Rotate a globe and place a movable, resizable ellipse around Japan. Reveal the answer to compare its coverage, centre and footprint.
+Rotate the globe and place a movable, resizable ellipse around the Marshall Islands, whose small atolls are hidden on the question side. Reveal the answer to compare coverage, centre and footprint.
 
-![Place an archipelago in real Anki](https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-islands-archipelagos/globe.gif)
+![Place an archipelago in real Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/marshall-globe.gif)
 
 ### Place a reference line
 

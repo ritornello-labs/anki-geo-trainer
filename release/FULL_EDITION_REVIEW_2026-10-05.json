@@ -1,10 +1,10 @@
 {
-  "status": "awaiting-full-batch-review-and-legacy-upgrade-decision",
+  "status": "listing-approved-archipelago-replacement-awaiting-review",
   "cards": 4232,
   "notes": 3007,
   "source_share_name": "GeoTrainer",
   "ankiweb_id": "908455862",
-  "prior_approval": "Elvis approved the earlier ten-GIF batch; October 5 requested subject variety and descriptions; revised images require review",
+  "prior_approval": "Elvis: Other than that the listing is perfect. All current listing copy and nine GIFs approved; Marshall Islands replacement requires review. Conditional authorization to publish after replacement approval is recorded; supported July upgrade must be finished and verified before submission.",
   "images": [
     {
       "label": "Identify \u2014 Italy",
@@ -117,18 +117,22 @@
     {
       "label": "Place an archipelago",
       "component": "islands-archipelagos",
-      "original_file": "globe.gif",
+      "original_file": "marshall-globe.gif",
       "local_file": "islands-archipelagos-globe.gif",
-      "url": "https://ritornello.dev/media/ankiweb/2026-10-04-v1/geo-trainer-islands-archipelagos/globe.gif",
-      "file": "globe.gif",
-      "sha256": "d41d760142d2db30f38f2c568b2dc48f071f4fa5eb4aae648061f045d8aa716f",
-      "bytes": 1290593,
-      "frames": 130,
-      "distinct_frames": 73,
+      "url": "https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/marshall-globe.gif",
+      "file": "marshall-globe.gif",
+      "subject": "Marshall Islands",
+      "sha256": "08785ba26b0af5047fcae7d13e38f66113d1805445f54f3d00430b458a736935",
+      "bytes": 996156,
+      "frames": 135,
+      "distinct_frames": 72,
       "width": 580,
-      "height": 842,
-      "origin": "anki-addon-workbench actual Anki 25.09, disposable Docker/Xvfb, native pointer input",
-      "capture_backend": "ffmpeg-x11grab"
+      "height": 900,
+      "origin": "anki-addon-workbench actual Anki 25.09, disposable full-edition profile, native rotate/draw/move/resize/reveal pointer input",
+      "capture_backend": "ffmpeg-x11grab",
+      "front_target_islands_shown": "0",
+      "answer_text": "GEOTRAINER\nGLOBE REFERENCE\nMarshall Islands\nRotate\nFocus target\nSUGGESTED GRADE\nGood\n22 / 22\nisland components covered\n127 km\ncenter offset\n1.0\u00d7\ntarget footprint\n\nClose. Adjust the ellipse to cover the archipelago without swallowing a large surrounding region.\n\nAll deck islands are visible; clear labels are shown and the target is highlighted.",
+      "personal_collection_accessed": false
     },
     {
       "label": "Place a reference line",
@@ -187,10 +191,10 @@
       }
     }
   ],
-  "source": "real-Anki workbench captures: Italy Identify, new California Place, France Sketch and Maharashtra Draw; eight reused GIFs byte-identical, concept delays 2+3 with identical native pixels; all subjects belong to current accepted full package",
+  "source": "real-Anki workbench captures: Italy Identify, new California Place, France Sketch and Maharashtra Draw; seven reused GIFs byte-identical; new Marshall Islands native capture replaces Japan, concept delays 2+3 with identical native pixels; all subjects belong to current accepted full package",
   "new_public_media_uploaded": false,
   "publisher_staged": false,
   "legacy_upgrade_shippable": false,
-  "listing_sha256": "8bdc4706717a3be8538535ef858dcbc3f5d0431d85564d7a09c3d88ad8858303",
+  "listing_sha256": "79084ff3dc1069846ac7d63b74d1f9f777db5b71ba6bfbb948cddf99749c510d",
   "preview": "www/.tmp/publish-batch-full-edition/index.html"
 }

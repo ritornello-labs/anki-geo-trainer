@@ -184,3 +184,25 @@ media upload, Publisher staging, full submission or personal collection access.
 Build accepted full only with `python scripts/build_apkg.py --public-full`.
 
 Publication checker found an inherited hard-coded home path in the membership-drill test. The test now uses a sibling repository URL or `GEOTRAINER_BLOC_FIXTURE_DIR`; all seven existing Chromium membership tests pass. No card template or content changes.
+
+
+### October 5: hidden-atoll archipelago replacement
+
+Elvis approved all other full listing copy and nine GIFs, and requested a harder
+archipelago whose position is not visible on the question side. The replacement
+is Marshall Islands, captured from the current full package in actual disposable
+Anki 25.09 through workbench pointer rotation, ellipse drawing, movement, resize
+and reveal. Front reports zero island targets shown; back shows Good, 22/22
+mapped components, 127 km centre error and 1.0× footprint. GIF 13.5 seconds,
+135 frames / 72 distinct native frames, 996,156 bytes, SHA-256
+08785ba26b0af5047fcae7d13e38f66113d1805445f54f3d00430b458a736935.
+Only this subject, its explanatory sentence and GIF URL changed; all nine
+remaining GIF hashes and listing text are unchanged. See
+FULL_MARSHALL_REPLACEMENT_2026-10-05.json and FULL_EDITION_REVIEW_2026-10-05.json.
+
+Replacement approval is pending; no new public image upload or Publisher staging.
+Elvis conditionally authorized publication after this GIF is approved. Complete
+and verify the supported backup-aware July upgrade before submission; it preserves
+old note/card identities and reviews while moving legacy note types into the
+already-shipped canonical model space. Do not apply it to personal Anki or
+automatically choose a user's sync direction. Disposable capture worker stopped.
