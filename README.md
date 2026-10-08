@@ -9,9 +9,9 @@ asks you to locate, place, sketch, draw, trace, and place archipelagos on a glob
 memory. It runs
 offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 
-![GeoTrainer U.S. States placement in Anki](https://ritornello.dev/media/ankiweb/2026-10-03-v1/geo-trainer-us-states/place.gif)
+![GeoTrainer California placement in Anki](https://ritornello.dev/media/ankiweb/2026-10-05-v1/geo-trainer-full/place.gif)
 
-The GIF comes from a real Anki render. [See all four U.S. State games](https://ritornello.dev/#geo-trainer-us-states).
+The GIF comes from a real Anki render. [Explore the GeoTrainer games](https://ritornello.dev/#geo-trainer).
 
 **Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
 
@@ -19,9 +19,9 @@ The GIF comes from a real Anki render. [See all four U.S. State games](https://r
 
 [U.S. States on AnkiWeb](https://ankiweb.net/shared/info/909756180) — **50 states, 200 cards**, with identification, placement, contextual sketching and outline drawing. Submitted October 3; AnkiWeb public review is pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-united-states-subdivisions.apkg) or [view the release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.03).
 
-[Brazilian States on AnkiWeb](https://ankiweb.net/shared/info/834723592) — **26 states plus the Federal District, 108 cards**, with the same four spatial recall games. Submitted October 3; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-brazil-subdivisions.apkg) or [see all four Bahia demos](https://ritornello.dev/#geo-trainer-brazil-states).
+[Brazilian States on AnkiWeb](https://ankiweb.net/shared/info/834723592) — **26 states plus the Federal District, 108 cards**, with the same four spatial recall games. Submitted October 3; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-brazil-subdivisions.apkg) or [see all four Bahia demos](https://ritornello.dev/#geo-trainer).
 
-[China Provinces & Regions on AnkiWeb](https://ankiweb.net/shared/info/315064803) — **31 mainland province-level divisions, 124 cards**: 22 provinces, five autonomous regions and four municipalities. Hong Kong, Macao and Taiwan are excluded. Submitted October 4; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-china-subdivisions.apkg) or [see all four Sichuan demos](https://ritornello.dev/#geo-trainer-china-subdivisions).
+[China Provinces & Regions on AnkiWeb](https://ankiweb.net/shared/info/315064803) — **31 mainland province-level divisions, 124 cards**: 22 provinces, five autonomous regions and four municipalities. Hong Kong, Macao and Taiwan are excluded. Submitted October 4; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-china-subdivisions.apkg) or [see all four Sichuan demos](https://ritornello.dev/#geo-trainer).
 
 All fifteen components are submitted with public review pending. The existing [full-edition listing](https://ankiweb.net/shared/info/908455862) still has the earlier package; its update is held until [actual legacy import compatibility](release/FULL_LEGACY_IMPORT_2026-10-05.md) is repaired. Fresh component/full overlap imports preserve matching note identities, but the July public full edition needs a separately verified upgrade. Physical-systems QA and foundations prototypes are excluded, and the retired flow families stay out. Detailed current scope decisions: [reconciliation](https://github.com/ritornello-labs/anki-geo-trainer/blob/publish-packs-20260930/release/SCOPE_RECONCILIATION_2026-10-03.md).
 
@@ -29,7 +29,7 @@ GitHub: [https://github.com/ritornello-labs/anki-geo-trainer](https://github.com
 
 Support continued development: [ritornello.dev/support](https://ritornello.dev/support).
 
-[Reference Lines & Time on AnkiWeb](https://ankiweb.net/shared/info/1962312135) — **56 notes, 78 cards**: globe reference-line placement, illustrated explanations, randomized UTC conversion and a 32-place time-zone atlas. All 32 maps are bundled for offline study. Submitted October 4; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-reference-lines-time.apkg) or [see the four demonstrations](https://ritornello.dev/#geo-trainer-reference-lines-time).
+[Reference Lines & Time on AnkiWeb](https://ankiweb.net/shared/info/1962312135) — **56 notes, 78 cards**: globe reference-line placement, illustrated explanations, randomized UTC conversion and a 32-place time-zone atlas. All 32 maps are bundled for offline study. Submitted October 4; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-reference-lines-time.apkg) or [see the four demonstrations](https://ritornello.dev/#geo-trainer).
 
 ## Task families
 
