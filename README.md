@@ -1,7 +1,9 @@
 # GeoTrainer
 
+[Explore all Ritornello decks and add-ons](https://ritornello.dev/).
+
 [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE)
-[![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
+[![AnkiWeb](https://img.shields.io/badge/AnkiWeb-shared%20deck-15A5EF)](https://ankiweb.net/shared/info/908455862)
 ![Anki platforms](https://img.shields.io/badge/Anki-Desktop%20%7C%20Mobile%20%7C%20Droid-0EA5E9)
 
 Interactive geography practice for Anki: a curriculum-ordered set of map tasks that
@@ -13,23 +15,47 @@ offline on Anki Desktop, AnkiMobile, and AnkiDroid.
 
 The GIF comes from a real Anki render. [Explore the GeoTrainer games](https://ritornello.dev/#geo-trainer).
 
-**Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862?cb=1784084661007](https://ankiweb.net/shared/info/908455862?cb=1784084661007)
+**Available on AnkiWeb:** [https://ankiweb.net/shared/info/908455862](https://ankiweb.net/shared/info/908455862)
 
 ## Public editions
 
-[U.S. States on AnkiWeb](https://ankiweb.net/shared/info/909756180) — **50 states, 200 cards**, with identification, placement, contextual sketching and outline drawing. Submitted October 3; AnkiWeb public review is pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-united-states-subdivisions.apkg) or [view the release](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.03).
+The [full edition on AnkiWeb](https://ankiweb.net/shared/info/908455862) is published:
+**3,007 notes · 4,232 cards**, combining map games and geography concepts.
+[Download the full edition with all 159 deck guides](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.05/geo-trainer-full-with-deck-guides.apkg),
+or browse the [tagged release and component archives](https://github.com/ritornello-labs/anki-geo-trainer/releases/tag/v2026.10.05).
+The AnkiWeb archive has the same cards, templates and media; AnkiWeb removes deck descriptions.
 
-[Brazilian States on AnkiWeb](https://ankiweb.net/shared/info/834723592) — **26 states plus the Federal District, 108 cards**, with the same four spatial recall games. Submitted October 3; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.03/geo-trainer-brazil-subdivisions.apkg) or [see all four Bahia demos](https://ritornello.dev/#geo-trainer).
+**Updating a July 2026 installation?** Follow the [one-time upgrade guide](release/JULY_UPGRADE.md)
+before importing. The tested desktop helper preserves existing cards and reviews
+while moving the old note types to current IDs. New users and users of current
+components can import normally with note-type merging disabled.
 
-[China Provinces & Regions on AnkiWeb](https://ankiweb.net/shared/info/315064803) — **31 mainland province-level divisions, 124 cards**: 22 provinces, five autonomous regions and four municipalities. Hong Kong, Macao and Taiwan are excluded. Submitted October 4; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-china-subdivisions.apkg) or [see all four Sichuan demos](https://ritornello.dev/#geo-trainer).
+The fifteen focused components are also published. They share note identities
+with the current full edition, so imports update the same notes:
 
-All fifteen components are submitted with public review pending. The existing [full-edition listing](https://ankiweb.net/shared/info/908455862) still has the earlier package; its update is held until [actual legacy import compatibility](release/FULL_LEGACY_IMPORT_2026-10-05.md) is repaired. Fresh component/full overlap imports preserve matching note identities, but the July public full edition needs a separately verified upgrade. Physical-systems QA and foundations prototypes are excluded, and the retired flow families stay out. Detailed current scope decisions: [reconciliation](https://github.com/ritornello-labs/anki-geo-trainer/blob/publish-packs-20260930/release/SCOPE_RECONCILIATION_2026-10-03.md).
+- [U.S. States](https://ankiweb.net/shared/info/909756180)
+- [Brazilian States](https://ankiweb.net/shared/info/834723592)
+- [China Provinces & Regions](https://ankiweb.net/shared/info/315064803)
+- [Reference Lines & Time](https://ankiweb.net/shared/info/1962312135)
+- [Physical Geography](https://ankiweb.net/shared/info/1832856685)
+- [Plate Tectonics](https://ankiweb.net/shared/info/22154578)
+- [Islands & Archipelagos](https://ankiweb.net/shared/info/1449321738)
+- [World Countries](https://ankiweb.net/shared/info/452389265)
+- [Indian States & Union Territories](https://ankiweb.net/shared/info/346168633)
+- [Russian Regions](https://ankiweb.net/shared/info/2018363684)
+- [Canadian Provinces & Territories](https://ankiweb.net/shared/info/1166705214)
+- [Australian States & Territories](https://ankiweb.net/shared/info/1585515572)
+- [Mexican States & Mexico City](https://ankiweb.net/shared/info/875505875)
+- [Argentine Provinces & Buenos Aires City](https://ankiweb.net/shared/info/1530523005)
+- [Indonesian Provinces](https://ankiweb.net/shared/info/1473740061)
+
+Physical-systems QA, foundations prototypes and retired flow families are excluded.
+The accepted edition includes country-membership selection, globe reference-line
+placement, time conversion and geography concepts alongside the spatial games below.
 
 GitHub: [https://github.com/ritornello-labs/anki-geo-trainer](https://github.com/ritornello-labs/anki-geo-trainer)
 
 Support continued development: [ritornello.dev/support](https://ritornello.dev/support).
-
-[Reference Lines & Time on AnkiWeb](https://ankiweb.net/shared/info/1962312135) — **56 notes, 78 cards**: globe reference-line placement, illustrated explanations, randomized UTC conversion and a 32-place time-zone atlas. All 32 maps are bundled for offline study. Submitted October 4; public review pending. [Download the canonical APKG](https://github.com/ritornello-labs/anki-geo-trainer/releases/download/v2026.10.04/geo-trainer-reference-lines-time.apkg) or [see the four demonstrations](https://ritornello.dev/#geo-trainer).
 
 ## Task families
 
@@ -54,14 +80,7 @@ press Anki's answer buttons. Region maps hide internal borders on the front so t
 task is genuine spatial recall, not shape-matching. Alaska and Hawaii render in
 classic inset panels at their own scale; microstates are magnified tap-circles on
 the *back*; Physical polygon scopes hide the feature on the front and show only the
-continents. The retired physical-system and surface-current families remain outside the forthcoming public editions.
-
-**Design note (2026-07):** Locate (redundant), Capital (duplicated a Cities deck),
-and Seas (trivial at world scale) were cut after studying the deck for real; the
-survivors were made non-trivial by hiding the borders. Sketch was later added as
-the scaffolded bridge from Place to blank-canvas Draw. Lakes and plates use only
-the families that produce honest world-scale practice; chokepoints and island lists
-remain deliberately excluded. Quality of each card type over breadth.
+continents. The retired physical-system and surface-current families are excluded from the current public editions.
 
 ## Why
 
